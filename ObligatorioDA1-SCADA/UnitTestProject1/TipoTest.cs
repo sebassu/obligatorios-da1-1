@@ -38,5 +38,37 @@ namespace UnitTestProject1
             Tipo unTipo = new Tipo();
             unTipo.Nombre = "!@.$#%   *-/";
         }
+
+        [TestMethod]
+        public void setDescripcionTest1()
+        {
+            Tipo unTipo = new Tipo();
+            unTipo.Descripcion = "Es muy bueno";
+            Assert.AreEqual("Es muy bueno", unTipo.Descripcion);
+        }
+
+        [TestMethod]
+        public void setDescripcionTest2()
+        {
+            Tipo unTipo = new Tipo();
+            unTipo.Descripcion = "  Es muy bueno, 123.  ";
+            Assert.AreEqual("Es muy bueno, 123.", unTipo.Descripcion);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void setDescripcionTest3()
+        {
+            Tipo unTipo = new Tipo();
+            unTipo.Descripcion = "555555";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void setDescripcionTest4()
+        {
+            Tipo unTipo = new Tipo();
+            unTipo.Descripcion = "!@.$#%   *-/";
+        }
     }
 }
