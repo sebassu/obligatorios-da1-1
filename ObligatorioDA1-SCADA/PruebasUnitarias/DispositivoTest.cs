@@ -8,7 +8,7 @@ namespace PruebasUnitarias
     public class DispositivoTest
     {
         [TestMethod]
-        public void SetNombreTest1()
+        public void SetNombreDispositivoTest1()
         {
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.Nombre = "Molino";
@@ -16,7 +16,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetNombreTest2()
+        public void SetNombreDispositivoTest2()
         {
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.Nombre = "  centrifugadora-12  ";
@@ -25,7 +25,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void SetNombreTest3()
+        public void SetNombreDispositivoTest3()
         {
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.Nombre = "";
@@ -33,7 +33,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void SetNombreTest4()
+        public void SetNombreDispositivoTest4()
         {
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.Nombre = "1234";
@@ -41,14 +41,14 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void SetNombreTest5()
+        public void SetNombreDispositivoTest5()
         {
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.Nombre = " !%$@<> . @#$";
         }
 
         [TestMethod]
-        public void SetEnUsoTest1()
+        public void SetEnUsoDispositivoTest1()
         {
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.EnUso = true;
@@ -56,7 +56,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetEnUsoTest2()
+        public void SetEnUsoDispositivoTest2()
         {
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.EnUso = false;

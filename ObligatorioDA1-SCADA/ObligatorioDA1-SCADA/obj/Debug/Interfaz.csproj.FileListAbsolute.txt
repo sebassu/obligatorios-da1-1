@@ -8,3 +8,4 @@ C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\Interfaz.csproj.GenerateResource.Cache
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\ObligatorioDA1-SCADA.exe
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\ObligatorioDA1-SCADA.pdb
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\bin\Debug\Interfaz.exe.config
