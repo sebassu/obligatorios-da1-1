@@ -19,8 +19,8 @@ namespace PruebasUnitarias
         public void SetNombreTest2()
         {
             Dispositivo unDispositivo = new Dispositivo();
-            unDispositivo.Nombre = "  Centrifugadora  ";
-            Assert.AreEqual("Centrifugadora", unDispositivo.Nombre);
+            unDispositivo.Nombre = "  centrifugadora-12  ";
+            Assert.AreEqual("centrifugadora-12", unDispositivo.Nombre);
         }
 
         [TestMethod]
