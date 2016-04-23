@@ -1,12 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Dominio;
 
 namespace PruebasUnitarias
 {
-    public class Class1
+    [TestClass]
+    public class DispositivoTest
     {
+        [TestMethod]
+        public void SetNombreTest1()
+        {
+            Dispositivo unDispositivo = new Dispositivo();
+            unDispositivo.Nombre = "Molino";
+            Assert.AreEqual("Molino", unDispositivo.Nombre);
+        }
+
+        [TestMethod]
+        public void SetNombreTest2()
+        {
+            Dispositivo unDispositivo = new Dispositivo();
+            unDispositivo.Nombre = "  Centrifugadora  ";
+            Assert.AreEqual("Centrifugadora", unDispositivo.Nombre);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SetNombreTest3()
+        {
+            Dispositivo unDispositivo = new Dispositivo();
+            unDispositivo.Nombre = "";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SetNombreTest4()
+        {
+            Dispositivo unDispositivo = new Dispositivo();
+            unDispositivo.Nombre = "1234";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SetNombreTest5()
+        {
+            Dispositivo unDispositivo = new Dispositivo();
+            unDispositivo.Nombre = " !%$@<> . @#$";
+        }
     }
 }
