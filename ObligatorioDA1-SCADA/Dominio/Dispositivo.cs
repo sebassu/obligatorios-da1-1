@@ -20,8 +20,7 @@ namespace Dominio
 
             set
             {
-                Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
-                if (value != null && caracteresAlfabeticos.IsMatch(value))
+                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
                     nombre = value.Trim();
                 }
@@ -30,6 +29,12 @@ namespace Dominio
                     throw new ArgumentException();
                 }
             }
+        }
+
+        private bool contieneCaracteresAlfabeticos(string unString)
+        {
+            Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
+            return caracteresAlfabeticos.IsMatch(unString);
         }
     }
 }
