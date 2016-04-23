@@ -6,6 +6,7 @@ namespace Dominio
     public class Tipo
     {
         private string nombre;
+        private string descripcion;
 
         public string Nombre
         {
@@ -18,6 +19,25 @@ namespace Dominio
                 if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
                     this.nombre = value.Trim();
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
+
+        public string Descripcion
+        {
+            get
+            {
+                return descripcion;
+            }
+            set
+            {
+                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                {
+                    this.descripcion = value.Trim();
                 }
                 else
                 {
