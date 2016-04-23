@@ -46,5 +46,21 @@ namespace PruebasUnitarias
             Dispositivo unDispositivo = new Dispositivo();
             unDispositivo.Nombre = " !%$@<> . @#$";
         }
+
+        [TestMethod]
+        public void SetEnUsoTest1()
+        {
+            Dispositivo unDispositivo = new Dispositivo();
+            unDispositivo.EnUso = true;
+            Assert.AreEqual(true, unDispositivo.EnUso);
+        }
+
+        [TestMethod]
+        public void SetEnUsoTest2()
+        {
+            Dispositivo unDispositivo = new Dispositivo();
+            unDispositivo.EnUso = false;
+            Assert.AreEqual(false, unDispositivo.EnUso);
+        }
     }
 }
