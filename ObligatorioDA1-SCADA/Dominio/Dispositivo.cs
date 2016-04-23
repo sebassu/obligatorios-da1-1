@@ -10,6 +10,19 @@ namespace Dominio
     public class Dispositivo
     {
         private string nombre;
+        private bool enUso;
+
+        public bool EnUso
+        {
+            get
+            {
+                return enUso;
+            }
+            set
+            {
+                this.enUso = value;
+            }
+        }
 
         public string Nombre
         {
@@ -22,7 +35,7 @@ namespace Dominio
             {
                 if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
-                    nombre = value.Trim();
+                    this.nombre = value.Trim();
                 }
                 else
                 {
