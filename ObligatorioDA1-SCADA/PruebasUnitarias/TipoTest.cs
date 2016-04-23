@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio
+namespace PruebasUnitarias
 {
-    public class Class1
+    class TipoTest
     {
     }
 }

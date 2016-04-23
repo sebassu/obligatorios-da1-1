@@ -1,0 +1,8 @@
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\bin\Debug\ObligatorioDA1-SCADA.exe.config
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\ObligatorioDA1-SCADA.exe
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\ObligatorioDA1-SCADA.pdb
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\bin\Debug\ObligatorioDA1-SCADA.exe
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\bin\Debug\ObligatorioDA1-SCADA.pdb
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\Interfaz.csprojResolveAssemblyReference.cache
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\ObligatorioDA1_SCADA.Properties.Resources.resources
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\ObligatorioDA1-SCADA\obj\Debug\Interfaz.csproj.GenerateResource.Cache
