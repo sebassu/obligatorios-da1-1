@@ -11,6 +11,7 @@ namespace Dominio
     {
         private string nombre;
         private bool enUso;
+        private Tipo tipoDispositivo;
 
         public bool EnUso
         {
@@ -36,6 +37,25 @@ namespace Dominio
                 if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
                     this.nombre = value.Trim();
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+        }
+
+        public Tipo Tipo
+        {
+            get
+            {
+                return tipoDispositivo;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    this.tipoDispositivo = value;
                 }
                 else
                 {

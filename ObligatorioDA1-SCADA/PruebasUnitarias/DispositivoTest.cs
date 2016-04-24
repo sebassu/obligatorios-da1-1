@@ -67,7 +67,7 @@ namespace PruebasUnitarias
         public void SetDispositivoTipoTest1()
         {
             Dispositivo unDispositivo = new Dispositivo();
-            Tipo unTipo = new Tipo();
+            Tipo unTipo = Tipo.TipoInvalido();
             unDispositivo.Tipo = unTipo;
             Assert.AreEqual(unTipo, unDispositivo.Tipo);
         }
