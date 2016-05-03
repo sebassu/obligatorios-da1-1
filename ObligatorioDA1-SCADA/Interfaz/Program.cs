@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ObligatorioDA1_SCADA
+namespace Interfaz
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace ObligatorioDA1_SCADA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new VentanaPrincipal());
         }
     }
 }

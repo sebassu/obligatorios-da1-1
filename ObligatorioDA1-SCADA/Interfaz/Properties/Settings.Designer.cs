@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ObligatorioDA1_SCADA.Properties
+namespace Interfaz.Properties
 {
 
 
