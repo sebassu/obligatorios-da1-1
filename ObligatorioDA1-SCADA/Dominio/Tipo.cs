@@ -5,8 +5,11 @@ namespace Dominio
 {
     public class Tipo
     {
+        private static uint ProximaIdAAsignar;
+
         private string nombre;
         private string descripcion;
+        private uint id;
 
         public string Nombre
         {
@@ -66,24 +69,26 @@ namespace Dominio
         {
             nombre = "Nombre inválido.";
             descripcion = "Descripción inválida.";
+            id = ProximaIdAAsignar++;
         }
 
         private Tipo(string unNombre, string unaDescripcion)
         {
             Nombre = unNombre;
             Descripcion = unaDescripcion;
+            id = ProximaIdAAsignar++;
         }
 
         public override bool Equals(object unObjeto)
         {
-            Tipo aComparar = unObjeto as Tipo;
-            if (aComparar == null)
+            Tipo tipoAComparar = unObjeto as Tipo;
+            if (tipoAComparar == null)
             {
                 return false;
             }
             else
             {
-                return nombre == aComparar.Nombre;
+                return id == tipoAComparar.id || nombre == tipoAComparar.Nombre;
             }
         }
 

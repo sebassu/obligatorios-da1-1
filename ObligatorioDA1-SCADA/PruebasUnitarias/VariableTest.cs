@@ -96,6 +96,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void setNombreTest5Vacio()
+        {
+            Variable unaVariable = Variable.VariableInvalida();
+            unaVariable.Nombre = "";
+        }
+
+        [TestMethod]
         public void SetValorMinimoTest1Valido()
         {
             double nuevoValor = 0;
@@ -231,6 +239,13 @@ namespace PruebasUnitarias
             Variable variable2 = Variable.NombreMinimoMaximo("Intensidad lumínica", -10, 775);
             Assert.AreNotEqual(variable1, variable2);
             Assert.AreNotEqual(variable2, variable1);
+        }
+
+        public void EqualsVariableTest3()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Intensidad lumínica", -10, 775);
+            Tipo objetoDeOtroTipo = Tipo.TipoInvalido();
+            Assert.AreNotEqual(unaVariable, objetoDeOtroTipo);
         }
     }
 }

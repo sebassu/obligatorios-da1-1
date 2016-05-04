@@ -48,6 +48,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void setNombreTest5()
+        {
+            Tipo unTipo = Tipo.TipoInvalido();
+            unTipo.Nombre = "";
+        }
+
+        [TestMethod]
         public void setDescripcionTest1()
         {
             Tipo unTipo = Tipo.TipoInvalido();
@@ -77,6 +85,14 @@ namespace PruebasUnitarias
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "!@.$#%   *-/";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void setDescripcionTest5()
+        {
+            Tipo unTipo = Tipo.TipoInvalido();
+            unTipo.Descripcion = "";
         }
 
         [TestMethod]
@@ -143,7 +159,13 @@ namespace PruebasUnitarias
             Tipo tipo1 = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
             Tipo tipo2 = Tipo.NombreDescripcion("Otro nombre", "Otra desc.");
             Assert.AreNotEqual(tipo1, tipo2);
-            Assert.AreNotEqual(tipo2, tipo1);
+        }
+
+        public void EqualsTipoTest5()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
+            Variable objetoDeOtroTipo = Variable.VariableInvalida();
+            Assert.AreNotEqual(unTipo, objetoDeOtroTipo);
         }
     }
 }

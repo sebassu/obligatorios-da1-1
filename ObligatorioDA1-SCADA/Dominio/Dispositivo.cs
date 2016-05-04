@@ -30,7 +30,7 @@ namespace Dominio
 
             set
             {
-                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
                     nombre = value.Trim();
                 }
