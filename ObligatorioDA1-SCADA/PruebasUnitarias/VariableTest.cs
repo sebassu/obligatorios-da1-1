@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Dominio;
 
 namespace PruebasUnitarias
 {
@@ -10,7 +11,7 @@ namespace PruebasUnitarias
         public void SetValorActualTest1()
         {
             double nuevoValor = 125;
-            Variable unaVariable = new Variable();
+            Variable unaVariable = Variable.VariableInvalida();
             unaVariable.ValorActual = nuevoValor;
             Assert.AreEqual(nuevoValor, unaVariable.ValorActual);
         }
@@ -18,7 +19,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void SetValorActualTest2()
         {
-            Variable unaVariable = new Variable();
+            Variable unaVariable = Variable.VariableInvalida();
             unaVariable.ValorActual = 0;
             Assert.AreEqual(0, unaVariable.ValorActual);
         }
@@ -26,7 +27,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void SetValorActualTest3()
         {
-            Variable unaVariable = new Variable();
+            Variable unaVariable = Variable.VariableInvalida();
             unaVariable.ValorActual = -7;
             Assert.AreEqual(-7, unaVariable.ValorActual);
         }
@@ -64,7 +65,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void setNombreTest1Valido()
         {
-            Variable unaVariable = new Variable();
+            Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = "Temperatura";
             Assert.AreEqual("Temperatura", unaVariable.Nombre);
         }
@@ -72,7 +73,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void setNombreTest2Espacios()
         {
-            Variable unaVariable = new Variable();
+            Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = " Presión - 123 ";
             Assert.AreEqual("Presión - 123", unaVariable.Nombre);
         }
@@ -81,7 +82,7 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(ArgumentException))]
         public void setNombreTest3Numeros()
         {
-            Variable unaVariable = new Variable();
+            Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = "1234";
         }
 
@@ -89,7 +90,7 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(ArgumentException))]
         public void setNombreTest4Punctuacion()
         {
-            Variable unaVariable = new Variable();
+            Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = "@#&*! ., (";
         }
 
@@ -164,7 +165,7 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Volumen", 0, 400);
             unaVariable.ValorActual = 200.5;
-            Assert.AreEqual(false, unaVariable.ValorFueraDeRango);
+            Assert.AreEqual(false, unaVariable.ValorFueraDeRango());
         }
 
         [TestMethod]
@@ -172,7 +173,7 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = 1000;
-            Assert.AreEqual(true, unaVariable.ValorFueraDeRango);
+            Assert.AreEqual(true, unaVariable.ValorFueraDeRango());
         }
 
         [TestMethod]
@@ -180,7 +181,7 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = -30;
-            Assert.AreEqual(true, unaVariable.ValorFueraDeRango);
+            Assert.AreEqual(true, unaVariable.ValorFueraDeRango());
         }
 
         [TestMethod]
@@ -213,6 +214,22 @@ namespace PruebasUnitarias
             CollectionAssert.Contains(unaVariable.Historico, elementoABuscar1);
             CollectionAssert.Contains(unaVariable.Historico, elementoABuscar2);
             Assert.AreEqual(unaVariable.Historico.Count, largoInicial + 2);
+        }
+
+        [TestMethod]
+        public void EqualsVariableTest1()
+        {
+            Variable unaVariable = Variable.VariableInvalida();
+            Assert.AreEqual(unaVariable, unaVariable);
+        }
+
+        [TestMethod]
+        public void EqualsVariableTest2()
+        {
+            Variable variable1 = Variable.NombreMinimoMaximo("Intensidad lumínica", -10, 775);
+            Variable variable2 = Variable.NombreMinimoMaximo("Intensidad lumínica", -10, 775);
+            Assert.AreNotEqual(variable1, variable2);
+            Assert.AreNotEqual(variable2, variable1);
         }
     }
 }

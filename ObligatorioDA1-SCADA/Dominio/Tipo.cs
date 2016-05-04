@@ -16,9 +16,9 @@ namespace Dominio
             }
             set
             {
-                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
-                    this.nombre = value.Trim();
+                    nombre = value.Trim();
                 }
                 else
                 {
@@ -35,9 +35,9 @@ namespace Dominio
             }
             set
             {
-                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
-                    this.descripcion = value.Trim();
+                    descripcion = value.Trim();
                 }
                 else
                 {
