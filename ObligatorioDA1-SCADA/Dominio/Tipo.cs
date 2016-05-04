@@ -22,7 +22,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Nombre inválido.");
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Descripción inválida.");
                 }
             }
         }
@@ -50,6 +50,28 @@ namespace Dominio
         {
             Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
             return caracteresAlfabeticos.IsMatch(unValor);
+        }
+
+        public static Tipo TipoInvalido()
+        {
+            return new Tipo();
+        }
+
+        public static Tipo NombreDescripcion(string unNombre, string unaDescripcion)
+        {
+            return new Tipo(unNombre, unaDescripcion);
+        }
+
+        private Tipo()
+        {
+            nombre = "Nombre inválido.";
+            descripcion = "Descripción inválida.";
+        }
+
+        private Tipo(string unNombre, string unaDescripcion)
+        {
+            Nombre = unNombre;
+            Descripcion = unaDescripcion;
         }
     }
 }

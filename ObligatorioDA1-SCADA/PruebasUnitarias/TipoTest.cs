@@ -11,7 +11,7 @@ namespace PruebasUnitarias
         public void TipoInvalidoTest()
         {
             Tipo unTipo = Tipo.TipoInvalido();
-            Assert.AreEqual(unTipo.Nombre, "Tipo inválido.");
+            Assert.AreEqual(unTipo.Nombre, "Nombre inválido.");
             Assert.AreEqual(unTipo.Descripcion, "Descripción inválida.");
         }
 
@@ -80,7 +80,6 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TipoNombreDescripcionTest1Valido()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Tipo A", "Una cierta descripción.");

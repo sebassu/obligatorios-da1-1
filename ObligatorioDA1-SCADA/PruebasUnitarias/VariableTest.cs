@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
+using System.Collections;
 
 namespace PruebasUnitarias
 {
@@ -195,25 +196,25 @@ namespace PruebasUnitarias
         public void AgregaValoresAHistoricoTest2()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Altura", -100, 50);
-            int largoInicial = unaVariable.Historico.Count;
-            Tuple<double, DateTime> elementoABuscar = Tuple.Create(30.1, DateTime.Now);  // Se asume se ejecuta lo suficientemente rápido para que DateTime.Now 
-            unaVariable.ValorActual = 30.1;                                              // no cambie de la línea anterior a esta.
-            CollectionAssert.Contains(unaVariable.Historico, elementoABuscar);
-            Assert.AreEqual(unaVariable.Historico.Count, largoInicial + 1);
+            unaVariable.ValorActual = 30.1;
+            Assert.AreEqual(unaVariable.Historico.Count, 0);
         }
 
         [TestMethod]
         public void AgregaValoresAHistoricoTest3()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0, 75);
-            int largoInicial = unaVariable.Historico.Count;
-            Tuple<double, DateTime> elementoABuscar1 = Tuple.Create(-9D, DateTime.Now);   // Ídem método anterior.
             unaVariable.ValorActual = -50;
-            Tuple<double, DateTime> elementoABuscar2 = Tuple.Create(125.3, DateTime.Now);
             unaVariable.ValorActual = -125.3;
-            CollectionAssert.Contains(unaVariable.Historico, elementoABuscar1);
-            CollectionAssert.Contains(unaVariable.Historico, elementoABuscar2);
-            Assert.AreEqual(unaVariable.Historico.Count, largoInicial + 2);
+            int largo = 0;
+            ArrayList valoresSinFecha = new ArrayList();
+            foreach (Tuple<DateTime, double> elemento in unaVariable.Historico)
+            {
+                valoresSinFecha.Add(elemento.Item2);
+                largo++;
+            }
+            CollectionAssert.Contains(valoresSinFecha, -50D);
+            Assert.AreEqual(largo, 1);
         }
 
         [TestMethod]
