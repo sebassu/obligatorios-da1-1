@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="TipoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VariableTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
