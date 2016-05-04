@@ -8,15 +8,31 @@ namespace Dominio
     {
         private static uint ProximaIdAAsignar;
 
-        private string nombre;
-        private double valorActual;
-        private double minimo;
-        private double maximo;
-        private DateTime fechaUltimaModificacion;
-        private IList historicoDeValores;
-        private bool fueSeteada;
         private uint id;
+        private DateTime fechaUltimaModificacion;
+        private bool fueSeteada;
 
+        private string nombre;
+        public string Nombre
+        {
+            get
+            {
+                return nombre;
+            }
+            set
+            {
+                if (Auxiliar.EsTextoValido(value))
+                {
+                    nombre = value.Trim();
+                }
+                else
+                {
+                    throw new ArgumentException("Nombre inválido.");
+                }
+            }
+        }
+
+        private double valorActual;
         public double ValorActual
         {
             get
@@ -25,14 +41,20 @@ namespace Dominio
             }
             set
             {
-                if (fueSeteada)
-                {
-                    Tuple<DateTime, double> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
-                    historicoDeValores.Add(elementoAAgregar);
-                }
+                RegistrarValorAnterior();
                 fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
                 fueSeteada = true;
+            }
+        }
+
+        private IList historicoDeValores;
+        private void RegistrarValorAnterior()
+        {
+            if (fueSeteada)
+            {
+                Tuple<DateTime, double> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
+                historicoDeValores.Add(elementoAAgregar);
             }
         }
 
@@ -44,6 +66,7 @@ namespace Dominio
             }
         }
 
+        private double maximo;
         public double Maximo
         {
             get
@@ -63,6 +86,7 @@ namespace Dominio
             }
         }
 
+        private double minimo;
         public double Minimo
         {
             get
@@ -78,25 +102,6 @@ namespace Dominio
                 else
                 {
                     minimo = value;
-                }
-            }
-        }
-
-        public string Nombre
-        {
-            get
-            {
-                return nombre;
-            }
-            set
-            {
-                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
-                {
-                    nombre = value.Trim();
-                }
-                else
-                {
-                    throw new ArgumentException();
                 }
             }
         }
@@ -132,12 +137,6 @@ namespace Dominio
                 id = ProximaIdAAsignar++;
                 historicoDeValores = new ArrayList();
             }
-        }
-
-        private bool contieneCaracteresAlfabeticos(string unValor)
-        {
-            Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
-            return caracteresAlfabeticos.IsMatch(unValor);
         }
 
         public bool ValorFueraDeRango()

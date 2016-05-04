@@ -6,11 +6,9 @@ namespace Dominio
     public class Tipo
     {
         private static uint ProximaIdAAsignar;
-
-        private string nombre;
-        private string descripcion;
         private uint id;
 
+        private string nombre;
         public string Nombre
         {
             get
@@ -19,7 +17,7 @@ namespace Dominio
             }
             set
             {
-                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (Auxiliar.EsTextoValido(value))
                 {
                     nombre = value.Trim();
                 }
@@ -30,6 +28,7 @@ namespace Dominio
             }
         }
 
+        private string descripcion;
         public string Descripcion
         {
             get
@@ -38,7 +37,7 @@ namespace Dominio
             }
             set
             {
-                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (Auxiliar.EsTextoValido(value))
                 {
                     descripcion = value.Trim();
                 }
@@ -47,12 +46,6 @@ namespace Dominio
                     throw new ArgumentException("Descripción inválida.");
                 }
             }
-        }
-
-        private bool contieneCaracteresAlfabeticos(string unValor)
-        {
-            Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
-            return caracteresAlfabeticos.IsMatch(unValor);
         }
 
         public static Tipo TipoInvalido()

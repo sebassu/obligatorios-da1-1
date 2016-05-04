@@ -5,10 +5,8 @@ namespace Dominio
 {
     public class Dispositivo
     {
-        private string nombre;
-        private bool enUso;
-        private Tipo tipoDispositivo;
 
+        private bool enUso;
         public bool EnUso
         {
             get
@@ -21,6 +19,7 @@ namespace Dominio
             }
         }
 
+        private string nombre;
         public string Nombre
         {
             get
@@ -30,17 +29,18 @@ namespace Dominio
 
             set
             {
-                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (Auxiliar.EsTextoValido(value))
                 {
                     nombre = value.Trim();
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Nombre inválido.");
                 }
             }
         }
 
+        private Tipo tipoDispositivo;
         public Tipo Tipo
         {
             get
@@ -55,15 +55,9 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Descripción inválida.");
                 }
             }
-        }
-
-        private bool contieneCaracteresAlfabeticos(string unString)
-        {
-            Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
-            return caracteresAlfabeticos.IsMatch(unString);
         }
     }
 }
