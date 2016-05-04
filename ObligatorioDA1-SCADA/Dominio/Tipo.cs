@@ -16,13 +16,13 @@ namespace Dominio
             }
             set
             {
-                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
-                    this.nombre = value.Trim();
+                    nombre = value.Trim();
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Nombre inválido.");
                 }
             }
         }
@@ -35,13 +35,13 @@ namespace Dominio
             }
             set
             {
-                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (!string.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
-                    this.descripcion = value.Trim();
+                    descripcion = value.Trim();
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Descripción inválida.");
                 }
             }
         }
@@ -52,26 +52,26 @@ namespace Dominio
             return caracteresAlfabeticos.IsMatch(unValor);
         }
 
-        private Tipo()
-        {
-            this.nombre = "Nombre inválido";
-            this.descripcion = "Descripción inválida";
-        }
-
-        private Tipo(string unNombre, string unaDescripcion)
-        {
-            this.Nombre = unNombre;
-            this.Descripcion = unaDescripcion;
-        }
-
         public static Tipo TipoInvalido()
         {
             return new Tipo();
         }
 
-        public static Tipo ConNombreDescripcion(string unNombre, string unaDescripcion)
+        public static Tipo NombreDescripcion(string unNombre, string unaDescripcion)
         {
             return new Tipo(unNombre, unaDescripcion);
+        }
+
+        private Tipo()
+        {
+            nombre = "Nombre inválido.";
+            descripcion = "Descripción inválida.";
+        }
+
+        private Tipo(string unNombre, string unaDescripcion)
+        {
+            Nombre = unNombre;
+            Descripcion = unaDescripcion;
         }
 
         public override bool Equals(object unObjeto)
@@ -83,7 +83,7 @@ namespace Dominio
             }
             else
             {
-                return this.nombre == aComparar.Nombre;
+                return nombre == aComparar.Nombre;
             }
         }
 

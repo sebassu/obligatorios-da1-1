@@ -76,7 +76,7 @@ namespace PruebasUnitarias
         public void SetDispositivoTipoTest2()
         {
             Dispositivo unDispositivo = new Dispositivo();
-            Tipo unTipo = Tipo.ConNombreDescripcion("Eléctrico", "Es muy bueno");
+            Tipo unTipo = Tipo.NombreDescripcion("Eléctrico", "Es muy bueno");
             unDispositivo.Tipo = unTipo;
             Assert.AreEqual(unTipo, unDispositivo.Tipo);
         }
@@ -85,8 +85,8 @@ namespace PruebasUnitarias
         public void SetDispositivoTipoTest3()
         {
             Dispositivo unDispositivo = new Dispositivo();
-            Tipo unTipo = Tipo.ConNombreDescripcion("Eléctrico", "Es muy bueno");
-            Tipo otroTipo = Tipo.ConNombreDescripcion("Eléctrico", "Es muy bueno");
+            Tipo unTipo = Tipo.NombreDescripcion("Eléctrico", "Es muy bueno");
+            Tipo otroTipo = Tipo.NombreDescripcion("Eléctrico", "Es muy bueno");
             unDispositivo.Tipo = unTipo;
             Assert.AreEqual(otroTipo, unDispositivo.Tipo);
         }

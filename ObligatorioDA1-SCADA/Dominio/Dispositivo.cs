@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Dominio
 {
@@ -21,7 +17,7 @@ namespace Dominio
             }
             set
             {
-                this.enUso = value;
+                enUso = value;
             }
         }
 
@@ -36,7 +32,7 @@ namespace Dominio
             {
                 if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
                 {
-                    this.nombre = value.Trim();
+                    nombre = value.Trim();
                 }
                 else
                 {
@@ -55,7 +51,7 @@ namespace Dominio
             {
                 if (value != null)
                 {
-                    this.tipoDispositivo = value;
+                    tipoDispositivo = value;
                 }
                 else
                 {
