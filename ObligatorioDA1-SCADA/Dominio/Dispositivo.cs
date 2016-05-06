@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace Dominio
 {
@@ -57,6 +58,86 @@ namespace Dominio
             {
                 enUso = value;
             }
+        }
+
+        private IList variables;
+        public IList Variables
+        {
+            get
+            {
+                return variables;
+            }
+        }
+
+        private uint cantidadAlarmasActivas;
+        public uint CantidadAlarmasActivas
+        {
+            get
+            {
+                return cantidadAlarmasActivas;
+            }
+        }
+
+        public void IncrementarAlarmas()
+        {
+            if (variables.Count == 0)
+            {
+                throw new InvalidOperationException("La lista de variables controladas es vacía.");
+            }
+            else
+            {
+                cantidadAlarmasActivas = cantidadAlarmasActivas + 1;
+            }
+        }
+
+        public void DecrementarAlarmas()
+        {
+            if (cantidadAlarmasActivas == 0)
+            {
+                throw new InvalidOperationException("La cantidad de alarmas activas es cero.");
+            }
+            else
+            {
+                cantidadAlarmasActivas = cantidadAlarmasActivas - 1;
+            }
+        }
+
+        public void AgregarVariable(Variable unaVariable)
+        {
+            if (Auxiliar.NoEsNulo(unaVariable))
+            {
+                variables.Add(unaVariable);
+                unaVariable.DispositivoPadre = this;
+            }
+            else
+            {
+                throw new ArgumentException("Variable nula recibida.");
+            }
+        }
+
+        public static Dispositivo NombreTipoEnUso(string unNombre, Tipo unTipo, bool estaEnUso = false)
+        {
+            return new Dispositivo(unNombre, unTipo, estaEnUso);
+        }
+
+        public static Dispositivo DispositivoInvalido()
+        {
+            return new Dispositivo();
+        }
+
+        private Dispositivo()
+        {
+            nombre = "Nombre inválido.";
+            tipoDispositivo = Tipo.TipoInvalido();
+            variables = new ArrayList();
+        }
+
+        private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
+        {
+            Nombre = unNombre;
+            Tipo = unTipo;
+            enUso = estaEnUso;
+            variables = new ArrayList();
         }
     }
 }

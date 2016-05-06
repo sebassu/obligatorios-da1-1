@@ -31,6 +31,15 @@ namespace Dominio
             }
         }
 
+        private bool estaFueraDeRango;
+        public bool EstaFueraDeRango
+        {
+            get
+            {
+                return estaFueraDeRango;
+            }
+        }
+
         private double valorActual;
         public double ValorActual
         {
@@ -41,6 +50,19 @@ namespace Dominio
             set
             {
                 RegistrarValorAnterior();
+                if (Auxiliar.NoEsNulo(dispositivoPadre))
+                {
+                    if (!estaFueraDeRango && ValorFueraDeRango(value))
+                    {
+                        dispositivoPadre.IncrementarAlarmas();
+
+                    }
+                    else if (estaFueraDeRango && !ValorFueraDeRango(value))
+                    {
+                        dispositivoPadre.DecrementarAlarmas();
+                    }
+                }
+                estaFueraDeRango = ValorFueraDeRango(value);
                 fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
                 fueSeteada = true;
@@ -105,6 +127,26 @@ namespace Dominio
             }
         }
 
+        private Dispositivo dispositivoPadre;
+        public Dispositivo DispositivoPadre
+        {
+            get
+            {
+                return dispositivoPadre;
+            }
+            set
+            {
+                if (Auxiliar.NoEsNulo(value) && value.Variables.Contains(this))
+                {
+                    dispositivoPadre = value;
+                }
+                else
+                {
+                    throw new ArgumentException("El dispositivo a asignar no contiene a la variable.");
+                }
+            }
+        }
+
         public static Variable VariableInvalida()
         {
             return new Variable();
@@ -138,9 +180,9 @@ namespace Dominio
             }
         }
 
-        public bool ValorFueraDeRango()
+        private bool ValorFueraDeRango(double unValor)
         {
-            return valorActual < minimo || valorActual > maximo;
+            return unValor < minimo || unValor > maximo;
         }
 
         public override bool Equals(object unObjeto)

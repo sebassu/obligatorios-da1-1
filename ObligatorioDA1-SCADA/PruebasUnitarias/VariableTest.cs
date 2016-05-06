@@ -64,7 +64,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void setNombreTest1Valido()
+        public void SetNombreTest1Valido()
         {
             Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = "Temperatura";
@@ -72,7 +72,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void setNombreTest2Espacios()
+        public void SetNombreTest2Espacios()
         {
             Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = " Presión - 123 ";
@@ -81,7 +81,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setNombreTest3Numeros()
+        public void SetNombreTest3Numeros()
         {
             Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = "1234";
@@ -89,7 +89,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setNombreTest4Punctuacion()
+        public void SetNombreTest4Punctuacion()
         {
             Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = "@#&*! ., (";
@@ -97,7 +97,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setNombreTest5Vacio()
+        public void SetNombreTest5Vacio()
         {
             Variable unaVariable = Variable.VariableInvalida();
             unaVariable.Nombre = "";
@@ -174,7 +174,7 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Volumen", 0, 400);
             unaVariable.ValorActual = 200.5;
-            Assert.AreEqual(false, unaVariable.ValorFueraDeRango());
+            Assert.AreEqual(false, unaVariable.EstaFueraDeRango);
         }
 
         [TestMethod]
@@ -182,7 +182,7 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = 1000;
-            Assert.AreEqual(true, unaVariable.ValorFueraDeRango());
+            Assert.AreEqual(true, unaVariable.EstaFueraDeRango);
         }
 
         [TestMethod]
@@ -190,7 +190,7 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = -30;
-            Assert.AreEqual(true, unaVariable.ValorFueraDeRango());
+            Assert.AreEqual(true, unaVariable.EstaFueraDeRango);
         }
 
         [TestMethod]
@@ -256,11 +256,11 @@ namespace PruebasUnitarias
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
             unDispositivo.AgregarVariable(unaVariable);
-            CollectionAssert.Contains(unaVariable.Dispositivo.Variables, unaVariable);
+            CollectionAssert.Contains(unaVariable.DispositivoPadre.Variables, unaVariable);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void SetDispositivoPadreTest1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
@@ -268,7 +268,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void SetDispositivoPadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");

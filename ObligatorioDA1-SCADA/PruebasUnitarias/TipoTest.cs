@@ -16,7 +16,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void setNombreTest1()
+        public void SetNombreTest1()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "Eléctrico";
@@ -24,7 +24,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void setNombreTest2()
+        public void SetNombreTest2()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "  Modelo AX-453  ";
@@ -33,7 +33,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setNombreTest3()
+        public void SetNombreTest3()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "1234";
@@ -41,7 +41,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setNombreTest4()
+        public void SetNombreTest4()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "!@.$#%   *-/";
@@ -49,14 +49,14 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setNombreTest5()
+        public void SetNombreTest5()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "";
         }
 
         [TestMethod]
-        public void setDescripcionTest1()
+        public void SetDescripcionTest1()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "Es muy bueno";
@@ -64,7 +64,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void setDescripcionTest2()
+        public void SetDescripcionTest2()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "  Es muy bueno, 123.  ";
@@ -73,7 +73,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setDescripcionTest3()
+        public void SetDescripcionTest3()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "555555";
@@ -81,7 +81,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setDescripcionTest4()
+        public void SetDescripcionTest4()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "!@.$#%   *-/";
@@ -89,7 +89,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void setDescripcionTest5()
+        public void SetDescripcionTest5()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "";
