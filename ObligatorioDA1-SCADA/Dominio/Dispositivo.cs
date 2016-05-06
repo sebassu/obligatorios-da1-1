@@ -1,23 +1,9 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 namespace Dominio
 {
     public class Dispositivo
     {
-
-        private bool enUso;
-        public bool EnUso
-        {
-            get
-            {
-                return enUso;
-            }
-            set
-            {
-                enUso = value;
-            }
-        }
 
         private string nombre;
         public string Nombre
@@ -49,14 +35,27 @@ namespace Dominio
             }
             set
             {
-                if (value != null)
+                if (Auxiliar.NoEsNulo(value))
                 {
                     tipoDispositivo = value;
                 }
                 else
                 {
-                    throw new ArgumentException("Descripción inválida.");
+                    throw new ArgumentException("Tipo inválido.");
                 }
+            }
+        }
+
+        private bool enUso;
+        public bool EnUso
+        {
+            get
+            {
+                return enUso;
+            }
+            set
+            {
+                enUso = value;
             }
         }
     }

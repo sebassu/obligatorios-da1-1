@@ -161,6 +161,7 @@ namespace PruebasUnitarias
             Assert.AreNotEqual(tipo1, tipo2);
         }
 
+        [TestMethod]
         public void EqualsTipoTest5()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");

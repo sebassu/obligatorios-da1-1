@@ -241,11 +241,40 @@ namespace PruebasUnitarias
             Assert.AreNotEqual(variable2, variable1);
         }
 
+        [TestMethod]
         public void EqualsVariableTest3()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Intensidad lumínica", -10, 775);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", 0, 1000);
             Tipo objetoDeOtroTipo = Tipo.TipoInvalido();
             Assert.AreNotEqual(unaVariable, objetoDeOtroTipo);
+        }
+
+        [TestMethod]
+        public void GetDispositivoPadreTest()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
+            unDispositivo.AgregarVariable(unaVariable);
+            CollectionAssert.Contains(unaVariable.Dispositivo.Variables, unaVariable);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void SetDispositivoPadreTest1()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
+            unaVariable.DispositivoPadre = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void SetDispositivoPadreTest2()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
+            unaVariable.DispositivoPadre = unDispositivo;
         }
     }
 }
