@@ -58,7 +58,7 @@
             this.lblMenuPrincipal.AutoSize = true;
             this.lblMenuPrincipal.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMenuPrincipal.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblMenuPrincipal.Location = new System.Drawing.Point(426, 9);
+            this.lblMenuPrincipal.Location = new System.Drawing.Point(417, 9);
             this.lblMenuPrincipal.Name = "lblMenuPrincipal";
             this.lblMenuPrincipal.Size = new System.Drawing.Size(181, 34);
             this.lblMenuPrincipal.TabIndex = 2;
@@ -99,7 +99,7 @@
             // 
             this.lstInstalaciones.Location = new System.Drawing.Point(363, 99);
             this.lstInstalaciones.Name = "lstInstalaciones";
-            this.lstInstalaciones.Size = new System.Drawing.Size(266, 139);
+            this.lstInstalaciones.Size = new System.Drawing.Size(266, 177);
             this.lstInstalaciones.TabIndex = 6;
             this.lstInstalaciones.UseCompatibleStateImageBehavior = false;
             // 
@@ -107,7 +107,7 @@
             // 
             this.lblVariables.AutoSize = true;
             this.lblVariables.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVariables.Location = new System.Drawing.Point(461, 279);
+            this.lblVariables.Location = new System.Drawing.Point(459, 293);
             this.lblVariables.Name = "lblVariables";
             this.lblVariables.Size = new System.Drawing.Size(82, 23);
             this.lblVariables.TabIndex = 7;
@@ -116,9 +116,9 @@
             // 
             // lstVariables
             // 
-            this.lstVariables.Location = new System.Drawing.Point(363, 312);
+            this.lstVariables.Location = new System.Drawing.Point(363, 329);
             this.lstVariables.Name = "lstVariables";
-            this.lstVariables.Size = new System.Drawing.Size(266, 143);
+            this.lstVariables.Size = new System.Drawing.Size(266, 204);
             this.lstVariables.TabIndex = 8;
             this.lstVariables.UseCompatibleStateImageBehavior = false;
             // 

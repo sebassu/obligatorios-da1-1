@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Interfaz
 {
@@ -15,7 +7,13 @@ namespace Interfaz
         public VentanaPrincipal()
         {
             InitializeComponent();
-        }
 
+            MaximizeBox = false;
+            MinimizeBox = false;
+
+            panelSistema.Controls.Clear();
+            //panelSistema.Controls.Add(new MenuPrincipal());
+            panelSistema.Controls.Add(new RegistrarDispositivo());
+        }
     }
 }
