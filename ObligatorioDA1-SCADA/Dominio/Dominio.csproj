@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auxiliar.cs" />
+    <Compile Include="Dispositivo.cs" />
     <Compile Include="Tipo.cs" />
+    <Compile Include="Variable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

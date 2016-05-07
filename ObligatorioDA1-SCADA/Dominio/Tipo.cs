@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 namespace Dominio
 {
     public class Tipo
     {
-        private string nombre;
-        private string descripcion;
+        private static uint ProximaIdAAsignar;
+        private uint id;
 
+        private string nombre;
         public string Nombre
         {
             get
@@ -16,17 +16,18 @@ namespace Dominio
             }
             set
             {
-                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (Auxiliar.EsTextoValido(value))
                 {
-                    this.nombre = value.Trim();
+                    nombre = value.Trim();
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Nombre inválido.");
                 }
             }
         }
 
+        private string descripcion;
         public string Descripcion
         {
             get
@@ -35,21 +36,57 @@ namespace Dominio
             }
             set
             {
-                if (!String.IsNullOrEmpty(value) && contieneCaracteresAlfabeticos(value))
+                if (Auxiliar.EsTextoValido(value))
                 {
-                    this.descripcion = value.Trim();
+                    descripcion = value.Trim();
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Descripción inválida.");
                 }
             }
         }
 
-        private bool contieneCaracteresAlfabeticos(string unValor)
+        public static Tipo TipoInvalido()
         {
-            Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
-            return caracteresAlfabeticos.IsMatch(unValor);
+            return new Tipo();
+        }
+
+        public static Tipo NombreDescripcion(string unNombre, string unaDescripcion)
+        {
+            return new Tipo(unNombre, unaDescripcion);
+        }
+
+        private Tipo()
+        {
+            nombre = "Nombre inválido.";
+            descripcion = "Descripción inválida.";
+            id = ProximaIdAAsignar++;
+        }
+
+        private Tipo(string unNombre, string unaDescripcion)
+        {
+            Nombre = unNombre;
+            Descripcion = unaDescripcion;
+            id = ProximaIdAAsignar++;
+        }
+
+        public override bool Equals(object unObjeto)
+        {
+            Tipo tipoAComparar = unObjeto as Tipo;
+            if (Auxiliar.NoEsNulo(tipoAComparar))
+            {
+                return id == tipoAComparar.id || nombre == tipoAComparar.Nombre;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

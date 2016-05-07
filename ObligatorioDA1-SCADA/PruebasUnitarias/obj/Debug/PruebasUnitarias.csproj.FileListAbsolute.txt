@@ -7,3 +7,12 @@ C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\UnitTestProject1\obj\Debug\PruebasUnitarias.csprojResolveAssemblyReference.cache
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\UnitTestProject1\obj\Debug\UnitTestProject1.dll
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\PruebasUnitarias.dll
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\PruebasUnitarias.pdb
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\Dominio.dll
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\Dominio.pdb
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.csprojResolveAssemblyReference.cache
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.dll
+C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.pdb
