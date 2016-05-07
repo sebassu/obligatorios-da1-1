@@ -28,36 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblMenuPrincipal = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // lblMenuPrincipal
+            // panel1
             // 
-            this.lblMenuPrincipal.AutoSize = true;
-            this.lblMenuPrincipal.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMenuPrincipal.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblMenuPrincipal.Location = new System.Drawing.Point(295, 21);
-            this.lblMenuPrincipal.Name = "lblMenuPrincipal";
-            this.lblMenuPrincipal.Size = new System.Drawing.Size(181, 34);
-            this.lblMenuPrincipal.TabIndex = 1;
-            this.lblMenuPrincipal.Text = "Menú Principal";
+            this.panel1.Location = new System.Drawing.Point(2, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 600);
+            this.panel1.TabIndex = 2;
             // 
             // VentanaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(779, 597);
-            this.Controls.Add(this.lblMenuPrincipal);
+            this.ClientSize = new System.Drawing.Size(803, 605);
+            this.Controls.Add(this.panel1);
             this.Name = "VentanaPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label lblMenuPrincipal;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
