@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Dominio
 {
@@ -31,12 +32,12 @@ namespace Dominio
             }
         }
 
-        private bool estaFueraDeRango;
+        private bool alarmaActivada;
         public bool EstaFueraDeRango
         {
             get
             {
-                return estaFueraDeRango;
+                return alarmaActivada;
             }
         }
 
@@ -50,26 +51,32 @@ namespace Dominio
             set
             {
                 RegistrarValorAnterior();
+                bool nuevoValorFueraDeRango = FueraDelIntervaloMenorMayor(value);
                 if (Auxiliar.NoEsNulo(dispositivoPadre))
                 {
-                    if (!estaFueraDeRango && ValorFueraDeRango(value))
-                    {
-                        dispositivoPadre.IncrementarAlarmas();
-
-                    }
-                    else if (estaFueraDeRango && !ValorFueraDeRango(value))
-                    {
-                        dispositivoPadre.DecrementarAlarmas();
-                    }
+                    validarActivacionesDeAlarma(nuevoValorFueraDeRango);
                 }
-                estaFueraDeRango = ValorFueraDeRango(value);
+                alarmaActivada = nuevoValorFueraDeRango;
                 fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
                 fueSeteada = true;
             }
         }
 
-        private IList historicoDeValores;
+        private void validarActivacionesDeAlarma(bool nuevoValorFueraDeRango)
+        {
+            if (!alarmaActivada && nuevoValorFueraDeRango)
+            {
+                dispositivoPadre.IncrementarAlarmas();
+
+            }
+            else if (alarmaActivada && !nuevoValorFueraDeRango)
+            {
+                dispositivoPadre.DecrementarAlarmas();
+            }
+        }
+
+        private List<Tuple<DateTime, double>> historicoDeValores;
         private void RegistrarValorAnterior()
         {
             if (fueSeteada)
@@ -83,7 +90,7 @@ namespace Dominio
         {
             get
             {
-                return historicoDeValores;
+                return historicoDeValores.AsReadOnly();
             }
         }
 
@@ -156,7 +163,7 @@ namespace Dominio
         {
             nombre = "Nombre inválido.";
             id = ProximaIdAAsignar++;
-            historicoDeValores = new ArrayList();
+            historicoDeValores = new List<Tuple<DateTime, double>>();
         }
 
         public static Variable NombreMinimoMaximo(string unNombre, double valorMinimo, double valorMaximo)
@@ -176,11 +183,11 @@ namespace Dominio
                 minimo = valorMinimo;
                 maximo = valorMaximo;
                 id = ProximaIdAAsignar++;
-                historicoDeValores = new ArrayList();
+                historicoDeValores = new List<Tuple<DateTime, double>>();
             }
         }
 
-        private bool ValorFueraDeRango(double unValor)
+        private bool FueraDelIntervaloMenorMayor(double unValor)
         {
             return unValor < minimo || unValor > maximo;
         }
@@ -188,13 +195,13 @@ namespace Dominio
         public override bool Equals(object unObjeto)
         {
             Variable variableAComparar = unObjeto as Variable;
-            if (variableAComparar == null)
+            if (Auxiliar.NoEsNulo(variableAComparar))
             {
-                return false;
+                return id == variableAComparar.id;
             }
             else
             {
-                return id == variableAComparar.id;
+                return false;
             }
         }
 

@@ -74,13 +74,13 @@ namespace Dominio
         public override bool Equals(object unObjeto)
         {
             Tipo tipoAComparar = unObjeto as Tipo;
-            if (tipoAComparar == null)
+            if (Auxiliar.NoEsNulo(tipoAComparar))
             {
-                return false;
+                return id == tipoAComparar.id || nombre == tipoAComparar.Nombre;
             }
             else
             {
-                return id == tipoAComparar.id || nombre == tipoAComparar.Nombre;
+                return false;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Dominio
 {
@@ -60,12 +61,12 @@ namespace Dominio
             }
         }
 
-        private IList variables;
+        private List<Variable> variables;
         public IList Variables
         {
             get
             {
-                return variables;
+                return variables.AsReadOnly();
             }
         }
 
@@ -129,7 +130,7 @@ namespace Dominio
         {
             nombre = "Nombre inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
-            variables = new ArrayList();
+            variables = new List<Variable>();
         }
 
         private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
@@ -137,7 +138,7 @@ namespace Dominio
             Nombre = unNombre;
             Tipo = unTipo;
             enUso = estaEnUso;
-            variables = new ArrayList();
+            variables = new List<Variable>();
         }
     }
 }
