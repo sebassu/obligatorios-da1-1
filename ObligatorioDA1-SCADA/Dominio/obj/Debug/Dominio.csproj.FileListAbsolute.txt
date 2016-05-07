@@ -3,3 +3,8 @@ C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\
 C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
 C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.dll
 C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.pdb
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.dll
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.pdb
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.dll
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.pdb

@@ -130,7 +130,6 @@ namespace Dominio
         {
             nombre = "Nombre inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
-            variables = new List<Variable>();
         }
 
         private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)

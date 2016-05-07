@@ -16,3 +16,6 @@ C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasU
 C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.csprojResolveAssemblyReference.cache
 C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.dll
 C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.pdb
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.csprojResolveAssemblyReference.cache
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.dll
+C:\Users\anaguimil\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.pdb
