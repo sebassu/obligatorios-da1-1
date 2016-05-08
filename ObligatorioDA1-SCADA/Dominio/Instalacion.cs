@@ -9,7 +9,7 @@ namespace Dominio
         private static uint ProximaIdAAsignar;
 
         private List<Componente> dependencias;
-        public IList Dependencias
+        public override IList Dependencias
         {
             get
             {
@@ -17,7 +17,7 @@ namespace Dominio
             }
         }
 
-        public void AgregarComponente(Componente unComponente)
+        public override void AgregarComponente(Componente unComponente)
         {
             if (Auxiliar.NoEsNulo(unComponente))
             {
@@ -60,6 +60,11 @@ namespace Dominio
             dependencias = new List<Componente>();
             variables = new List<Variable>();
             id = ProximaIdAAsignar++;
+        }
+
+        public override string ToString()
+        {
+            return nombre + " (I)";
         }
     }
 }

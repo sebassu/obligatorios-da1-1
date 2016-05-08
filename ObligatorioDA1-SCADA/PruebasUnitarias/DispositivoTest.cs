@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
+using System.Collections.Generic;
 
 namespace PruebasUnitarias
 {
@@ -108,17 +109,17 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(NotSupportedException))]
         public void AgregarCompoenenteDispositivoTest()
         {
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", null, false);
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
             Dispositivo otroDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.AgregarComponente(otroDispositivo);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotSupportedException))]
         public void DependenciasDispositivoTest()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            Assert.AreEqual(unDispositivo.Dependencias, new List<Componente>());
+            CollectionAssert.AreEqual(unDispositivo.Dependencias, new List<Componente>());
         }
     }
 }

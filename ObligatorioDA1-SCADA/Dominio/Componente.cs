@@ -8,6 +8,10 @@ namespace Dominio
     {
         protected uint id;
 
+        public abstract IList Dependencias { get; }
+
+        public abstract void AgregarComponente(Componente unComponente);
+
         protected string nombre;
         public string Nombre
         {
@@ -132,5 +136,7 @@ namespace Dominio
         {
             return base.GetHashCode();
         }
+
+        public abstract override string ToString();
     }
 }

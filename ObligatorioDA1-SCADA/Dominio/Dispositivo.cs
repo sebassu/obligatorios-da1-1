@@ -41,6 +41,14 @@ namespace Dominio
             }
         }
 
+        public override IList Dependencias
+        {
+            get
+            {
+                return new List<Componente>();
+            }
+        }
+
         public static Dispositivo NombreTipoEnUso(string unNombre, Tipo unTipo, bool estaEnUso = false)
         {
             return new Dispositivo(unNombre, unTipo, estaEnUso);
@@ -71,6 +79,11 @@ namespace Dominio
             }
         }
 
+        public override void AgregarComponente(Componente unComponente)
+        {
+            throw new NotSupportedException("No es posible asignarle componentes a un dispositivo.");
+        }
+
         private Dispositivo()
         {
             nombre = "Nombre inválido.";
@@ -86,6 +99,11 @@ namespace Dominio
             enUso = estaEnUso;
             variables = new List<Variable>();
             id = ProximaIdAAsignar++;
+        }
+
+        public override string ToString()
+        {
+            return nombre + " (D)";
         }
     }
 }
