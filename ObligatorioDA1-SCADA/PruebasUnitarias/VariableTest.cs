@@ -286,5 +286,28 @@ namespace PruebasUnitarias
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
             unaVariable.ComponentePadre = unDispositivo;
         }
+
+        [TestMethod]
+        public void CompareToTest1()
+        {
+            Variable unavariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
+            Assert.AreEqual(0, unavariable.CompareTo(unavariable));
+        }
+
+        [TestMethod]
+        public void CompareToTest2()
+        {
+            Variable variable1 = Variable.NombreMinimoMaximo("ABC", 0, 10);
+            Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
+            Assert.IsTrue(variable1.CompareTo(variable2) < 0);
+        }
+
+        [TestMethod]
+        public void CompareToTest3()
+        {
+            Variable variable1 = Variable.NombreMinimoMaximo("ABC", 0, 10);
+            Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
+            Assert.IsTrue(variable1.CompareTo(variable2) > 0);
+        }
     }
 }

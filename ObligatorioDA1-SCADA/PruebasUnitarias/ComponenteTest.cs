@@ -263,7 +263,6 @@ namespace PruebasUnitarias
         [TestMethod]
         public void CompareToTest2()
         {
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("A");
             Instalacion otraInstalacion = Instalacion.ConstructorNombre("C");
             Assert.IsTrue(unaInstalacion.CompareTo(otraInstalacion) < 0);
