@@ -32,7 +32,6 @@
             this.treeViewPlantaDeProduccion = new System.Windows.Forms.TreeView();
             this.lblPlantaDeProduccion = new System.Windows.Forms.Label();
             this.lblTableroControl = new System.Windows.Forms.Label();
-            this.lstInstalaciones = new System.Windows.Forms.ListView();
             this.lblVariables = new System.Windows.Forms.Label();
             this.lstVariables = new System.Windows.Forms.ListView();
             this.lblOpcionesInstalacion = new System.Windows.Forms.Label();
@@ -53,6 +52,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnAgregarValorVariable = new System.Windows.Forms.Button();
             this.btnValoresHistoricos = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // lblMenuPrincipal
@@ -69,10 +69,10 @@
             // treeViewPlantaDeProduccion
             // 
             this.treeViewPlantaDeProduccion.BackColor = System.Drawing.SystemColors.Window;
-            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeViewPlantaDeProduccion.Location = new System.Drawing.Point(22, 86);
+            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeViewPlantaDeProduccion.Location = new System.Drawing.Point(22, 94);
             this.treeViewPlantaDeProduccion.Name = "treeViewPlantaDeProduccion";
-            this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 447);
+            this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 439);
             this.treeViewPlantaDeProduccion.TabIndex = 3;
             // 
             // lblPlantaDeProduccion
@@ -97,14 +97,6 @@
             this.lblTableroControl.Text = "Tablero de Control";
             this.lblTableroControl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lstInstalaciones
-            // 
-            this.lstInstalaciones.Location = new System.Drawing.Point(363, 99);
-            this.lstInstalaciones.Name = "lstInstalaciones";
-            this.lstInstalaciones.Size = new System.Drawing.Size(266, 177);
-            this.lstInstalaciones.TabIndex = 6;
-            this.lstInstalaciones.UseCompatibleStateImageBehavior = false;
-            // 
             // lblVariables
             // 
             this.lblVariables.AutoSize = true;
@@ -118,6 +110,7 @@
             // 
             // lstVariables
             // 
+            this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstVariables.Location = new System.Drawing.Point(363, 329);
             this.lstVariables.Name = "lstVariables";
             this.lstVariables.Size = new System.Drawing.Size(266, 204);
@@ -327,10 +320,20 @@
             this.btnValoresHistoricos.Text = "Ver Histórico";
             this.btnValoresHistoricos.UseVisualStyleBackColor = true;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.Location = new System.Drawing.Point(363, 94);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(266, 184);
+            this.richTextBox1.TabIndex = 29;
+            this.richTextBox1.Text = "";
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnValoresHistoricos);
             this.Controls.Add(this.btnAgregarValorVariable);
             this.Controls.Add(this.btnEditarVariable);
@@ -351,7 +354,6 @@
             this.Controls.Add(this.lblOpcionesInstalacion);
             this.Controls.Add(this.lstVariables);
             this.Controls.Add(this.lblVariables);
-            this.Controls.Add(this.lstInstalaciones);
             this.Controls.Add(this.lblTableroControl);
             this.Controls.Add(this.lblPlantaDeProduccion);
             this.Controls.Add(this.treeViewPlantaDeProduccion);
@@ -369,7 +371,6 @@
         private System.Windows.Forms.TreeView treeViewPlantaDeProduccion;
         private System.Windows.Forms.Label lblPlantaDeProduccion;
         private System.Windows.Forms.Label lblTableroControl;
-        private System.Windows.Forms.ListView lstInstalaciones;
         private System.Windows.Forms.Label lblVariables;
         private System.Windows.Forms.ListView lstVariables;
         private System.Windows.Forms.Label lblOpcionesInstalacion;
@@ -390,5 +391,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAgregarValorVariable;
         private System.Windows.Forms.Button btnValoresHistoricos;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
