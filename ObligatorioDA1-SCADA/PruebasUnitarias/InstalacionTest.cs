@@ -12,9 +12,8 @@ namespace PruebasUnitarias
         {
             Instalacion unaInstalacion = Instalacion.InstalacionInvalida();
             Assert.AreEqual("Nombre inválido.", unaInstalacion.Nombre);
-            Assert.AreEqual(unaInstalacion.EnUso, false);
-            Assert.AreEqual(unaInstalacion.Variables, null);
-            Assert.AreEqual(unaInstalacion.Subinstalaciones, null);
+            Assert.AreEqual(0, unaInstalacion.Variables.Count);
+            Assert.AreEqual(0, unaInstalacion.Dependencias.Count);
         }
 
         [TestMethod]
@@ -23,7 +22,7 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Transmisión");
             Assert.AreEqual("Transmisión", unaInstalacion.Nombre);
             Assert.AreEqual(0, unaInstalacion.Variables.Count);
-            Assert.AreEqual(0, unaInstalacion.Subinstalaciones.Count);
+            Assert.AreEqual(0, unaInstalacion.Dependencias.Count);
         }
 
         [TestMethod]
@@ -32,7 +31,7 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre(" Transmisión- :123 ");
             Assert.AreEqual("Transmisión- :123", unaInstalacion.Nombre);
             Assert.AreEqual(0, unaInstalacion.Variables.Count);
-            Assert.AreEqual(0, unaInstalacion.Subinstalaciones.Count);
+            Assert.AreEqual(0, unaInstalacion.Dependencias.Count);
         }
 
         [TestMethod]

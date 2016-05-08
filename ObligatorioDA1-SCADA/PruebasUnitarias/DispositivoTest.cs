@@ -14,7 +14,7 @@ namespace PruebasUnitarias
             Assert.AreEqual("Nombre inválido.", unDispositivo.Nombre);
             Assert.AreEqual(unDispositivo.Tipo, Tipo.TipoInvalido());
             Assert.AreEqual(unDispositivo.EnUso, false);
-            Assert.AreEqual(unDispositivo.Variables, null);
+            Assert.AreEqual(0, unDispositivo.Variables.Count);
         }
 
         [TestMethod]
