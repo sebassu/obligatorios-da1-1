@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class ComponenteTest
     {
@@ -208,6 +210,20 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        public void IncrementarCantidadAlarmasPadreTest4DentroDelRango()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -20, 100);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 3000;
+            unaVariable.ValorActual = 50;
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadAlarmasActivas);
+        }
+
+        [TestMethod]
         public void GetInstalacionPadreTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -253,6 +269,20 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        public void EqualsTest3()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Evaporadores");
+            Assert.AreNotEqual(unaInstalacion, new object());
+        }
+
+        [TestMethod]
+        public void EqualsTest4()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Evaporadores");
+            Assert.AreNotEqual(unaInstalacion, null);
+        }
+
+        [TestMethod]
         public void CompareToTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -274,6 +304,22 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Z");
             Instalacion otraInstalacion = Instalacion.ConstructorNombre("C");
             Assert.IsTrue(unaInstalacion.CompareTo(otraInstalacion) > 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CompareToTest4()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Z");
+            unaInstalacion.CompareTo(new object());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CompareToTest5()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Z");
+            unaInstalacion.CompareTo(null);
         }
 
         [TestMethod]

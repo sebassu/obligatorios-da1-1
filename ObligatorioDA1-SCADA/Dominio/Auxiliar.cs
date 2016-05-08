@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace Dominio
 {
@@ -18,6 +19,11 @@ namespace Dominio
         public static bool NoEsNulo(object unObjeto)
         {
             return unObjeto != null;
+        }
+
+        public static bool EsListaVacia(IList variables)
+        {
+            return variables.Count == 0;
         }
     }
 }
