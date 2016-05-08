@@ -51,6 +51,8 @@
             this.btnEliminarVariable = new System.Windows.Forms.Button();
             this.btnAgregarVariable = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnAgregarValorVariable = new System.Windows.Forms.Button();
+            this.btnValoresHistoricos = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblMenuPrincipal
@@ -155,6 +157,7 @@
             this.btnAgregarInstalacion.TabIndex = 12;
             this.btnAgregarInstalacion.Text = "+";
             this.btnAgregarInstalacion.UseVisualStyleBackColor = false;
+            this.btnAgregarInstalacion.Click += new System.EventHandler(this.btnAgregarInstalacion_Click);
             // 
             // btnEditarInstalacion
             // 
@@ -199,6 +202,7 @@
             this.btnAgregarDispositivo.TabIndex = 16;
             this.btnAgregarDispositivo.Text = "+";
             this.btnAgregarDispositivo.UseVisualStyleBackColor = false;
+            this.btnAgregarDispositivo.Click += new System.EventHandler(this.btnAgregarDispositivo_Click);
             // 
             // lblOpcionesDispositivo
             // 
@@ -244,6 +248,7 @@
             this.btnAgregarTipoDispositivo.TabIndex = 20;
             this.btnAgregarTipoDispositivo.Text = "+";
             this.btnAgregarTipoDispositivo.UseVisualStyleBackColor = false;
+            this.btnAgregarTipoDispositivo.Click += new System.EventHandler(this.btnAgregarTipoDispositivo_Click);
             // 
             // label1
             // 
@@ -261,7 +266,7 @@
             // 
             this.btnEditarVariable.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnEditarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarVariable.Location = new System.Drawing.Point(870, 411);
+            this.btnEditarVariable.Location = new System.Drawing.Point(870, 412);
             this.btnEditarVariable.Name = "btnEditarVariable";
             this.btnEditarVariable.Size = new System.Drawing.Size(40, 44);
             this.btnEditarVariable.TabIndex = 26;
@@ -272,7 +277,7 @@
             // 
             this.btnEliminarVariable.BackColor = System.Drawing.Color.Red;
             this.btnEliminarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarVariable.Location = new System.Drawing.Point(816, 411);
+            this.btnEliminarVariable.Location = new System.Drawing.Point(816, 412);
             this.btnEliminarVariable.Name = "btnEliminarVariable";
             this.btnEliminarVariable.Size = new System.Drawing.Size(40, 44);
             this.btnEliminarVariable.TabIndex = 25;
@@ -283,29 +288,51 @@
             // 
             this.btnAgregarVariable.BackColor = System.Drawing.Color.Chartreuse;
             this.btnAgregarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarVariable.Location = new System.Drawing.Point(761, 412);
+            this.btnAgregarVariable.Location = new System.Drawing.Point(761, 413);
             this.btnAgregarVariable.Name = "btnAgregarVariable";
             this.btnAgregarVariable.Size = new System.Drawing.Size(40, 43);
             this.btnAgregarVariable.TabIndex = 24;
             this.btnAgregarVariable.Text = "+";
             this.btnAgregarVariable.UseVisualStyleBackColor = false;
+            this.btnAgregarVariable.Click += new System.EventHandler(this.btnAgregarVariable_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(797, 383);
+            this.label2.Location = new System.Drawing.Point(797, 384);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 23);
             this.label2.TabIndex = 23;
             this.label2.Text = "Variables";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnAgregarValorVariable
+            // 
+            this.btnAgregarValorVariable.Location = new System.Drawing.Point(752, 472);
+            this.btnAgregarValorVariable.Name = "btnAgregarValorVariable";
+            this.btnAgregarValorVariable.Size = new System.Drawing.Size(75, 39);
+            this.btnAgregarValorVariable.TabIndex = 27;
+            this.btnAgregarValorVariable.Text = "Agregar Valor";
+            this.btnAgregarValorVariable.UseVisualStyleBackColor = true;
+            this.btnAgregarValorVariable.Click += new System.EventHandler(this.btnAgregarValorVariable_Click);
+            // 
+            // btnValoresHistoricos
+            // 
+            this.btnValoresHistoricos.Location = new System.Drawing.Point(846, 472);
+            this.btnValoresHistoricos.Name = "btnValoresHistoricos";
+            this.btnValoresHistoricos.Size = new System.Drawing.Size(75, 39);
+            this.btnValoresHistoricos.TabIndex = 28;
+            this.btnValoresHistoricos.Text = "Ver Histórico";
+            this.btnValoresHistoricos.UseVisualStyleBackColor = true;
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnValoresHistoricos);
+            this.Controls.Add(this.btnAgregarValorVariable);
             this.Controls.Add(this.btnEditarVariable);
             this.Controls.Add(this.btnEliminarVariable);
             this.Controls.Add(this.btnAgregarVariable);
@@ -361,5 +388,7 @@
         private System.Windows.Forms.Button btnEliminarVariable;
         private System.Windows.Forms.Button btnAgregarVariable;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnAgregarValorVariable;
+        private System.Windows.Forms.Button btnValoresHistoricos;
     }
 }

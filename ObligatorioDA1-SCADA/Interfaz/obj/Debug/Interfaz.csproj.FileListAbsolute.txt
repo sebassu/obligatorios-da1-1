@@ -11,3 +11,7 @@ C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.csproj.GenerateResource.Cache
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.exe
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.pdb
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.RegistrarInstalacion.resources
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.RegistrarTipoDispositivo.resources
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.RegistrarVariable.resources
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.RegistrarValorVariable.resources

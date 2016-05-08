@@ -11,16 +11,16 @@ using Dominio;
 
 namespace Interfaz
 {
-    public partial class RegistrarDispositivo : UserControl
+    public partial class RegistrarVariable : UserControl
     {
         private Panel panelSistema;
 
-        public RegistrarDispositivo(Panel panelSistema)
+        public RegistrarVariable(Panel panelSistema)
         {
             InitializeComponent();
             this.panelSistema = panelSistema;
             lblErrorNombre.Text = "";
-            lblErrorTipo.Text = "";
+            lblErrorValores.Text = "";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -29,22 +29,29 @@ namespace Interfaz
             panelSistema.Controls.Add(new MenuPrincipal(panelSistema));
         }
 
-        private void txtNombreDispositivo_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
             Auxiliar.ComprobarTexto(sender, e);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (txtNombreDispositivo.Text.Trim() == "")
+            lblErrorNombre.Text = "";
+            lblErrorValores.Text = "";
+
+            if (txtNombre.Text.Trim() == "" && (numMin.Value >= numMax.Value))
+            {
+                lblErrorNombre.Text = "Nombre inválido";
+                lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
+            }
+            else if (txtNombre.Text.Trim() == "")
             {
                 lblErrorNombre.Text = "Nombre inválido";
             }
-            else if ((string)cbxTipoDispositivo.SelectedItem == "")
+            else if (numMin.Value >= numMax.Value)
             {
-                lblErrorTipo.Text = "Debe seleccionar un tipo";
+                lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
             }
-            //else cargo los datos en la lista de dispositivos del sistema
         }
     }
 }

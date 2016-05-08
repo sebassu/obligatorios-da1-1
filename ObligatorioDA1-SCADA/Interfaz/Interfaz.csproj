@@ -58,6 +58,30 @@
     <Compile Include="RegistrarDispositivo.Designer.cs">
       <DependentUpon>RegistrarDispositivo.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistrarInstalacion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RegistrarInstalacion.Designer.cs">
+      <DependentUpon>RegistrarInstalacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarTipoDispositivo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RegistrarTipoDispositivo.Designer.cs">
+      <DependentUpon>RegistrarTipoDispositivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarValorVariable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RegistrarValorVariable.Designer.cs">
+      <DependentUpon>RegistrarValorVariable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarVariable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RegistrarVariable.Designer.cs">
+      <DependentUpon>RegistrarVariable.cs</DependentUpon>
+    </Compile>
     <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +104,18 @@
     </Compile>
     <EmbeddedResource Include="RegistrarDispositivo.resx">
       <DependentUpon>RegistrarDispositivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarInstalacion.resx">
+      <DependentUpon>RegistrarInstalacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarTipoDispositivo.resx">
+      <DependentUpon>RegistrarTipoDispositivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarValorVariable.resx">
+      <DependentUpon>RegistrarValorVariable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarVariable.resx">
+      <DependentUpon>RegistrarVariable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>

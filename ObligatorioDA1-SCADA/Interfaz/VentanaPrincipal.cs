@@ -12,8 +12,7 @@ namespace Interfaz
             MinimizeBox = false;
 
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal());
-            //panelSistema.Controls.Add(new RegistrarDispositivo());
+            panelSistema.Controls.Add(new MenuPrincipal(panelSistema));
         }
     }
 }
