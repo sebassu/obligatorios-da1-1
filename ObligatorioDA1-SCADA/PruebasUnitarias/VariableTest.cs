@@ -250,31 +250,41 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void GetDispositivoPadreTest()
+        public void GetComponentePadreTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
             unDispositivo.AgregarVariable(unaVariable);
-            CollectionAssert.Contains(unaVariable.DispositivoPadre.Variables, unaVariable);
+            CollectionAssert.Contains(unaVariable.ComponentePadre.Variables, unaVariable);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void SetDispositivoPadreTest1()
+        public void GetComponentePadreTest2()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
-            unaVariable.DispositivoPadre = null;
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Evaporadores");
+            Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 99);
+            unaInstalacion.AgregarVariable(unaVariable);
+            CollectionAssert.Contains(unaVariable.ComponentePadre.Variables, unaVariable);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void SetDispositivoPadreTest2()
+        public void SetComponentePadreTest1()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", 90, 100);
+            unaVariable.ComponentePadre = null;
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void SetComponentePadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
-            unaVariable.DispositivoPadre = unDispositivo;
+            unaVariable.ComponentePadre = unDispositivo;
         }
     }
 }

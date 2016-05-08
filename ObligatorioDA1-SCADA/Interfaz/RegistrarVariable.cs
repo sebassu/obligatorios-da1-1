@@ -31,7 +31,7 @@ namespace Interfaz
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Auxiliar.ComprobarTexto(sender, e);
+            AuxiliarInterfaz.ComprobarTexto(sender, e);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

@@ -52,7 +52,7 @@ namespace Dominio
             {
                 RegistrarValorAnterior();
                 bool nuevoValorFueraDeRango = FueraDelIntervaloMenorMayor(value);
-                if (Auxiliar.NoEsNulo(dispositivoPadre))
+                if (Auxiliar.NoEsNulo(componentePadre))
                 {
                     validarActivacionesDeAlarma(nuevoValorFueraDeRango);
                 }
@@ -67,12 +67,12 @@ namespace Dominio
         {
             if (!alarmaActivada && nuevoValorFueraDeRango)
             {
-                dispositivoPadre.IncrementarAlarmas();
+                componentePadre.IncrementarAlarmas();
 
             }
             else if (alarmaActivada && !nuevoValorFueraDeRango)
             {
-                dispositivoPadre.DecrementarAlarmas();
+                componentePadre.DecrementarAlarmas();
             }
         }
 
@@ -134,18 +134,18 @@ namespace Dominio
             }
         }
 
-        private Dispositivo dispositivoPadre;
-        public Dispositivo DispositivoPadre
+        private Componente componentePadre;
+        public Componente ComponentePadre
         {
             get
             {
-                return dispositivoPadre;
+                return componentePadre;
             }
             set
             {
                 if (Auxiliar.NoEsNulo(value) && value.Variables.Contains(this))
                 {
-                    dispositivoPadre = value;
+                    componentePadre = value;
                 }
                 else
                 {

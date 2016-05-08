@@ -24,7 +24,7 @@ namespace Interfaz
 
         private void txtNombreInstalacion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Auxiliar.ComprobarTexto(sender, e);
+            AuxiliarInterfaz.ComprobarTexto(sender, e);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

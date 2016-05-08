@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auxiliar.cs" />
+    <Compile Include="Componente.cs" />
     <Compile Include="Dispositivo.cs" />
+    <Compile Include="Instalacion.cs" />
     <Compile Include="Tipo.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>

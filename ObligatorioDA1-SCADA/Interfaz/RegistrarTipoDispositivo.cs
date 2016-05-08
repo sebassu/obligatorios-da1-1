@@ -40,14 +40,14 @@ namespace Interfaz
 
         private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Auxiliar.ComprobarTexto(sender, e);
+            AuxiliarInterfaz.ComprobarTexto(sender, e);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             lblErrorNombre.Text = "";
             lblErrorDescripcion.Text = "";
-            
+
             if (txtNombre.Text.Trim() == "" && txtDescripcion.Text.Trim() == "")
             {
                 lblErrorNombre.Text = "Nombre inválido";

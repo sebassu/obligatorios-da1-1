@@ -4,29 +4,9 @@ using System.Collections.Generic;
 
 namespace Dominio
 {
-    public class Dispositivo
+    public class Dispositivo : Componente
     {
-
-        private string nombre;
-        public string Nombre
-        {
-            get
-            {
-                return nombre;
-            }
-
-            set
-            {
-                if (Auxiliar.EsTextoValido(value))
-                {
-                    nombre = value.Trim();
-                }
-                else
-                {
-                    throw new ArgumentException("Nombre inválido.");
-                }
-            }
-        }
+        private static uint ProximaIdAAsignar;
 
         private Tipo tipoDispositivo;
         public Tipo Tipo
@@ -61,58 +41,11 @@ namespace Dominio
             }
         }
 
-        private List<Variable> variables;
-        public IList Variables
+        public override IList Dependencias
         {
             get
             {
-                return variables.AsReadOnly();
-            }
-        }
-
-        private uint cantidadAlarmasActivas;
-        public uint CantidadAlarmasActivas
-        {
-            get
-            {
-                return cantidadAlarmasActivas;
-            }
-        }
-
-        public void IncrementarAlarmas()
-        {
-            if (variables.Count == 0)
-            {
-                throw new InvalidOperationException("La lista de variables controladas es vacía.");
-            }
-            else
-            {
-                cantidadAlarmasActivas = cantidadAlarmasActivas + 1;
-            }
-        }
-
-        public void DecrementarAlarmas()
-        {
-            if (cantidadAlarmasActivas == 0)
-            {
-                throw new InvalidOperationException("La cantidad de alarmas activas es cero.");
-            }
-            else
-            {
-                cantidadAlarmasActivas = cantidadAlarmasActivas - 1;
-            }
-        }
-
-        public void AgregarVariable(Variable unaVariable)
-        {
-            if (Auxiliar.NoEsNulo(unaVariable))
-            {
-                variables.Add(unaVariable);
-                unaVariable.DispositivoPadre = this;
-            }
-            else
-            {
-                throw new ArgumentException("Variable nula recibida.");
+                return new List<Componente>();
             }
         }
 
@@ -126,11 +59,37 @@ namespace Dominio
             return new Dispositivo();
         }
 
+        public override void IncrementarAlarmas()
+        {
+            if (variables.Count == 0)
+            {
+                throw new InvalidOperationException("La lista de variables controladas es vacía.");
+            }
+            else
+            {
+                base.IncrementarAlarmas();
+            }
+        }
+
+        protected override void IncrementarAlarmasPadre()
+        {
+            if (enUso)
+            {
+                instalacionPadre.IncrementarAlarmas();
+            }
+        }
+
+        public override void AgregarComponente(Componente unComponente)
+        {
+            throw new NotSupportedException("No es posible asignarle componentes a un dispositivo.");
+        }
+
         private Dispositivo()
         {
             nombre = "Nombre inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
             variables = new List<Variable>();
+            id = ProximaIdAAsignar++;
         }
 
         private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
@@ -139,6 +98,12 @@ namespace Dominio
             Tipo = unTipo;
             enUso = estaEnUso;
             variables = new List<Variable>();
+            id = ProximaIdAAsignar++;
+        }
+
+        public override string ToString()
+        {
+            return nombre + " (D)";
         }
     }
 }
