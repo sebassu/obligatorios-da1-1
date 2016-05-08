@@ -103,5 +103,22 @@ namespace PruebasUnitarias
         {
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", null, false);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void AgregarCompoenenteDispositivoTest()
+        {
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", null, false);
+            Dispositivo otroDispositivo = Dispositivo.DispositivoInvalido();
+            unDispositivo.AgregarComponente(otroDispositivo);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void DependenciasDispositivoTest()
+        {
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            Assert.AreEqual(unDispositivo.Dependencias, new List<Componente>());
+        }
     }
 }

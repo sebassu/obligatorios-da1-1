@@ -6,7 +6,7 @@ namespace Dominio
 {
     public class Instalacion : Componente
     {
-        private static uint proximaIdAAsignar;
+        private static uint ProximaIdAAsignar;
 
         private List<Componente> dependencias;
         public IList Dependencias
@@ -22,6 +22,7 @@ namespace Dominio
             if (Auxiliar.NoEsNulo(unComponente))
             {
                 dependencias.Add(unComponente);
+                dependencias.Sort();
                 unComponente.InstalacionPadre = this;
             }
             else
@@ -50,7 +51,7 @@ namespace Dominio
             nombre = "Nombre inválido.";
             dependencias = new List<Componente>();
             variables = new List<Variable>();
-            id = proximaIdAAsignar++;
+            id = ProximaIdAAsignar++;
         }
 
         private Instalacion(string unNombre)
@@ -58,7 +59,7 @@ namespace Dominio
             Nombre = unNombre;
             dependencias = new List<Componente>();
             variables = new List<Variable>();
-            id = proximaIdAAsignar++;
+            id = ProximaIdAAsignar++;
         }
     }
 }

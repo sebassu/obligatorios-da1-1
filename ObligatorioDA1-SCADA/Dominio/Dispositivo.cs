@@ -6,7 +6,7 @@ namespace Dominio
 {
     public class Dispositivo : Componente
     {
-        private static uint proximaIdAAsignar;
+        private static uint ProximaIdAAsignar;
 
         private Tipo tipoDispositivo;
         public Tipo Tipo
@@ -76,7 +76,7 @@ namespace Dominio
             nombre = "Nombre inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
             variables = new List<Variable>();
-            id = proximaIdAAsignar++;
+            id = ProximaIdAAsignar++;
         }
 
         private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
@@ -85,7 +85,7 @@ namespace Dominio
             Tipo = unTipo;
             enUso = estaEnUso;
             variables = new List<Variable>();
-            id = proximaIdAAsignar++;
+            id = ProximaIdAAsignar++;
         }
     }
 }

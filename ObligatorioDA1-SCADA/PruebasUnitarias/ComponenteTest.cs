@@ -272,10 +272,24 @@ namespace PruebasUnitarias
         [TestMethod]
         public void CompareToTest3()
         {
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Z");
             Instalacion otraInstalacion = Instalacion.ConstructorNombre("C");
             Assert.IsTrue(unaInstalacion.CompareTo(otraInstalacion) > 0);
+        }
+
+        [TestMethod]
+        public void ToStringTest1()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Centrifugadora", unTipo, true);
+            Assert.AreEqual("Centrifugadora (D)", unDispositivo.ToString());
+        }
+
+        [TestMethod]
+        public void ToStringTest2()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Paneles");
+            Assert.AreEqual("Paneles (I)", unaInstalacion.ToString());
         }
     }
 }
