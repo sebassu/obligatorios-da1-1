@@ -75,6 +75,7 @@
             this.treeViewPlantaDeProduccion.Name = "treeViewPlantaDeProduccion";
             this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 439);
             this.treeViewPlantaDeProduccion.TabIndex = 3;
+            this.treeViewPlantaDeProduccion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPlantaDeProduccion_AfterSelect);
             // 
             // lblPlantaDeProduccion
             // 
@@ -111,12 +112,14 @@
             // 
             // lstVariables
             // 
-            this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstVariables.Location = new System.Drawing.Point(363, 329);
+            this.lstVariables.MultiSelect = false;
             this.lstVariables.Name = "lstVariables";
             this.lstVariables.Size = new System.Drawing.Size(266, 204);
             this.lstVariables.TabIndex = 8;
             this.lstVariables.UseCompatibleStateImageBehavior = false;
+            this.lstVariables.View = System.Windows.Forms.View.List;
             // 
             // lblOpcionesInstalacion
             // 
