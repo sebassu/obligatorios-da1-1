@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
 {
@@ -70,6 +71,10 @@ namespace Dominio
             else
             {
                 cantidadAlarmasActivas = cantidadAlarmasActivas - 1;
+                if (Auxiliar.NoEsNulo(instalacionPadre))
+                {
+                    instalacionPadre.DecrementarAlarmas();
+                }
             }
         }
 
@@ -78,6 +83,7 @@ namespace Dominio
             if (Auxiliar.NoEsNulo(unaVariable))
             {
                 variables.Add(unaVariable);
+                variables.Sort();
                 unaVariable.ComponentePadre = this;
             }
             else
@@ -132,6 +138,7 @@ namespace Dominio
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public override int GetHashCode()
         {
             return base.GetHashCode();

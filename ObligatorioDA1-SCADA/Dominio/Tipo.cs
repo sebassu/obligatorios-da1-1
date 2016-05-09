@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
 {
@@ -84,6 +85,7 @@ namespace Dominio
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public override int GetHashCode()
         {
             return base.GetHashCode();

@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class InstalacionTest
     {
@@ -68,6 +70,14 @@ namespace PruebasUnitarias
             CollectionAssert.Contains(instalacion1.Dependencias, instalacion2);
             CollectionAssert.Contains(instalacion2.Dependencias, unDispositivo);
             CollectionAssert.DoesNotContain(instalacion1.Dependencias, unDispositivo);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AgregarComponenteTest3()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
+            unaInstalacion.AgregarComponente(null);
         }
     }
 }

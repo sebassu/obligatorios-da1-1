@@ -1,4 +1,4 @@
-C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.dll
+﻿C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.dll
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.pdb
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.dll

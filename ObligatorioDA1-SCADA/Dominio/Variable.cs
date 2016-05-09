@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
 {
-    public class Variable
+    public class Variable : IComparable
     {
         private static uint ProximaIdAAsignar;
 
@@ -54,7 +55,7 @@ namespace Dominio
                 bool nuevoValorFueraDeRango = FueraDelIntervaloMenorMayor(value);
                 if (Auxiliar.NoEsNulo(componentePadre))
                 {
-                    validarActivacionesDeAlarma(nuevoValorFueraDeRango);
+                    ValidarActivacionesDeAlarma(nuevoValorFueraDeRango);
                 }
                 alarmaActivada = nuevoValorFueraDeRango;
                 fechaUltimaModificacion = DateTime.Now;
@@ -63,7 +64,7 @@ namespace Dominio
             }
         }
 
-        private void validarActivacionesDeAlarma(bool nuevoValorFueraDeRango)
+        private void ValidarActivacionesDeAlarma(bool nuevoValorFueraDeRango)
         {
             if (!alarmaActivada && nuevoValorFueraDeRango)
             {
@@ -205,9 +206,23 @@ namespace Dominio
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public int CompareTo(object unObjeto)
+        {
+            Variable variableAComparar = unObjeto as Variable;
+            if (Auxiliar.NoEsNulo(variableAComparar))
+            {
+                return nombre.CompareTo(variableAComparar.Nombre);
+            }
+            else
+            {
+                throw new ArgumentException("Comparación de tipos incompatibles.");
+            }
         }
     }
 }

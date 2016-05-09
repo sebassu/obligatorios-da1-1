@@ -2,9 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class DispositivoTest
     {

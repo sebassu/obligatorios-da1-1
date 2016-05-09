@@ -2,9 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class VariableTest
     {
@@ -285,6 +287,45 @@ namespace PruebasUnitarias
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
             unaVariable.ComponentePadre = unDispositivo;
+        }
+
+        [TestMethod]
+        public void CompareToTest1()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
+            Assert.AreEqual(0, unaVariable.CompareTo(unaVariable));
+        }
+
+        [TestMethod]
+        public void CompareToTest2()
+        {
+            Variable variable1 = Variable.NombreMinimoMaximo("ABC", 0, 10);
+            Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
+            Assert.IsTrue(variable1.CompareTo(variable2) < 0);
+        }
+
+        [TestMethod]
+        public void CompareToTest3()
+        {
+            Variable variable1 = Variable.NombreMinimoMaximo("XYZ", 0, 10);
+            Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
+            Assert.IsTrue(variable1.CompareTo(variable2) > 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CompareToTest4()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
+            unaVariable.CompareTo(new object());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CompareToTest5()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
+            unaVariable.CompareTo(null);
         }
     }
 }

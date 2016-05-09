@@ -1,4 +1,3 @@
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Debug\Interfaz.exe.config
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Debug\Interfaz.exe.config
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Debug\Interfaz.exe
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Debug\Interfaz.pdb

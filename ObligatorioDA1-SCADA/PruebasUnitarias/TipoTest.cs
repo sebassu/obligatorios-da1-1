@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class TipoTest
     {

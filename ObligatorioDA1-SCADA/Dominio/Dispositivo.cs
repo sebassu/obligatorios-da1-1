@@ -61,7 +61,7 @@ namespace Dominio
 
         public override void IncrementarAlarmas()
         {
-            if (variables.Count == 0)
+            if (Auxiliar.EsListaVacia(variables))
             {
                 throw new InvalidOperationException("La lista de variables controladas es vacía.");
             }
