@@ -115,7 +115,7 @@ namespace Dominio
         public override bool Equals(object unObjeto)
         {
             Componente componenteAComparar = unObjeto as Componente;
-            if (Auxiliar.NoEsNulo(componenteAComparar))
+            if (Auxiliar.NoEsNulo(componenteAComparar) && SonDeTiposIguales(componenteAComparar))
             {
                 return id == componenteAComparar.id;
             }
@@ -123,6 +123,11 @@ namespace Dominio
             {
                 return false;
             }
+        }
+
+        private bool SonDeTiposIguales(object componenteAComparar)
+        {
+            return GetType().Equals(componenteAComparar.GetType());
         }
 
         public int CompareTo(object unObjeto)

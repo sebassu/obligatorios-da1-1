@@ -215,7 +215,7 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -20, 100);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -30, 200);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarComponente(unDispositivo);
             unaVariable.ValorActual = 3000;
@@ -229,12 +229,26 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -20, 100);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Calor", -200, 80);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarComponente(unDispositivo);
             unaVariable.ValorActual = 3000;
             unDispositivo.EnUso = false;
             Assert.AreEqual((uint)0, unaInstalacion.CantidadAlarmasActivas);
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAlarmasPadreTest6Activacion()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", -10, 10);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 3000;
+            unDispositivo.EnUso = true;
+            Assert.AreEqual((uint)1, unaInstalacion.CantidadAlarmasActivas);
         }
 
         [TestMethod]
@@ -294,6 +308,14 @@ namespace PruebasUnitarias
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Evaporadores");
             Assert.AreNotEqual(unaInstalacion, null);
+        }
+
+        public void EqualsTest5()
+        {
+            Tipo unTipo = Tipo.TipoInvalido();
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Evaporadores");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Un nombre", unTipo, true);
+            Assert.AreNotEqual(unaInstalacion, unDispositivo);
         }
 
         [TestMethod]
