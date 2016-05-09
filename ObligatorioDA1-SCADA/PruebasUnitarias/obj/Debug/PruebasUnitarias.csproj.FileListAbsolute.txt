@@ -1,7 +1,7 @@
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\PruebasUnitarias.dll
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\PruebasUnitarias.pdb
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\Dominio.dll
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\Dominio.pdb
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.csprojResolveAssemblyReference.cache
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.dll
-C:\Users\Sebastián\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\PruebasUnitarias.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\PruebasUnitarias.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\Dominio.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Debug\Dominio.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Debug\PruebasUnitarias.pdb

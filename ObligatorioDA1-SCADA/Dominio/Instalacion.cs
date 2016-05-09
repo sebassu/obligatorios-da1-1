@@ -19,7 +19,7 @@ namespace Dominio
 
         public override void AgregarComponente(Componente unComponente)
         {
-            if (Auxiliar.NoEsNulo(unComponente))
+            if (EsComponenteValido(unComponente))
             {
                 dependencias.Add(unComponente);
                 dependencias.Sort();
@@ -29,6 +29,11 @@ namespace Dominio
             {
                 throw new ArgumentException("Componente inválido recibido.");
             }
+        }
+
+        private bool EsComponenteValido(Componente unComponente)
+        {
+            return Auxiliar.NoEsNulo(unComponente) && !unComponente.Equals(this);
         }
 
         public static Instalacion InstalacionInvalida()

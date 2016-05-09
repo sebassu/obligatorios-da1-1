@@ -1,13 +1,10 @@
 ﻿using Dominio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Interfaz
 {
-    static class Program
+    static class EntradaAlPrograma
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.

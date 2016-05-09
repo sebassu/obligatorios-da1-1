@@ -37,7 +37,39 @@ namespace Dominio
             }
             set
             {
+                if (Auxiliar.NoEsNulo(instalacionPadre))
+                {
+                    CorregirAlarmasActivasPadres(value);
+                }
                 enUso = value;
+            }
+        }
+
+        private void CorregirAlarmasActivasPadres(bool pasaAUsarse)
+        {
+            if (enUso && !pasaAUsarse)
+            {
+                RestarTotalAlarmasPadre();
+            }
+            else if (!enUso && pasaAUsarse)
+            {
+                SumarTotalAlarmasPadre();
+            }
+        }
+
+        private void RestarTotalAlarmasPadre()
+        {
+            for (int i = 0; i < cantidadAlarmasActivas; i++)
+            {
+                instalacionPadre.DecrementarAlarmas();
+            }
+        }
+
+        private void SumarTotalAlarmasPadre()
+        {
+            for (int i = 0; i < cantidadAlarmasActivas; i++)
+            {
+                instalacionPadre.IncrementarAlarmas();
             }
         }
 
