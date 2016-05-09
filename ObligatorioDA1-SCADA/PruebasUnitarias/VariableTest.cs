@@ -327,5 +327,20 @@ namespace PruebasUnitarias
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
             unaVariable.CompareTo(null);
         }
+
+        [TestMethod]
+        public void ToStringTest1()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Variable", -10, 30);
+            unaVariable.ValorActual = 1;
+            Assert.AreEqual("Variable: 1 (-10 - 30)", unaVariable.ToString());
+        }
+
+        [TestMethod]
+        public void ToStringTest2()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Variable", -10, 30);
+            Assert.AreEqual("Variable: N/A (-10 - 30)", unaVariable.ToString());
+        }
     }
 }

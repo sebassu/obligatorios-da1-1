@@ -1,7 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Windows.Forms;
-using Dominio;
+using System.Collections.Generic;
 
 namespace Interfaz
 {
@@ -98,6 +98,7 @@ namespace Interfaz
 
         private void CargarDatosDePrueba()
         {
+            modelo = new AccesoADatosEnMemoria();
             Tipo tipo1 = Tipo.NombreDescripcion("Tipo 1", "Buen tipo");
             Tipo tipo2 = Tipo.NombreDescripcion("Tipo 2", "Otro tipo");
             Componente componente1 = Instalacion.ConstructorNombre("Extracción");
@@ -138,6 +139,60 @@ namespace Interfaz
             componente13.AgregarComponente(componente14);
             componente13.AgregarComponente(componente15);
             modelo.RegistrarComponente(componente13);
+            RecargarTreeView();
+        }
+
+        private void RecargarTreeView()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            treeViewPlantaDeProduccion.BeginUpdate();
+            treeViewPlantaDeProduccion.Nodes.Clear();
+            foreach (Componente componente in modelo.ComponentesPrimarios)
+            {
+                TreeNode nodo = ObtenerNodoDeRamaJerarquica(componente);
+                treeViewPlantaDeProduccion.Nodes.Add(nodo);
+            }
+            Cursor.Current = Cursors.Default;
+            treeViewPlantaDeProduccion.EndUpdate();
+        }
+
+        private TreeNode ObtenerNodoDeRamaJerarquica(Componente componente)
+        {
+            List<TreeNode> listaAuxiliar = new List<TreeNode>();
+            foreach (Componente hijo in componente.Dependencias)
+            {
+                listaAuxiliar.Add(ObtenerNodoDeRamaJerarquica(hijo));
+            }
+            TreeNode retorno = new TreeNode(componente.ToString(), listaAuxiliar.ToArray());
+            retorno.Tag = componente;
+            return retorno;
+        }
+
+        private void treeViewPlantaDeProduccion_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Componente componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
+            if (Auxiliar.NoEsNulo(componenteSeleccionado) && componenteSeleccionado.Variables.Count > 0)
+            {
+                foreach (Variable variableDelComponente in componenteSeleccionado.Variables)
+                {
+                    ListViewItem itemAAgregar = new ListViewItem(variableDelComponente.ToString());
+                    itemAAgregar.Tag = variableDelComponente;
+                    lstVariables.Items.Add(itemAAgregar);
+                }
+            }
+            else {
+                lstVariables.Text = "Sin datos para mostrar.";
+            }
+        }
+
+        //TODO
+
+        private void RecargarTableroDeControl()
+        {
+            foreach (Componente componente in modelo.ComponentesPrimarios)
+            {
+
+            }
         }
     }
 }

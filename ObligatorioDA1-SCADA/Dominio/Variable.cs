@@ -224,5 +224,11 @@ namespace Dominio
                 throw new ArgumentException("Comparación de tipos incompatibles.");
             }
         }
+
+        public override string ToString()
+        {
+            string valorActualAuxiliar = (fueSeteada ? valorActual + "" : "N/A");
+            return nombre + ": " + valorActualAuxiliar + " (" + minimo + " - " + maximo + ")";
+        }
     }
 }
