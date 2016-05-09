@@ -1,18 +1,19 @@
-﻿using System.Windows.Forms;
+﻿using Dominio;
+using System.Windows.Forms;
 
 namespace Interfaz
 {
     public partial class VentanaPrincipal : Form
     {
-        public VentanaPrincipal()
+        private IAccesoADatos modelo;
+        public VentanaPrincipal(IAccesoADatos unAccesoADatos)
         {
+            modelo = unAccesoADatos;
             InitializeComponent();
-
             MaximizeBox = false;
             MinimizeBox = false;
-
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(panelSistema));
+            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
         }
     }
 }

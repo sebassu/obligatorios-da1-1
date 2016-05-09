@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dominio;
+using System;
 using System.Windows.Forms;
 
 namespace Interfaz
 {
     public partial class MenuPrincipal : UserControl
     {
+        private IAccesoADatos modelo;
         private Panel panelSistema;
 
-        public MenuPrincipal(Panel panelSistema)
+        public MenuPrincipal(IAccesoADatos unAccesoADatos, Panel panelSistema)
         {
+            modelo = unAccesoADatos;
             InitializeComponent();
             this.panelSistema = panelSistema;
         }
@@ -52,7 +48,7 @@ namespace Interfaz
 
         private void btnValoresHistoricos_Click(object sender, EventArgs e)
         {
-            if(lstVariables.Items.Count != 0)
+            if (lstVariables.Items.Count != 0)
             {
                 panelSistema.Controls.Clear();
                 panelSistema.Controls.Add(new VariableValorHistorico(panelSistema));
@@ -61,6 +57,55 @@ namespace Interfaz
             {
                 MessageBox.Show("Debe seleccionar una variable para acceder a esta funcionalidad");
             }
+        }
+
+        private void btnCargarDatosPrueba_Click(object sender, EventArgs e)
+        {
+            CargarDatosDePrueba();
+        }
+
+        private void CargarDatosDePrueba()
+        {
+            Tipo tipo1 = Tipo.NombreDescripcion("Tipo 1", "Buen tipo");
+            Tipo tipo2 = Tipo.NombreDescripcion("Tipo 2", "Otro tipo");
+            Componente componente1 = Instalacion.ConstructorNombre("Extracción");
+            Componente componente2 = Dispositivo.NombreTipoEnUso("Picadora", tipo1, true);
+            Componente componente3 = Instalacion.ConstructorNombre("Molienda");
+            Componente componente4 = Dispositivo.NombreTipoEnUso("Molino", tipo1, true);
+            Variable variable1 = Variable.NombreMinimoMaximo("Velocidad", 0, 100);
+            Variable variable2 = Variable.NombreMinimoMaximo("Carga", 0, 500);
+            componente4.AgregarVariable(variable1);
+            componente4.AgregarVariable(variable2);
+            Componente componente5 = Dispositivo.NombreTipoEnUso("Prensa", tipo1, true);
+            componente3.AgregarComponente(componente4);
+            componente3.AgregarComponente(componente5);
+            componente1.AgregarComponente(componente2);
+            componente1.AgregarComponente(componente3);
+            modelo.RegistrarComponente(componente1);
+            Componente componente6 = Instalacion.ConstructorNombre("Clarificación");
+            Componente componente7 = Dispositivo.NombreTipoEnUso("Batea", tipo2, true);
+            Componente componente8 = Dispositivo.NombreTipoEnUso("Calentadores", tipo2, true);
+            componente6.AgregarComponente(componente7);
+            componente6.AgregarComponente(componente8);
+            modelo.RegistrarComponente(componente6);
+            Componente componente9 = Instalacion.ConstructorNombre("Evaporación");
+            Componente componente10 = Instalacion.ConstructorNombre("Evaporadores");
+            Variable variable3 = Variable.NombreMinimoMaximo("Temperatura", 0, 200);
+            Variable variable4 = Variable.NombreMinimoMaximo("Presión", 10, 30);
+            componente10.AgregarVariable(variable3);
+            componente10.AgregarVariable(variable4);
+            Componente componente11 = Dispositivo.NombreTipoEnUso("Evaporador 1", tipo1, true);
+            Componente componente12 = Dispositivo.NombreTipoEnUso("Evaporador 2", tipo1, true);
+            componente10.AgregarComponente(componente11);
+            componente10.AgregarComponente(componente12);
+            componente9.AgregarComponente(componente10);
+            modelo.RegistrarComponente(componente9);
+            Componente componente13 = Instalacion.ConstructorNombre("Centrifugación");
+            Componente componente14 = Dispositivo.NombreTipoEnUso("Centrifugadora 1", tipo2, true);
+            Componente componente15 = Dispositivo.NombreTipoEnUso("Centrifugadora 2", tipo2, true);
+            componente13.AgregarComponente(componente14);
+            componente13.AgregarComponente(componente15);
+            modelo.RegistrarComponente(componente13);
         }
     }
 }

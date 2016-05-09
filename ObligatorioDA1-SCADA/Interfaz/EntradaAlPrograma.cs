@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Dominio;
+using System;
 using System.Windows.Forms;
 
 namespace Interfaz
 {
-    static class Program
+    static class EntradaAlPrograma
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -16,7 +14,8 @@ namespace Interfaz
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new VentanaPrincipal());
+            IAccesoADatos modelo = new AccesoADatosEnMemoria();
+            Application.Run(new VentanaPrincipal(modelo));
         }
     }
 }

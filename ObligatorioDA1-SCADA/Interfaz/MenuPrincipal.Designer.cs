@@ -339,6 +339,7 @@
             this.btnCargarDatosPrueba.TabIndex = 30;
             this.btnCargarDatosPrueba.Text = "Cargar datos de Prueba";
             this.btnCargarDatosPrueba.UseVisualStyleBackColor = true;
+            this.btnCargarDatosPrueba.Click += new System.EventHandler(this.btnCargarDatosPrueba_Click);
             // 
             // MenuPrincipal
             // 

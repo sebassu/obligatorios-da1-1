@@ -79,6 +79,14 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
             unaInstalacion.AgregarComponente(null);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AgregarComponenteTest4()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
+            unaInstalacion.AgregarComponente(unaInstalacion);
+        }
     }
 }
 
