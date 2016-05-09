@@ -13,20 +13,20 @@ namespace Interfaz
 {
     public partial class RegistrarVariable : UserControl
     {
+        private IAccesoADatos modelo;
         private Panel panelSistema;
 
-        public RegistrarVariable(Panel panelSistema)
+        public RegistrarVariable(IAccesoADatos modelo, Panel panelSistema)
         {
             InitializeComponent();
+            this.modelo = modelo;
             this.panelSistema = panelSistema;
-            lblErrorNombre.Text = "";
-            lblErrorValores.Text = "";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(panelSistema));
+            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -36,21 +36,45 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            lblErrorNombre.Text = "";
-            lblErrorValores.Text = "";
+            //lblErrorNombre.Text = "";
+            //lblErrorValores.Text = "";
 
-            if (txtNombre.Text.Trim() == "" && (numMin.Value >= numMax.Value))
+            //if (txtNombre.Text.Trim() == "" && (numMin.Value >= numMax.Value))
+            //{
+            //    lblErrorNombre.Text = "Nombre inválido";
+            //    lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
+            //}
+            //else if (txtNombre.Text.Trim() == "")
+            //{
+            //    lblErrorNombre.Text = "Nombre inválido";
+            //}
+            //else if (numMin.Value >= numMax.Value)
+            //{
+            //    lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
+            //}
+        }
+
+        private void txtNombre_Leave(object sender, EventArgs e)
+        {
+            if (Auxiliar.EsTextoValido(txtNombre.Text))
             {
-                lblErrorNombre.Text = "Nombre inválido";
-                lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
+                lblErrorNombre.Show();
             }
-            else if (txtNombre.Text.Trim() == "")
+            else
             {
-                lblErrorNombre.Text = "Nombre inválido";
+                lblErrorNombre.Hide();
             }
-            else if (numMin.Value >= numMax.Value)
+        }
+
+        private void rangoValores_Leave(object sender, EventArgs e)
+        {
+            if(numMin.Value > numMax.Value)
             {
-                lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
+                lblErrorValores.Show();
+            }
+            else
+            {
+                lblErrorValores.Hide();
             }
         }
     }

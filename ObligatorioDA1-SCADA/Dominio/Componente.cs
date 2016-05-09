@@ -28,7 +28,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("Nombre inválido.");
+                    throw new ArgumentException("Se ingresó un nombre inválido.");
                 }
             }
         }

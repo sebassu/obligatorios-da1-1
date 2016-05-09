@@ -52,7 +52,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnAgregarValorVariable = new System.Windows.Forms.Button();
             this.btnValoresHistoricos = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.lstTableroControl = new System.Windows.Forms.RichTextBox();
             this.btnCargarDatosPrueba = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -322,14 +322,16 @@
             this.btnValoresHistoricos.UseVisualStyleBackColor = true;
             this.btnValoresHistoricos.Click += new System.EventHandler(this.btnValoresHistoricos_Click);
             // 
-            // richTextBox1
+            // lstTableroControl
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(363, 94);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(266, 184);
-            this.richTextBox1.TabIndex = 29;
-            this.richTextBox1.Text = "";
+            this.lstTableroControl.BackColor = System.Drawing.Color.White;
+            this.lstTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstTableroControl.Location = new System.Drawing.Point(363, 94);
+            this.lstTableroControl.Name = "lstTableroControl";
+            this.lstTableroControl.ReadOnly = true;
+            this.lstTableroControl.Size = new System.Drawing.Size(266, 184);
+            this.lstTableroControl.TabIndex = 29;
+            this.lstTableroControl.Text = "";
             // 
             // btnCargarDatosPrueba
             // 
@@ -345,7 +347,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnCargarDatosPrueba);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.lstTableroControl);
             this.Controls.Add(this.btnValoresHistoricos);
             this.Controls.Add(this.btnAgregarValorVariable);
             this.Controls.Add(this.btnEditarVariable);
@@ -403,7 +405,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAgregarValorVariable;
         private System.Windows.Forms.Button btnValoresHistoricos;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox lstTableroControl;
         private System.Windows.Forms.Button btnCargarDatosPrueba;
     }
 }

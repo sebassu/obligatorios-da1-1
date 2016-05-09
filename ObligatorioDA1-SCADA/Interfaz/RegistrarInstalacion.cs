@@ -13,13 +13,14 @@ namespace Interfaz
 {
     public partial class RegistrarInstalacion : UserControl
     {
+        private IAccesoADatos modelo;
         private Panel panelSistema;
 
-        public RegistrarInstalacion(Panel panelSistema)
+        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema)
         {
             InitializeComponent();
+            this.modelo = modelo;
             this.panelSistema = panelSistema;
-            lblErrorNombre.Text = "";
         }
 
         private void txtNombreInstalacion_KeyPress(object sender, KeyPressEventArgs e)
@@ -30,16 +31,33 @@ namespace Interfaz
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(panelSistema));
+            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (txtNombreInstalacion.Text.Trim() == "")
+            try
             {
-                lblErrorNombre.Text = "Nombre inválido";
+                string unNombre = txtNombreInstalacion.Text;
+                Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
+                modelo.RegistrarComponente(unaInstalacion);
             }
-            //else extraigo el nombre y lo cargo en la lista del sistema de instalaciones
+            catch (ArgumentException excepcion)
+            {
+                MessageBox.Show(excepcion.Message, "Error");
+            }
+        }
+
+        private void txtNombreInstalacion_Leave(object sender, EventArgs e)
+        {
+            if (Auxiliar.EsTextoValido(txtNombreInstalacion.Text))
+            {
+                lblErrorNombre.Show();
+            }
+            else
+            {
+                lblErrorNombre.Hide();
+            }
         }
     }
 }

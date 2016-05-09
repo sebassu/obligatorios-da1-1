@@ -13,20 +13,20 @@ namespace Interfaz
 {
     public partial class RegistrarTipoDispositivo : UserControl
     {
+        private IAccesoADatos modelo;
         private Panel panelSistema;
 
-        public RegistrarTipoDispositivo(Panel panelSistema)
+        public RegistrarTipoDispositivo(IAccesoADatos modelo, Panel panelSistema)
         {
             InitializeComponent();
+            this.modelo = modelo;
             this.panelSistema = panelSistema;
-            lblErrorNombre.Text = "";
-            lblErrorDescripcion.Text = "";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(panelSistema));
+            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -45,21 +45,45 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            lblErrorNombre.Text = "";
-            lblErrorDescripcion.Text = "";
+            //lblErrorNombre.Text = "";
+            //lblErrorDescripcion.Text = "";
 
-            if (txtNombre.Text.Trim() == "" && txtDescripcion.Text.Trim() == "")
+            //if (txtNombre.Text.Trim() == "" && txtDescripcion.Text.Trim() == "")
+            //{
+            //    lblErrorNombre.Text = "Nombre inválido";
+            //    lblErrorDescripcion.Text = "Descripción inválida";
+            //}
+            //else if (txtNombre.Text.Trim() == "")
+            //{
+            //    lblErrorNombre.Text = "Nombre inválido";
+            //}
+            //else if (txtDescripcion.Text.Trim() == "")
+            //{
+            //    lblErrorDescripcion.Text = "Descripción inválida";
+            //}
+        }
+
+        private void txtNombre_Leave(object sender, EventArgs e)
+        {
+            if (Auxiliar.EsTextoValido(txtNombre.Text))
             {
-                lblErrorNombre.Text = "Nombre inválido";
-                lblErrorDescripcion.Text = "Descripción inválida";
+                lblErrorNombre.Show();
             }
-            else if (txtNombre.Text.Trim() == "")
+            else
             {
-                lblErrorNombre.Text = "Nombre inválido";
+                lblErrorNombre.Hide();
             }
-            else if (txtDescripcion.Text.Trim() == "")
+        }
+
+        private void txtDescripcion_Leave(object sender, EventArgs e)
+        {
+            if (Auxiliar.EsTextoValido(txtDescripcion.Text))
             {
-                lblErrorDescripcion.Text = "Descripción inválida";
+                lblErrorDescripcion.Show();
+            }
+            else
+            {
+                lblErrorDescripcion.Hide();
             }
         }
     }

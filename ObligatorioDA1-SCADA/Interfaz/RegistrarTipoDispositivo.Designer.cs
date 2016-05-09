@@ -79,6 +79,7 @@
             this.txtNombre.Size = new System.Drawing.Size(319, 30);
             this.txtNombre.TabIndex = 19;
             this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
+            this.txtNombre.Leave += new System.EventHandler(this.txtNombre_Leave);
             // 
             // lblNombreInstalacion
             // 
@@ -122,6 +123,7 @@
             this.txtDescripcion.Size = new System.Drawing.Size(319, 30);
             this.txtDescripcion.TabIndex = 24;
             this.txtDescripcion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescripcion_KeyPress);
+            this.txtDescripcion.Leave += new System.EventHandler(this.txtDescripcion_Leave);
             // 
             // lblDescripcion
             // 

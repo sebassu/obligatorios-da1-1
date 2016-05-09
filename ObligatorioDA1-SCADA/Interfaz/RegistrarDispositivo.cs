@@ -13,20 +13,20 @@ namespace Interfaz
 {
     public partial class RegistrarDispositivo : UserControl
     {
+        private IAccesoADatos modelo;
         private Panel panelSistema;
 
-        public RegistrarDispositivo(Panel panelSistema)
+        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema)
         {
             InitializeComponent();
+            this.modelo = modelo;
             this.panelSistema = panelSistema;
-            lblErrorNombre.Text = "";
-            lblErrorTipo.Text = "";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(panelSistema));
+            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
         }
 
         private void txtNombreDispositivo_KeyPress(object sender, KeyPressEventArgs e)
@@ -36,15 +36,27 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (txtNombreDispositivo.Text.Trim() == "")
+            //if (txtNombreDispositivo.Text.Trim() == "")
+            //{
+            //    lblErrorNombre.Text = "Nombre inválido";
+            //}
+            //else if ((string)cbxTipoDispositivo.SelectedItem == "")
+            //{
+            //    lblErrorTipo.Text = "Debe seleccionar un tipo";
+            //}
+            ////else cargo los datos en la lista de dispositivos del sistema
+        }
+
+        private void txtNombreDispositivo_Leave(object sender, EventArgs e)
+        {
+            if (Auxiliar.EsTextoValido(txtNombreDispositivo.Text))
             {
-                lblErrorNombre.Text = "Nombre inválido";
+                lblErrorNombre.Show();
             }
-            else if ((string)cbxTipoDispositivo.SelectedItem == "")
+            else
             {
-                lblErrorTipo.Text = "Debe seleccionar un tipo";
+                lblErrorNombre.Hide();
             }
-            //else cargo los datos en la lista de dispositivos del sistema
         }
     }
 }

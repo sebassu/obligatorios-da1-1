@@ -70,6 +70,7 @@
             this.txtNombreInstalacion.Size = new System.Drawing.Size(319, 30);
             this.txtNombreInstalacion.TabIndex = 12;
             this.txtNombreInstalacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreInstalacion_KeyPress);
+            this.txtNombreInstalacion.Leave += new System.EventHandler(this.txtNombreInstalacion_Leave);
             // 
             // lblNombreInstalacion
             // 

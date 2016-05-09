@@ -94,6 +94,7 @@
             this.txtNombre.Size = new System.Drawing.Size(319, 30);
             this.txtNombre.TabIndex = 28;
             this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
+            this.txtNombre.Leave += new System.EventHandler(this.txtNombre_Leave);
             // 
             // lblNombreInstalacion
             // 
@@ -146,6 +147,7 @@
             this.numMin.Name = "numMin";
             this.numMin.Size = new System.Drawing.Size(120, 30);
             this.numMin.TabIndex = 38;
+            this.numMin.Leave += new System.EventHandler(this.rangoValores_Leave);
             // 
             // numMax
             // 
@@ -165,6 +167,7 @@
             this.numMax.Name = "numMax";
             this.numMax.Size = new System.Drawing.Size(120, 30);
             this.numMax.TabIndex = 39;
+            this.numMax.Leave += new System.EventHandler(this.rangoValores_Leave);
             // 
             // lblErrorValores
             // 
@@ -173,9 +176,9 @@
             this.lblErrorValores.ForeColor = System.Drawing.Color.Red;
             this.lblErrorValores.Location = new System.Drawing.Point(346, 255);
             this.lblErrorValores.Name = "lblErrorValores";
-            this.lblErrorValores.Size = new System.Drawing.Size(476, 23);
+            this.lblErrorValores.Size = new System.Drawing.Size(408, 23);
             this.lblErrorValores.TabIndex = 40;
-            this.lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
+            this.lblErrorValores.Text = "El valor mínimo debe ser menor que el valor máximo";
             this.lblErrorValores.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RegistrarVariable
