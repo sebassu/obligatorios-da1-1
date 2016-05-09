@@ -21,6 +21,7 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            lblErrorNombre.Hide();
         }
 
         private void txtNombreInstalacion_KeyPress(object sender, KeyPressEventArgs e)
@@ -52,11 +53,11 @@ namespace Interfaz
         {
             if (Auxiliar.EsTextoValido(txtNombreInstalacion.Text))
             {
-                lblErrorNombre.Show();
+                lblErrorNombre.Hide();
             }
             else
             {
-                lblErrorNombre.Hide();
+                lblErrorNombre.Show();
             }
         }
     }

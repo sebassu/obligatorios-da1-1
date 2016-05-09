@@ -21,6 +21,7 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            txtNombreDispositivo.Hide();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -51,11 +52,11 @@ namespace Interfaz
         {
             if (Auxiliar.EsTextoValido(txtNombreDispositivo.Text))
             {
-                lblErrorNombre.Show();
+                lblErrorNombre.Hide();
             }
             else
             {
-                lblErrorNombre.Hide();
+                lblErrorNombre.Show();
             }
         }
     }

@@ -21,6 +21,8 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            txtNombre.Hide();
+            txtDescripcion.Hide();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -67,11 +69,11 @@ namespace Interfaz
         {
             if (Auxiliar.EsTextoValido(txtNombre.Text))
             {
-                lblErrorNombre.Show();
+                lblErrorNombre.Hide();
             }
             else
             {
-                lblErrorNombre.Hide();
+                lblErrorNombre.Show();
             }
         }
 
@@ -79,11 +81,11 @@ namespace Interfaz
         {
             if (Auxiliar.EsTextoValido(txtDescripcion.Text))
             {
-                lblErrorDescripcion.Show();
+                lblErrorDescripcion.Hide();
             }
             else
             {
-                lblErrorDescripcion.Hide();
+                lblErrorDescripcion.Show();
             }
         }
     }

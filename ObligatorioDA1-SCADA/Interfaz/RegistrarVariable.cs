@@ -21,6 +21,8 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            lblErrorNombre.Hide();
+            lblErrorValores.Hide();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -58,17 +60,17 @@ namespace Interfaz
         {
             if (Auxiliar.EsTextoValido(txtNombre.Text))
             {
-                lblErrorNombre.Show();
+                lblErrorNombre.Hide();
             }
             else
             {
-                lblErrorNombre.Hide();
+                lblErrorNombre.Show();
             }
         }
 
         private void rangoValores_Leave(object sender, EventArgs e)
         {
-            if(numMin.Value > numMax.Value)
+            if (numMin.Value > numMax.Value)
             {
                 lblErrorValores.Show();
             }
