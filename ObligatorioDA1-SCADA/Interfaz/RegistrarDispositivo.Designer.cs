@@ -103,6 +103,10 @@
             this.cbxTipoDispositivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxTipoDispositivo.FormattingEnabled = true;
+            this.cbxTipoDispositivo.Items.AddRange(new object[] {
+            "wew",
+            "as",
+            "dsa"});
             this.cbxTipoDispositivo.Location = new System.Drawing.Point(155, 209);
             this.cbxTipoDispositivo.Name = "cbxTipoDispositivo";
             this.cbxTipoDispositivo.Size = new System.Drawing.Size(319, 31);

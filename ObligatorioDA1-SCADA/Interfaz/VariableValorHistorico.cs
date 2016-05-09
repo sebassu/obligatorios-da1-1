@@ -15,12 +15,14 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
+        private Variable unaVariable;
 
-        public VariableValorHistorico(IAccesoADatos modelo, Panel panelSistema)
+        public VariableValorHistorico(IAccesoADatos modelo, Panel panelSistema, Variable variable)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            unaVariable = variable;
         }
 
         private void btnVolverMenuPrincipal_Click(object sender, EventArgs e)

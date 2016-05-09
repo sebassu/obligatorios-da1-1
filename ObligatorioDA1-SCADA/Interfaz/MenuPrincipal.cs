@@ -23,6 +23,28 @@ namespace Interfaz
             panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema));
         }
 
+        private void btnEditarInstalacion_Click(object sender, EventArgs e)
+        {
+            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            if (Auxiliar.NoEsNulo(seleccionado))
+            {
+                Instalacion instalacionAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+                if (Auxiliar.NoEsNulo(instalacionAModificar))
+                {
+                    panelSistema.Controls.Clear();
+                    panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, instalacionAModificar));
+                }
+                else
+                {
+                    MessageBox.Show("Es necesario utilizar la función de editar Dispositivo para la selección realizada");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una instalación para acceder a esta funcionalidad");
+            }
+        }
+
         private void btnAgregarDispositivo_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
@@ -43,16 +65,25 @@ namespace Interfaz
 
         private void btnAgregarValorVariable_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarValorVariable(modelo, panelSistema));
+            if (lstVariables.SelectedItems.Count != 0)
+            {
+                Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarValorVariable(modelo, panelSistema, unaVariable));
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una variable para acceder a esta funcionalidad");
+            }
         }
 
         private void btnValoresHistoricos_Click(object sender, EventArgs e)
         {
-            if (lstVariables.Items.Count != 0)
+            if (lstVariables.SelectedItems.Count != 0)
             {
+                Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
                 panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new VariableValorHistorico(modelo, panelSistema));
+                panelSistema.Controls.Add(new VariableValorHistorico(modelo, panelSistema, unaVariable));
             }
             else
             {

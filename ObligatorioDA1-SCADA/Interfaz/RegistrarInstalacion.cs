@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 
@@ -15,11 +8,22 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
+        private Instalacion instalacionAModificar;
 
-        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema)
+        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema, Instalacion instalacionAModificar = null)
         {
             InitializeComponent();
-            this.modelo = modelo;
+            if (instalacionAModificar == null)
+            {
+                lblMenuInstalacion.Text = "Registrar Instalación";
+                this.modelo = modelo;
+            }
+            else
+            {
+                lblMenuInstalacion.Text = "Editar Instalación";
+                this.instalacionAModificar = instalacionAModificar;
+                txtNombreInstalacion.Text = instalacionAModificar.Nombre;
+            }
             this.panelSistema = panelSistema;
             lblErrorNombre.Hide();
         }
@@ -40,8 +44,15 @@ namespace Interfaz
             try
             {
                 string unNombre = txtNombreInstalacion.Text;
-                Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
-                modelo.RegistrarComponente(unaInstalacion);
+                if (instalacionAModificar == null)
+                {                   
+                    Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
+                    modelo.RegistrarComponente(unaInstalacion);
+                }
+                else
+                {
+                    instalacionAModificar.Nombre = unNombre;
+                }
             }
             catch (ArgumentException excepcion)
             {

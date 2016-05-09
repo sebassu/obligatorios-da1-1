@@ -21,7 +21,9 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            txtNombreDispositivo.Hide();
+            lblErrorNombre.Hide();
+            lblErrorTipo.Hide();
+            cbxTipoDispositivo.SelectedIndex = 0;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

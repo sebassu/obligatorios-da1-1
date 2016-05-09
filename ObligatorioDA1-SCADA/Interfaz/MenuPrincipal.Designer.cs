@@ -113,6 +113,7 @@
             // 
             this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstVariables.Location = new System.Drawing.Point(363, 329);
+            this.lstVariables.MultiSelect = false;
             this.lstVariables.Name = "lstVariables";
             this.lstVariables.Size = new System.Drawing.Size(266, 204);
             this.lstVariables.TabIndex = 8;
@@ -163,6 +164,7 @@
             this.btnEditarInstalacion.TabIndex = 14;
             this.btnEditarInstalacion.Text = "I";
             this.btnEditarInstalacion.UseVisualStyleBackColor = false;
+            this.btnEditarInstalacion.Click += new System.EventHandler(this.btnEditarInstalacion_Click);
             // 
             // btnEditarDispositivo
             // 
