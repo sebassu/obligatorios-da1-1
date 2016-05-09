@@ -83,6 +83,12 @@
     <Compile Include="RegistrarVariable.Designer.cs">
       <DependentUpon>RegistrarVariable.cs</DependentUpon>
     </Compile>
+    <Compile Include="VariableValorHistorico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VariableValorHistorico.Designer.cs">
+      <DependentUpon>VariableValorHistorico.cs</DependentUpon>
+    </Compile>
     <Compile Include="VentanaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrarVariable.resx">
       <DependentUpon>RegistrarVariable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VariableValorHistorico.resx">
+      <DependentUpon>VariableValorHistorico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>

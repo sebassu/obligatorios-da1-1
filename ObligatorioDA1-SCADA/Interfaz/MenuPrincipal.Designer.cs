@@ -53,6 +53,7 @@
             this.btnAgregarValorVariable = new System.Windows.Forms.Button();
             this.btnValoresHistoricos = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnCargarDatosPrueba = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblMenuPrincipal
@@ -167,7 +168,7 @@
             // 
             this.btnEditarDispositivo.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnEditarDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarDispositivo.Location = new System.Drawing.Point(870, 194);
+            this.btnEditarDispositivo.Location = new System.Drawing.Point(870, 182);
             this.btnEditarDispositivo.Name = "btnEditarDispositivo";
             this.btnEditarDispositivo.Size = new System.Drawing.Size(40, 44);
             this.btnEditarDispositivo.TabIndex = 18;
@@ -178,7 +179,7 @@
             // 
             this.btnEliminarDispositivo.BackColor = System.Drawing.Color.Red;
             this.btnEliminarDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarDispositivo.Location = new System.Drawing.Point(816, 194);
+            this.btnEliminarDispositivo.Location = new System.Drawing.Point(816, 182);
             this.btnEliminarDispositivo.Name = "btnEliminarDispositivo";
             this.btnEliminarDispositivo.Size = new System.Drawing.Size(40, 44);
             this.btnEliminarDispositivo.TabIndex = 17;
@@ -189,7 +190,7 @@
             // 
             this.btnAgregarDispositivo.BackColor = System.Drawing.Color.Chartreuse;
             this.btnAgregarDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarDispositivo.Location = new System.Drawing.Point(761, 195);
+            this.btnAgregarDispositivo.Location = new System.Drawing.Point(761, 183);
             this.btnAgregarDispositivo.Name = "btnAgregarDispositivo";
             this.btnAgregarDispositivo.Size = new System.Drawing.Size(40, 43);
             this.btnAgregarDispositivo.TabIndex = 16;
@@ -202,7 +203,7 @@
             this.lblOpcionesDispositivo.AutoSize = true;
             this.lblOpcionesDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpcionesDispositivo.ForeColor = System.Drawing.Color.Black;
-            this.lblOpcionesDispositivo.Location = new System.Drawing.Point(786, 166);
+            this.lblOpcionesDispositivo.Location = new System.Drawing.Point(786, 154);
             this.lblOpcionesDispositivo.Name = "lblOpcionesDispositivo";
             this.lblOpcionesDispositivo.Size = new System.Drawing.Size(99, 23);
             this.lblOpcionesDispositivo.TabIndex = 15;
@@ -213,7 +214,7 @@
             // 
             this.btnEditarTipoDispositivo.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnEditarTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarTipoDispositivo.Location = new System.Drawing.Point(870, 305);
+            this.btnEditarTipoDispositivo.Location = new System.Drawing.Point(870, 273);
             this.btnEditarTipoDispositivo.Name = "btnEditarTipoDispositivo";
             this.btnEditarTipoDispositivo.Size = new System.Drawing.Size(40, 44);
             this.btnEditarTipoDispositivo.TabIndex = 22;
@@ -224,7 +225,7 @@
             // 
             this.btnEliminarTipoDispositivo.BackColor = System.Drawing.Color.Red;
             this.btnEliminarTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarTipoDispositivo.Location = new System.Drawing.Point(816, 305);
+            this.btnEliminarTipoDispositivo.Location = new System.Drawing.Point(816, 273);
             this.btnEliminarTipoDispositivo.Name = "btnEliminarTipoDispositivo";
             this.btnEliminarTipoDispositivo.Size = new System.Drawing.Size(40, 44);
             this.btnEliminarTipoDispositivo.TabIndex = 21;
@@ -235,7 +236,7 @@
             // 
             this.btnAgregarTipoDispositivo.BackColor = System.Drawing.Color.Chartreuse;
             this.btnAgregarTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarTipoDispositivo.Location = new System.Drawing.Point(761, 306);
+            this.btnAgregarTipoDispositivo.Location = new System.Drawing.Point(761, 274);
             this.btnAgregarTipoDispositivo.Name = "btnAgregarTipoDispositivo";
             this.btnAgregarTipoDispositivo.Size = new System.Drawing.Size(40, 43);
             this.btnAgregarTipoDispositivo.TabIndex = 20;
@@ -248,7 +249,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(750, 279);
+            this.label1.Location = new System.Drawing.Point(750, 247);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 23);
             this.label1.TabIndex = 19;
@@ -259,7 +260,7 @@
             // 
             this.btnEditarVariable.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnEditarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarVariable.Location = new System.Drawing.Point(870, 412);
+            this.btnEditarVariable.Location = new System.Drawing.Point(870, 368);
             this.btnEditarVariable.Name = "btnEditarVariable";
             this.btnEditarVariable.Size = new System.Drawing.Size(40, 44);
             this.btnEditarVariable.TabIndex = 26;
@@ -270,7 +271,7 @@
             // 
             this.btnEliminarVariable.BackColor = System.Drawing.Color.Red;
             this.btnEliminarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarVariable.Location = new System.Drawing.Point(816, 412);
+            this.btnEliminarVariable.Location = new System.Drawing.Point(816, 368);
             this.btnEliminarVariable.Name = "btnEliminarVariable";
             this.btnEliminarVariable.Size = new System.Drawing.Size(40, 44);
             this.btnEliminarVariable.TabIndex = 25;
@@ -281,7 +282,7 @@
             // 
             this.btnAgregarVariable.BackColor = System.Drawing.Color.Chartreuse;
             this.btnAgregarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarVariable.Location = new System.Drawing.Point(761, 413);
+            this.btnAgregarVariable.Location = new System.Drawing.Point(761, 369);
             this.btnAgregarVariable.Name = "btnAgregarVariable";
             this.btnAgregarVariable.Size = new System.Drawing.Size(40, 43);
             this.btnAgregarVariable.TabIndex = 24;
@@ -294,7 +295,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(797, 384);
+            this.label2.Location = new System.Drawing.Point(797, 340);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 23);
             this.label2.TabIndex = 23;
@@ -303,7 +304,7 @@
             // 
             // btnAgregarValorVariable
             // 
-            this.btnAgregarValorVariable.Location = new System.Drawing.Point(752, 472);
+            this.btnAgregarValorVariable.Location = new System.Drawing.Point(752, 418);
             this.btnAgregarValorVariable.Name = "btnAgregarValorVariable";
             this.btnAgregarValorVariable.Size = new System.Drawing.Size(75, 39);
             this.btnAgregarValorVariable.TabIndex = 27;
@@ -313,12 +314,13 @@
             // 
             // btnValoresHistoricos
             // 
-            this.btnValoresHistoricos.Location = new System.Drawing.Point(846, 472);
+            this.btnValoresHistoricos.Location = new System.Drawing.Point(846, 418);
             this.btnValoresHistoricos.Name = "btnValoresHistoricos";
             this.btnValoresHistoricos.Size = new System.Drawing.Size(75, 39);
             this.btnValoresHistoricos.TabIndex = 28;
             this.btnValoresHistoricos.Text = "Ver Histórico";
             this.btnValoresHistoricos.UseVisualStyleBackColor = true;
+            this.btnValoresHistoricos.Click += new System.EventHandler(this.btnValoresHistoricos_Click);
             // 
             // richTextBox1
             // 
@@ -329,10 +331,20 @@
             this.richTextBox1.TabIndex = 29;
             this.richTextBox1.Text = "";
             // 
+            // btnCargarDatosPrueba
+            // 
+            this.btnCargarDatosPrueba.Location = new System.Drawing.Point(801, 501);
+            this.btnCargarDatosPrueba.Name = "btnCargarDatosPrueba";
+            this.btnCargarDatosPrueba.Size = new System.Drawing.Size(75, 47);
+            this.btnCargarDatosPrueba.TabIndex = 30;
+            this.btnCargarDatosPrueba.Text = "Cargar datos de Prueba";
+            this.btnCargarDatosPrueba.UseVisualStyleBackColor = true;
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnCargarDatosPrueba);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnValoresHistoricos);
             this.Controls.Add(this.btnAgregarValorVariable);
@@ -392,5 +404,6 @@
         private System.Windows.Forms.Button btnAgregarValorVariable;
         private System.Windows.Forms.Button btnValoresHistoricos;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnCargarDatosPrueba;
     }
 }

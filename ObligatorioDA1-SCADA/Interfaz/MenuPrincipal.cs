@@ -49,5 +49,18 @@ namespace Interfaz
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarValorVariable(panelSistema));
         }
+
+        private void btnValoresHistoricos_Click(object sender, EventArgs e)
+        {
+            if(lstVariables.Items.Count != 0)
+            {
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new VariableValorHistorico(panelSistema));
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una variable para acceder a esta funcionalidad");
+            }
+        }
     }
 }
