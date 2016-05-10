@@ -42,8 +42,6 @@
             this.btnEliminarDispositivo = new System.Windows.Forms.Button();
             this.btnAgregarDispositivo = new System.Windows.Forms.Button();
             this.lblOpcionesDispositivo = new System.Windows.Forms.Label();
-            this.btnEditarTipoDispositivo = new System.Windows.Forms.Button();
-            this.btnEliminarTipoDispositivo = new System.Windows.Forms.Button();
             this.btnAgregarTipoDispositivo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnEditarVariable = new System.Windows.Forms.Button();
@@ -54,6 +52,7 @@
             this.btnValoresHistoricos = new System.Windows.Forms.Button();
             this.lstTableroControl = new System.Windows.Forms.RichTextBox();
             this.btnCargarDatosPrueba = new System.Windows.Forms.Button();
+            this.btnMenuOpcionesTipo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblMenuPrincipal
@@ -218,28 +217,6 @@
             this.lblOpcionesDispositivo.Text = "Dispositivos";
             this.lblOpcionesDispositivo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnEditarTipoDispositivo
-            // 
-            this.btnEditarTipoDispositivo.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnEditarTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarTipoDispositivo.Location = new System.Drawing.Point(870, 268);
-            this.btnEditarTipoDispositivo.Name = "btnEditarTipoDispositivo";
-            this.btnEditarTipoDispositivo.Size = new System.Drawing.Size(40, 44);
-            this.btnEditarTipoDispositivo.TabIndex = 22;
-            this.btnEditarTipoDispositivo.Text = "I";
-            this.btnEditarTipoDispositivo.UseVisualStyleBackColor = false;
-            // 
-            // btnEliminarTipoDispositivo
-            // 
-            this.btnEliminarTipoDispositivo.BackColor = System.Drawing.Color.Red;
-            this.btnEliminarTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarTipoDispositivo.Location = new System.Drawing.Point(816, 268);
-            this.btnEliminarTipoDispositivo.Name = "btnEliminarTipoDispositivo";
-            this.btnEliminarTipoDispositivo.Size = new System.Drawing.Size(40, 44);
-            this.btnEliminarTipoDispositivo.TabIndex = 21;
-            this.btnEliminarTipoDispositivo.Text = "-";
-            this.btnEliminarTipoDispositivo.UseVisualStyleBackColor = false;
-            // 
             // btnAgregarTipoDispositivo
             // 
             this.btnAgregarTipoDispositivo.BackColor = System.Drawing.Color.Chartreuse;
@@ -351,10 +328,21 @@
             this.btnCargarDatosPrueba.UseVisualStyleBackColor = true;
             this.btnCargarDatosPrueba.Click += new System.EventHandler(this.btnCargarDatosPrueba_Click);
             // 
+            // btnMenuOpcionesTipo
+            // 
+            this.btnMenuOpcionesTipo.Location = new System.Drawing.Point(816, 269);
+            this.btnMenuOpcionesTipo.Name = "btnMenuOpcionesTipo";
+            this.btnMenuOpcionesTipo.Size = new System.Drawing.Size(94, 43);
+            this.btnMenuOpcionesTipo.TabIndex = 31;
+            this.btnMenuOpcionesTipo.Text = "Menú de Opciones";
+            this.btnMenuOpcionesTipo.UseVisualStyleBackColor = true;
+            this.btnMenuOpcionesTipo.Click += new System.EventHandler(this.btnMenuOpcionesTipo_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnMenuOpcionesTipo);
             this.Controls.Add(this.btnCargarDatosPrueba);
             this.Controls.Add(this.lstTableroControl);
             this.Controls.Add(this.btnValoresHistoricos);
@@ -363,8 +351,6 @@
             this.Controls.Add(this.btnEliminarVariable);
             this.Controls.Add(this.btnAgregarVariable);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnEditarTipoDispositivo);
-            this.Controls.Add(this.btnEliminarTipoDispositivo);
             this.Controls.Add(this.btnAgregarTipoDispositivo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnEditarDispositivo);
@@ -404,8 +390,6 @@
         private System.Windows.Forms.Button btnEliminarDispositivo;
         private System.Windows.Forms.Button btnAgregarDispositivo;
         private System.Windows.Forms.Label lblOpcionesDispositivo;
-        private System.Windows.Forms.Button btnEditarTipoDispositivo;
-        private System.Windows.Forms.Button btnEliminarTipoDispositivo;
         private System.Windows.Forms.Button btnAgregarTipoDispositivo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnEditarVariable;
@@ -416,5 +400,6 @@
         private System.Windows.Forms.Button btnValoresHistoricos;
         private System.Windows.Forms.RichTextBox lstTableroControl;
         private System.Windows.Forms.Button btnCargarDatosPrueba;
+        private System.Windows.Forms.Button btnMenuOpcionesTipo;
     }
 }

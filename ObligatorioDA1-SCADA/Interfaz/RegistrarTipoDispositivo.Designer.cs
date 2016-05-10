@@ -33,7 +33,7 @@
             this.lblErrorNombre = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombreInstalacion = new System.Windows.Forms.Label();
-            this.lblMenuInstalacion = new System.Windows.Forms.Label();
+            this.lblTituloDispositivo = new System.Windows.Forms.Label();
             this.lblErrorDescripcion = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblDescripcion = new System.Windows.Forms.Label();
@@ -92,16 +92,16 @@
             this.lblNombreInstalacion.Text = "Nombre";
             this.lblNombreInstalacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblMenuInstalacion
+            // lblTituloDispositivo
             // 
-            this.lblMenuInstalacion.AutoSize = true;
-            this.lblMenuInstalacion.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMenuInstalacion.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblMenuInstalacion.Location = new System.Drawing.Point(320, 13);
-            this.lblMenuInstalacion.Name = "lblMenuInstalacion";
-            this.lblMenuInstalacion.Size = new System.Drawing.Size(335, 34);
-            this.lblMenuInstalacion.TabIndex = 17;
-            this.lblMenuInstalacion.Text = "Registrar Tipo de Dispositivo";
+            this.lblTituloDispositivo.AutoSize = true;
+            this.lblTituloDispositivo.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloDispositivo.ForeColor = System.Drawing.Color.DarkBlue;
+            this.lblTituloDispositivo.Location = new System.Drawing.Point(320, 13);
+            this.lblTituloDispositivo.Name = "lblTituloDispositivo";
+            this.lblTituloDispositivo.Size = new System.Drawing.Size(335, 34);
+            this.lblTituloDispositivo.TabIndex = 17;
+            this.lblTituloDispositivo.Text = "Registrar Tipo de Dispositivo";
             // 
             // lblErrorDescripcion
             // 
@@ -148,7 +148,7 @@
             this.Controls.Add(this.lblErrorNombre);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombreInstalacion);
-            this.Controls.Add(this.lblMenuInstalacion);
+            this.Controls.Add(this.lblTituloDispositivo);
             this.Name = "RegistrarTipoDispositivo";
             this.Size = new System.Drawing.Size(972, 571);
             this.ResumeLayout(false);
@@ -162,7 +162,7 @@
         private System.Windows.Forms.Label lblErrorNombre;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblNombreInstalacion;
-        private System.Windows.Forms.Label lblMenuInstalacion;
+        private System.Windows.Forms.Label lblTituloDispositivo;
         private System.Windows.Forms.Label lblErrorDescripcion;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label lblDescripcion;

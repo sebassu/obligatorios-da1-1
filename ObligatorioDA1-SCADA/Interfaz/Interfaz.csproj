@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuxiliarInterfaz.cs" />
+    <Compile Include="MenuOpcionesTipoDispositivo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MenuOpcionesTipoDispositivo.Designer.cs">
+      <DependentUpon>MenuOpcionesTipoDispositivo.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuPrincipal.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </Compile>
     <Compile Include="EntradaAlPrograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MenuOpcionesTipoDispositivo.resx">
+      <DependentUpon>MenuOpcionesTipoDispositivo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>

@@ -23,6 +23,7 @@ namespace Interfaz
             }
             if (Auxiliar.NoEsNulo(unDispositivo))
             {
+                lblMenuDispositivo.Text = "Editar Dispositivo";
                 dispositivoAModificar = unDispositivo;
                 txtNombreDispositivo.Text = unDispositivo.Nombre;
                 chkEnUso.Checked = dispositivoAModificar.EnUso;

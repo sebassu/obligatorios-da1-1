@@ -208,7 +208,6 @@ namespace Interfaz
             {
                 btnAgregarVariable.Enabled = true;
                 btnAgregarDispositivo.BackColor = Color.Chartreuse;
-
             }
             else
             {
@@ -219,7 +218,7 @@ namespace Interfaz
 
         private void ActivacionBotonesVariables()
         {
-            if (lstVariables.SelectedItems.Count > 0)
+            if (lstVariables.SelectedItems.Count > 0 && lstVariables.SelectedItems[0].Tag is Variable)
             {
                 btnEditarVariable.Enabled = true;
                 btnEliminarVariable.Enabled = true;
@@ -278,18 +277,12 @@ namespace Interfaz
             if (modelo.ExistenTipos())
             {
                 btnAgregarDispositivo.Enabled = true;
-                btnEditarTipoDispositivo.Enabled = true;
-                btnEliminarTipoDispositivo.Enabled = true;
-                btnEliminarTipoDispositivo.BackColor = Color.Red;
-                btnEditarTipoDispositivo.BackColor = Color.PaleTurquoise;
+                btnMenuOpcionesTipo.Enabled = true;
                 btnAgregarDispositivo.BackColor = Color.Chartreuse;
             }
             else {
                 btnAgregarDispositivo.Enabled = false;
-                btnEditarTipoDispositivo.Enabled = false;
-                btnEliminarTipoDispositivo.Enabled = false;
-                btnEliminarTipoDispositivo.BackColor = Color.LightPink;
-                btnEditarTipoDispositivo.BackColor = Color.LightCyan;
+                btnMenuOpcionesTipo.Enabled = false;
                 btnAgregarDispositivo.BackColor = Color.LightGreen;
             }
         }
@@ -322,14 +315,22 @@ namespace Interfaz
 
         private void treeViewPlantaDeProduccion_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            lstVariables.Clear();
             Componente componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
-            if (Auxiliar.NoEsNulo(componenteSeleccionado) && componenteSeleccionado.Variables.Count > 0)
+            if (Auxiliar.NoEsNulo(componenteSeleccionado))
             {
-                foreach (Variable variableDelComponente in componenteSeleccionado.Variables)
+                if (componenteSeleccionado.Variables.Count > 0)
                 {
-                    ListViewItem itemAAgregar = new ListViewItem(variableDelComponente.ToString());
-                    itemAAgregar.Tag = variableDelComponente;
-                    lstVariables.Items.Add(itemAAgregar);
+                    foreach (Variable variableDelComponente in componenteSeleccionado.Variables)
+                    {
+                        ListViewItem itemAAgregar = new ListViewItem(variableDelComponente.ToString());
+                        itemAAgregar.Tag = variableDelComponente;
+                        lstVariables.Items.Add(itemAAgregar);
+                    }
+                }
+                else
+                {
+                    lstVariables.Items.Add(new ListViewItem("\n\nSin datos a mostrar"));
                 }
             }
             else
@@ -446,6 +447,12 @@ namespace Interfaz
         private void lstVariables_SelectedIndexChanged(object sender, EventArgs e)
         {
             ActivacionBotonesVariables();
+        }
+
+        private void btnMenuOpcionesTipo_Click(object sender, EventArgs e)
+        {
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new MenuOpcionesTipoDispositivo(modelo, panelSistema));
         }
     }
 }
