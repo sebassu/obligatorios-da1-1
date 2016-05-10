@@ -170,5 +170,12 @@ namespace PruebasUnitarias
             Variable objetoDeOtroTipo = Variable.VariableInvalida();
             Assert.AreNotEqual(unTipo, objetoDeOtroTipo);
         }
+
+        [TestMethod]
+        public void ToStringTipoTest()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
+            Assert.AreEqual("Nombre del tipo", unTipo.ToString());
+        }
     }
 }

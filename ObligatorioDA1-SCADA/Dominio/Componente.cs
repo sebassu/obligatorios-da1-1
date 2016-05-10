@@ -13,6 +13,8 @@ namespace Dominio
 
         public abstract void AgregarComponente(Componente unComponente);
 
+        public abstract void EliminarComponente(Componente unComponente);
+
         protected string nombre;
         public string Nombre
         {
@@ -85,6 +87,19 @@ namespace Dominio
                 variables.Add(unaVariable);
                 variables.Sort();
                 unaVariable.ComponentePadre = this;
+            }
+            else
+            {
+                throw new ArgumentException("Variable nula recibida.");
+            }
+        }
+
+        public void EliminarVariable(Variable unaVariable)
+        {
+            if (Auxiliar.NoEsNulo(unaVariable))
+            {
+                variables.Remove(unaVariable);
+                variables.Sort();
             }
             else
             {

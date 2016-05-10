@@ -118,6 +118,16 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void EliminarComponenteTest()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo otroDispositivo = Dispositivo.DispositivoInvalido();
+            unDispositivo.EliminarComponente(otroDispositivo);
+        }
+
+        [TestMethod]
         public void DependenciasDispositivoTest()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();

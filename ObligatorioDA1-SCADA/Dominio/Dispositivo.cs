@@ -116,6 +116,11 @@ namespace Dominio
             throw new NotSupportedException("No es posible asignarle componentes a un dispositivo.");
         }
 
+        public override void EliminarComponente(Componente unComponente)
+        {
+            throw new NotSupportedException("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
+        }
+
         private Dispositivo()
         {
             nombre = "Nombre inválido.";

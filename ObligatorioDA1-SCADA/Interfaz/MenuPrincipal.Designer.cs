@@ -143,6 +143,7 @@
             this.btnBorrarInstalacion.TabIndex = 13;
             this.btnBorrarInstalacion.Text = "-";
             this.btnBorrarInstalacion.UseVisualStyleBackColor = false;
+            this.btnBorrarInstalacion.Click += new System.EventHandler(this.btnBorrarInstalacion_Click);
             // 
             // btnAgregarInstalacion
             // 
@@ -178,6 +179,7 @@
             this.btnEditarDispositivo.TabIndex = 18;
             this.btnEditarDispositivo.Text = "I";
             this.btnEditarDispositivo.UseVisualStyleBackColor = false;
+            this.btnEditarDispositivo.Click += new System.EventHandler(this.btnEditarDispositivo_Click);
             // 
             // btnEliminarDispositivo
             // 
@@ -189,6 +191,7 @@
             this.btnEliminarDispositivo.TabIndex = 17;
             this.btnEliminarDispositivo.Text = "-";
             this.btnEliminarDispositivo.UseVisualStyleBackColor = false;
+            this.btnEliminarDispositivo.Click += new System.EventHandler(this.btnEliminarDispositivo_Click);
             // 
             // btnAgregarDispositivo
             // 
@@ -328,8 +331,8 @@
             // 
             // lstTableroControl
             // 
-            this.lstTableroControl.BackColor = System.Drawing.Color.White;
-            this.lstTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstTableroControl.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lstTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstTableroControl.Location = new System.Drawing.Point(363, 94);
             this.lstTableroControl.Name = "lstTableroControl";
             this.lstTableroControl.ReadOnly = true;

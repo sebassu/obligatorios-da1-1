@@ -76,6 +76,24 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        public void EliminarVariableTest1()
+        {
+            Variable unaVariable = Variable.VariableInvalida();
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            unDispositivo.AgregarVariable(unaVariable);
+            unDispositivo.EliminarVariable(unaVariable);
+            CollectionAssert.DoesNotContain(unDispositivo.Variables, unaVariable);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void EliminarVariableTest2()
+        {
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            unDispositivo.EliminarVariable(null);
+        }
+
+        [TestMethod]
         public void AlarmasActivasDispositivoTest1()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -368,6 +386,13 @@ namespace PruebasUnitarias
 
         [TestMethod]
         public void ToStringTest2()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Paneles");
+            Assert.AreEqual("Paneles (I)", unaInstalacion.ToString());
+        }
+
+        [TestMethod]
+        public void EliminarComponenteTest()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Paneles");
             Assert.AreEqual("Paneles (I)", unaInstalacion.ToString());

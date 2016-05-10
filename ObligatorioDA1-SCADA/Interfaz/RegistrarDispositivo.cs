@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 
@@ -15,12 +8,14 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
+        private Dispositivo dispositivoAModificar;
 
-        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema)
+        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema, Dispositivo unDispositivo = null)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            dispositivoAModificar = unDispositivo;
             lblErrorNombre.Hide();
             lblErrorTipo.Hide();
             cbxTipoDispositivo.SelectedIndex = 0;

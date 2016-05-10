@@ -31,6 +31,19 @@ namespace Dominio
             }
         }
 
+        public override void EliminarComponente(Componente unComponente)
+        {
+            if (EsComponenteValido(unComponente))
+            {
+                dependencias.Remove(unComponente);
+                dependencias.Sort();
+            }
+            else
+            {
+                throw new ArgumentException("Componente inválido recibido.");
+            }
+        }
+
         private bool EsComponenteValido(Componente unComponente)
         {
             return Auxiliar.NoEsNulo(unComponente) && !unComponente.Equals(this);

@@ -87,6 +87,24 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
             unaInstalacion.AgregarComponente(unaInstalacion);
         }
+
+        [TestMethod]
+        public void EliminarComponenteTest1()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaInstalacion.EliminarComponente(unDispositivo);
+            CollectionAssert.DoesNotContain(unaInstalacion.Dependencias, unDispositivo);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void EliminarComponenteTest2()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
+            unaInstalacion.EliminarComponente(null);
+        }
     }
 }
 

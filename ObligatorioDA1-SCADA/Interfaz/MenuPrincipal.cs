@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Interfaz
 {
@@ -15,6 +16,7 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            RecargarTodoComponente();
         }
 
         private void btnAgregarInstalacion_Click(object sender, EventArgs e)
@@ -23,25 +25,35 @@ namespace Interfaz
             panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema));
         }
 
-        private void btnEditarInstalacion_Click(object sender, EventArgs e)
+        private void VerificarComponenteSeleccionado(Action unaAccionARealizar)
         {
             TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
             if (Auxiliar.NoEsNulo(seleccionado))
             {
-                Instalacion instalacionAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
-                if (Auxiliar.NoEsNulo(instalacionAModificar))
-                {
-                    panelSistema.Controls.Clear();
-                    panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, instalacionAModificar));
-                }
-                else
-                {
-                    MessageBox.Show("Es necesario utilizar la función de editar Dispositivo para la selección realizada");
-                }
+                unaAccionARealizar.Invoke();
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una instalación para acceder a esta funcionalidad");
+                MessageBox.Show("Debe seleccionar un componente para acceder a esta funcionalidad");
+            }
+        }
+
+        private void btnEditarInstalacion_Click(object sender, EventArgs e)
+        {
+            VerificarComponenteSeleccionado(AbrirPanelEditarInstalacion);
+        }
+
+        private void AbrirPanelEditarInstalacion()
+        {
+            Instalacion instalacionAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+            if (Auxiliar.NoEsNulo(instalacionAModificar))
+            {
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, instalacionAModificar));
+            }
+            else
+            {
+                MessageBox.Show("Es necesario utilizar la función de \"Editar Dispositivo\" para la selección realizada");
             }
         }
 
@@ -65,11 +77,19 @@ namespace Interfaz
 
         private void btnAgregarValorVariable_Click(object sender, EventArgs e)
         {
+            VerificarVariableSeleccionada(AbrirRegistrarValor);
+        }
+
+        private void btnValoresHistoricos_Click(object sender, EventArgs e)
+        {
+            VerificarVariableSeleccionada(AbrirHistorico);
+        }
+
+        private void VerificarVariableSeleccionada(Action unaAccionARealizar)
+        {
             if (lstVariables.SelectedItems.Count != 0)
             {
-                Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
-                panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarValorVariable(modelo, panelSistema, unaVariable));
+                unaAccionARealizar.Invoke();
             }
             else
             {
@@ -77,18 +97,18 @@ namespace Interfaz
             }
         }
 
-        private void btnValoresHistoricos_Click(object sender, EventArgs e)
+        private void AbrirHistorico()
         {
-            if (lstVariables.SelectedItems.Count != 0)
-            {
-                Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
-                panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new VariableValorHistorico(modelo, panelSistema, unaVariable));
-            }
-            else
-            {
-                MessageBox.Show("Debe seleccionar una variable para acceder a esta funcionalidad");
-            }
+            Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new VariableValorHistorico(modelo, panelSistema, unaVariable));
+        }
+
+        private void AbrirRegistrarValor()
+        {
+            Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new RegistrarValorVariable(modelo, panelSistema, unaVariable));
         }
 
         private void btnCargarDatosPrueba_Click(object sender, EventArgs e)
@@ -139,7 +159,13 @@ namespace Interfaz
             componente13.AgregarComponente(componente14);
             componente13.AgregarComponente(componente15);
             modelo.RegistrarComponente(componente13);
+            RecargarTodoComponente();
+        }
+
+        private void RecargarTodoComponente()
+        {
             RecargarTreeView();
+            RecargarTableroDeControl();
         }
 
         private void RecargarTreeView()
@@ -180,18 +206,106 @@ namespace Interfaz
                     lstVariables.Items.Add(itemAAgregar);
                 }
             }
-            else {
+            else
+            {
                 lstVariables.Text = "Sin datos para mostrar.";
             }
         }
-
-        //TODO
 
         private void RecargarTableroDeControl()
         {
             foreach (Componente componente in modelo.ComponentesPrimarios)
             {
+                if (componente.CantidadAlarmasActivas > 0)
+                {
+                    lstTableroControl.SelectionBackColor = Color.Red;
+                }
+                else
+                {
+                    lstTableroControl.SelectionBackColor = Color.Green;
+                }
+                lstTableroControl.AppendText(componente.Nombre + ": " + componente.CantidadAlarmasActivas + " Alarmas\n\n");
+            }
+        }
 
+        private void btnEditarDispositivo_Click(object sender, EventArgs e)
+        {
+            VerificarComponenteSeleccionado(AbrirPanelEditarDispositivo);
+        }
+
+        private void AbrirPanelEditarDispositivo()
+        {
+            Dispositivo dispositivoAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Dispositivo;
+            if (Auxiliar.NoEsNulo(dispositivoAModificar))
+            {
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, dispositivoAModificar));
+            }
+            else
+            {
+                MessageBox.Show("Es necesario utilizar la función de \"Editar Instalación\" para la selección realizada");
+            }
+        }
+
+        private void btnBorrarInstalacion_Click(object sender, EventArgs e)
+        {
+            VerificarComponenteSeleccionado(EliminarInstalacionSeleccionada);
+        }
+
+        private void EliminarInstalacionSeleccionada()
+        {
+            Instalacion instalacionAEliminar = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+            if (Auxiliar.NoEsNulo(instalacionAEliminar))
+            {
+                DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
+                    + "La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+                if (resultado == DialogResult.Yes)
+                {
+                    Instalacion padre = instalacionAEliminar.InstalacionPadre;
+                    if (Auxiliar.NoEsNulo(padre))
+                    {
+                        padre.EliminarComponente(instalacionAEliminar);
+                    }
+                    else
+                    {
+                        modelo.EliminarComponente(instalacionAEliminar);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Dispositivo\" para la selección realizada");
+            }
+        }
+
+        private void btnEliminarDispositivo_Click(object sender, EventArgs e)
+        {
+            VerificarComponenteSeleccionado(EliminarDispositivoSeleccionado);
+        }
+
+        private void EliminarDispositivoSeleccionado()
+        {
+            Dispositivo dispositivoAEliminar = treeViewPlantaDeProduccion.SelectedNode.Tag as Dispositivo;
+            if (Auxiliar.NoEsNulo(dispositivoAEliminar))
+            {
+                DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
+                    + "La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+                if (resultado == DialogResult.Yes)
+                {
+                    Instalacion padre = dispositivoAEliminar.InstalacionPadre;
+                    if (Auxiliar.NoEsNulo(padre))
+                    {
+                        padre.EliminarComponente(dispositivoAEliminar);
+                    }
+                    else
+                    {
+                        modelo.EliminarComponente(dispositivoAEliminar);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Instalación\" para la selección realizada");
             }
         }
     }
