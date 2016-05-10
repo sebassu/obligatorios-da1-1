@@ -70,7 +70,7 @@
             // treeViewPlantaDeProduccion
             // 
             this.treeViewPlantaDeProduccion.BackColor = System.Drawing.SystemColors.Window;
-            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeViewPlantaDeProduccion.Location = new System.Drawing.Point(22, 94);
             this.treeViewPlantaDeProduccion.Name = "treeViewPlantaDeProduccion";
             this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 439);
@@ -112,7 +112,7 @@
             // 
             // lstVariables
             // 
-            this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstVariables.Location = new System.Drawing.Point(363, 329);
             this.lstVariables.MultiSelect = false;
             this.lstVariables.Name = "lstVariables";
@@ -331,7 +331,7 @@
             // 
             // lstTableroControl
             // 
-            this.lstTableroControl.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lstTableroControl.BackColor = System.Drawing.Color.White;
             this.lstTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstTableroControl.Location = new System.Drawing.Point(363, 94);
             this.lstTableroControl.Name = "lstTableroControl";
@@ -342,7 +342,7 @@
             // 
             // btnCargarDatosPrueba
             // 
-            this.btnCargarDatosPrueba.Location = new System.Drawing.Point(801, 501);
+            this.btnCargarDatosPrueba.Location = new System.Drawing.Point(801, 492);
             this.btnCargarDatosPrueba.Name = "btnCargarDatosPrueba";
             this.btnCargarDatosPrueba.Size = new System.Drawing.Size(75, 47);
             this.btnCargarDatosPrueba.TabIndex = 30;
