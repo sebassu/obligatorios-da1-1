@@ -8,12 +8,20 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
+        private Tipo tipoAModificar;
 
-        public RegistrarTipoDispositivo(IAccesoADatos modelo, Panel panelSistema)
+        public RegistrarTipoDispositivo(IAccesoADatos modelo, Panel panelSistema, Tipo unTipo = null)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            if (Auxiliar.NoEsNulo(unTipo))
+            {
+                lblTituloDispositivo.Text = "Editar Tipo de Dispositivo";
+                tipoAModificar = unTipo;
+                txtNombre.Text = unTipo.Nombre;
+                txtDescripcion.Text = unTipo.Descripcion;
+            }
             lblErrorNombre.Hide();
             lblErrorDescripcion.Hide();
         }
@@ -25,11 +33,7 @@ namespace Interfaz
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || char.IsWhiteSpace(e.KeyChar)
-                || e.KeyChar == (char)Keys.Back))
-            {
-                e.Handled = true;
-            }
+            AuxiliarInterfaz.ComprobarTexto(sender, e);
         }
 
         private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
@@ -47,12 +51,20 @@ namespace Interfaz
                 }
                 else if (Auxiliar.EsTextoValido(txtNombre.Text) && Auxiliar.EsTextoValido(txtDescripcion.Text))
                 {
-                    Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
-                    modelo.RegistrarTipo(unTipo);
-
-                    MessageBox.Show("El tipo de dispositivo fue registrado correctamente");
-
-                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                    if (Auxiliar.NoEsNulo(tipoAModificar))
+                    {
+                        tipoAModificar.Nombre = txtNombre.Text;
+                        tipoAModificar.Descripcion = txtDescripcion.Text;
+                        MessageBox.Show("El tipo de dispositivo fue modificado correctamente", "Éxito");
+                    }
+                    else
+                    {
+                        Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
+                        modelo.RegistrarTipo(unTipo);
+                        MessageBox.Show("El tipo de dispositivo fue registrado correctamente", "Éxito");
+                    }
+                    panelSistema.Controls.Clear();
+                    panelSistema.Controls.Add(new MenuOpcionesTipoDispositivo(modelo, panelSistema));
                 }
                 else
                 {

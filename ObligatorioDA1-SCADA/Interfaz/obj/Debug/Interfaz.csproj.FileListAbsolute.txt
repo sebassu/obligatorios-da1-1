@@ -16,3 +16,4 @@ C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\o
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.csproj.GenerateResource.Cache
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.exe
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.MenuOpcionesTipoDispositivo.resources

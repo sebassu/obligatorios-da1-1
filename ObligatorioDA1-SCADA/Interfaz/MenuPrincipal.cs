@@ -277,18 +277,12 @@ namespace Interfaz
             if (modelo.ExistenTipos())
             {
                 btnAgregarDispositivo.Enabled = true;
-                btnEditarTipoDispositivo.Enabled = true;
-                btnEliminarTipoDispositivo.Enabled = true;
-                btnEliminarTipoDispositivo.BackColor = Color.Red;
-                btnEditarTipoDispositivo.BackColor = Color.PaleTurquoise;
+                btnMenuOpcionesTipo.Enabled = true;
                 btnAgregarDispositivo.BackColor = Color.Chartreuse;
             }
             else {
                 btnAgregarDispositivo.Enabled = false;
-                btnEditarTipoDispositivo.Enabled = false;
-                btnEliminarTipoDispositivo.Enabled = false;
-                btnEliminarTipoDispositivo.BackColor = Color.LightPink;
-                btnEditarTipoDispositivo.BackColor = Color.LightCyan;
+                btnMenuOpcionesTipo.Enabled = false;
                 btnAgregarDispositivo.BackColor = Color.LightGreen;
             }
         }
@@ -445,6 +439,12 @@ namespace Interfaz
         private void lstVariables_SelectedIndexChanged(object sender, EventArgs e)
         {
             ActivacionBotonesVariables();
+        }
+
+        private void btnMenuOpcionesTipo_Click(object sender, EventArgs e)
+        {
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new MenuOpcionesTipoDispositivo(modelo, panelSistema));
         }
     }
 }
