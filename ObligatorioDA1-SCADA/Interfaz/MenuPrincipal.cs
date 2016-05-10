@@ -59,8 +59,20 @@ namespace Interfaz
 
         private void btnAgregarDispositivo_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema));
+            if (modelo.ExistenTipos())
+            {
+                Instalacion unaInstalacion = null;
+                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+                {
+                    unaInstalacion = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+                }
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, unaInstalacion));
+            }
+            else
+            {
+                MessageBox.Show("No existen tipos de dispositivos registrados en el sistema");
+            }
         }
 
         private void btnAgregarTipoDispositivo_Click(object sender, EventArgs e)
@@ -71,8 +83,23 @@ namespace Interfaz
 
         private void btnAgregarVariable_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema));
+            if (modelo.ExistenTipos())
+            {
+                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+                {
+                    Componente unComponente = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
+                    panelSistema.Controls.Clear();
+                    panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema, unComponente));
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar un Componente para acceder a esta funcionalidad");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No existen componentes registrados en el sistema");
+            }
         }
 
         private void btnAgregarValorVariable_Click(object sender, EventArgs e)
@@ -161,7 +188,6 @@ namespace Interfaz
             componente13.AgregarComponente(componente14);
             componente13.AgregarComponente(componente15);
             modelo.RegistrarComponente(componente13);
-            ((AccesoADatosEnMemoria)modelo).SetExistenDispositivos(true);
             RecargarTodoComponente();
         }
 
@@ -169,10 +195,26 @@ namespace Interfaz
         {
             RecargarTreeView();
             RecargarTableroDeControl();
-            ActivacionBotonesVariables();
             ActivacionBotonesInstalacion();
+            ActivacionBotonesVariables();
             ActivacionBotonesDispositivo();
             ActivacionBotonesTipo();
+            ActivacionBotonAgregarVariable();
+        }
+
+        private void ActivacionBotonAgregarVariable()
+        {
+            if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
+            {
+                btnAgregarVariable.Enabled = true;
+                btnAgregarDispositivo.BackColor = Color.Chartreuse;
+
+            }
+            else
+            {
+                btnAgregarVariable.Enabled = false;
+                btnAgregarDispositivo.BackColor = Color.LightGreen;
+            }
         }
 
         private void ActivacionBotonesVariables()
@@ -306,7 +348,7 @@ namespace Interfaz
                 }
                 else
                 {
-                    lstTableroControl.SelectionBackColor = Color.Green;
+                    lstTableroControl.SelectionBackColor = Color.Chartreuse;
                 }
                 lstTableroControl.AppendText("\n" + componente.Nombre + ": " + componente.CantidadAlarmasActivas + " Alarmas\n");
             }
@@ -323,7 +365,7 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(dispositivoAModificar))
             {
                 panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, dispositivoAModificar));
+                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, null, dispositivoAModificar));
             }
             else
             {
@@ -355,6 +397,9 @@ namespace Interfaz
                         modelo.EliminarComponente(instalacionAEliminar);
                     }
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
+                    ActivacionBotonesInstalacion();
+                    ActivacionBotonesDispositivo();
+                    RecargarTableroDeControl();
                 }
             }
             else
@@ -387,12 +432,19 @@ namespace Interfaz
                         modelo.EliminarComponente(dispositivoAEliminar);
                     }
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
+                    ActivacionBotonesDispositivo();
+                    RecargarTableroDeControl();
                 }
             }
             else
             {
                 MessageBox.Show("Es necesario utilizar la función de \"Eliminar Instalación\" para la selección realizada");
             }
+        }
+
+        private void lstVariables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActivacionBotonesVariables();
         }
     }
 }

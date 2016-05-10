@@ -120,6 +120,7 @@
             this.lstVariables.TabIndex = 8;
             this.lstVariables.UseCompatibleStateImageBehavior = false;
             this.lstVariables.View = System.Windows.Forms.View.List;
+            this.lstVariables.SelectedIndexChanged += new System.EventHandler(this.lstVariables_SelectedIndexChanged);
             // 
             // lblOpcionesInstalacion
             // 

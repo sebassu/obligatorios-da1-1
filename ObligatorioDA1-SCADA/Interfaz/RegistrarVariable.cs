@@ -8,12 +8,14 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
+        private Componente componenteAModificar;
 
-        public RegistrarVariable(IAccesoADatos modelo, Panel panelSistema)
+        public RegistrarVariable(IAccesoADatos modelo, Panel panelSistema, Componente unComponente)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            componenteAModificar = unComponente;
             lblErrorNombre.Hide();
             lblErrorValores.Hide();
         }
@@ -46,6 +48,16 @@ namespace Interfaz
             //else if (numMin.Value >= numMax.Value)
             //{
             //    lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
+            //}
+
+            //try
+            //{
+
+
+            //}
+            //catch (ArgumentException excepcion)
+            //{
+            //    MessageBox.Show(excepcion.Message, "Error");
             //}
         }
 

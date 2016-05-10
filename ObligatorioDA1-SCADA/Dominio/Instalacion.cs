@@ -24,6 +24,20 @@ namespace Dominio
                 dependencias.Add(unComponente);
                 dependencias.Sort();
                 unComponente.InstalacionPadre = this;
+                uint cantidadDispositivosAVariar = 0;
+                if (unComponente is Dispositivo)
+                {
+                    cantidadDispositivosAVariar = 1;
+                }
+                else if (unComponente is Instalacion)
+                {
+                    cantidadDispositivosAVariar = ((Instalacion)unComponente).CantidadDispositivosHijos;
+                }
+                cantidadDispositivosHijos += cantidadDispositivosAVariar;
+                if (Auxiliar.NoEsNulo(instalacionPadre))
+                {
+                    instalacionPadre.cantidadDispositivosHijos += cantidadDispositivosAVariar;
+                }
             }
             else
             {
@@ -37,6 +51,20 @@ namespace Dominio
             {
                 dependencias.Remove(unComponente);
                 dependencias.Sort();
+                uint cantidadDispositivosAVariar = 0;
+                if (unComponente is Dispositivo)
+                {
+                    cantidadDispositivosAVariar = 1;
+                }
+                else if (unComponente is Instalacion)
+                {
+                    cantidadDispositivosAVariar = ((Instalacion)unComponente).CantidadDispositivosHijos;
+                }
+                cantidadDispositivosHijos -= cantidadDispositivosAVariar;
+                if (Auxiliar.NoEsNulo(instalacionPadre))
+                {
+                    instalacionPadre.cantidadDispositivosHijos -= cantidadDispositivosAVariar;
+                }
             }
             else
             {
@@ -83,6 +111,15 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (I)";
+        }
+
+        private uint cantidadDispositivosHijos;
+        public uint CantidadDispositivosHijos
+        {
+            get
+            {
+                return cantidadDispositivosHijos;
+            }
         }
     }
 }

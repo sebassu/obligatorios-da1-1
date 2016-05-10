@@ -35,14 +35,6 @@ namespace Dominio
             if (Auxiliar.NoEsNulo(unComponente))
             {
                 componentesPrimarios.Add(unComponente);
-                if (unComponente is Dispositivo)
-                {
-                    existenDispositivos = true;
-                }
-                else if (unComponente is Instalacion)
-                {
-                    existenInstalaciones = true;
-                }
             }
             else
             {
@@ -73,27 +65,41 @@ namespace Dominio
             return tipos.Remove(unTipo);
         }
 
-        bool existenDispositivos;
         public bool ExistenDispositivos()
         {
-            return existenDispositivos;
+            foreach (Componente componenteIteracion in ComponentesPrimarios)
+            {
+                if (componenteIteracion is Dispositivo)
+                {
+                    return true;
+                }
+                else {
+                    Instalacion componenteCasteado = componenteIteracion as Instalacion;
+                    if (componenteCasteado.CantidadDispositivosHijos > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
-        bool existenInstalaciones;
         public bool ExistenInstalaciones()
         {
-            return existenInstalaciones;
+            foreach (Componente componenteIteracion in ComponentesPrimarios)
+            {
+                if (componenteIteracion is Instalacion)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         bool existenTipos;
         public bool ExistenTipos()
         {
             return existenTipos;
-        }
-
-        public void SetExistenDispositivos(bool unValor)
-        {
-            existenDispositivos = unValor;
         }
     }
 }

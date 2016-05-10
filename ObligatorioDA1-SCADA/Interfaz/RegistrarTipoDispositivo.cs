@@ -20,8 +20,7 @@ namespace Interfaz
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
+            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
         }
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
@@ -40,22 +39,30 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //lblErrorNombre.Text = "";
-            //lblErrorDescripcion.Text = "";
+            try
+            {
+                if (lblErrorNombre.Visible || lblErrorDescripcion.Visible)
+                {
+                    MessageBox.Show("No se puede registrar el tipo de dispositivo, hay campos con errores de formato");
+                }
+                else if (Auxiliar.EsTextoValido(txtNombre.Text) && Auxiliar.EsTextoValido(txtDescripcion.Text))
+                {
+                    Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
+                    modelo.RegistrarTipo(unTipo);
 
-            //if (txtNombre.Text.Trim() == "" && txtDescripcion.Text.Trim() == "")
-            //{
-            //    lblErrorNombre.Text = "Nombre inválido";
-            //    lblErrorDescripcion.Text = "Descripción inválida";
-            //}
-            //else if (txtNombre.Text.Trim() == "")
-            //{
-            //    lblErrorNombre.Text = "Nombre inválido";
-            //}
-            //else if (txtDescripcion.Text.Trim() == "")
-            //{
-            //    lblErrorDescripcion.Text = "Descripción inválida";
-            //}
+                    MessageBox.Show("El tipo de dispositivo fue registrado correctamente");
+
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                }
+                else
+                {
+                    MessageBox.Show("No deje campos sin rellenar");
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)

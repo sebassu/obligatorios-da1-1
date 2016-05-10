@@ -9,12 +9,14 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private Dispositivo dispositivoAModificar;
+        private Instalacion instalacionAModificar;
 
-        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema, Dispositivo unDispositivo = null)
+        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema, Instalacion unaInstalacion = null, Dispositivo unDispositivo = null)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            instalacionAModificar = unaInstalacion;
             foreach (Tipo tipo in modelo.Tipos)
             {
                 cbxTipoDispositivo.Items.Add(tipo);
@@ -60,8 +62,15 @@ namespace Interfaz
                 else
                 {
                     Dispositivo dispositivoAAgregar = Dispositivo.NombreTipoEnUso(nombreDispositivo, tipoDispositivo, estaEnUso);
-                    modelo.RegistrarComponente(dispositivoAAgregar);
+                    if (Auxiliar.NoEsNulo(instalacionAModificar))
+                    {
+                        instalacionAModificar.AgregarComponente(dispositivoAAgregar);
+                    }
+                    else {
+                        modelo.RegistrarComponente(dispositivoAAgregar);
+                    }
                 }
+                MessageBox.Show("El dispositivo fue registrado correctamente");
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }
             catch (ArgumentException excepcion)

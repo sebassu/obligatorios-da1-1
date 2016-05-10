@@ -13,10 +13,10 @@ namespace Interfaz
         public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema, Instalacion instalacionAModificar = null)
         {
             InitializeComponent();
+            this.modelo = modelo;
             if (instalacionAModificar == null)
             {
                 lblMenuInstalacion.Text = "Registrar Instalación";
-                this.modelo = modelo;
             }
             else
             {
@@ -47,10 +47,12 @@ namespace Interfaz
                 {
                     Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
                     modelo.RegistrarComponente(unaInstalacion);
+                    MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
                 }
                 else
                 {
                     instalacionAModificar.Nombre = unNombre;
+                    MessageBox.Show("La instalación fue modificada correctamente", "Éxito");
                 }
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }

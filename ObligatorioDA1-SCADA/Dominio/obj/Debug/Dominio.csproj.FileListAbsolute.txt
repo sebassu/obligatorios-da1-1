@@ -1,8 +1,3 @@
-C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.dll
-C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.pdb
-C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
-C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.dll
-C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.pdb
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.dll
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Debug\Dominio.pdb
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
