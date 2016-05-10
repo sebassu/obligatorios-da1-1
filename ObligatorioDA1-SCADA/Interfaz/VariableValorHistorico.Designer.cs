@@ -33,11 +33,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnVolverMenuPrincipal = new System.Windows.Forms.Button();
             this.lblValorHistorico = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.valoresHistoricos = new System.Windows.Forms.DataGridView();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valoresHistoricos)).BeginInit();
             this.SuspendLayout();
             // 
             // btnVolverMenuPrincipal
@@ -61,19 +61,19 @@
             this.lblValorHistorico.TabIndex = 32;
             this.lblValorHistorico.Text = "Valor Histórico";
             // 
-            // dataGridView1
+            // valoresHistoricos
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.Gray;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.valoresHistoricos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.valoresHistoricos.BackgroundColor = System.Drawing.Color.Gray;
+            this.valoresHistoricos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.valoresHistoricos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Valor,
             this.Fecha,
             this.Hora});
-            this.dataGridView1.Location = new System.Drawing.Point(172, 61);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(617, 394);
-            this.dataGridView1.TabIndex = 36;
+            this.valoresHistoricos.Location = new System.Drawing.Point(172, 61);
+            this.valoresHistoricos.Name = "valoresHistoricos";
+            this.valoresHistoricos.Size = new System.Drawing.Size(617, 394);
+            this.valoresHistoricos.TabIndex = 36;
             // 
             // Valor
             // 
@@ -101,12 +101,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.valoresHistoricos);
             this.Controls.Add(this.btnVolverMenuPrincipal);
             this.Controls.Add(this.lblValorHistorico);
             this.Name = "VariableValorHistorico";
             this.Size = new System.Drawing.Size(972, 571);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valoresHistoricos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,7 +116,7 @@
 
         private System.Windows.Forms.Button btnVolverMenuPrincipal;
         private System.Windows.Forms.Label lblValorHistorico;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView valoresHistoricos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hora;

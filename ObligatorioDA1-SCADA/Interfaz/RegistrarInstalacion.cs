@@ -35,8 +35,7 @@ namespace Interfaz
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
+            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -45,7 +44,7 @@ namespace Interfaz
             {
                 string unNombre = txtNombreInstalacion.Text;
                 if (instalacionAModificar == null)
-                {                   
+                {
                     Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
                     modelo.RegistrarComponente(unaInstalacion);
                 }
@@ -53,6 +52,7 @@ namespace Interfaz
                 {
                     instalacionAModificar.Nombre = unNombre;
                 }
+                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }
             catch (ArgumentException excepcion)
             {

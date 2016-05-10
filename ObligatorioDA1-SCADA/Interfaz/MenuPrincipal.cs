@@ -121,6 +121,8 @@ namespace Interfaz
             modelo = new AccesoADatosEnMemoria();
             Tipo tipo1 = Tipo.NombreDescripcion("Tipo 1", "Buen tipo");
             Tipo tipo2 = Tipo.NombreDescripcion("Tipo 2", "Otro tipo");
+            modelo.RegistrarTipo(tipo1);
+            modelo.RegistrarTipo(tipo2);
             Componente componente1 = Instalacion.ConstructorNombre("Extracción");
             Componente componente2 = Dispositivo.NombreTipoEnUso("Picadora", tipo1, true);
             Componente componente3 = Instalacion.ConstructorNombre("Molienda");
@@ -214,6 +216,7 @@ namespace Interfaz
 
         private void RecargarTableroDeControl()
         {
+            lstTableroControl.Text = "";
             foreach (Componente componente in modelo.ComponentesPrimarios)
             {
                 if (componente.CantidadAlarmasActivas > 0)
@@ -258,7 +261,7 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(instalacionAEliminar))
             {
                 DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
-                    + "La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+                    + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
                 if (resultado == DialogResult.Yes)
                 {
                     Instalacion padre = instalacionAEliminar.InstalacionPadre;
@@ -270,6 +273,7 @@ namespace Interfaz
                     {
                         modelo.EliminarComponente(instalacionAEliminar);
                     }
+                    treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
                 }
             }
             else
@@ -289,7 +293,7 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(dispositivoAEliminar))
             {
                 DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
-                    + "La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+                    + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
                 if (resultado == DialogResult.Yes)
                 {
                     Instalacion padre = dispositivoAEliminar.InstalacionPadre;
@@ -301,6 +305,7 @@ namespace Interfaz
                     {
                         modelo.EliminarComponente(dispositivoAEliminar);
                     }
+                    treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
                 }
             }
             else

@@ -84,6 +84,7 @@ namespace Dominio
             {
                 Tuple<DateTime, double> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
                 historicoDeValores.Add(elementoAAgregar);
+                historicoDeValores.Sort();
             }
         }
 

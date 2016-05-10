@@ -15,16 +15,28 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            dispositivoAModificar = unDispositivo;
+            foreach (Tipo tipo in modelo.Tipos)
+            {
+                cbxTipoDispositivo.Items.Add(tipo);
+            }
+            if (Auxiliar.NoEsNulo(unDispositivo))
+            {
+                dispositivoAModificar = unDispositivo;
+                txtNombreDispositivo.Text = unDispositivo.Nombre;
+                chkEnUso.Checked = dispositivoAModificar.EnUso;
+                cbxTipoDispositivo.SelectedItem = unDispositivo.Tipo;
+            }
+            else
+            {
+                cbxTipoDispositivo.SelectedIndex = 0;
+            }
             lblErrorNombre.Hide();
             lblErrorTipo.Hide();
-            cbxTipoDispositivo.SelectedIndex = 0;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
+            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
         }
 
         private void txtNombreDispositivo_KeyPress(object sender, KeyPressEventArgs e)
@@ -34,15 +46,28 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //if (txtNombreDispositivo.Text.Trim() == "")
-            //{
-            //    lblErrorNombre.Text = "Nombre inválido";
-            //}
-            //else if ((string)cbxTipoDispositivo.SelectedItem == "")
-            //{
-            //    lblErrorTipo.Text = "Debe seleccionar un tipo";
-            //}
-            ////else cargo los datos en la lista de dispositivos del sistema
+            try
+            {
+                string nombreDispositivo = txtNombreDispositivo.Text;
+                Tipo tipoDispositivo = (Tipo)cbxTipoDispositivo.SelectedItem;
+                bool estaEnUso = chkEnUso.Checked;
+                if (Auxiliar.NoEsNulo(dispositivoAModificar))
+                {
+                    dispositivoAModificar.Nombre = nombreDispositivo;
+                    dispositivoAModificar.Tipo = tipoDispositivo;
+                    dispositivoAModificar.EnUso = estaEnUso;
+                }
+                else
+                {
+                    Dispositivo dispositivoAAgregar = Dispositivo.NombreTipoEnUso(nombreDispositivo, tipoDispositivo, estaEnUso);
+                    modelo.RegistrarComponente(dispositivoAAgregar);
+                }
+                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+            }
+            catch (ArgumentException excepcion)
+            {
+                MessageBox.Show(excepcion.Message, "Error");
+            }
         }
 
         private void txtNombreDispositivo_Leave(object sender, EventArgs e)

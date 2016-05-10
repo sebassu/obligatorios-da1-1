@@ -35,6 +35,14 @@ namespace Dominio
             if (Auxiliar.NoEsNulo(unComponente))
             {
                 componentesPrimarios.Add(unComponente);
+                if (unComponente is Dispositivo)
+                {
+                    existenDispositivos = true;
+                }
+                else if (unComponente is Instalacion)
+                {
+                    existenInstalaciones = true;
+                }
             }
             else
             {
@@ -47,6 +55,7 @@ namespace Dominio
             if (Auxiliar.NoEsNulo(unTipo))
             {
                 tipos.Add(unTipo);
+                existenTipos = true;
             }
             else
             {
@@ -62,6 +71,24 @@ namespace Dominio
         public bool EliminarTipo(Tipo unTipo)
         {
             return tipos.Remove(unTipo);
+        }
+
+        bool existenDispositivos;
+        public bool ExistenDispositivos()
+        {
+            return existenDispositivos;
+        }
+
+        bool existenInstalaciones;
+        public bool ExistenInstalaciones()
+        {
+            return existenInstalaciones;
+        }
+
+        bool existenTipos;
+        public bool ExistenTipos()
+        {
+            return existenTipos;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Dominio;
+using System.Windows.Forms;
 
 namespace Interfaz
 {
@@ -11,6 +12,12 @@ namespace Interfaz
             {
                 e.Handled = true;
             }
+        }
+
+        internal static void VolverAPrincipal(IAccesoADatos unSistema, Panel panelSistema)
+        {
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new MenuPrincipal(unSistema, panelSistema));
         }
     }
 }

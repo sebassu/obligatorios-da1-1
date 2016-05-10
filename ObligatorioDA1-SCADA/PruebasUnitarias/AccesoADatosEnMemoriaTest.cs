@@ -109,5 +109,50 @@ namespace PruebasUnitarias
             unSistema.EliminarComponente(unComponente);
             Assert.AreEqual(0, unSistema.Tipos.Count);
         }
+
+        [TestMethod]
+        public void ExistenTiposTest1()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            Assert.AreEqual(false, unSistema.ExistenTipos());
+        }
+
+        [TestMethod]
+        public void ExistenTiposTest2()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            unSistema.RegistrarTipo(Tipo.TipoInvalido());
+            Assert.AreEqual(true, unSistema.ExistenTipos());
+        }
+
+        [TestMethod]
+        public void ExistenDispositivosTest1()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            Assert.AreEqual(false, unSistema.ExistenDispositivos());
+        }
+
+        [TestMethod]
+        public void ExistenDispositivosTest2()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            unSistema.RegistrarComponente(Dispositivo.DispositivoInvalido());
+            Assert.AreEqual(true, unSistema.ExistenDispositivos());
+        }
+
+        [TestMethod]
+        public void ExistenInstalacionesTest1()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            Assert.AreEqual(false, unSistema.ExistenInstalaciones());
+        }
+
+        [TestMethod]
+        public void ExistenInstalacionesTest2()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            unSistema.RegistrarComponente(Instalacion.InstalacionInvalida());
+            Assert.AreEqual(true, unSistema.ExistenInstalaciones());
+        }
     }
 }
