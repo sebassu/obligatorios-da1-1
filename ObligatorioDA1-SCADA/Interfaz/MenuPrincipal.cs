@@ -224,7 +224,8 @@ namespace Interfaz
                 btnEditarVariable.Enabled = true;
                 btnEliminarVariable.Enabled = true;
                 btnAgregarValorVariable.Enabled = true;
-                btnValoresHistoricos.Enabled = true;
+                Variable variableSeleccionada = (Variable)lstVariables.SelectedItems[0].Tag;
+                btnValoresHistoricos.Enabled = !Auxiliar.EsListaVacia(variableSeleccionada.Historico);
                 btnEliminarVariable.BackColor = Color.Red;
                 btnEditarVariable.BackColor = Color.PaleTurquoise;
             }

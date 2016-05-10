@@ -13,7 +13,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void SetValorActualTest1()
         {
-            double nuevoValor = 125;
+            decimal nuevoValor = 125;
             Variable unaVariable = Variable.VariableInvalida();
             unaVariable.ValorActual = nuevoValor;
             Assert.AreEqual(nuevoValor, unaVariable.ValorActual);
@@ -108,8 +108,8 @@ namespace PruebasUnitarias
         [TestMethod]
         public void SetValorMinimoTest1Valido()
         {
-            double nuevoValor = 0;
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15, 500);
+            decimal nuevoValor = 0;
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
             unaVariable.Minimo = nuevoValor;
             Assert.AreEqual(nuevoValor, unaVariable.Minimo);
         }
@@ -117,15 +117,15 @@ namespace PruebasUnitarias
         [TestMethod]
         public void SetValorMinimoTest2Valido()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15, 500);
-            unaVariable.Minimo = -300.9;
-            Assert.AreEqual(-300.9, unaVariable.Minimo);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
+            unaVariable.Minimo = -300.9M;
+            Assert.AreEqual(-300.9M, unaVariable.Minimo);
         }
 
         [TestMethod]
         public void SetValorMinimoTest3ValidoIguales()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15, 500);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
             unaVariable.Minimo = 500;
             Assert.AreEqual(500, unaVariable.Minimo);
         }
@@ -134,14 +134,14 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(InvalidOperationException))]
         public void SetValorMinimoTest4Invalido()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15, 500);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
             unaVariable.Minimo = 1000;
         }
 
         [TestMethod]
         public void SetValorMaximoTest1Valido()
         {
-            double nuevoValor = 200;
+            decimal nuevoValor = 200;
             Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 100);
             unaVariable.Maximo = nuevoValor;
             Assert.AreEqual(nuevoValor, unaVariable.Maximo);
@@ -151,8 +151,8 @@ namespace PruebasUnitarias
         public void SetValorMaximoTest2Valido()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
-            unaVariable.Maximo = 2000.7;
-            Assert.AreEqual(2000.7, unaVariable.Maximo);
+            unaVariable.Maximo = 2000.7M;
+            Assert.AreEqual(2000.7M, unaVariable.Maximo);
         }
 
         [TestMethod]
@@ -175,7 +175,7 @@ namespace PruebasUnitarias
         public void ValorFueraDeRangoTest1Dentro()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Volumen", 0, 400);
-            unaVariable.ValorActual = 200.5;
+            unaVariable.ValorActual = 200.5M;
             Assert.AreEqual(false, unaVariable.EstaFueraDeRango);
         }
 
@@ -206,7 +206,7 @@ namespace PruebasUnitarias
         public void AgregaValoresAHistoricoTest2()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Altura", -100, 50);
-            unaVariable.ValorActual = 30.1;
+            unaVariable.ValorActual = 30.1M;
             Assert.AreEqual(unaVariable.Historico.Count, 0);
         }
 
@@ -215,15 +215,15 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0, 75);
             unaVariable.ValorActual = -50;
-            unaVariable.ValorActual = -125.3;
+            unaVariable.ValorActual = -125.3M;
             int largo = 0;
             ArrayList valoresSinFecha = new ArrayList();
-            foreach (Tuple<DateTime, double> elemento in unaVariable.Historico)
+            foreach (Tuple<DateTime, decimal> elemento in unaVariable.Historico)
             {
                 valoresSinFecha.Add(elemento.Item2);
                 largo++;
             }
-            CollectionAssert.Contains(valoresSinFecha, -50D);
+            CollectionAssert.Contains(valoresSinFecha, -50M);
             Assert.AreEqual(largo, 1);
         }
 
@@ -256,7 +256,7 @@ namespace PruebasUnitarias
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
-            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9M, 100);
             unDispositivo.AgregarVariable(unaVariable);
             CollectionAssert.Contains(unaVariable.ComponentePadre.Variables, unaVariable);
         }
@@ -285,7 +285,7 @@ namespace PruebasUnitarias
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
-            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9, 100);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9M, 100);
             unaVariable.ComponentePadre = unDispositivo;
         }
 

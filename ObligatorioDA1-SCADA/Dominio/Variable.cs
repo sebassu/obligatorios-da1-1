@@ -42,8 +42,8 @@ namespace Dominio
             }
         }
 
-        private double valorActual;
-        public double ValorActual
+        private decimal valorActual;
+        public decimal ValorActual
         {
             get
             {
@@ -77,12 +77,12 @@ namespace Dominio
             }
         }
 
-        private List<Tuple<DateTime, double>> historicoDeValores;
+        private List<Tuple<DateTime, decimal>> historicoDeValores;
         private void RegistrarValorAnterior()
         {
             if (fueSeteada)
             {
-                Tuple<DateTime, double> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
+                Tuple<DateTime, decimal> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
                 historicoDeValores.Add(elementoAAgregar);
                 historicoDeValores.Sort();
             }
@@ -96,8 +96,8 @@ namespace Dominio
             }
         }
 
-        private double maximo;
-        public double Maximo
+        private decimal maximo;
+        public decimal Maximo
         {
             get
             {
@@ -116,8 +116,8 @@ namespace Dominio
             }
         }
 
-        private double minimo;
-        public double Minimo
+        private decimal minimo;
+        public decimal Minimo
         {
             get
             {
@@ -165,15 +165,15 @@ namespace Dominio
         {
             nombre = "Nombre inválido.";
             id = ProximaIdAAsignar++;
-            historicoDeValores = new List<Tuple<DateTime, double>>();
+            historicoDeValores = new List<Tuple<DateTime, decimal>>();
         }
 
-        public static Variable NombreMinimoMaximo(string unNombre, double valorMinimo, double valorMaximo)
+        public static Variable NombreMinimoMaximo(string unNombre, decimal valorMinimo, decimal valorMaximo)
         {
             return new Variable(unNombre, valorMinimo, valorMaximo);
         }
 
-        private Variable(string unNombre, double valorMinimo, double valorMaximo)
+        private Variable(string unNombre, decimal valorMinimo, decimal valorMaximo)
         {
             if (valorMinimo > valorMaximo)
             {
@@ -185,11 +185,11 @@ namespace Dominio
                 minimo = valorMinimo;
                 maximo = valorMaximo;
                 id = ProximaIdAAsignar++;
-                historicoDeValores = new List<Tuple<DateTime, double>>();
+                historicoDeValores = new List<Tuple<DateTime, decimal>>();
             }
         }
 
-        private bool FueraDelIntervaloMenorMayor(double unValor)
+        private bool FueraDelIntervaloMenorMayor(decimal unValor)
         {
             return unValor < minimo || unValor > maximo;
         }

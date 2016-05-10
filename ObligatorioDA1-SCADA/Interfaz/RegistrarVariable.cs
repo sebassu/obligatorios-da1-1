@@ -9,13 +9,23 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private Componente componenteAModificar;
+        private Variable variableAModificar;
 
-        public RegistrarVariable(IAccesoADatos modelo, Panel panelSistema, Componente unComponente)
+        public RegistrarVariable(IAccesoADatos modelo, Panel panelSistema, Componente unComponente = null, Variable unaVariable = null)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            componenteAModificar = unComponente;
+            if (Auxiliar.NoEsNulo(unaVariable))
+            {
+                variableAModificar = unaVariable;
+                txtNombre.Text = unaVariable.Nombre;
+                numMin.Value = unaVariable.Minimo;
+                numMax.Value = unaVariable.Maximo;
+            }
+            else {
+                componenteAModificar = unComponente;
+            }
             lblErrorNombre.Hide();
             lblErrorValores.Hide();
         }
@@ -33,32 +43,32 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //lblErrorNombre.Text = "";
-            //lblErrorValores.Text = "";
-
-            //if (txtNombre.Text.Trim() == "" && (numMin.Value >= numMax.Value))
-            //{
-            //    lblErrorNombre.Text = "Nombre inválido";
-            //    lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
-            //}
-            //else if (txtNombre.Text.Trim() == "")
-            //{
-            //    lblErrorNombre.Text = "Nombre inválido";
-            //}
-            //else if (numMin.Value >= numMax.Value)
-            //{
-            //    lblErrorValores.Text = "El valor mínimo debe ser menor estricto que el valor máximo";
-            //}
-
-            //try
-            //{
-
-
-            //}
-            //catch (ArgumentException excepcion)
-            //{
-            //    MessageBox.Show(excepcion.Message, "Error");
-            //}
+            string nombre = txtNombre.Text;
+            decimal minimo = numMin.Value;
+            decimal maximo = numMax.Value;
+            try
+            {
+                if (Auxiliar.NoEsNulo(variableAModificar))
+                {
+                    variableAModificar.Nombre = nombre;
+                    variableAModificar.Maximo = maximo;
+                    variableAModificar.Minimo = minimo;
+                    MessageBox.Show("La variable fue modificada correctamente.", "Éxito");
+                }
+                else {
+                    componenteAModificar.AgregarVariable(Variable.NombreMinimoMaximo(nombre, minimo, maximo));
+                    MessageBox.Show("La variable fue registrada correctamente.", "Éxito");
+                }
+                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+            }
+            catch (ArgumentException ex1)
+            {
+                MessageBox.Show(ex1.Message, "Error");
+            }
+            catch (InvalidOperationException ex2)
+            {
+                MessageBox.Show(ex2.Message, "Error");
+            }
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)

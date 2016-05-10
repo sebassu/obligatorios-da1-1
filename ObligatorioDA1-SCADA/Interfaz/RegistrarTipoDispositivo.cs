@@ -25,11 +25,7 @@ namespace Interfaz
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || char.IsWhiteSpace(e.KeyChar)
-                || e.KeyChar == (char)Keys.Back))
-            {
-                e.Handled = true;
-            }
+            AuxiliarInterfaz.ComprobarTexto(sender, e);
         }
 
         private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
@@ -43,20 +39,18 @@ namespace Interfaz
             {
                 if (lblErrorNombre.Visible || lblErrorDescripcion.Visible)
                 {
-                    MessageBox.Show("No se puede registrar el tipo de dispositivo, hay campos con errores de formato");
+                    MessageBox.Show("No se puede registrar el tipo de dispositivo, hay campos con errores de formato", "Error");
                 }
                 else if (Auxiliar.EsTextoValido(txtNombre.Text) && Auxiliar.EsTextoValido(txtDescripcion.Text))
                 {
                     Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
                     modelo.RegistrarTipo(unTipo);
-
-                    MessageBox.Show("El tipo de dispositivo fue registrado correctamente");
-
+                    MessageBox.Show("El tipo de dispositivo fue registrado correctamente", "Éxito");
                     AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }
                 else
                 {
-                    MessageBox.Show("No deje campos sin rellenar");
+                    MessageBox.Show("No deje campos sin rellenar", "Error");
                 }
             }
             catch (ArgumentException ex)

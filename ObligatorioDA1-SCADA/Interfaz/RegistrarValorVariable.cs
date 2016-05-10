@@ -20,8 +20,14 @@ namespace Interfaz
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new MenuPrincipal(modelo, panelSistema));
+            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            unaVariable.ValorActual = numValor.Value;
+            MessageBox.Show("Valor agregado correctamente", "Éxito");
+            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
         }
     }
 }

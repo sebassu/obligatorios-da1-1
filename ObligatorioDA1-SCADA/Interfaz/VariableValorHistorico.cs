@@ -14,9 +14,15 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            foreach (Tuple<DateTime, double> elemento in variable.Historico)
+            if (Auxiliar.EsListaVacia(variable.Historico))
             {
-                valoresHistoricos.Rows.Add(elemento.Item2, elemento.Item1.Date, elemento.Item1.Hour);
+                valoresHistoricos.Rows.Add("Sin", "datos a", " mostrar");
+            }
+            else {
+                foreach (Tuple<DateTime, double> elemento in variable.Historico)
+                {
+                    valoresHistoricos.Rows.Add(elemento.Item2, elemento.Item1.Date, elemento.Item1.Hour);
+                }
             }
         }
 
