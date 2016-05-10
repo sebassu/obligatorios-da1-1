@@ -59,8 +59,20 @@ namespace Interfaz
 
         private void btnAgregarDispositivo_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema));
+            if (modelo.ExistenTipos())
+            {
+                Instalacion unaInstalacion = null;
+                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+                {
+                    unaInstalacion = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+                }
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, unaInstalacion));
+            }
+            else
+            {
+                MessageBox.Show("No existen tipos de dispositivos registrados en el sistema");
+            }
         }
 
         private void btnAgregarTipoDispositivo_Click(object sender, EventArgs e)
@@ -71,8 +83,23 @@ namespace Interfaz
 
         private void btnAgregarVariable_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema));
+            if (modelo.ExistenTipos())
+            {
+                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+                {
+                    Componente unComponente = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
+                    panelSistema.Controls.Clear();
+                    panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema, unComponente));
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar un Componente para acceder a esta funcionalidad");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No existen componentes registrados en el sistema");
+            }
         }
 
         private void btnAgregarValorVariable_Click(object sender, EventArgs e)
@@ -242,7 +269,7 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(dispositivoAModificar))
             {
                 panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, dispositivoAModificar));
+                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, null, dispositivoAModificar));
             }
             else
             {

@@ -47,10 +47,12 @@ namespace Interfaz
                 {
                     Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
                     modelo.RegistrarComponente(unaInstalacion);
+                    MessageBox.Show("La instalación fue registrado correctamente");
                 }
                 else
                 {
                     instalacionAModificar.Nombre = unNombre;
+                    MessageBox.Show("La instalación fue modificada  correctamente");
                 }
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }
