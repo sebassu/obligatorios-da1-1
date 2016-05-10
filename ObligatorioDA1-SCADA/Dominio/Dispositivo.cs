@@ -6,7 +6,7 @@ namespace Dominio
 {
     public class Dispositivo : Componente
     {
-        private static uint ProximaIdAAsignar;
+        public static uint ProximaIdAAsignar;
 
         private Tipo tipoDispositivo;
         public Tipo Tipo

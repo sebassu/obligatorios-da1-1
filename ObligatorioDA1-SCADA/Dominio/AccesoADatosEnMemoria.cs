@@ -90,5 +90,10 @@ namespace Dominio
         {
             return existenTipos;
         }
+
+        public void SetExistenDispositivos(bool unValor)
+        {
+            existenDispositivos = unValor;
+        }
     }
 }

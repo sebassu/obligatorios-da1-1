@@ -141,6 +141,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        public void ExistenDispositivosTest3()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            ((AccesoADatosEnMemoria)unSistema).SetExistenDispositivos(true);
+            Assert.AreEqual(true, unSistema.ExistenDispositivos());
+        }
+
+        [TestMethod]
         public void ExistenInstalacionesTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();

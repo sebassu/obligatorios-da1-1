@@ -161,6 +161,7 @@ namespace Interfaz
             componente13.AgregarComponente(componente14);
             componente13.AgregarComponente(componente15);
             modelo.RegistrarComponente(componente13);
+            ((AccesoADatosEnMemoria)modelo).SetExistenDispositivos(true);
             RecargarTodoComponente();
         }
 
@@ -168,6 +169,86 @@ namespace Interfaz
         {
             RecargarTreeView();
             RecargarTableroDeControl();
+            ActivacionBotonesVariables();
+            ActivacionBotonesInstalacion();
+            ActivacionBotonesDispositivo();
+            ActivacionBotonesTipo();
+        }
+
+        private void ActivacionBotonesVariables()
+        {
+            if (lstVariables.SelectedItems.Count > 0)
+            {
+                btnEditarVariable.Enabled = true;
+                btnEliminarVariable.Enabled = true;
+                btnAgregarValorVariable.Enabled = true;
+                btnValoresHistoricos.Enabled = true;
+                btnEliminarVariable.BackColor = Color.Red;
+                btnEditarVariable.BackColor = Color.PaleTurquoise;
+            }
+            else {
+                btnEditarVariable.Enabled = false;
+                btnEliminarVariable.Enabled = false;
+                btnAgregarValorVariable.Enabled = false;
+                btnValoresHistoricos.Enabled = false;
+                btnEliminarVariable.BackColor = Color.LightPink;
+                btnEditarVariable.BackColor = Color.LightCyan;
+            }
+        }
+
+        private void ActivacionBotonesDispositivo()
+        {
+            if (modelo.ExistenDispositivos())
+            {
+                btnEditarDispositivo.Enabled = true;
+                btnEliminarDispositivo.Enabled = true;
+                btnEliminarDispositivo.BackColor = Color.Red;
+                btnEditarDispositivo.BackColor = Color.PaleTurquoise;
+            }
+            else {
+                btnEditarDispositivo.Enabled = false;
+                btnEliminarDispositivo.Enabled = false;
+                btnEliminarDispositivo.BackColor = Color.LightPink;
+                btnEditarDispositivo.BackColor = Color.LightCyan;
+            }
+        }
+
+        private void ActivacionBotonesInstalacion()
+        {
+            if (modelo.ExistenInstalaciones())
+            {
+                btnEditarInstalacion.Enabled = true;
+                btnEliminarInstalacion.Enabled = true;
+                btnEliminarInstalacion.BackColor = Color.Red;
+                btnEditarInstalacion.BackColor = Color.PaleTurquoise;
+            }
+            else {
+                btnEditarInstalacion.Enabled = false;
+                btnEliminarInstalacion.Enabled = false;
+                btnEliminarInstalacion.BackColor = Color.LightPink;
+                btnEditarInstalacion.BackColor = Color.LightCyan;
+            }
+        }
+
+        private void ActivacionBotonesTipo()
+        {
+            if (modelo.ExistenTipos())
+            {
+                btnAgregarDispositivo.Enabled = true;
+                btnEditarTipoDispositivo.Enabled = true;
+                btnEliminarTipoDispositivo.Enabled = true;
+                btnEliminarTipoDispositivo.BackColor = Color.Red;
+                btnEditarTipoDispositivo.BackColor = Color.PaleTurquoise;
+                btnAgregarDispositivo.BackColor = Color.Chartreuse;
+            }
+            else {
+                btnAgregarDispositivo.Enabled = false;
+                btnEditarTipoDispositivo.Enabled = false;
+                btnEliminarTipoDispositivo.Enabled = false;
+                btnEliminarTipoDispositivo.BackColor = Color.LightPink;
+                btnEditarTipoDispositivo.BackColor = Color.LightCyan;
+                btnAgregarDispositivo.BackColor = Color.LightGreen;
+            }
         }
 
         private void RecargarTreeView()
@@ -216,7 +297,7 @@ namespace Interfaz
 
         private void RecargarTableroDeControl()
         {
-            lstTableroControl.Text = "";
+            lstTableroControl.Clear();
             foreach (Componente componente in modelo.ComponentesPrimarios)
             {
                 if (componente.CantidadAlarmasActivas > 0)
@@ -227,7 +308,7 @@ namespace Interfaz
                 {
                     lstTableroControl.SelectionBackColor = Color.Green;
                 }
-                lstTableroControl.AppendText(componente.Nombre + ": " + componente.CantidadAlarmasActivas + " Alarmas\n\n");
+                lstTableroControl.AppendText("\n" + componente.Nombre + ": " + componente.CantidadAlarmasActivas + " Alarmas\n");
             }
         }
 

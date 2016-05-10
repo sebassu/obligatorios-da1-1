@@ -35,7 +35,7 @@
             this.lblVariables = new System.Windows.Forms.Label();
             this.lstVariables = new System.Windows.Forms.ListView();
             this.lblOpcionesInstalacion = new System.Windows.Forms.Label();
-            this.btnBorrarInstalacion = new System.Windows.Forms.Button();
+            this.btnEliminarInstalacion = new System.Windows.Forms.Button();
             this.btnAgregarInstalacion = new System.Windows.Forms.Button();
             this.btnEditarInstalacion = new System.Windows.Forms.Button();
             this.btnEditarDispositivo = new System.Windows.Forms.Button();
@@ -133,17 +133,17 @@
             this.lblOpcionesInstalacion.Text = "Instalaciones";
             this.lblOpcionesInstalacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnBorrarInstalacion
+            // btnEliminarInstalacion
             // 
-            this.btnBorrarInstalacion.BackColor = System.Drawing.Color.Red;
-            this.btnBorrarInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBorrarInstalacion.Location = new System.Drawing.Point(816, 88);
-            this.btnBorrarInstalacion.Name = "btnBorrarInstalacion";
-            this.btnBorrarInstalacion.Size = new System.Drawing.Size(40, 44);
-            this.btnBorrarInstalacion.TabIndex = 13;
-            this.btnBorrarInstalacion.Text = "-";
-            this.btnBorrarInstalacion.UseVisualStyleBackColor = false;
-            this.btnBorrarInstalacion.Click += new System.EventHandler(this.btnBorrarInstalacion_Click);
+            this.btnEliminarInstalacion.BackColor = System.Drawing.Color.Red;
+            this.btnEliminarInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarInstalacion.Location = new System.Drawing.Point(816, 88);
+            this.btnEliminarInstalacion.Name = "btnEliminarInstalacion";
+            this.btnEliminarInstalacion.Size = new System.Drawing.Size(40, 44);
+            this.btnEliminarInstalacion.TabIndex = 13;
+            this.btnEliminarInstalacion.Text = "-";
+            this.btnEliminarInstalacion.UseVisualStyleBackColor = false;
+            this.btnEliminarInstalacion.Click += new System.EventHandler(this.btnBorrarInstalacion_Click);
             // 
             // btnAgregarInstalacion
             // 
@@ -371,7 +371,7 @@
             this.Controls.Add(this.btnAgregarDispositivo);
             this.Controls.Add(this.lblOpcionesDispositivo);
             this.Controls.Add(this.btnEditarInstalacion);
-            this.Controls.Add(this.btnBorrarInstalacion);
+            this.Controls.Add(this.btnEliminarInstalacion);
             this.Controls.Add(this.btnAgregarInstalacion);
             this.Controls.Add(this.lblOpcionesInstalacion);
             this.Controls.Add(this.lstVariables);
@@ -396,7 +396,7 @@
         private System.Windows.Forms.Label lblVariables;
         private System.Windows.Forms.ListView lstVariables;
         private System.Windows.Forms.Label lblOpcionesInstalacion;
-        private System.Windows.Forms.Button btnBorrarInstalacion;
+        private System.Windows.Forms.Button btnEliminarInstalacion;
         private System.Windows.Forms.Button btnAgregarInstalacion;
         private System.Windows.Forms.Button btnEditarInstalacion;
         private System.Windows.Forms.Button btnEditarDispositivo;
