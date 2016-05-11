@@ -35,7 +35,6 @@ namespace Interfaz
                 cbxTipoDispositivo.SelectedIndex = 0;
             }
             lblErrorNombre.Hide();
-            lblErrorTipo.Hide();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

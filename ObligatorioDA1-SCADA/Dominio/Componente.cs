@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
+[assembly: AssemblyVersionAttribute("1.0")]
 namespace Dominio
 {
     public abstract class Componente : IComparable
