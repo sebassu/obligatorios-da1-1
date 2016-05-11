@@ -1,0 +1,7 @@
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Release\Dominio.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Release\Dominio.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Release\Excepciones.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\bin\Release\Excepciones.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Release\Dominio.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Release\Dominio.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Dominio\obj\Release\Dominio.pdb

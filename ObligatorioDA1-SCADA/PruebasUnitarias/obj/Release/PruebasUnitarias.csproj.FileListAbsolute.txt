@@ -1,0 +1,9 @@
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Release\PruebasUnitarias.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Release\PruebasUnitarias.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Release\Dominio.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Release\Excepciones.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Release\Dominio.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\bin\Release\Excepciones.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Release\PruebasUnitarias.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Release\PruebasUnitarias.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\PruebasUnitarias\obj\Release\PruebasUnitarias.pdb
