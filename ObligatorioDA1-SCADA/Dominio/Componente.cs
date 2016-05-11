@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Excepciones;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -30,7 +31,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("Se ingresó un nombre inválido.");
+                    throw new ComponenteExcepcion("Se ingresó un nombre inválido.");
                 }
             }
         }
@@ -68,7 +69,7 @@ namespace Dominio
         {
             if (cantidadAlarmasActivas == 0)
             {
-                throw new InvalidOperationException("La cantidad de alarmas activas es cero.");
+                throw new ComponenteExcepcion("La cantidad de alarmas activas es cero.");
             }
             else
             {
@@ -90,7 +91,7 @@ namespace Dominio
             }
             else
             {
-                throw new ArgumentException("Variable nula recibida.");
+                throw new ComponenteExcepcion("Variable nula recibida.");
             }
         }
 
@@ -103,7 +104,7 @@ namespace Dominio
             }
             else
             {
-                throw new ArgumentException("Variable nula recibida.");
+                throw new ComponenteExcepcion("Variable nula recibida.");
             }
         }
 
@@ -122,7 +123,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("La instalación a asignar no contiene al componente.");
+                    throw new ComponenteExcepcion("La instalación a asignar no contiene al componente.");
                 }
             }
         }
@@ -154,7 +155,7 @@ namespace Dominio
             }
             else
             {
-                throw new ArgumentException("Comparación de tipos incompatibles.");
+                throw new ComponenteExcepcion("Comparación de tipos incompatibles.");
             }
         }
 

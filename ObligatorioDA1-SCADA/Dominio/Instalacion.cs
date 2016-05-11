@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Excepciones;
 
 namespace Dominio
 {
@@ -17,58 +17,74 @@ namespace Dominio
             }
         }
 
-        public override void AgregarComponente(Componente unComponente)
+        public override void AgregarComponente(Componente componenteAAgregar)
         {
-            if (EsComponenteValido(unComponente))
+            if (EsComponenteValido(componenteAAgregar))
             {
-                dependencias.Add(unComponente);
+                dependencias.Add(componenteAAgregar);
                 dependencias.Sort();
-                unComponente.InstalacionPadre = this;
-                uint cantidadDispositivosAVariar = 0;
-                if (unComponente is Dispositivo)
-                {
-                    cantidadDispositivosAVariar = 1;
-                }
-                else if (unComponente is Instalacion)
-                {
-                    cantidadDispositivosAVariar = ((Instalacion)unComponente).CantidadDispositivosHijos;
-                }
+                componenteAAgregar.InstalacionPadre = this;
+                uint cantidadDispositivosAVariar = DeterminarCambioDeDispositivos(componenteAAgregar);
                 cantidadDispositivosHijos += cantidadDispositivosAVariar;
-                if (Auxiliar.NoEsNulo(instalacionPadre))
-                {
-                    instalacionPadre.cantidadDispositivosHijos += cantidadDispositivosAVariar;
-                }
+                SumarDispositivosEnJerarquia(cantidadDispositivosAVariar);
             }
             else
             {
-                throw new ArgumentException("Componente inválido recibido.");
+                throw new ComponenteExcepcion("Componente inválido recibido.");
             }
         }
 
-        public override void EliminarComponente(Componente unComponente)
+        public override void EliminarComponente(Componente componenteAEliminar)
         {
-            if (EsComponenteValido(unComponente))
+            if (EsComponenteValido(componenteAEliminar))
             {
-                dependencias.Remove(unComponente);
+                dependencias.Remove(componenteAEliminar);
                 dependencias.Sort();
-                uint cantidadDispositivosAVariar = 0;
-                if (unComponente is Dispositivo)
-                {
-                    cantidadDispositivosAVariar = 1;
-                }
-                else if (unComponente is Instalacion)
-                {
-                    cantidadDispositivosAVariar = ((Instalacion)unComponente).CantidadDispositivosHijos;
-                }
+                uint cantidadDispositivosAVariar = DeterminarCambioDeDispositivos(componenteAEliminar);
                 cantidadDispositivosHijos -= cantidadDispositivosAVariar;
-                if (Auxiliar.NoEsNulo(instalacionPadre))
-                {
-                    instalacionPadre.cantidadDispositivosHijos -= cantidadDispositivosAVariar;
-                }
+                RestarDispositivosEnJerarquia(cantidadDispositivosAVariar);
             }
             else
             {
-                throw new ArgumentException("Componente inválido recibido.");
+                throw new ComponenteExcepcion("Componente inválido recibido.");
+            }
+        }
+
+        private static uint DeterminarCambioDeDispositivos(Componente componenteAAgregar)
+        {
+            uint cantidadDispositivosAVariar = 0;
+            if (componenteAAgregar is Dispositivo)
+            {
+                cantidadDispositivosAVariar = 1;
+            }
+            else
+            {
+                Instalacion instalacionAAgregar = componenteAAgregar as Instalacion;
+                if (Auxiliar.NoEsNulo(instalacionAAgregar))
+                {
+                    cantidadDispositivosAVariar = instalacionAAgregar.CantidadDispositivosHijos;
+                }
+            }
+            return cantidadDispositivosAVariar;
+        }
+
+        private void SumarDispositivosEnJerarquia(uint cantidad)
+        {
+            Instalacion instalacionActual = instalacionPadre;
+            while (Auxiliar.NoEsNulo(instalacionActual))
+            {
+                instalacionActual.cantidadDispositivosHijos += cantidad;
+                instalacionActual = instalacionActual.instalacionPadre;
+            }
+        }
+
+        private void RestarDispositivosEnJerarquia(uint cantidad)
+        {
+            Instalacion instalacionActual = instalacionPadre;
+            while (Auxiliar.NoEsNulo(instalacionActual))
+            {
+                instalacionActual.cantidadDispositivosHijos -= cantidad;
+                instalacionActual = instalacionActual.instalacionPadre;
             }
         }
 

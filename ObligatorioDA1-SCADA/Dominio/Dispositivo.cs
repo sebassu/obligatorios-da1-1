@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Excepciones;
 
 namespace Dominio
 {
@@ -23,7 +23,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("Tipo inválido.");
+                    throw new ComponenteExcepcion("Tipo inválido.");
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace Dominio
         {
             if (Auxiliar.EsListaVacia(variables))
             {
-                throw new InvalidOperationException("La lista de variables controladas es vacía.");
+                throw new ComponenteExcepcion("La lista de variables controladas es vacía.");
             }
             else
             {
@@ -113,12 +113,12 @@ namespace Dominio
 
         public override void AgregarComponente(Componente unComponente)
         {
-            throw new NotSupportedException("No es posible asignarle componentes a un dispositivo.");
+            throw new ComponenteExcepcion("No es posible asignarle componentes a un dispositivo.");
         }
 
         public override void EliminarComponente(Componente unComponente)
         {
-            throw new NotSupportedException("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
+            throw new ComponenteExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
         }
 
         private Dispositivo()

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Excepciones;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -38,7 +38,7 @@ namespace Dominio
             }
             else
             {
-                throw new ArgumentException("Objeto (Componente) nulo recibido.");
+                throw new AccesoADatosEnMemoriaExcepcion("Objeto (Componente) nulo recibido.");
             }
         }
 
@@ -51,7 +51,7 @@ namespace Dominio
             }
             else
             {
-                throw new ArgumentException("Objeto (Tipo) nulo recibido.");
+                throw new AccesoADatosEnMemoriaExcepcion("Objeto (Tipo) nulo recibido.");
             }
         }
 

@@ -65,6 +65,10 @@
       <Project>{1a08d0d9-7963-4cf6-bb19-bc2eb4a8e018}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Excepciones\Excepciones.csproj">
+      <Project>{88f9e548-8e79-42de-8f4f-c00bdd29ff7c}</Project>
+      <Name>Excepciones</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

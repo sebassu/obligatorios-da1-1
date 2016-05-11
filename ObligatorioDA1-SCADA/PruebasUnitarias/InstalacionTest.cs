@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using System.Diagnostics.CodeAnalysis;
+using Excepciones;
 
 namespace PruebasUnitarias
 {
@@ -37,14 +37,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void ConstructorNombreTest3()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("4567");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void ConstructorNombreTest4()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("/$(%,. &#%");
@@ -73,7 +73,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void AgregarComponenteTest3()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
@@ -81,7 +81,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void AgregarComponenteTest4()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
@@ -99,11 +99,37 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void EliminarComponenteTest2()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
             unaInstalacion.EliminarComponente(null);
+        }
+
+        [TestMethod]
+        public void EliminarComponenteTest3DispositivosHijosIndirectos()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
+            Instalacion otraInstalacion = Instalacion.ConstructorNombre("Otra instalación");
+            unaInstalacion.AgregarComponente(otraInstalacion);
+            otraInstalacion.AgregarComponente(Dispositivo.DispositivoInvalido());
+            Assert.AreEqual((uint)1, unaInstalacion.CantidadDispositivosHijos);
+            unaInstalacion.EliminarComponente(otraInstalacion);
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadDispositivosHijos);
+        }
+
+        [TestMethod]
+        public void EliminarComponenteTest4DispositivosHijosIndirectos2()
+        {
+            Instalacion instalacionRaiz = Instalacion.ConstructorNombre("Raíz");
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
+            Instalacion otraInstalacion = Instalacion.ConstructorNombre("Otra instalación");
+            instalacionRaiz.AgregarComponente(unaInstalacion);
+            unaInstalacion.AgregarComponente(otraInstalacion);
+            otraInstalacion.AgregarComponente(Dispositivo.DispositivoInvalido());
+            Assert.AreEqual((uint)1, instalacionRaiz.CantidadDispositivosHijos);
+            unaInstalacion.EliminarComponente(otraInstalacion);
+            Assert.AreEqual((uint)0, instalacionRaiz.CantidadDispositivosHijos);
         }
     }
 }

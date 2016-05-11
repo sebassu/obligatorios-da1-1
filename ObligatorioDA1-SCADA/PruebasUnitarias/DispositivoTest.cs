@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Excepciones;
 
 namespace PruebasUnitarias
 {
@@ -65,7 +65,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void SetDispositivoTipoTest4()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -93,7 +93,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void NombreTipoEnUsoTest3()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -101,14 +101,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void NombreTipoEnUsoTest4()
         {
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", null, false);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotSupportedException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void AgregarCompoenenteDispositivoTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -118,7 +118,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotSupportedException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void EliminarComponenteTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");

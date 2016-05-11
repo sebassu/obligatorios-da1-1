@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Excepciones;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -28,7 +29,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("Nombre inválido.");
+                    throw new VariableExcepcion("Nombre inválido.");
                 }
             }
         }
@@ -107,7 +108,7 @@ namespace Dominio
             {
                 if (minimo > value)
                 {
-                    throw new InvalidOperationException("Máximo inferior al mínimo registrado");
+                    throw new VariableExcepcion("Máximo inferior al mínimo registrado");
                 }
                 else
                 {
@@ -127,7 +128,7 @@ namespace Dominio
             {
                 if (maximo < value)
                 {
-                    throw new InvalidOperationException("Mínimo superior al máximo registrado");
+                    throw new VariableExcepcion("Mínimo superior al máximo registrado");
                 }
                 else
                 {
@@ -151,7 +152,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("El dispositivo a asignar no contiene a la variable.");
+                    throw new VariableExcepcion("El dispositivo a asignar no contiene a la variable.");
                 }
             }
         }
@@ -177,7 +178,7 @@ namespace Dominio
         {
             if (valorMinimo > valorMaximo)
             {
-                throw new ArgumentException("Rango mínimo-máximo inválido.");
+                throw new VariableExcepcion("Rango mínimo-máximo inválido.");
             }
             else
             {
@@ -222,7 +223,7 @@ namespace Dominio
             }
             else
             {
-                throw new ArgumentException("Comparación de tipos incompatibles.");
+                throw new VariableExcepcion("Comparación de tipos incompatibles.");
             }
         }
 

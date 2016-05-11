@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -74,7 +75,7 @@ namespace Interfaz
                 MessageBox.Show("El dispositivo fue registrado correctamente");
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }
-            catch (ArgumentException excepcion)
+            catch (ComponenteExcepcion excepcion)
             {
                 MessageBox.Show(excepcion.Message, "Error");
             }

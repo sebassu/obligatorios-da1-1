@@ -36,3 +36,5 @@ C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.VariableValorHistorico.resources
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.VentanaPrincipal.resources
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.csproj.GenerateResource.Cache
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Debug\Excepciones.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Debug\Excepciones.pdb

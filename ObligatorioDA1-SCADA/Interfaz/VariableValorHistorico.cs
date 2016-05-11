@@ -21,7 +21,9 @@ namespace Interfaz
             else {
                 foreach (Tuple<DateTime, decimal> elemento in variable.Historico)
                 {
-                    valoresHistoricos.Rows.Add(elemento.Item2, elemento.Item1.Date, elemento.Item1.Hour + ":" + elemento.Item1.Minute);
+                    DateTime fechaYHora = elemento.Item1;
+                    decimal valor = elemento.Item2;
+                    valoresHistoricos.Rows.Add(valor, fechaYHora.ToShortDateString(), fechaYHora.ToShortTimeString());
                 }
             }
         }

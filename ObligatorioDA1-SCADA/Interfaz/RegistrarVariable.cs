@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -45,31 +46,38 @@ namespace Interfaz
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string nombre = txtNombre.Text;
-            decimal minimo = numMin.Value;
-            decimal maximo = numMax.Value;
+            decimal valorMinimo = numMin.Value;
+            decimal valorMaximo = numMax.Value;
             try
             {
-                if (Auxiliar.NoEsNulo(variableAModificar))
+                if (Auxiliar.EsTextoValido(nombre) && valorMaximo >= valorMinimo)
                 {
-                    variableAModificar.Nombre = nombre;
-                    variableAModificar.Maximo = maximo;
-                    variableAModificar.Minimo = minimo;
-                    MessageBox.Show("La variable fue modificada correctamente.", "Éxito");
+                    if (Auxiliar.NoEsNulo(variableAModificar))
+                    {
+                        ModificarVariable(nombre, valorMinimo, valorMaximo);
+                        MessageBox.Show("La variable fue modificada correctamente.", "Éxito");
+                    }
+                    else {
+                        componenteAModificar.AgregarVariable(Variable.NombreMinimoMaximo(nombre, valorMinimo, valorMaximo));
+                        MessageBox.Show("La variable fue registrada correctamente.", "Éxito");
+                    }
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }
                 else {
-                    componenteAModificar.AgregarVariable(Variable.NombreMinimoMaximo(nombre, minimo, maximo));
-                    MessageBox.Show("La variable fue registrada correctamente.", "Éxito");
+                    MessageBox.Show("Revise los datos ingresados y reintente.", "Error");
                 }
-                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }
-            catch (ArgumentException ex1)
+            catch (VariableExcepcion ex1)
             {
                 MessageBox.Show(ex1.Message, "Error");
             }
-            catch (InvalidOperationException ex2)
-            {
-                MessageBox.Show(ex2.Message, "Error");
-            }
+        }
+
+        private void ModificarVariable(string nombre, decimal valorMinimo, decimal valorMaximo)
+        {
+            variableAModificar.Nombre = nombre;
+            variableAModificar.Maximo = valorMaximo;
+            variableAModificar.Minimo = valorMinimo;
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)

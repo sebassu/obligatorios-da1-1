@@ -157,6 +157,10 @@
       <Project>{1a08d0d9-7963-4cf6-bb19-bc2eb4a8e018}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Excepciones\Excepciones.csproj">
+      <Project>{88f9e548-8e79-42de-8f4f-c00bdd29ff7c}</Project>
+      <Name>Excepciones</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

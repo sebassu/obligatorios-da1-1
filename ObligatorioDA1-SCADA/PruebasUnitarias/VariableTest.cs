@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using Excepciones;
+using System;
 
 namespace PruebasUnitarias
 {
@@ -45,21 +46,21 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void NombreMinimoMaximoTest2()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("12,. #$%", 0, 418);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void NombreMinimoMaximoTest3()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Velocidad", 970, -10);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void NombreMinimoMaximoTest4()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Velocidad", 900, 30);
@@ -82,7 +83,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void SetNombreTest3Numeros()
         {
             Variable unaVariable = Variable.VariableInvalida();
@@ -90,7 +91,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void SetNombreTest4Punctuacion()
         {
             Variable unaVariable = Variable.VariableInvalida();
@@ -98,7 +99,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void SetNombreTest5Vacio()
         {
             Variable unaVariable = Variable.VariableInvalida();
@@ -131,7 +132,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void SetValorMinimoTest4Invalido()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
@@ -164,7 +165,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void SetValorMaximoTest4Invalido()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
@@ -272,7 +273,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void SetComponentePadreTest1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", 90, 100);
@@ -280,7 +281,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void SetComponentePadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -313,7 +314,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void CompareToTest4()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
@@ -321,7 +322,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(VariableExcepcion))]
         public void CompareToTest5()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);

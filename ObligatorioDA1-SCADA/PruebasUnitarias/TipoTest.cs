@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using System.Diagnostics.CodeAnalysis;
+using Excepciones;
 
 namespace PruebasUnitarias
 {
@@ -34,7 +34,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void SetNombreTest3()
         {
             Tipo unTipo = Tipo.TipoInvalido();
@@ -42,7 +42,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void SetNombreTest4()
         {
             Tipo unTipo = Tipo.TipoInvalido();
@@ -50,7 +50,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void SetNombreTest5()
         {
             Tipo unTipo = Tipo.TipoInvalido();
@@ -74,7 +74,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void SetDescripcionTest3()
         {
             Tipo unTipo = Tipo.TipoInvalido();
@@ -82,7 +82,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void SetDescripcionTest4()
         {
             Tipo unTipo = Tipo.TipoInvalido();
@@ -90,7 +90,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void SetDescripcionTest5()
         {
             Tipo unTipo = Tipo.TipoInvalido();
@@ -111,21 +111,21 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void TipoNombreDescripcionTest2NombreInvalido()
         {
             Tipo unTipo = Tipo.NombreDescripcion("12.$%", "Descripción válida.");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void TipoNombreDescripcionTest3DescripcionInvalida()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Nombre válido.", "34.$%");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(TipoExcepcion))]
         public void TipoNombreDescripcionTest4Invalidos()
         {
             Tipo unTipo = Tipo.NombreDescripcion("12.$%", "34.$%");

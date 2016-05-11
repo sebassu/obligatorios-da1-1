@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -71,7 +72,7 @@ namespace Interfaz
                     MessageBox.Show("No deje campos sin rellenar", "Error");
                 }
             }
-            catch (ArgumentException ex)
+            catch (TipoExcepcion ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }

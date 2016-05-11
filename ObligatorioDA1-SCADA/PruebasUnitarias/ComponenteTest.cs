@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using System.Diagnostics.CodeAnalysis;
+using Excepciones;
 
 namespace PruebasUnitarias
 {
@@ -26,7 +26,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void SetNombreComponenteTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -34,7 +34,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void SetNombreComponenteTest4()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -42,7 +42,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void SetNombreComponenteTest5()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -68,7 +68,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void AgregarVariableTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -86,7 +86,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void EliminarVariableTest2()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -145,7 +145,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void IncrementarCantidadAlarmasTest2()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -165,7 +165,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void DecrementarCantidadAlarmasTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -175,7 +175,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void IncrementarCantidadAlarmasTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -280,7 +280,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void SetInstalacionPadreTest1()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Molinos");
@@ -288,7 +288,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void SetInstalacionPadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -361,7 +361,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void CompareToTest4()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Z");
@@ -369,7 +369,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ComponenteExcepcion))]
         public void CompareToTest5()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Z");

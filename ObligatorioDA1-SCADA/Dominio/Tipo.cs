@@ -1,5 +1,5 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using Excepciones;
 
 namespace Dominio
 {
@@ -23,7 +23,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("Nombre inválido.");
+                    throw new TipoExcepcion("Nombre inválido.");
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ArgumentException("Descripción inválida.");
+                    throw new TipoExcepcion("Descripción inválida.");
                 }
             }
         }

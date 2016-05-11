@@ -240,12 +240,12 @@ namespace Interfaz
             if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
             {
                 btnAgregarVariable.Enabled = true;
-                btnAgregarDispositivo.BackColor = Color.Chartreuse;
+                btnAgregarVariable.BackColor = Color.Chartreuse;
             }
             else
             {
                 btnAgregarVariable.Enabled = false;
-                btnAgregarDispositivo.BackColor = Color.LightGreen;
+                btnAgregarVariable.BackColor = Color.LightGreen;
             }
         }
 
