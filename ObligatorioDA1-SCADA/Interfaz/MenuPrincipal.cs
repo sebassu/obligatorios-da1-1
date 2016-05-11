@@ -152,17 +152,16 @@ namespace Interfaz
         {
             Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
             Componente componentePadre = unaVariable.ComponentePadre;
-
             DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
                     + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
-
             if (resultado == DialogResult.Yes)
             {
                 componentePadre.EliminarVariable(unaVariable);
+                lstVariables.Items.Remove(lstVariables.SelectedItems[0]);
                 MessageBox.Show("La variable seleccionada fue borrada correctamente", "Éxito");
             }
-            lstVariables.Clear();
-            RecargarTodoComponente();
+            ActivacionBotonesVariables();
+            RecargarTableroDeControl();
         }
 
         private void EditarVariableSeleccionada()
