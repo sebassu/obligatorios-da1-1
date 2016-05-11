@@ -347,6 +347,15 @@ namespace Interfaz
                 listaAuxiliar.Add(ObtenerNodoDeRamaJerarquica(hijo));
             }
             TreeNode retorno = new TreeNode(componente.ToString(), listaAuxiliar.ToArray());
+            Dispositivo dispositivo = componente as Dispositivo;
+            if (Auxiliar.NoEsNulo(dispositivo) && !dispositivo.EnUso)
+            {
+                retorno.ForeColor = Color.OrangeRed;
+            }
+            else
+            {
+                retorno.ForeColor = Color.Black;
+            }
             retorno.Tag = componente;
             return retorno;
         }

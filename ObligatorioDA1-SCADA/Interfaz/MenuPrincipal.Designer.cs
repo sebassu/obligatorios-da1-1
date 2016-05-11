@@ -53,6 +53,7 @@
             this.lstTableroControl = new System.Windows.Forms.RichTextBox();
             this.btnCargarDatosPrueba = new System.Windows.Forms.Button();
             this.btnMenuOpcionesTipo = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblMenuPrincipal
@@ -341,10 +342,21 @@
             this.btnMenuOpcionesTipo.UseVisualStyleBackColor = true;
             this.btnMenuOpcionesTipo.Click += new System.EventHandler(this.btnMenuOpcionesTipo_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.OrangeRed;
+            this.label3.Location = new System.Drawing.Point(22, 540);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(279, 13);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "Dispositivos que no están en uso se muestran en naranja.";
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnMenuOpcionesTipo);
             this.Controls.Add(this.btnCargarDatosPrueba);
             this.Controls.Add(this.lstTableroControl);
@@ -404,5 +416,6 @@
         private System.Windows.Forms.RichTextBox lstTableroControl;
         private System.Windows.Forms.Button btnCargarDatosPrueba;
         private System.Windows.Forms.Button btnMenuOpcionesTipo;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -40,7 +40,6 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblErrorTipo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,23 +161,10 @@
             this.pictureBox1.TabIndex = 14;
             this.pictureBox1.TabStop = false;
             // 
-            // lblErrorTipo
-            // 
-            this.lblErrorTipo.AutoSize = true;
-            this.lblErrorTipo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorTipo.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorTipo.Location = new System.Drawing.Point(499, 212);
-            this.lblErrorTipo.Name = "lblErrorTipo";
-            this.lblErrorTipo.Size = new System.Drawing.Size(199, 23);
-            this.lblErrorTipo.TabIndex = 15;
-            this.lblErrorTipo.Text = "Debe seleccionar un tipo";
-            this.lblErrorTipo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // RegistrarDispositivo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblErrorTipo);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
@@ -211,6 +197,5 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lblErrorTipo;
     }
 }
