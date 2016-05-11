@@ -32,8 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnVolverMenuPrincipal = new System.Windows.Forms.Button();
             this.lblValorHistorico = new System.Windows.Forms.Label();
             this.valoresHistoricos = new System.Windows.Forms.DataGridView();
@@ -58,11 +56,11 @@
             this.lblValorHistorico.AutoSize = true;
             this.lblValorHistorico.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblValorHistorico.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblValorHistorico.Location = new System.Drawing.Point(372, 12);
+            this.lblValorHistorico.Location = new System.Drawing.Point(359, 12);
             this.lblValorHistorico.Name = "lblValorHistorico";
-            this.lblValorHistorico.Size = new System.Drawing.Size(180, 34);
+            this.lblValorHistorico.Size = new System.Drawing.Size(220, 34);
             this.lblValorHistorico.TabIndex = 32;
-            this.lblValorHistorico.Text = "Valor Histórico";
+            this.lblValorHistorico.Text = "Valores Históricos";
             // 
             // valoresHistoricos
             // 
@@ -83,14 +81,7 @@
             this.Valor,
             this.Fecha,
             this.Hora});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.valoresHistoricos.DefaultCellStyle = dataGridViewCellStyle5;
+            this.valoresHistoricos.DefaultCellStyle = dataGridViewCellStyle3;
             this.valoresHistoricos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.valoresHistoricos.Location = new System.Drawing.Point(172, 61);
             this.valoresHistoricos.Name = "valoresHistoricos";
@@ -106,16 +97,21 @@
             // 
             // Fecha
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Fecha.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Fecha.DefaultCellStyle = dataGridViewCellStyle3;
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             // 
             // Hora
             // 
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Hora.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Hora.DefaultCellStyle = dataGridViewCellStyle4;
             this.Hora.HeaderText = "Hora";
             this.Hora.Name = "Hora";
             // 

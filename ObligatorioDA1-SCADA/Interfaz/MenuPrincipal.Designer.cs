@@ -251,6 +251,7 @@
             this.btnEditarVariable.TabIndex = 26;
             this.btnEditarVariable.Text = "I";
             this.btnEditarVariable.UseVisualStyleBackColor = false;
+            this.btnEditarVariable.Click += new System.EventHandler(this.btnEditarVariable_Click);
             // 
             // btnEliminarVariable
             // 
@@ -262,6 +263,7 @@
             this.btnEliminarVariable.TabIndex = 25;
             this.btnEliminarVariable.Text = "-";
             this.btnEliminarVariable.UseVisualStyleBackColor = false;
+            this.btnEliminarVariable.Click += new System.EventHandler(this.btnEliminarVariable_Click);
             // 
             // btnAgregarVariable
             // 

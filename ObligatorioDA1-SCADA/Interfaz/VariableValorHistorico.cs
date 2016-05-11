@@ -19,9 +19,9 @@ namespace Interfaz
                 valoresHistoricos.Rows.Add("Sin", "datos a", " mostrar");
             }
             else {
-                foreach (Tuple<DateTime, double> elemento in variable.Historico)
+                foreach (Tuple<DateTime, decimal> elemento in variable.Historico)
                 {
-                    valoresHistoricos.Rows.Add(elemento.Item2, elemento.Item1.Date, elemento.Item1.Hour);
+                    valoresHistoricos.Rows.Add(elemento.Item2, elemento.Item1, elemento.Item1.Hour);
                 }
             }
         }

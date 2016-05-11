@@ -22,6 +22,7 @@ namespace Interfaz
                 txtNombre.Text = unaVariable.Nombre;
                 numMin.Value = unaVariable.Minimo;
                 numMax.Value = unaVariable.Maximo;
+                lblMenuVariable.Text = "Modificar Variable";
             }
             else {
                 componenteAModificar = unComponente;

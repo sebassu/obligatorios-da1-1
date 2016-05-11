@@ -83,7 +83,7 @@ namespace Interfaz
 
         private void btnAgregarVariable_Click(object sender, EventArgs e)
         {
-            if (modelo.ExistenTipos())
+            if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
             {
                 if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
                 {
@@ -112,6 +112,16 @@ namespace Interfaz
             VerificarVariableSeleccionada(AbrirHistorico);
         }
 
+        private void btnEliminarVariable_Click(object sender, EventArgs e)
+        {
+            VerificarVariableSeleccionada(EliminarVariableSeleccionada);
+        }
+
+        private void btnEditarVariable_Click(object sender, EventArgs e)
+        {
+            VerificarVariableSeleccionada(EditarVariableSeleccionada);
+        }
+
         private void VerificarVariableSeleccionada(Action unaAccionARealizar)
         {
             if (lstVariables.SelectedItems.Count != 0)
@@ -120,7 +130,7 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una variable para acceder a esta funcionalidad");
+                MessageBox.Show("Debe seleccionar una Variable para acceder a esta funcionalidad");
             }
         }
 
@@ -136,6 +146,30 @@ namespace Interfaz
             Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarValorVariable(modelo, panelSistema, unaVariable));
+        }
+
+        private void EliminarVariableSeleccionada()
+        {
+            Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
+            Componente componentePadre = unaVariable.ComponentePadre;
+
+            DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
+                    + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+
+            if (resultado == DialogResult.Yes)
+            {
+                componentePadre.EliminarVariable(unaVariable);
+                MessageBox.Show("La variable seleccionada fue borrada correctamente", "Éxito");
+            }
+            lstVariables.Clear();
+            RecargarTodoComponente();
+        }
+
+        private void EditarVariableSeleccionada()
+        {
+            Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema, null, unaVariable));
         }
 
         private void btnCargarDatosPrueba_Click(object sender, EventArgs e)
@@ -223,12 +257,14 @@ namespace Interfaz
                 btnEditarVariable.Enabled = true;
                 btnEliminarVariable.Enabled = true;
                 btnAgregarValorVariable.Enabled = true;
+                btnValoresHistoricos.Enabled = true;
                 Variable variableSeleccionada = (Variable)lstVariables.SelectedItems[0].Tag;
                 btnValoresHistoricos.Enabled = !Auxiliar.EsListaVacia(variableSeleccionada.Historico);
                 btnEliminarVariable.BackColor = Color.Red;
                 btnEditarVariable.BackColor = Color.PaleTurquoise;
             }
-            else {
+            else
+            {
                 btnEditarVariable.Enabled = false;
                 btnEliminarVariable.Enabled = false;
                 btnAgregarValorVariable.Enabled = false;
@@ -247,7 +283,8 @@ namespace Interfaz
                 btnEliminarDispositivo.BackColor = Color.Red;
                 btnEditarDispositivo.BackColor = Color.PaleTurquoise;
             }
-            else {
+            else
+            {
                 btnEditarDispositivo.Enabled = false;
                 btnEliminarDispositivo.Enabled = false;
                 btnEliminarDispositivo.BackColor = Color.LightPink;
@@ -264,7 +301,8 @@ namespace Interfaz
                 btnEliminarInstalacion.BackColor = Color.Red;
                 btnEditarInstalacion.BackColor = Color.PaleTurquoise;
             }
-            else {
+            else
+            {
                 btnEditarInstalacion.Enabled = false;
                 btnEliminarInstalacion.Enabled = false;
                 btnEliminarInstalacion.BackColor = Color.LightPink;
@@ -280,7 +318,8 @@ namespace Interfaz
                 btnMenuOpcionesTipo.Enabled = true;
                 btnAgregarDispositivo.BackColor = Color.Chartreuse;
             }
-            else {
+            else
+            {
                 btnAgregarDispositivo.Enabled = false;
                 btnMenuOpcionesTipo.Enabled = false;
                 btnAgregarDispositivo.BackColor = Color.LightGreen;
