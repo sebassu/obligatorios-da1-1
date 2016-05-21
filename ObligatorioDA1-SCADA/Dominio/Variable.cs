@@ -11,6 +11,8 @@ namespace Dominio
         private static uint ProximaIdAAsignar;
 
         private uint id;
+        private Tuple<decimal, decimal> rangoAdvertencia;
+        private Tuple<decimal, decimal> rangoAlarma;
         private DateTime fechaUltimaModificacion;
         private bool fueSeteada;
 
@@ -97,43 +99,35 @@ namespace Dominio
             }
         }
 
-        private decimal maximo;
-        public decimal Maximo
+        public decimal MinimoAlarma
         {
             get
             {
-                return maximo;
-            }
-            set
-            {
-                if (minimo > value)
-                {
-                    throw new VariableExcepcion("Máximo inferior al mínimo registrado");
-                }
-                else
-                {
-                    maximo = value;
-                }
+                return rangoAlarma.Item1;
             }
         }
 
-        private decimal minimo;
-        public decimal Minimo
+        public decimal MinimoAdvertencia
         {
             get
             {
-                return minimo;
+                return rangoAdvertencia.Item1;
             }
-            set
+        }
+
+        public decimal MaximoAdvertencia
+        {
+            get
             {
-                if (maximo < value)
-                {
-                    throw new VariableExcepcion("Mínimo superior al máximo registrado");
-                }
-                else
-                {
-                    minimo = value;
-                }
+                return rangoAdvertencia.Item2;
+            }
+        }
+
+        public decimal MaximoAlarma
+        {
+            get
+            {
+                return rangoAlarma.Item2;
             }
         }
 
@@ -166,6 +160,9 @@ namespace Dominio
         {
             nombre = "Nombre inválido.";
             id = ProximaIdAAsignar++;
+            Tuple<decimal, decimal> tuplaAuxiliar = Tuple.Create(0M, 0M);
+            rangoAdvertencia = tuplaAuxiliar;
+            rangoAlarma = tuplaAuxiliar;
             historicoDeValores = new List<Tuple<DateTime, decimal>>();
         }
 
@@ -183,16 +180,33 @@ namespace Dominio
             else
             {
                 Nombre = unNombre;
-                minimo = valorMinimo;
-                maximo = valorMaximo;
+                Tuple<decimal, decimal> tuplaAuxiliar = Tuple.Create(valorMinimo, valorMaximo);
+                rangoAdvertencia = tuplaAuxiliar;
+                rangoAlarma = tuplaAuxiliar;
                 id = ProximaIdAAsignar++;
                 historicoDeValores = new List<Tuple<DateTime, decimal>>();
             }
         }
 
+        public static Variable NombreRangosAdvertenciaAlarma(string nombre, Tuple<decimal, decimal> rangoAdvertencia,
+            Tuple<decimal, decimal> rangoAlarma)
+        {
+            return new Variable(nombre, rangoAdvertencia, rangoAlarma);
+        }
+
+        private Variable(string unNombre, Tuple<decimal, decimal> rangoAdvertencia,
+            Tuple<decimal, decimal> rangoAlarma)
+        {
+
+            id = ProximaIdAAsignar++;
+            Nombre = unNombre;
+            SetValoresLimites(rangoAdvertencia, rangoAlarma);
+            historicoDeValores = new List<Tuple<DateTime, decimal>>();
+        }
+
         private bool FueraDelIntervaloMenorMayor(decimal unValor)
         {
-            return unValor < minimo || unValor > maximo;
+            return unValor < MinimoAlarma || unValor > MaximoAlarma;
         }
 
         public override bool Equals(object unObjeto)
@@ -230,7 +244,21 @@ namespace Dominio
         public override string ToString()
         {
             string valorActualAuxiliar = (fueSeteada ? valorActual + "" : "N/A");
-            return nombre + ": " + valorActualAuxiliar + " (" + minimo + " - " + maximo + ")";
+            return nombre + ": " + valorActualAuxiliar + " (" + MinimoAlarma + ", " +
+                MinimoAdvertencia + ", " + MaximoAdvertencia + ", " + MaximoAlarma + ")";
+        }
+
+        public void SetValoresLimites(Tuple<decimal, decimal> limitesAdvertenciaASetear, Tuple<decimal, decimal> limitesAlarmaASetear)
+        {
+            if (Auxiliar.ValoresMonotonosCrecientes(limitesAlarmaASetear.Item1, limitesAdvertenciaASetear.Item1, limitesAdvertenciaASetear.Item2, limitesAlarmaASetear.Item2))
+            {
+                rangoAdvertencia = limitesAdvertenciaASetear;
+                rangoAlarma = limitesAlarmaASetear;
+            }
+            else
+            {
+                throw new VariableExcepcion("Valores límites inválidos recibidos.");
+            }
         }
     }
 }

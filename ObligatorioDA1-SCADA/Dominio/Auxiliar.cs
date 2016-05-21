@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace Dominio
@@ -24,6 +25,11 @@ namespace Dominio
         public static bool EsListaVacia(IList variables)
         {
             return variables.Count == 0;
+        }
+
+        public static bool ValoresMonotonosCrecientes(decimal valor1, decimal valor2, decimal valor3, decimal valor4)
+        {
+            return valor1 <= valor2 && valor2 <= valor3 && valor3 <= valor4;
         }
     }
 }
