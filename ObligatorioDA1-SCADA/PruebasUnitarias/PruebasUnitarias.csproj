@@ -58,6 +58,7 @@
     <Compile Include="ComponenteTest.cs" />
     <Compile Include="InstalacionTest.cs" />
     <Compile Include="AccesoADatosEnMemoriaTest.cs" />
+    <Compile Include="IncidenteTest.cs" />
     <Compile Include="VariableTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Dominio;
+using Excepciones;
 
 namespace PruebasUnitarias
 {
@@ -12,7 +14,7 @@ namespace PruebasUnitarias
             Incidente unIncidente = Incidente.IncidenteInvalido();
             Assert.AreEqual(default(DateTime), unIncidente.Fecha);
             Assert.AreEqual(0, unIncidente.NivelGravedad);
-            Assert.AreEqual("Descripción inválidad.", unIncidente.Descripcion);
+            Assert.AreEqual("Descripción inválida.", unIncidente.Descripcion);
         }
 
         [TestMethod]
@@ -78,7 +80,7 @@ namespace PruebasUnitarias
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.Descripcion = "  Accidente  ";
-            Assert.AreEqual("  Accidente  ", unIncidente.Descripcion);
+            Assert.AreEqual("Accidente", unIncidente.Descripcion);
         }
 
         [TestMethod]
