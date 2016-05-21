@@ -25,5 +25,10 @@ namespace Dominio
         {
             return variables.Count == 0;
         }
+
+        public static bool EsNivelDeGravedadValido(byte value)
+        {
+            return value >= 1 && value <= 5;
+        }
     }
 }

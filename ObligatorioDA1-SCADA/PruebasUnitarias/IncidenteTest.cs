@@ -40,7 +40,7 @@ namespace PruebasUnitarias
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.NivelGravedad = 1;
-            Assert.AreEqual(1, unIncidente.NivelGravedad);
+            Assert.AreEqual((byte)1, unIncidente.NivelGravedad);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace PruebasUnitarias
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.NivelGravedad = 5;
-            Assert.AreEqual(5, unIncidente.NivelGravedad);
+            Assert.AreEqual((byte)5, unIncidente.NivelGravedad);
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace PruebasUnitarias
         public void SetNivelGravedadTest3()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
-            unIncidente.NivelGravedad = -99999;
+            unIncidente.NivelGravedad = 0;
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace PruebasUnitarias
         public void SetNivelGravedadTest4()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
-            unIncidente.NivelGravedad = 99999;
+            unIncidente.NivelGravedad = 255;
         }
 
         [TestMethod]

@@ -38,8 +38,8 @@ namespace Dominio
             }
         }
 
-        private int nivelGravedad;
-        public int NivelGravedad
+        private byte nivelGravedad;
+        public byte NivelGravedad
         {
             get
             {
@@ -47,7 +47,7 @@ namespace Dominio
             }
             set
             {
-                if (value >= 1 && value <= 5)
+                if (Auxiliar.EsNivelDeGravedadValido(value))
                 {
                     nivelGravedad = value;
                 }
