@@ -99,6 +99,23 @@ namespace Dominio
             }
         }
 
+        public void SetValoresLimites(Tuple<decimal, decimal> limitesAdvertenciaASetear, Tuple<decimal, decimal> limitesAlarmaASetear)
+        {
+            decimal minimoAlarma = limitesAlarmaASetear.Item1;
+            decimal minimoAdvertencia = limitesAdvertenciaASetear.Item1;
+            decimal maximoAdvertencia = limitesAdvertenciaASetear.Item2;
+            decimal maximoAlarma = limitesAlarmaASetear.Item2;
+            if (Auxiliar.ValoresMonotonosCrecientes(minimoAlarma, minimoAdvertencia, maximoAdvertencia, maximoAlarma))
+            {
+                rangoAdvertencia = limitesAdvertenciaASetear;
+                rangoAlarma = limitesAlarmaASetear;
+            }
+            else
+            {
+                throw new VariableExcepcion("Valores límites inválidos recibidos.");
+            }
+        }
+
         public decimal MinimoAlarma
         {
             get
@@ -194,8 +211,7 @@ namespace Dominio
             return new Variable(nombre, rangoAdvertencia, rangoAlarma);
         }
 
-        private Variable(string unNombre, Tuple<decimal, decimal> rangoAdvertencia,
-            Tuple<decimal, decimal> rangoAlarma)
+        private Variable(string unNombre, Tuple<decimal, decimal> rangoAdvertencia, Tuple<decimal, decimal> rangoAlarma)
         {
 
             id = ProximaIdAAsignar++;
@@ -246,19 +262,6 @@ namespace Dominio
             string valorActualAuxiliar = (fueSeteada ? valorActual + "" : "N/A");
             return nombre + ": " + valorActualAuxiliar + " (" + MinimoAlarma + ", " +
                 MinimoAdvertencia + ", " + MaximoAdvertencia + ", " + MaximoAlarma + ")";
-        }
-
-        public void SetValoresLimites(Tuple<decimal, decimal> limitesAdvertenciaASetear, Tuple<decimal, decimal> limitesAlarmaASetear)
-        {
-            if (Auxiliar.ValoresMonotonosCrecientes(limitesAlarmaASetear.Item1, limitesAdvertenciaASetear.Item1, limitesAdvertenciaASetear.Item2, limitesAlarmaASetear.Item2))
-            {
-                rangoAdvertencia = limitesAdvertenciaASetear;
-                rangoAlarma = limitesAlarmaASetear;
-            }
-            else
-            {
-                throw new VariableExcepcion("Valores límites inválidos recibidos.");
-            }
         }
     }
 }
