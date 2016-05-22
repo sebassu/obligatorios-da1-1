@@ -2,6 +2,7 @@
 using Dominio;
 using System.Diagnostics.CodeAnalysis;
 using Excepciones;
+using System;
 
 namespace PruebasUnitarias
 {
@@ -9,6 +10,7 @@ namespace PruebasUnitarias
     [TestClass]
     public class ComponenteTest
     {
+
         [TestMethod]
         public void SetNombreComponenteTest1()
         {
@@ -170,7 +172,7 @@ namespace PruebasUnitarias
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
-            uint cantidadAnterior = unDispositivo.CantidadAlarmasActivas;
+            unDispositivo.AgregarVariable(Variable.VariableInvalida());
             unDispositivo.DecrementarAlarmas();
         }
 
@@ -180,6 +182,55 @@ namespace PruebasUnitarias
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.DecrementarAlarmas();
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAdvertenciasTest1()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            unDispositivo.AgregarVariable(Variable.VariableInvalida());
+            uint cantidadAnterior = unDispositivo.CantidadAdvertenciasActivas;
+            unDispositivo.IncrementarAdvertencias();
+            Assert.AreEqual(cantidadAnterior + 1, unDispositivo.CantidadAdvertenciasActivas);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ComponenteExcepcion))]
+        public void IncrementarCantidadAdvertenciasTest2()
+        {
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            unDispositivo.IncrementarAdvertencias();
+        }
+
+        [TestMethod]
+        public void DecrementarCantidadAdvertenciasTest1()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            unDispositivo.AgregarVariable(Variable.VariableInvalida());
+            uint cantidadAnterior = unDispositivo.CantidadAlarmasActivas;
+            unDispositivo.IncrementarAdvertencias();
+            unDispositivo.DecrementarAdvertencias();
+            Assert.AreEqual(cantidadAnterior, unDispositivo.CantidadAdvertenciasActivas);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ComponenteExcepcion))]
+        public void DecrementarCantidadAdvertenciasTest3()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            unDispositivo.AgregarVariable(Variable.VariableInvalida());
+            unDispositivo.DecrementarAdvertencias();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ComponenteExcepcion))]
+        public void IncrementarCantidadAdvertenciasTest3()
+        {
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            unDispositivo.DecrementarAdvertencias();
         }
 
         [TestMethod]
@@ -267,6 +318,124 @@ namespace PruebasUnitarias
             unaVariable.ValorActual = 3000;
             unDispositivo.EnUso = true;
             Assert.AreEqual((uint)1, unaInstalacion.CantidadAlarmasActivas);
+        }
+
+
+        public void IncrementarCantidadAdvertenciasPadreTest1()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 30;
+            Assert.AreEqual((uint)1, unaInstalacion.CantidadAdvertenciasActivas);
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadAlarmasActivas);
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAdvertenciasPadreTest2NoEnUso()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 30;
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadAdvertenciasActivas);
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadAlarmasActivas);
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAdvertenciasPadreTest3Anidadas()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Instalacion instalacion1 = Instalacion.ConstructorNombre("Instalación padre");
+            Instalacion instalacion2 = Instalacion.ConstructorNombre("Instalación hija");
+            Instalacion instalacion3 = Instalacion.ConstructorNombre("Otro hijo independiente");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            unDispositivo.AgregarVariable(unaVariable);
+            instalacion2.AgregarComponente(unDispositivo);
+            instalacion1.AgregarComponente(instalacion2);
+            instalacion1.AgregarComponente(instalacion3);
+            unaVariable.ValorActual = -15;
+            Assert.AreEqual((uint)1, instalacion2.CantidadAdvertenciasActivas);
+            Assert.AreEqual((uint)1, instalacion1.CantidadAdvertenciasActivas);
+            Assert.AreEqual((uint)0, instalacion3.CantidadAdvertenciasActivas);
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAdvertenciasPadreTest4RangoNormal()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 30;
+            unaVariable.ValorActual = 0;
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadAdvertenciasActivas);
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAdvertenciasPadreTest5Alarma()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 30;
+            unaVariable.ValorActual = -300;
+            Assert.AreEqual((uint)1, unaInstalacion.CantidadAlarmasActivas);
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadAdvertenciasActivas);
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAdvertenciasPadreTest6Desactivacion()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 30;
+            unDispositivo.EnUso = false;
+            Assert.AreEqual((uint)0, unaInstalacion.CantidadAdvertenciasActivas);
+        }
+
+        [TestMethod]
+        public void IncrementarCantidadAdvertenciasPadreTest7Activacion()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            unDispositivo.AgregarVariable(unaVariable);
+            unaInstalacion.AgregarComponente(unDispositivo);
+            unaVariable.ValorActual = 30;
+            unDispositivo.EnUso = true;
+            Assert.AreEqual((uint)1, unaInstalacion.CantidadAdvertenciasActivas);
         }
 
         [TestMethod]
