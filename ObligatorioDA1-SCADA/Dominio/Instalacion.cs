@@ -93,7 +93,7 @@ namespace Dominio
             return Auxiliar.NoEsNulo(unComponente) && !unComponente.Equals(this);
         }
 
-        public static Instalacion InstalacionInvalida()
+        internal static Instalacion InstalacionInvalida()
         {
             return new Instalacion();
         }
@@ -101,11 +101,6 @@ namespace Dominio
         public static Instalacion ConstructorNombre(string unNombre)
         {
             return new Instalacion(unNombre);
-        }
-
-        protected override void IncrementarAlarmasPadre()
-        {
-            instalacionPadre.IncrementarAlarmas();
         }
 
         private Instalacion()

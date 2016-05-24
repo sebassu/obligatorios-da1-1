@@ -225,7 +225,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest1Dentro()
+        public void ValorAlarmaTest1Dentro()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Volumen", 0, 400);
             unaVariable.ValorActual = 200.5M;
@@ -233,7 +233,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest2PorEncima()
+        public void ValorAlarmaTest2PorEncima()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = 1000;
@@ -241,11 +241,41 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest3PorDebajo()
+        public void ValorAlarmaTest3PorDebajo()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = -30;
             Assert.AreEqual(true, unaVariable.EstaFueraDeRango);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest1Dentro()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = 0.5M;
+            Assert.AreEqual(false, unaVariable.AdvertenciaActivada);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest2PorEncima()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = 30;
+            Assert.AreEqual(true, unaVariable.AdvertenciaActivada);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest3PorDebajo()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = -15.5M;
+            Assert.AreEqual(true, unaVariable.AdvertenciaActivada);
         }
 
         [TestMethod]

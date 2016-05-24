@@ -45,6 +45,15 @@ namespace Dominio
             }
         }
 
+        private bool advertenciaActivada;
+        public bool AdvertenciaActivada
+        {
+            get
+            {
+                return advertenciaActivada;
+            }
+        }
+
         private decimal valorActual;
         public decimal ValorActual
         {
@@ -55,12 +64,15 @@ namespace Dominio
             set
             {
                 RegistrarValorAnterior();
-                bool nuevoValorFueraDeRango = FueraDelIntervaloMenorMayor(value);
+                bool fueraDeRangoAlarma = Auxiliar.EstaFueraDelRango(value, rangoAlarma);
+                bool fueraDeRangoAdvertencia = Auxiliar.EstaFueraDelRango(value, rangoAdvertencia) && !fueraDeRangoAlarma;
                 if (Auxiliar.NoEsNulo(componentePadre))
                 {
-                    ValidarActivacionesDeAlarma(nuevoValorFueraDeRango);
+                    ValidarActivacionesDeAlarma(fueraDeRangoAlarma);
+                    ValidarActivacionesDeAdvertencia(fueraDeRangoAdvertencia);
                 }
-                alarmaActivada = nuevoValorFueraDeRango;
+                alarmaActivada = fueraDeRangoAlarma;
+                advertenciaActivada = fueraDeRangoAdvertencia;
                 fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
                 fueSeteada = true;
@@ -72,11 +84,22 @@ namespace Dominio
             if (!alarmaActivada && nuevoValorFueraDeRango)
             {
                 componentePadre.IncrementarAlarmas();
-
             }
             else if (alarmaActivada && !nuevoValorFueraDeRango)
             {
                 componentePadre.DecrementarAlarmas();
+            }
+        }
+
+        private void ValidarActivacionesDeAdvertencia(bool nuevoValorFueraDeRango)
+        {
+            if (!advertenciaActivada && nuevoValorFueraDeRango)
+            {
+                componentePadre.IncrementarAdvertencias();
+            }
+            else if (advertenciaActivada && !nuevoValorFueraDeRango)
+            {
+                componentePadre.DecrementarAdvertencias();
             }
         }
 
@@ -168,7 +191,7 @@ namespace Dominio
             }
         }
 
-        public static Variable VariableInvalida()
+        internal static Variable VariableInvalida()
         {
             return new Variable();
         }
@@ -218,11 +241,6 @@ namespace Dominio
             Nombre = unNombre;
             SetValoresLimites(rangoAdvertencia, rangoAlarma);
             historicoDeValores = new List<Tuple<DateTime, decimal>>();
-        }
-
-        private bool FueraDelIntervaloMenorMayor(decimal unValor)
-        {
-            return unValor < MinimoAlarma || unValor > MaximoAlarma;
         }
 
         public override bool Equals(object unObjeto)

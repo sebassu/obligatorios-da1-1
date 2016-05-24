@@ -10,7 +10,6 @@ namespace PruebasUnitarias
     [TestClass]
     public class ComponenteTest
     {
-
         [TestMethod]
         public void SetNombreComponenteTest1()
         {
@@ -209,7 +208,7 @@ namespace PruebasUnitarias
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
             unDispositivo.AgregarVariable(Variable.VariableInvalida());
-            uint cantidadAnterior = unDispositivo.CantidadAlarmasActivas;
+            uint cantidadAnterior = unDispositivo.CantidadAdvertenciasActivas;
             unDispositivo.IncrementarAdvertencias();
             unDispositivo.DecrementarAdvertencias();
             Assert.AreEqual(cantidadAnterior, unDispositivo.CantidadAdvertenciasActivas);

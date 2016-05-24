@@ -48,7 +48,7 @@ namespace Dominio
             }
         }
 
-        public static Tipo TipoInvalido()
+        internal static Tipo TipoInvalido()
         {
             return new Tipo();
         }

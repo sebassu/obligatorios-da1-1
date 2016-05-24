@@ -31,5 +31,10 @@ namespace Dominio
         {
             return valor1 <= valor2 && valor2 <= valor3 && valor3 <= valor4;
         }
+
+        public static bool EstaFueraDelRango(decimal valor, Tuple<decimal, decimal> rango)
+        {
+            return valor < rango.Item1 || valor > rango.Item2;
+        }
     }
 }

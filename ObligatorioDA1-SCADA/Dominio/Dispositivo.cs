@@ -29,7 +29,7 @@ namespace Dominio
         }
 
         private bool enUso;
-        public bool EnUso
+        public override bool EnUso
         {
             get
             {
@@ -49,28 +49,24 @@ namespace Dominio
         {
             if (enUso && !pasaAUsarse)
             {
-                RestarTotalAlarmasPadre();
+                RestarTotalAlarmasYAdvertenciasPadre();
             }
             else if (!enUso && pasaAUsarse)
             {
-                SumarTotalAlarmasPadre();
+                SumarTotalAlarmasYAdvertenciasPadre();
             }
         }
 
-        private void RestarTotalAlarmasPadre()
+        private void RestarTotalAlarmasYAdvertenciasPadre()
         {
-            for (int i = 0; i < cantidadAlarmasActivas; i++)
-            {
-                instalacionPadre.DecrementarAlarmas();
-            }
+            instalacionPadre.DecrementarAlarmas(cantidadAlarmasActivas);
+            instalacionPadre.DecrementarAdvertencias(cantidadAdvertenciasActivas);
         }
 
-        private void SumarTotalAlarmasPadre()
+        private void SumarTotalAlarmasYAdvertenciasPadre()
         {
-            for (int i = 0; i < cantidadAlarmasActivas; i++)
-            {
-                instalacionPadre.IncrementarAlarmas();
-            }
+            instalacionPadre.IncrementarAlarmas(cantidadAlarmasActivas);
+            instalacionPadre.IncrementarAdvertencias(cantidadAdvertenciasActivas);
         }
 
         public override IList Dependencias
@@ -86,12 +82,12 @@ namespace Dominio
             return new Dispositivo(unNombre, unTipo, estaEnUso);
         }
 
-        public static Dispositivo DispositivoInvalido()
+        internal static Dispositivo DispositivoInvalido()
         {
             return new Dispositivo();
         }
 
-        public override void IncrementarAlarmas()
+        internal override void IncrementarAlarmas(uint valor = 1)
         {
             if (Auxiliar.EsListaVacia(variables))
             {
@@ -99,15 +95,19 @@ namespace Dominio
             }
             else
             {
-                base.IncrementarAlarmas();
+                base.IncrementarAlarmas(valor);
             }
         }
 
-        protected override void IncrementarAlarmasPadre()
+        internal override void IncrementarAdvertencias(uint valor = 1)
         {
-            if (enUso)
+            if (Auxiliar.EsListaVacia(variables))
             {
-                instalacionPadre.IncrementarAlarmas();
+                throw new ComponenteExcepcion("La lista de variables controladas es vacía.");
+            }
+            else
+            {
+                base.IncrementarAdvertencias(valor);
             }
         }
 
