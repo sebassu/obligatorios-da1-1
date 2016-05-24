@@ -36,21 +36,21 @@ namespace Dominio
             }
         }
 
-        private bool alarmaActivada;
-        public bool EstaFueraDeRango
+        private bool alarmaActiva;
+        public bool AlarmaActiva
         {
             get
             {
-                return alarmaActivada;
+                return alarmaActiva;
             }
         }
 
-        private bool advertenciaActivada;
-        public bool AdvertenciaActivada
+        private bool advertenciaActiva;
+        public bool AdvertenciaActiva
         {
             get
             {
-                return advertenciaActivada;
+                return advertenciaActiva;
             }
         }
 
@@ -71,8 +71,8 @@ namespace Dominio
                     ValidarActivacionesDeAlarma(fueraDeRangoAlarma);
                     ValidarActivacionesDeAdvertencia(fueraDeRangoAdvertencia);
                 }
-                alarmaActivada = fueraDeRangoAlarma;
-                advertenciaActivada = fueraDeRangoAdvertencia;
+                alarmaActiva = fueraDeRangoAlarma;
+                advertenciaActiva = fueraDeRangoAdvertencia;
                 fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
                 fueSeteada = true;
@@ -81,11 +81,11 @@ namespace Dominio
 
         private void ValidarActivacionesDeAlarma(bool nuevoValorFueraDeRango)
         {
-            if (!alarmaActivada && nuevoValorFueraDeRango)
+            if (!alarmaActiva && nuevoValorFueraDeRango)
             {
                 componentePadre.IncrementarAlarmas();
             }
-            else if (alarmaActivada && !nuevoValorFueraDeRango)
+            else if (alarmaActiva && !nuevoValorFueraDeRango)
             {
                 componentePadre.DecrementarAlarmas();
             }
@@ -93,17 +93,25 @@ namespace Dominio
 
         private void ValidarActivacionesDeAdvertencia(bool nuevoValorFueraDeRango)
         {
-            if (!advertenciaActivada && nuevoValorFueraDeRango)
+            if (!advertenciaActiva && nuevoValorFueraDeRango)
             {
                 componentePadre.IncrementarAdvertencias();
             }
-            else if (advertenciaActivada && !nuevoValorFueraDeRango)
+            else if (advertenciaActiva && !nuevoValorFueraDeRango)
             {
                 componentePadre.DecrementarAdvertencias();
             }
         }
 
         private List<Tuple<DateTime, decimal>> historicoDeValores;
+        public IList Historico
+        {
+            get
+            {
+                return historicoDeValores.AsReadOnly();
+            }
+        }
+
         private void RegistrarValorAnterior()
         {
             if (fueSeteada)
@@ -111,14 +119,6 @@ namespace Dominio
                 Tuple<DateTime, decimal> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
                 historicoDeValores.Add(elementoAAgregar);
                 historicoDeValores.Sort();
-            }
-        }
-
-        public IList Historico
-        {
-            get
-            {
-                return historicoDeValores.AsReadOnly();
             }
         }
 

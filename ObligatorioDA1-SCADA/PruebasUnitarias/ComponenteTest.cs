@@ -319,7 +319,7 @@ namespace PruebasUnitarias
             Assert.AreEqual((uint)1, unaInstalacion.CantidadAlarmasActivas);
         }
 
-
+        [TestMethod]
         public void IncrementarCantidadAdvertenciasPadreTest1()
         {
             Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
