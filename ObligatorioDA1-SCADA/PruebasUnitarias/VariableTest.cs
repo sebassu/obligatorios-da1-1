@@ -12,6 +12,17 @@ namespace PruebasUnitarias
     public class VariableTest
     {
         [TestMethod]
+        public void VariableInvalidaTest()
+        {
+            Variable unaVariable = Variable.VariableInvalida();
+            Assert.AreEqual("Variable inválida.", unaVariable.Nombre);
+            Assert.AreEqual(0, unaVariable.MinimoAlarma);
+            Assert.AreEqual(0, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(0, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(0, unaVariable.MaximoAlarma);
+        }
+
+        [TestMethod]
         public void SetValorActualTest1()
         {
             decimal nuevoValor = 125;
@@ -24,8 +35,8 @@ namespace PruebasUnitarias
         public void SetValorActualTest2()
         {
             Variable unaVariable = Variable.VariableInvalida();
-            unaVariable.ValorActual = 0;
-            Assert.AreEqual(0, unaVariable.ValorActual);
+            unaVariable.ValorActual = 10;
+            Assert.AreEqual(10, unaVariable.ValorActual);
         }
 
         [TestMethod]
@@ -37,12 +48,76 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
+        public void NombreRangosAdvertenciaAlarmaTest1()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Assert.AreEqual("Altura", unaVariable.Nombre);
+            Assert.AreEqual(-20M, unaVariable.MinimoAlarma);
+            Assert.AreEqual(-10M, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(20M, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(40M, unaVariable.MaximoAlarma);
+        }
+
+        [TestMethod]
+        public void NombreRangosAdvertenciaAlarmaTest2ValoresIguales()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(10M, 10M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(10M, 10M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+            Assert.AreEqual("Altura", unaVariable.Nombre);
+            Assert.AreEqual(10M, unaVariable.MinimoAlarma);
+            Assert.AreEqual(10M, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(10M, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(10M, unaVariable.MaximoAlarma);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest3NombreInvalido()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("12,. #$%", rangoAdvertencia, rangoAlarma);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest4MinimosInvalidos()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-100M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest5RangoAdvertenciaInvalido()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(10M, -10M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest6MaximosInvalidos()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 10M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Calor", rangoAdvertencia, rangoAlarma);
+        }
+
+        [TestMethod]
         public void NombreMinimoMaximoTest1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Altura", 0, 418);
             Assert.AreEqual("Altura", unaVariable.Nombre);
-            Assert.AreEqual(0, unaVariable.Minimo);
-            Assert.AreEqual(418, unaVariable.Maximo);
+            Assert.AreEqual(0, unaVariable.MinimoAlarma);
+            Assert.AreEqual(0, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(418, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(418, unaVariable.MaximoAlarma);
         }
 
         [TestMethod]
@@ -107,93 +182,100 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetValorMinimoTest1Valido()
+        public void SetValoresLimitesTest1()
         {
-            decimal nuevoValor = 0;
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = nuevoValor;
-            Assert.AreEqual(nuevoValor, unaVariable.Minimo);
-        }
-
-        [TestMethod]
-        public void SetValorMinimoTest2Valido()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = -300.9M;
-            Assert.AreEqual(-300.9M, unaVariable.Minimo);
-        }
-
-        [TestMethod]
-        public void SetValorMinimoTest3ValidoIguales()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = 500;
-            Assert.AreEqual(500, unaVariable.Minimo);
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 30M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(rangoAdvertencia, rangoAlarma);
+            Assert.AreEqual(-20M, unaVariable.MinimoAlarma);
+            Assert.AreEqual(-10M, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(30M, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(40M, unaVariable.MaximoAlarma);
         }
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void SetValorMinimoTest4Invalido()
+        public void SetValoresLimitesTest2()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = 1000;
-        }
-
-        [TestMethod]
-        public void SetValorMaximoTest1Valido()
-        {
-            decimal nuevoValor = 200;
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 100);
-            unaVariable.Maximo = nuevoValor;
-            Assert.AreEqual(nuevoValor, unaVariable.Maximo);
-        }
-
-        [TestMethod]
-        public void SetValorMaximoTest2Valido()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
-            unaVariable.Maximo = 2000.7M;
-            Assert.AreEqual(2000.7M, unaVariable.Maximo);
-        }
-
-        [TestMethod]
-        public void SetValorMaximoTest3Iguales()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
-            unaVariable.Maximo = 0;
-            Assert.AreEqual(0, unaVariable.Maximo);
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-30M, 30M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(rangoAdvertencia, rangoAlarma);
         }
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void SetValorMaximoTest4Invalido()
+        public void SetValoresLimitesTest3()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
-            unaVariable.Maximo = -20;
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, -15M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(rangoAdvertencia, rangoAlarma);
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest1Dentro()
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void SetValoresLimitesTest4()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 30M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 20M);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(rangoAdvertencia, rangoAlarma);
+        }
+
+        [TestMethod]
+        public void ValorAlarmaTest1Dentro()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Volumen", 0, 400);
             unaVariable.ValorActual = 200.5M;
-            Assert.AreEqual(false, unaVariable.EstaFueraDeRango);
+            Assert.IsFalse(unaVariable.AlarmaActiva);
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest2PorEncima()
+        public void ValorAlarmaTest2PorEncima()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = 1000;
-            Assert.AreEqual(true, unaVariable.EstaFueraDeRango);
+            Assert.IsTrue(unaVariable.AlarmaActiva);
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest3PorDebajo()
+        public void ValorAlarmaTest3PorDebajo()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
             unaVariable.ValorActual = -30;
-            Assert.AreEqual(true, unaVariable.EstaFueraDeRango);
+            Assert.IsTrue(unaVariable.AlarmaActiva);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest1Dentro()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = 0.5M;
+            Assert.IsFalse(unaVariable.AdvertenciaActiva);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest2PorEncima()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = 30;
+            Assert.IsTrue(unaVariable.AdvertenciaActiva);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest3PorDebajo()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = -15.5M;
+            Assert.IsTrue(unaVariable.AdvertenciaActiva);
         }
 
         [TestMethod]
@@ -225,7 +307,7 @@ namespace PruebasUnitarias
                 largo++;
             }
             CollectionAssert.Contains(valoresSinFecha, -50M);
-            Assert.AreEqual(largo, 1);
+            Assert.AreEqual(1, largo);
         }
 
         [TestMethod]
@@ -334,14 +416,44 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Variable", -10, 30);
             unaVariable.ValorActual = 1;
-            Assert.AreEqual("Variable: 1 (-10 - 30)", unaVariable.ToString());
+            Assert.AreEqual("Variable: 1 (-10, -10, 30, 30)", unaVariable.ToString());
         }
 
         [TestMethod]
         public void ToStringTest2()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Variable", -10, 30);
-            Assert.AreEqual("Variable: N/A (-10 - 30)", unaVariable.ToString());
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 30M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            Assert.AreEqual("Temperatura: N/A (-20, -10, 30, 40)", unaVariable.ToString());
+        }
+
+        [TestMethod]
+        public void ActivacionAlarmaModificacionTest()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 30M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = 0;
+            Assert.IsFalse(unaVariable.AlarmaActiva);
+            Tuple<decimal, decimal> nuevoRangoAdvertencia = Tuple.Create(100M, 300M);
+            Tuple<decimal, decimal> nuevoRangoAlarma = Tuple.Create(70M, 400M);
+            unaVariable.SetValoresLimites(nuevoRangoAdvertencia, nuevoRangoAlarma);
+            Assert.IsTrue(unaVariable.AlarmaActiva);
+        }
+
+        [TestMethod]
+        public void ActivacionAdvertenciaModificacionTest()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 30M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
+            unaVariable.ValorActual = 80.5M;
+            Assert.IsFalse(unaVariable.AdvertenciaActiva);
+            Tuple<decimal, decimal> nuevoRangoAdvertencia = Tuple.Create(100M, 300M);
+            Tuple<decimal, decimal> nuevoRangoAlarma = Tuple.Create(70M, 400M);
+            unaVariable.SetValoresLimites(nuevoRangoAdvertencia, nuevoRangoAlarma);
+            Assert.IsTrue(unaVariable.AdvertenciaActiva);
         }
     }
 }

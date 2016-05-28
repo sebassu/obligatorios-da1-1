@@ -14,8 +14,8 @@ namespace PruebasUnitarias
         public void DispositivoInvalidoTest()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            Assert.AreEqual("Nombre inválido.", unDispositivo.Nombre);
-            Assert.AreEqual(unDispositivo.Tipo, Tipo.TipoInvalido());
+            Assert.AreEqual("Dispositivo inválido.", unDispositivo.Nombre);
+            Assert.AreEqual("Tipo inválido.", unDispositivo.Tipo.Nombre);
             Assert.AreEqual(unDispositivo.EnUso, false);
             Assert.AreEqual(0, unDispositivo.Variables.Count);
         }
@@ -25,7 +25,7 @@ namespace PruebasUnitarias
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.EnUso = true;
-            Assert.AreEqual(true, unDispositivo.EnUso);
+            Assert.IsTrue(unDispositivo.EnUso);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace PruebasUnitarias
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.EnUso = false;
-            Assert.AreEqual(false, unDispositivo.EnUso);
+            Assert.IsFalse(unDispositivo.EnUso);
         }
 
         [TestMethod]
@@ -55,18 +55,8 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetDispositivoTipoTest3()
-        {
-            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            Tipo unTipo = Tipo.NombreDescripcion("Eléctrico", "Es muy bueno");
-            Tipo otroTipo = Tipo.NombreDescripcion("Eléctrico", "Es muy bueno");
-            unDispositivo.Tipo = unTipo;
-            Assert.AreEqual(otroTipo, unDispositivo.Tipo);
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(ComponenteExcepcion))]
-        public void SetDispositivoTipoTest4()
+        public void SetDispositivoTipoTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.Tipo = null;

@@ -114,7 +114,7 @@ namespace PruebasUnitarias
         public void ExistenTiposTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            Assert.AreEqual(false, unSistema.ExistenTipos());
+            Assert.IsFalse(unSistema.ExistenTipos());
         }
 
         [TestMethod]
@@ -122,14 +122,14 @@ namespace PruebasUnitarias
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             unSistema.RegistrarTipo(Tipo.TipoInvalido());
-            Assert.AreEqual(true, unSistema.ExistenTipos());
+            Assert.IsTrue(unSistema.ExistenTipos());
         }
 
         [TestMethod]
         public void ExistenDispositivosTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            Assert.AreEqual(false, unSistema.ExistenDispositivos());
+            Assert.IsFalse(unSistema.ExistenDispositivos());
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@ namespace PruebasUnitarias
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             unSistema.RegistrarComponente(Dispositivo.DispositivoInvalido());
-            Assert.AreEqual(true, unSistema.ExistenDispositivos());
+            Assert.IsTrue(unSistema.ExistenDispositivos());
         }
 
         [TestMethod]
@@ -147,7 +147,7 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación.");
             unaInstalacion.AgregarComponente(Dispositivo.DispositivoInvalido());
             unSistema.RegistrarComponente(unaInstalacion);
-            Assert.AreEqual(true, unSistema.ExistenDispositivos());
+            Assert.IsTrue(unSistema.ExistenDispositivos());
         }
 
         [TestMethod]
@@ -156,14 +156,14 @@ namespace PruebasUnitarias
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación.");
             unSistema.RegistrarComponente(unaInstalacion);
-            Assert.AreEqual(false, unSistema.ExistenDispositivos());
+            Assert.IsFalse(unSistema.ExistenDispositivos());
         }
 
         [TestMethod]
         public void ExistenInstalacionesTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            Assert.AreEqual(false, unSistema.ExistenInstalaciones());
+            Assert.IsFalse(unSistema.ExistenInstalaciones());
         }
 
         [TestMethod]
@@ -171,7 +171,7 @@ namespace PruebasUnitarias
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             unSistema.RegistrarComponente(Dispositivo.DispositivoInvalido());
-            Assert.AreEqual(false, unSistema.ExistenInstalaciones());
+            Assert.IsFalse(unSistema.ExistenInstalaciones());
         }
 
         [TestMethod]
@@ -179,7 +179,7 @@ namespace PruebasUnitarias
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             unSistema.RegistrarComponente(Instalacion.InstalacionInvalida());
-            Assert.AreEqual(true, unSistema.ExistenInstalaciones());
+            Assert.IsTrue(unSistema.ExistenInstalaciones());
         }
     }
 }
