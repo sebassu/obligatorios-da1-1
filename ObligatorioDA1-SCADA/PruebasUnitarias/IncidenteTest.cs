@@ -2,9 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
 using Excepciones;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class IncidenteTest
     {
