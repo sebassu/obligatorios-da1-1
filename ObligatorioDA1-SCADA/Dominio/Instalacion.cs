@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Excepciones;
+using System;
 
 namespace Dominio
 {
     public class Instalacion : Componente
     {
-        private static uint ProximaIdAAsignar;
-
         private List<Componente> dependencias;
         public override IList Dependencias
         {
@@ -105,10 +104,10 @@ namespace Dominio
 
         private Instalacion()
         {
-            nombre = "Nombre inválido.";
+            nombre = "Instalación inválida.";
             dependencias = new List<Componente>();
             variables = new List<Variable>();
-            id = ProximaIdAAsignar++;
+            id = Guid.NewGuid();
         }
 
         private Instalacion(string unNombre)
@@ -116,7 +115,7 @@ namespace Dominio
             Nombre = unNombre;
             dependencias = new List<Componente>();
             variables = new List<Variable>();
-            id = ProximaIdAAsignar++;
+            id = Guid.NewGuid();
         }
 
         public override string ToString()

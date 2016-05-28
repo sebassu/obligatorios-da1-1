@@ -15,7 +15,7 @@ namespace PruebasUnitarias
         public void VariableInvalidaTest()
         {
             Variable unaVariable = Variable.VariableInvalida();
-            Assert.AreEqual("Nombre inválido.", unaVariable.Nombre);
+            Assert.AreEqual("Variable inválida.", unaVariable.Nombre);
             Assert.AreEqual(0, unaVariable.MinimoAlarma);
             Assert.AreEqual(0, unaVariable.MinimoAdvertencia);
             Assert.AreEqual(0, unaVariable.MaximoAdvertencia);

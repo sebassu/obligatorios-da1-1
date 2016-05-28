@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Excepciones;
+using System;
 
 namespace Dominio
 {
     public class Dispositivo : Componente
     {
-        public static uint ProximaIdAAsignar;
-
         private Tipo tipoDispositivo;
         public Tipo Tipo
         {
@@ -123,10 +122,10 @@ namespace Dominio
 
         private Dispositivo()
         {
-            nombre = "Nombre inválido.";
+            nombre = "Dispositivo inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
             variables = new List<Variable>();
-            id = ProximaIdAAsignar++;
+            id = Guid.NewGuid();
         }
 
         private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
@@ -135,7 +134,7 @@ namespace Dominio
             Tipo = unTipo;
             enUso = estaEnUso;
             variables = new List<Variable>();
-            id = ProximaIdAAsignar++;
+            id = Guid.NewGuid();
         }
 
         public override string ToString()

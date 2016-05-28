@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Excepciones;
+using System;
 
 namespace Dominio
 {
     public class Tipo
     {
-        private static uint ProximaIdAAsignar;
-        private uint id;
+        private Guid id;
 
         private string nombre;
         public string Nombre
@@ -60,16 +60,16 @@ namespace Dominio
 
         private Tipo()
         {
-            nombre = "Nombre inválido.";
+            nombre = "Tipo inválido.";
             descripcion = "Descripción inválida.";
-            id = ProximaIdAAsignar++;
+            id = Guid.NewGuid();
         }
 
         private Tipo(string unNombre, string unaDescripcion)
         {
             Nombre = unNombre;
             Descripcion = unaDescripcion;
-            id = ProximaIdAAsignar++;
+            id = Guid.NewGuid();
         }
 
         public override bool Equals(object obj)
@@ -77,7 +77,7 @@ namespace Dominio
             Tipo tipoAComparar = obj as Tipo;
             if (Auxiliar.NoEsNulo(tipoAComparar))
             {
-                return id == tipoAComparar.id || nombre == tipoAComparar.Nombre;
+                return id == tipoAComparar.id;
             }
             else
             {

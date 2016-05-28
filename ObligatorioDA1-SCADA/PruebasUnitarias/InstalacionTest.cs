@@ -13,7 +13,7 @@ namespace PruebasUnitarias
         public void InstalacionInvalidaTest()
         {
             Instalacion unaInstalacion = Instalacion.InstalacionInvalida();
-            Assert.AreEqual("Nombre inválido.", unaInstalacion.Nombre);
+            Assert.AreEqual("Instalación inválida.", unaInstalacion.Nombre);
             Assert.AreEqual(0, unaInstalacion.Variables.Count);
             Assert.AreEqual(0, unaInstalacion.Dependencias.Count);
         }

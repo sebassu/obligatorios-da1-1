@@ -12,7 +12,7 @@ namespace Dominio
 {
     public abstract class Componente : IComparable
     {
-        protected uint id;
+        protected Guid id;
 
         public abstract IList Dependencias { get; }
 

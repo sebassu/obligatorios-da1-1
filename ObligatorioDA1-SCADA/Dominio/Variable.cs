@@ -8,9 +8,7 @@ namespace Dominio
 {
     public class Variable : IComparable
     {
-        private static uint ProximaIdAAsignar;
-
-        private uint id;
+        private Guid id;
         private Tuple<decimal, decimal> rangoAdvertencia;
         private Tuple<decimal, decimal> rangoAlarma;
         private DateTime fechaUltimaModificacion;
@@ -204,8 +202,8 @@ namespace Dominio
 
         private Variable()
         {
-            nombre = "Nombre inválido.";
-            id = ProximaIdAAsignar++;
+            nombre = "Variable inválida.";
+            id = Guid.NewGuid();
             Tuple<decimal, decimal> tuplaAuxiliar = Tuple.Create(0M, 0M);
             rangoAdvertencia = tuplaAuxiliar;
             rangoAlarma = tuplaAuxiliar;
@@ -229,7 +227,7 @@ namespace Dominio
                 Tuple<decimal, decimal> tuplaAuxiliar = Tuple.Create(valorMinimo, valorMaximo);
                 rangoAdvertencia = tuplaAuxiliar;
                 rangoAlarma = tuplaAuxiliar;
-                id = ProximaIdAAsignar++;
+                id = Guid.NewGuid();
                 historicoDeValores = new List<Tuple<DateTime, decimal>>();
             }
         }
@@ -242,7 +240,7 @@ namespace Dominio
 
         private Variable(string unNombre, Tuple<decimal, decimal> rangoAdvertencia, Tuple<decimal, decimal> rangoAlarma)
         {
-            id = ProximaIdAAsignar++;
+            id = Guid.NewGuid();
             Nombre = unNombre;
             SetValoresLimites(rangoAdvertencia, rangoAlarma);
             historicoDeValores = new List<Tuple<DateTime, decimal>>();
