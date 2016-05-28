@@ -240,12 +240,12 @@ namespace Interfaz
             if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
             {
                 btnAgregarVariable.Enabled = true;
-                btnAgregarVariable.BackColor = Color.Chartreuse;
+                //btnAgregarVariable.BackColor = Color.Chartreuse;
             }
             else
             {
                 btnAgregarVariable.Enabled = false;
-                btnAgregarVariable.BackColor = Color.LightGreen;
+                //btnAgregarVariable.BackColor = Color.LightGreen;
             }
         }
 
@@ -259,8 +259,8 @@ namespace Interfaz
                 btnValoresHistoricos.Enabled = true;
                 Variable variableSeleccionada = (Variable)lstVariables.SelectedItems[0].Tag;
                 btnValoresHistoricos.Enabled = !Auxiliar.EsListaVacia(variableSeleccionada.Historico);
-                btnEliminarVariable.BackColor = Color.Red;
-                btnEditarVariable.BackColor = Color.PaleTurquoise;
+                //btnEliminarVariable.BackColor = Color.Red;
+                //btnEditarVariable.BackColor = Color.PaleTurquoise;
             }
             else
             {
@@ -268,8 +268,8 @@ namespace Interfaz
                 btnEliminarVariable.Enabled = false;
                 btnAgregarValorVariable.Enabled = false;
                 btnValoresHistoricos.Enabled = false;
-                btnEliminarVariable.BackColor = Color.LightPink;
-                btnEditarVariable.BackColor = Color.LightCyan;
+                //btnEliminarVariable.BackColor = Color.LightPink;
+                //btnEditarVariable.BackColor = Color.LightCyan;
             }
         }
 
@@ -279,15 +279,15 @@ namespace Interfaz
             {
                 btnEditarDispositivo.Enabled = true;
                 btnEliminarDispositivo.Enabled = true;
-                btnEliminarDispositivo.BackColor = Color.Red;
-                btnEditarDispositivo.BackColor = Color.PaleTurquoise;
+                //btnEliminarDispositivo.BackColor = Color.Red;
+                //btnEditarDispositivo.BackColor = Color.PaleTurquoise;
             }
             else
             {
                 btnEditarDispositivo.Enabled = false;
                 btnEliminarDispositivo.Enabled = false;
-                btnEliminarDispositivo.BackColor = Color.LightPink;
-                btnEditarDispositivo.BackColor = Color.LightCyan;
+                //btnEliminarDispositivo.BackColor = Color.LightPink;
+                //btnEditarDispositivo.BackColor = Color.LightCyan;
             }
         }
 
@@ -297,15 +297,15 @@ namespace Interfaz
             {
                 btnEditarInstalacion.Enabled = true;
                 btnEliminarInstalacion.Enabled = true;
-                btnEliminarInstalacion.BackColor = Color.Red;
-                btnEditarInstalacion.BackColor = Color.PaleTurquoise;
+                //btnEliminarInstalacion.BackColor = Color.Red;
+                //btnEditarInstalacion.BackColor = Color.PaleTurquoise;
             }
             else
             {
                 btnEditarInstalacion.Enabled = false;
                 btnEliminarInstalacion.Enabled = false;
-                btnEliminarInstalacion.BackColor = Color.LightPink;
-                btnEditarInstalacion.BackColor = Color.LightCyan;
+                //btnEliminarInstalacion.BackColor = Color.LightPink;
+                //btnEditarInstalacion.BackColor = Color.LightCyan;
             }
         }
 
@@ -315,13 +315,36 @@ namespace Interfaz
             {
                 btnAgregarDispositivo.Enabled = true;
                 btnMenuOpcionesTipo.Enabled = true;
-                btnAgregarDispositivo.BackColor = Color.Chartreuse;
+                //btnAgregarDispositivo.BackColor = Color.Chartreuse;
             }
             else
             {
                 btnAgregarDispositivo.Enabled = false;
                 btnMenuOpcionesTipo.Enabled = false;
-                btnAgregarDispositivo.BackColor = Color.LightGreen;
+                //btnAgregarDispositivo.BackColor = Color.LightGreen;
+            }
+        }
+
+        private void ActivacionBotonIncidente()
+        {
+            if (!(modelo.ExistenDispositivos() || modelo.ExistenInstalaciones() // || modelo.ExistenPlantas()
+                ))
+            {
+                btnAgregarIncidente.Enabled = false;
+                btnAgregarIncidente.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+                {
+                    btnAgregarIncidente.Enabled = true;
+                    btnAgregarIncidente.BackColor = Color.Chartreuse;
+                }
+                else
+                {
+                    btnAgregarIncidente.Enabled = false;
+                    btnAgregarIncidente.BackColor = Color.LightGreen;
+                }
             }
         }
 
@@ -337,6 +360,7 @@ namespace Interfaz
             }
             Cursor.Current = Cursors.Default;
             treeViewPlantaDeProduccion.EndUpdate();
+            ActivacionBotonIncidente();
         }
 
         private TreeNode ObtenerNodoDeRamaJerarquica(Componente componente)
@@ -366,6 +390,7 @@ namespace Interfaz
             Componente componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
             if (Auxiliar.NoEsNulo(componenteSeleccionado))
             {
+                ActivacionBotonIncidente();
                 if (componenteSeleccionado.Variables.Count > 0)
                 {
                     foreach (Variable variableDelComponente in componenteSeleccionado.Variables)
@@ -500,6 +525,12 @@ namespace Interfaz
         {
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new MenuOpcionesTipoDispositivo(modelo, panelSistema));
+        }
+
+        private void btnAgregarIncidente_Click(object sender, EventArgs e)
+        {
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema));
         }
     }
 }
