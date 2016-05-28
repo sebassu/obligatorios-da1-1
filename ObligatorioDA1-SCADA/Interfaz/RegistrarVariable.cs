@@ -21,8 +21,8 @@ namespace Interfaz
             {
                 variableAModificar = unaVariable;
                 txtNombre.Text = unaVariable.Nombre;
-                numMin.Value = unaVariable.Minimo;
-                numMax.Value = unaVariable.Maximo;
+                numMin.Value = unaVariable.MinimoAlarma;
+                numMax.Value = unaVariable.MaximoAlarma;
                 lblMenuVariable.Text = "Modificar Variable";
             }
             else {
@@ -76,8 +76,8 @@ namespace Interfaz
         private void ModificarVariable(string nombre, decimal valorMinimo, decimal valorMaximo)
         {
             variableAModificar.Nombre = nombre;
-            variableAModificar.Maximo = valorMaximo;
-            variableAModificar.Minimo = valorMinimo;
+           // variableAModificar.Maximo = valorMaximo;
+           // variableAModificar.Minimo = valorMinimo;
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)

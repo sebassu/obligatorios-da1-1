@@ -131,6 +131,14 @@ namespace PruebasUnitarias
             unaInstalacion.EliminarComponente(otraInstalacion);
             Assert.AreEqual((uint)0, instalacionRaiz.CantidadDispositivosHijos);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ComponenteExcepcion))]
+        public void SetEnUsoTest()
+        {
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Transmisión");
+            unaInstalacion.EnUso = false;
+        }
     }
 }
 

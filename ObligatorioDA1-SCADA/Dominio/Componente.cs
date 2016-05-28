@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersionAttribute("1.0")]
+[assembly: InternalsVisibleTo("PruebasUnitarias")]
+[assembly: AssemblyVersion("1.0")]
 namespace Dominio
 {
     public abstract class Componente : IComparable
@@ -14,9 +16,21 @@ namespace Dominio
 
         public abstract IList Dependencias { get; }
 
-        public abstract void AgregarComponente(Componente unComponente);
+        public abstract void AgregarComponente(Componente componenteAAgregar);
 
-        public abstract void EliminarComponente(Componente unComponente);
+        public abstract void EliminarComponente(Componente componenteAEliminar);
+
+        public virtual bool EnUso
+        {
+            get
+            {
+                return true;
+            }
+            set
+            {
+                throw new ComponenteExcepcion("No es posible desactivar al componente.");
+            }
+        }
 
         protected string nombre;
         public string Nombre
@@ -56,29 +70,61 @@ namespace Dominio
             }
         }
 
-        public virtual void IncrementarAlarmas()
+        protected uint cantidadAdvertenciasActivas;
+        public uint CantidadAdvertenciasActivas
         {
-            cantidadAlarmasActivas = cantidadAlarmasActivas + 1;
-            if (Auxiliar.NoEsNulo(instalacionPadre))
+            get
             {
-                IncrementarAlarmasPadre();
+                return cantidadAdvertenciasActivas;
             }
         }
 
-        protected abstract void IncrementarAlarmasPadre();
-
-        public void DecrementarAlarmas()
+        internal virtual void IncrementarAlarmas(uint valor = 1)
         {
-            if (cantidadAlarmasActivas == 0)
+            cantidadAlarmasActivas += valor;
+            if (Auxiliar.NoEsNulo(instalacionPadre) && EnUso)
             {
-                throw new ComponenteExcepcion("La cantidad de alarmas activas es cero.");
+                instalacionPadre.IncrementarAlarmas(valor);
+            }
+        }
+
+        internal void DecrementarAlarmas(uint valor = 1)
+        {
+            if (cantidadAlarmasActivas < valor)
+            {
+                throw new ComponenteExcepcion("La cantidad de alarmas activas resultaría negativa.");
             }
             else
             {
-                cantidadAlarmasActivas = cantidadAlarmasActivas - 1;
-                if (Auxiliar.NoEsNulo(instalacionPadre))
+                cantidadAlarmasActivas -= valor;
+                if (Auxiliar.NoEsNulo(instalacionPadre) && EnUso)
                 {
-                    instalacionPadre.DecrementarAlarmas();
+                    instalacionPadre.DecrementarAlarmas(valor);
+                }
+            }
+        }
+
+        internal virtual void IncrementarAdvertencias(uint valor = 1)
+        {
+            cantidadAdvertenciasActivas += valor;
+            if (Auxiliar.NoEsNulo(instalacionPadre) && EnUso)
+            {
+                instalacionPadre.IncrementarAdvertencias(valor);
+            }
+        }
+
+        internal void DecrementarAdvertencias(uint valor = 1)
+        {
+            if (cantidadAdvertenciasActivas < valor)
+            {
+                throw new ComponenteExcepcion("La cantidad de alarmas activas resultaría negativa.");
+            }
+            else
+            {
+                cantidadAdvertenciasActivas -= valor;
+                if (Auxiliar.NoEsNulo(instalacionPadre) && EnUso)
+                {
+                    instalacionPadre.DecrementarAdvertencias(valor);
                 }
             }
         }
@@ -130,9 +176,9 @@ namespace Dominio
             }
         }
 
-        public override bool Equals(object unObjeto)
+        public override bool Equals(object obj)
         {
-            Componente componenteAComparar = unObjeto as Componente;
+            Componente componenteAComparar = obj as Componente;
             if (Auxiliar.NoEsNulo(componenteAComparar) && SonDeTiposIguales(componenteAComparar))
             {
                 return id == componenteAComparar.id;
@@ -148,9 +194,9 @@ namespace Dominio
             return GetType().Equals(componenteAComparar.GetType());
         }
 
-        public int CompareTo(object unObjeto)
+        public int CompareTo(object obj)
         {
-            Componente componenteAComparar = unObjeto as Componente;
+            Componente componenteAComparar = obj as Componente;
             if (Auxiliar.NoEsNulo(componenteAComparar))
             {
                 return nombre.CompareTo(componenteAComparar.Nombre);

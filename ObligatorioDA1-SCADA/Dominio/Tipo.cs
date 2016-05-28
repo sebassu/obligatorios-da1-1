@@ -48,7 +48,7 @@ namespace Dominio
             }
         }
 
-        public static Tipo TipoInvalido()
+        internal static Tipo TipoInvalido()
         {
             return new Tipo();
         }
@@ -72,9 +72,9 @@ namespace Dominio
             id = ProximaIdAAsignar++;
         }
 
-        public override bool Equals(object unObjeto)
+        public override bool Equals(object obj)
         {
-            Tipo tipoAComparar = unObjeto as Tipo;
+            Tipo tipoAComparar = obj as Tipo;
             if (Auxiliar.NoEsNulo(tipoAComparar))
             {
                 return id == tipoAComparar.id || nombre == tipoAComparar.Nombre;

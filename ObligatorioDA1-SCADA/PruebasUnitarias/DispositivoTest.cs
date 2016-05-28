@@ -25,7 +25,7 @@ namespace PruebasUnitarias
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.EnUso = true;
-            Assert.AreEqual(true, unDispositivo.EnUso);
+            Assert.IsTrue(unDispositivo.EnUso);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace PruebasUnitarias
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.EnUso = false;
-            Assert.AreEqual(false, unDispositivo.EnUso);
+            Assert.IsFalse(unDispositivo.EnUso);
         }
 
         [TestMethod]
