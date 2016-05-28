@@ -46,10 +46,10 @@
             // lblValorMin
             // 
             this.lblValorMin.AutoSize = true;
-            this.lblValorMin.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValorMin.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblValorMin.Location = new System.Drawing.Point(47, 216);
             this.lblValorMin.Name = "lblValorMin";
-            this.lblValorMin.Size = new System.Drawing.Size(107, 23);
+            this.lblValorMin.Size = new System.Drawing.Size(104, 21);
             this.lblValorMin.TabIndex = 32;
             this.lblValorMin.Text = "Valor Mínimo";
             this.lblValorMin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,21 +77,21 @@
             // lblErrorNombre
             // 
             this.lblErrorNombre.AutoSize = true;
-            this.lblErrorNombre.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorNombre.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorNombre.ForeColor = System.Drawing.Color.Red;
             this.lblErrorNombre.Location = new System.Drawing.Point(520, 142);
             this.lblErrorNombre.Name = "lblErrorNombre";
-            this.lblErrorNombre.Size = new System.Drawing.Size(131, 23);
+            this.lblErrorNombre.Size = new System.Drawing.Size(125, 21);
             this.lblErrorNombre.TabIndex = 29;
             this.lblErrorNombre.Text = "Nombre inválido";
             this.lblErrorNombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtNombre
             // 
-            this.txtNombre.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(179, 139);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(319, 30);
+            this.txtNombre.Size = new System.Drawing.Size(319, 26);
             this.txtNombre.TabIndex = 28;
             this.txtNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombre_KeyPress);
             this.txtNombre.Leave += new System.EventHandler(this.txtNombre_Leave);
@@ -99,10 +99,10 @@
             // lblNombreInstalacion
             // 
             this.lblNombreInstalacion.AutoSize = true;
-            this.lblNombreInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreInstalacion.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreInstalacion.Location = new System.Drawing.Point(47, 142);
             this.lblNombreInstalacion.Name = "lblNombreInstalacion";
-            this.lblNombreInstalacion.Size = new System.Drawing.Size(70, 23);
+            this.lblNombreInstalacion.Size = new System.Drawing.Size(66, 21);
             this.lblNombreInstalacion.TabIndex = 27;
             this.lblNombreInstalacion.Text = "Nombre";
             this.lblNombreInstalacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -121,10 +121,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(47, 290);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 23);
+            this.label2.Size = new System.Drawing.Size(108, 21);
             this.label2.TabIndex = 35;
             this.label2.Text = "Valor Máximo";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -132,7 +132,7 @@
             // numMin
             // 
             this.numMin.DecimalPlaces = 3;
-            this.numMin.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMin.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numMin.Location = new System.Drawing.Point(179, 214);
             this.numMin.Maximum = new decimal(new int[] {
             -1486618625,
@@ -145,14 +145,14 @@
             0,
             -2147483648});
             this.numMin.Name = "numMin";
-            this.numMin.Size = new System.Drawing.Size(120, 30);
+            this.numMin.Size = new System.Drawing.Size(120, 26);
             this.numMin.TabIndex = 38;
             this.numMin.Leave += new System.EventHandler(this.rangoValores_Leave);
             // 
             // numMax
             // 
             this.numMax.DecimalPlaces = 3;
-            this.numMax.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMax.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numMax.Location = new System.Drawing.Point(179, 288);
             this.numMax.Maximum = new decimal(new int[] {
             -1486618625,
@@ -165,18 +165,18 @@
             0,
             -2147483648});
             this.numMax.Name = "numMax";
-            this.numMax.Size = new System.Drawing.Size(120, 30);
+            this.numMax.Size = new System.Drawing.Size(120, 26);
             this.numMax.TabIndex = 39;
             this.numMax.Leave += new System.EventHandler(this.rangoValores_Leave);
             // 
             // lblErrorValores
             // 
             this.lblErrorValores.AutoSize = true;
-            this.lblErrorValores.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorValores.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorValores.ForeColor = System.Drawing.Color.Red;
             this.lblErrorValores.Location = new System.Drawing.Point(346, 255);
             this.lblErrorValores.Name = "lblErrorValores";
-            this.lblErrorValores.Size = new System.Drawing.Size(408, 23);
+            this.lblErrorValores.Size = new System.Drawing.Size(382, 21);
             this.lblErrorValores.TabIndex = 40;
             this.lblErrorValores.Text = "El valor mínimo debe ser menor que el valor máximo";
             this.lblErrorValores.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -57,10 +57,10 @@
             // lblNombreDispositivo
             // 
             this.lblNombreDispositivo.AutoSize = true;
-            this.lblNombreDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreDispositivo.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreDispositivo.Location = new System.Drawing.Point(46, 143);
             this.lblNombreDispositivo.Name = "lblNombreDispositivo";
-            this.lblNombreDispositivo.Size = new System.Drawing.Size(70, 23);
+            this.lblNombreDispositivo.Size = new System.Drawing.Size(66, 21);
             this.lblNombreDispositivo.TabIndex = 5;
             this.lblNombreDispositivo.Text = "Nombre";
             this.lblNombreDispositivo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -68,31 +68,32 @@
             // lblTipoDispositivo
             // 
             this.lblTipoDispositivo.AutoSize = true;
-            this.lblTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipoDispositivo.Location = new System.Drawing.Point(46, 209);
+            this.lblTipoDispositivo.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipoDispositivo.Location = new System.Drawing.Point(46, 214);
             this.lblTipoDispositivo.Name = "lblTipoDispositivo";
-            this.lblTipoDispositivo.Size = new System.Drawing.Size(42, 23);
+            this.lblTipoDispositivo.Size = new System.Drawing.Size(40, 21);
             this.lblTipoDispositivo.TabIndex = 6;
             this.lblTipoDispositivo.Text = "Tipo";
             this.lblTipoDispositivo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtNombreDispositivo
             // 
-            this.txtNombreDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombreDispositivo.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreDispositivo.Location = new System.Drawing.Point(155, 140);
             this.txtNombreDispositivo.Name = "txtNombreDispositivo";
-            this.txtNombreDispositivo.Size = new System.Drawing.Size(319, 30);
+            this.txtNombreDispositivo.Size = new System.Drawing.Size(319, 26);
             this.txtNombreDispositivo.TabIndex = 7;
+            this.txtNombreDispositivo.Text = "sdadasd";
             this.txtNombreDispositivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreDispositivo_KeyPress);
             this.txtNombreDispositivo.Leave += new System.EventHandler(this.txtNombreDispositivo_Leave);
             // 
             // lblEnUso
             // 
             this.lblEnUso.AutoSize = true;
-            this.lblEnUso.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEnUso.Location = new System.Drawing.Point(46, 278);
+            this.lblEnUso.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEnUso.Location = new System.Drawing.Point(46, 280);
             this.lblEnUso.Name = "lblEnUso";
-            this.lblEnUso.Size = new System.Drawing.Size(59, 23);
+            this.lblEnUso.Size = new System.Drawing.Size(58, 21);
             this.lblEnUso.TabIndex = 8;
             this.lblEnUso.Text = "En uso";
             this.lblEnUso.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -100,21 +101,21 @@
             // cbxTipoDispositivo
             // 
             this.cbxTipoDispositivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxTipoDispositivo.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxTipoDispositivo.FormattingEnabled = true;
             this.cbxTipoDispositivo.Location = new System.Drawing.Point(155, 209);
             this.cbxTipoDispositivo.Name = "cbxTipoDispositivo";
-            this.cbxTipoDispositivo.Size = new System.Drawing.Size(319, 31);
+            this.cbxTipoDispositivo.Size = new System.Drawing.Size(319, 29);
             this.cbxTipoDispositivo.TabIndex = 9;
             // 
             // lblErrorNombre
             // 
             this.lblErrorNombre.AutoSize = true;
-            this.lblErrorNombre.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorNombre.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorNombre.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorNombre.Location = new System.Drawing.Point(499, 140);
+            this.lblErrorNombre.Location = new System.Drawing.Point(497, 145);
             this.lblErrorNombre.Name = "lblErrorNombre";
-            this.lblErrorNombre.Size = new System.Drawing.Size(131, 23);
+            this.lblErrorNombre.Size = new System.Drawing.Size(125, 21);
             this.lblErrorNombre.TabIndex = 10;
             this.lblErrorNombre.Text = "Nombre inválido";
             this.lblErrorNombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -122,7 +123,7 @@
             // chkEnUso
             // 
             this.chkEnUso.AutoSize = true;
-            this.chkEnUso.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkEnUso.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkEnUso.Location = new System.Drawing.Point(155, 283);
             this.chkEnUso.Name = "chkEnUso";
             this.chkEnUso.Size = new System.Drawing.Size(15, 14);
