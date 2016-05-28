@@ -16,9 +16,9 @@ namespace Dominio
 
         public abstract IList Dependencias { get; }
 
-        public abstract void AgregarComponente(Componente unComponente);
+        public abstract void AgregarComponente(Componente componenteAAgregar);
 
-        public abstract void EliminarComponente(Componente unComponente);
+        public abstract void EliminarComponente(Componente componenteAEliminar);
 
         public virtual bool EnUso
         {
@@ -176,9 +176,9 @@ namespace Dominio
             }
         }
 
-        public override bool Equals(object unObjeto)
+        public override bool Equals(object obj)
         {
-            Componente componenteAComparar = unObjeto as Componente;
+            Componente componenteAComparar = obj as Componente;
             if (Auxiliar.NoEsNulo(componenteAComparar) && SonDeTiposIguales(componenteAComparar))
             {
                 return id == componenteAComparar.id;
@@ -194,9 +194,9 @@ namespace Dominio
             return GetType().Equals(componenteAComparar.GetType());
         }
 
-        public int CompareTo(object unObjeto)
+        public int CompareTo(object obj)
         {
-            Componente componenteAComparar = unObjeto as Componente;
+            Componente componenteAComparar = obj as Componente;
             if (Auxiliar.NoEsNulo(componenteAComparar))
             {
                 return nombre.CompareTo(componenteAComparar.Nombre);

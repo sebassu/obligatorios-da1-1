@@ -6,10 +6,10 @@ namespace Dominio
 {
     public abstract class Auxiliar
     {
-        public static bool ContieneCaracteresAlfabeticos(string unString)
+        public static bool ContieneCaracteresAlfabeticos(string value)
         {
             Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
-            return caracteresAlfabeticos.IsMatch(unString);
+            return caracteresAlfabeticos.IsMatch(value);
         }
 
         public static bool EsTextoValido(string value)

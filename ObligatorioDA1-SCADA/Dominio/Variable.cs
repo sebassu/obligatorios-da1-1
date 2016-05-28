@@ -248,9 +248,9 @@ namespace Dominio
             historicoDeValores = new List<Tuple<DateTime, decimal>>();
         }
 
-        public override bool Equals(object unObjeto)
+        public override bool Equals(object obj)
         {
-            Variable variableAComparar = unObjeto as Variable;
+            Variable variableAComparar = obj as Variable;
             if (Auxiliar.NoEsNulo(variableAComparar))
             {
                 return id == variableAComparar.id;
@@ -267,9 +267,9 @@ namespace Dominio
             return base.GetHashCode();
         }
 
-        public int CompareTo(object unObjeto)
+        public int CompareTo(object obj)
         {
-            Variable variableAComparar = unObjeto as Variable;
+            Variable variableAComparar = obj as Variable;
             if (Auxiliar.NoEsNulo(variableAComparar))
             {
                 return nombre.CompareTo(variableAComparar.Nombre);
