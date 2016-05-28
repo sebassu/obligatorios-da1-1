@@ -64,19 +64,24 @@ namespace Dominio
             set
             {
                 RegistrarValorAnterior();
-                bool fueraDeRangoAlarma = Auxiliar.EstaFueraDelRango(value, rangoAlarma);
-                bool fueraDeRangoAdvertencia = Auxiliar.EstaFueraDelRango(value, rangoAdvertencia) && !fueraDeRangoAlarma;
-                if (Auxiliar.NoEsNulo(componentePadre))
-                {
-                    ValidarActivacionesDeAlarma(fueraDeRangoAlarma);
-                    ValidarActivacionesDeAdvertencia(fueraDeRangoAdvertencia);
-                }
-                alarmaActiva = fueraDeRangoAlarma;
-                advertenciaActiva = fueraDeRangoAdvertencia;
+                ValidarActivacionesRangos(value);
                 fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
                 fueSeteada = true;
             }
+        }
+
+        private void ValidarActivacionesRangos(decimal valorAAnalizar)
+        {
+            bool fueraDeRangoAlarma = Auxiliar.EstaFueraDelRango(valorAAnalizar, rangoAlarma);
+            bool fueraDeRangoAdvertencia = !fueraDeRangoAlarma && Auxiliar.EstaFueraDelRango(valorAAnalizar, rangoAdvertencia);
+            if (Auxiliar.NoEsNulo(componentePadre))
+            {
+                ValidarActivacionesDeAlarma(fueraDeRangoAlarma);
+                ValidarActivacionesDeAdvertencia(fueraDeRangoAdvertencia);
+            }
+            alarmaActiva = fueraDeRangoAlarma;
+            advertenciaActiva = fueraDeRangoAdvertencia;
         }
 
         private void ValidarActivacionesDeAlarma(bool nuevoValorFueraDeRango)
@@ -132,6 +137,7 @@ namespace Dominio
             {
                 rangoAdvertencia = limitesAdvertenciaASetear;
                 rangoAlarma = limitesAlarmaASetear;
+                ValidarActivacionesRangos(valorActual);
             }
             else
             {

@@ -449,11 +449,11 @@ namespace PruebasUnitarias
             Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
             Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", rangoAdvertencia, rangoAlarma);
             unaVariable.ValorActual = 80.5M;
-            Assert.IsFalse(unaVariable.AlarmaActiva);
+            Assert.IsFalse(unaVariable.AdvertenciaActiva);
             Tuple<decimal, decimal> nuevoRangoAdvertencia = Tuple.Create(100M, 300M);
             Tuple<decimal, decimal> nuevoRangoAlarma = Tuple.Create(70M, 400M);
             unaVariable.SetValoresLimites(nuevoRangoAdvertencia, nuevoRangoAlarma);
-            Assert.IsTrue(unaVariable.AlarmaActiva);
+            Assert.IsTrue(unaVariable.AdvertenciaActiva);
         }
     }
 }
