@@ -37,7 +37,7 @@ namespace Dominio
         }
 
         private bool alarmaActiva;
-        public bool AlarmaActiva
+        internal bool AlarmaActiva
         {
             get
             {
@@ -46,7 +46,7 @@ namespace Dominio
         }
 
         private bool advertenciaActiva;
-        public bool AdvertenciaActiva
+        internal bool AdvertenciaActiva
         {
             get
             {
@@ -236,7 +236,6 @@ namespace Dominio
 
         private Variable(string unNombre, Tuple<decimal, decimal> rangoAdvertencia, Tuple<decimal, decimal> rangoAlarma)
         {
-
             id = ProximaIdAAsignar++;
             Nombre = unNombre;
             SetValoresLimites(rangoAdvertencia, rangoAlarma);
