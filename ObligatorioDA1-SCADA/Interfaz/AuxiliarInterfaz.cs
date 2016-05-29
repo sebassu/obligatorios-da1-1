@@ -14,6 +14,15 @@ namespace Interfaz
             }
         }
 
+        internal static void ComprobarTextoSinSaltoDeLinea(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || char.IsWhiteSpace(e.KeyChar)
+                    || e.KeyChar == (char)Keys.Back) || e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+            }
+        }
+
         internal static void VolverAPrincipal(IAccesoADatos unSistema, Panel panelSistema)
         {
             panelSistema.Controls.Clear();

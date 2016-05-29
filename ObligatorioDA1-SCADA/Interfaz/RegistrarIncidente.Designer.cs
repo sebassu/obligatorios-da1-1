@@ -33,11 +33,12 @@
             this.lblErrorDescripcion = new System.Windows.Forms.Label();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.lblMenuIncidente = new System.Windows.Forms.Label();
-            this.txtNombreInstalacion = new System.Windows.Forms.TextBox();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.lblNivelGravedad = new System.Windows.Forms.Label();
             this.numValor = new System.Windows.Forms.NumericUpDown();
             this.lblFecha = new System.Windows.Forms.Label();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.monthCalendar = new System.Windows.Forms.MonthCalendar();
+            this.lblErrorFecha = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numValor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@
             this.btnCancelar.TabIndex = 21;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnAceptar
             // 
@@ -87,20 +89,22 @@
             this.lblMenuIncidente.AutoSize = true;
             this.lblMenuIncidente.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMenuIncidente.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblMenuIncidente.Location = new System.Drawing.Point(359, 14);
+            this.lblMenuIncidente.Location = new System.Drawing.Point(366, 14);
             this.lblMenuIncidente.Name = "lblMenuIncidente";
             this.lblMenuIncidente.Size = new System.Drawing.Size(231, 34);
             this.lblMenuIncidente.TabIndex = 16;
             this.lblMenuIncidente.Text = "Registrar Incidente";
             // 
-            // txtNombreInstalacion
+            // txtDescripcion
             // 
-            this.txtNombreInstalacion.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombreInstalacion.Location = new System.Drawing.Point(217, 140);
-            this.txtNombreInstalacion.Multiline = true;
-            this.txtNombreInstalacion.Name = "txtNombreInstalacion";
-            this.txtNombreInstalacion.Size = new System.Drawing.Size(319, 99);
-            this.txtNombreInstalacion.TabIndex = 18;
+            this.txtDescripcion.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescripcion.Location = new System.Drawing.Point(217, 140);
+            this.txtDescripcion.Multiline = true;
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(319, 99);
+            this.txtDescripcion.TabIndex = 18;
+            this.txtDescripcion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescripcion_KeyPress);
+            this.txtDescripcion.Leave += new System.EventHandler(this.txtDescripcion_Leave);
             // 
             // lblNivelGravedad
             // 
@@ -147,25 +151,39 @@
             this.lblFecha.Text = "Fecha ";
             this.lblFecha.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // monthCalendar1
+            // monthCalendar
             // 
-            this.monthCalendar1.Font = new System.Drawing.Font("Franklin Gothic Book", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar1.Location = new System.Drawing.Point(217, 315);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 25;
+            this.monthCalendar.Font = new System.Drawing.Font("Franklin Gothic Book", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monthCalendar.Location = new System.Drawing.Point(217, 315);
+            this.monthCalendar.Name = "monthCalendar";
+            this.monthCalendar.TabIndex = 25;
+            this.monthCalendar.Leave += new System.EventHandler(this.monthCalendar_Leave);
+            // 
+            // lblErrorFecha
+            // 
+            this.lblErrorFecha.AutoSize = true;
+            this.lblErrorFecha.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorFecha.ForeColor = System.Drawing.Color.Red;
+            this.lblErrorFecha.Location = new System.Drawing.Point(561, 315);
+            this.lblErrorFecha.Name = "lblErrorFecha";
+            this.lblErrorFecha.Size = new System.Drawing.Size(350, 21);
+            this.lblErrorFecha.TabIndex = 26;
+            this.lblErrorFecha.Text = "La fecha no puede ser mayor a la del día de hoy";
+            this.lblErrorFecha.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RegistrarIncidente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.lblErrorFecha);
+            this.Controls.Add(this.monthCalendar);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.numValor);
             this.Controls.Add(this.lblNivelGravedad);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.lblErrorDescripcion);
-            this.Controls.Add(this.txtNombreInstalacion);
+            this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.lblDescripcion);
             this.Controls.Add(this.lblMenuIncidente);
             this.Name = "RegistrarIncidente";
@@ -183,10 +201,11 @@
         private System.Windows.Forms.Label lblErrorDescripcion;
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.Label lblMenuIncidente;
-        private System.Windows.Forms.TextBox txtNombreInstalacion;
+        private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label lblNivelGravedad;
         private System.Windows.Forms.NumericUpDown numValor;
         private System.Windows.Forms.Label lblFecha;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar monthCalendar;
+        private System.Windows.Forms.Label lblErrorFecha;
     }
 }

@@ -21,6 +21,42 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            lblErrorDescripcion.Hide();
+            lblErrorFecha.Hide();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+        }
+
+        private void txtDescripcion_Leave(object sender, EventArgs e)
+        {
+            if (Auxiliar.EsTextoValido(txtDescripcion.Text))
+            {
+                lblErrorDescripcion.Hide();
+            }
+            else
+            {
+                lblErrorDescripcion.Show();
+            }
+        }
+
+        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            AuxiliarInterfaz.ComprobarTextoSinSaltoDeLinea(sender, e);
+        }
+
+        private void monthCalendar_Leave(object sender, EventArgs e)
+        {
+            if (monthCalendar.SelectionStart > DateTime.Now)
+            {
+                lblErrorFecha.Show();
+            }
+            else
+            {
+                lblErrorFecha.Hide();
+            }
         }
     }
 }
