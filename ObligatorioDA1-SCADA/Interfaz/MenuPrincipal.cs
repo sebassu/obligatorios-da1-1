@@ -530,7 +530,7 @@ namespace Interfaz
         private void btnAgregarIncidente_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarIncidente(modelo, panelSistema));
+            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema));
         }
     }
 }

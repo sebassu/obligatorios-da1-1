@@ -59,10 +59,10 @@
             // lblValor
             // 
             this.lblValor.AutoSize = true;
-            this.lblValor.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblValor.Location = new System.Drawing.Point(59, 142);
+            this.lblValor.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValor.Location = new System.Drawing.Point(60, 142);
             this.lblValor.Name = "lblValor";
-            this.lblValor.Size = new System.Drawing.Size(47, 21);
+            this.lblValor.Size = new System.Drawing.Size(50, 23);
             this.lblValor.TabIndex = 15;
             this.lblValor.Text = "Valor";
             this.lblValor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -81,7 +81,7 @@
             // numValor
             // 
             this.numValor.DecimalPlaces = 3;
-            this.numValor.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numValor.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numValor.Location = new System.Drawing.Point(176, 140);
             this.numValor.Maximum = new decimal(new int[] {
             -1486618625,
@@ -94,7 +94,7 @@
             0,
             -2147483648});
             this.numValor.Name = "numValor";
-            this.numValor.Size = new System.Drawing.Size(120, 26);
+            this.numValor.Size = new System.Drawing.Size(120, 30);
             this.numValor.TabIndex = 20;
             // 
             // RegistrarValorVariable

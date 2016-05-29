@@ -90,21 +90,21 @@
             // lblPlantaDeProduccion
             // 
             this.lblPlantaDeProduccion.AutoSize = true;
-            this.lblPlantaDeProduccion.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlantaDeProduccion.Location = new System.Drawing.Point(50, 76);
+            this.lblPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlantaDeProduccion.Location = new System.Drawing.Point(55, 76);
             this.lblPlantaDeProduccion.Name = "lblPlantaDeProduccion";
-            this.lblPlantaDeProduccion.Size = new System.Drawing.Size(172, 21);
+            this.lblPlantaDeProduccion.Size = new System.Drawing.Size(167, 23);
             this.lblPlantaDeProduccion.TabIndex = 4;
-            this.lblPlantaDeProduccion.Text = "Plantas de Producción";
+            this.lblPlantaDeProduccion.Text = "Planta de Producción";
             this.lblPlantaDeProduccion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTableroControl
             // 
             this.lblTableroControl.AutoSize = true;
-            this.lblTableroControl.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTableroControl.Location = new System.Drawing.Point(428, 76);
             this.lblTableroControl.Name = "lblTableroControl";
-            this.lblTableroControl.Size = new System.Drawing.Size(143, 21);
+            this.lblTableroControl.Size = new System.Drawing.Size(155, 23);
             this.lblTableroControl.TabIndex = 5;
             this.lblTableroControl.Text = "Tablero de Control";
             this.lblTableroControl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -112,10 +112,10 @@
             // lblVariables
             // 
             this.lblVariables.AutoSize = true;
-            this.lblVariables.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVariables.Location = new System.Drawing.Point(459, 310);
+            this.lblVariables.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVariables.Location = new System.Drawing.Point(459, 309);
             this.lblVariables.Name = "lblVariables";
-            this.lblVariables.Size = new System.Drawing.Size(77, 21);
+            this.lblVariables.Size = new System.Drawing.Size(82, 23);
             this.lblVariables.TabIndex = 7;
             this.lblVariables.Text = "Variables";
             this.lblVariables.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -149,11 +149,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(750, 200);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 21);
+            this.label1.Size = new System.Drawing.Size(171, 23);
             this.label1.TabIndex = 19;
             this.label1.Text = "Tipos de Dispositivos";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -197,11 +197,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(797, 288);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 21);
+            this.label2.Size = new System.Drawing.Size(82, 23);
             this.label2.TabIndex = 23;
             this.label2.Text = "Variables";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -372,11 +372,11 @@
             // lblIncidentes
             // 
             this.lblIncidentes.AutoSize = true;
-            this.lblIncidentes.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIncidentes.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIncidentes.ForeColor = System.Drawing.Color.Black;
             this.lblIncidentes.Location = new System.Drawing.Point(793, 117);
             this.lblIncidentes.Name = "lblIncidentes";
-            this.lblIncidentes.Size = new System.Drawing.Size(86, 21);
+            this.lblIncidentes.Size = new System.Drawing.Size(90, 23);
             this.lblIncidentes.TabIndex = 34;
             this.lblIncidentes.Text = "Incidentes";
             this.lblIncidentes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
