@@ -1,4 +1,4 @@
-**Primer Obligatorio - Diseño de Aplicaciones I:**
+**Primer y Segundo Obligatorio - Diseño de Aplicaciones I:**
 
 Sebastián Uriarte Güimil, Nº de estudiante: 194973.
 Juan Rodríguez Sappía, Nº de estudiante: 171983.
