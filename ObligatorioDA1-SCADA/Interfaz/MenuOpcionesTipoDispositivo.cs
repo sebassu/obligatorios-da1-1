@@ -25,6 +25,7 @@ namespace Interfaz
                 lstTiposDispositivos.Rows.Add(tipo, tipo.Descripcion);
             }
         }
+
         private void btnVolverMenuPrincipal_Click(object sender, EventArgs e)
         {
             AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);

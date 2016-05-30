@@ -61,6 +61,7 @@
             this.btnEditarDispositivo = new System.Windows.Forms.ToolStripMenuItem();
             this.lblIncidentes = new System.Windows.Forms.Label();
             this.btnAgregarIncidente = new System.Windows.Forms.Button();
+            this.btnVerIncidentes = new System.Windows.Forms.Button();
             this.menuOpciones.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -251,7 +252,7 @@
             // 
             this.btnMenuOpcionesTipo.Location = new System.Drawing.Point(816, 227);
             this.btnMenuOpcionesTipo.Name = "btnMenuOpcionesTipo";
-            this.btnMenuOpcionesTipo.Size = new System.Drawing.Size(94, 43);
+            this.btnMenuOpcionesTipo.Size = new System.Drawing.Size(94, 39);
             this.btnMenuOpcionesTipo.TabIndex = 31;
             this.btnMenuOpcionesTipo.Text = "Menú de Opciones";
             this.btnMenuOpcionesTipo.UseVisualStyleBackColor = true;
@@ -384,7 +385,7 @@
             // btnAgregarIncidente
             // 
             this.btnAgregarIncidente.BackColor = System.Drawing.Color.Chartreuse;
-            this.btnAgregarIncidente.Location = new System.Drawing.Point(801, 144);
+            this.btnAgregarIncidente.Location = new System.Drawing.Point(752, 144);
             this.btnAgregarIncidente.Name = "btnAgregarIncidente";
             this.btnAgregarIncidente.Size = new System.Drawing.Size(75, 39);
             this.btnAgregarIncidente.TabIndex = 35;
@@ -392,10 +393,21 @@
             this.btnAgregarIncidente.UseVisualStyleBackColor = false;
             this.btnAgregarIncidente.Click += new System.EventHandler(this.btnAgregarIncidente_Click);
             // 
+            // btnVerIncidentes
+            // 
+            this.btnVerIncidentes.Location = new System.Drawing.Point(846, 144);
+            this.btnVerIncidentes.Name = "btnVerIncidentes";
+            this.btnVerIncidentes.Size = new System.Drawing.Size(75, 39);
+            this.btnVerIncidentes.TabIndex = 36;
+            this.btnVerIncidentes.Text = "Ver Incidentes";
+            this.btnVerIncidentes.UseVisualStyleBackColor = true;
+            this.btnVerIncidentes.Click += new System.EventHandler(this.btnVerIncidentes_Click);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnVerIncidentes);
             this.Controls.Add(this.btnAgregarIncidente);
             this.Controls.Add(this.lblIncidentes);
             this.Controls.Add(this.label3);
@@ -461,5 +473,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnEditarDispositivo;
         private System.Windows.Forms.Label lblIncidentes;
         private System.Windows.Forms.Button btnAgregarIncidente;
+        private System.Windows.Forms.Button btnVerIncidentes;
     }
 }

@@ -66,7 +66,7 @@
             this.lblErrorDescripcion.AutoSize = true;
             this.lblErrorDescripcion.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorDescripcion.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorDescripcion.Location = new System.Drawing.Point(561, 143);
+            this.lblErrorDescripcion.Location = new System.Drawing.Point(561, 117);
             this.lblErrorDescripcion.Name = "lblErrorDescripcion";
             this.lblErrorDescripcion.Size = new System.Drawing.Size(153, 21);
             this.lblErrorDescripcion.TabIndex = 19;
@@ -77,7 +77,7 @@
             // 
             this.lblDescripcion.AutoSize = true;
             this.lblDescripcion.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescripcion.Location = new System.Drawing.Point(47, 143);
+            this.lblDescripcion.Location = new System.Drawing.Point(47, 117);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(94, 21);
             this.lblDescripcion.TabIndex = 17;
@@ -98,7 +98,7 @@
             // txtDescripcion
             // 
             this.txtDescripcion.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescripcion.Location = new System.Drawing.Point(217, 140);
+            this.txtDescripcion.Location = new System.Drawing.Point(217, 114);
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(319, 99);
@@ -110,7 +110,7 @@
             // 
             this.lblNivelGravedad.AutoSize = true;
             this.lblNivelGravedad.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNivelGravedad.Location = new System.Drawing.Point(47, 266);
+            this.lblNivelGravedad.Location = new System.Drawing.Point(47, 240);
             this.lblNivelGravedad.Name = "lblNivelGravedad";
             this.lblNivelGravedad.Size = new System.Drawing.Size(138, 21);
             this.lblNivelGravedad.TabIndex = 22;
@@ -120,7 +120,7 @@
             // numValor
             // 
             this.numValor.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numValor.Location = new System.Drawing.Point(217, 264);
+            this.numValor.Location = new System.Drawing.Point(217, 238);
             this.numValor.Maximum = new decimal(new int[] {
             5,
             0,
@@ -144,7 +144,7 @@
             // 
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(47, 315);
+            this.lblFecha.Location = new System.Drawing.Point(47, 289);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(58, 21);
             this.lblFecha.TabIndex = 24;
@@ -154,7 +154,7 @@
             // monthCalendar
             // 
             this.monthCalendar.Font = new System.Drawing.Font("Franklin Gothic Book", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.monthCalendar.Location = new System.Drawing.Point(217, 315);
+            this.monthCalendar.Location = new System.Drawing.Point(217, 289);
             this.monthCalendar.Name = "monthCalendar";
             this.monthCalendar.TabIndex = 25;
             this.monthCalendar.Leave += new System.EventHandler(this.monthCalendar_Leave);
@@ -164,7 +164,7 @@
             this.lblErrorFecha.AutoSize = true;
             this.lblErrorFecha.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorFecha.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorFecha.Location = new System.Drawing.Point(561, 315);
+            this.lblErrorFecha.Location = new System.Drawing.Point(561, 289);
             this.lblErrorFecha.Name = "lblErrorFecha";
             this.lblErrorFecha.Size = new System.Drawing.Size(350, 21);
             this.lblErrorFecha.TabIndex = 26;

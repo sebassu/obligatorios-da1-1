@@ -109,6 +109,12 @@
     </Compile>
     <Compile Include="EntradaAlPrograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerIncidentes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerIncidentes.Designer.cs">
+      <DependentUpon>VerIncidentes.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MenuOpcionesTipoDispositivo.resx">
       <DependentUpon>MenuOpcionesTipoDispositivo.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerIncidentes.resx">
+      <DependentUpon>VerIncidentes.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

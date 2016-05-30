@@ -94,7 +94,7 @@ namespace Interfaz
 
         private void rangoValores_Leave(object sender, EventArgs e)
         {
-            if (numMin.Value > numMax.Value)
+            if ((numMin.Value > minAdv.Value) || (minAdv.Value > maxAdv.Value) || (maxAdv.Value > numMax.Value))
             {
                 lblErrorValores.Show();
             }

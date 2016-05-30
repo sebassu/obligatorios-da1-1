@@ -33,6 +33,7 @@ namespace Interfaz
             else
             {
                 cbxTipoDispositivo.SelectedIndex = 0;
+                txtNombreDispositivo.Text = "";
             }
             lblErrorNombre.Hide();
         }

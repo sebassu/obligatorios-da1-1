@@ -35,12 +35,18 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombreInstalacion = new System.Windows.Forms.Label();
             this.lblMenuVariable = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblValorMax = new System.Windows.Forms.Label();
             this.numMin = new System.Windows.Forms.NumericUpDown();
             this.numMax = new System.Windows.Forms.NumericUpDown();
             this.lblErrorValores = new System.Windows.Forms.Label();
+            this.maxAdv = new System.Windows.Forms.NumericUpDown();
+            this.minAdv = new System.Windows.Forms.NumericUpDown();
+            this.lblValorMaxAdv = new System.Windows.Forms.Label();
+            this.lblValorMinAdv = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxAdv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minAdv)).BeginInit();
             this.SuspendLayout();
             // 
             // lblValorMin
@@ -118,16 +124,16 @@
             this.lblMenuVariable.TabIndex = 26;
             this.lblMenuVariable.Text = "Registrar Variable";
             // 
-            // label2
+            // lblValorMax
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(47, 290);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 21);
-            this.label2.TabIndex = 35;
-            this.label2.Text = "Valor Máximo";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblValorMax.AutoSize = true;
+            this.lblValorMax.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValorMax.Location = new System.Drawing.Point(47, 274);
+            this.lblValorMax.Name = "lblValorMax";
+            this.lblValorMax.Size = new System.Drawing.Size(108, 21);
+            this.lblValorMax.TabIndex = 35;
+            this.lblValorMax.Text = "Valor Máximo";
+            this.lblValorMax.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // numMin
             // 
@@ -153,7 +159,7 @@
             // 
             this.numMax.DecimalPlaces = 3;
             this.numMax.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numMax.Location = new System.Drawing.Point(179, 288);
+            this.numMax.Location = new System.Drawing.Point(179, 272);
             this.numMax.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
@@ -174,21 +180,87 @@
             this.lblErrorValores.AutoSize = true;
             this.lblErrorValores.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorValores.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorValores.Location = new System.Drawing.Point(346, 255);
+            this.lblErrorValores.Location = new System.Drawing.Point(346, 244);
             this.lblErrorValores.Name = "lblErrorValores";
-            this.lblErrorValores.Size = new System.Drawing.Size(382, 21);
+            this.lblErrorValores.Size = new System.Drawing.Size(282, 21);
             this.lblErrorValores.TabIndex = 40;
-            this.lblErrorValores.Text = "El valor mínimo debe ser menor que el valor máximo";
+            this.lblErrorValores.Text = "El rango de valores no es el adecuado";
             this.lblErrorValores.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // maxAdv
+            // 
+            this.maxAdv.DecimalPlaces = 3;
+            this.maxAdv.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maxAdv.Location = new System.Drawing.Point(265, 393);
+            this.maxAdv.Maximum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            0});
+            this.maxAdv.Minimum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            -2147483648});
+            this.maxAdv.Name = "maxAdv";
+            this.maxAdv.Size = new System.Drawing.Size(120, 26);
+            this.maxAdv.TabIndex = 44;
+            this.maxAdv.Leave += new System.EventHandler(this.rangoValores_Leave);
+            // 
+            // minAdv
+            // 
+            this.minAdv.DecimalPlaces = 3;
+            this.minAdv.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.minAdv.Location = new System.Drawing.Point(265, 332);
+            this.minAdv.Maximum = new decimal(new int[] {
+            -1486618625,
+            232830643,
+            0,
+            0});
+            this.minAdv.Minimum = new decimal(new int[] {
+            1569325055,
+            23283064,
+            0,
+            -2147483648});
+            this.minAdv.Name = "minAdv";
+            this.minAdv.Size = new System.Drawing.Size(120, 26);
+            this.minAdv.TabIndex = 43;
+            this.minAdv.Leave += new System.EventHandler(this.rangoValores_Leave);
+            // 
+            // lblValorMaxAdv
+            // 
+            this.lblValorMaxAdv.AutoSize = true;
+            this.lblValorMaxAdv.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValorMaxAdv.Location = new System.Drawing.Point(47, 395);
+            this.lblValorMaxAdv.Name = "lblValorMaxAdv";
+            this.lblValorMaxAdv.Size = new System.Drawing.Size(198, 21);
+            this.lblValorMaxAdv.TabIndex = 42;
+            this.lblValorMaxAdv.Text = "Valor Máximo Advertencia";
+            this.lblValorMaxAdv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblValorMinAdv
+            // 
+            this.lblValorMinAdv.AutoSize = true;
+            this.lblValorMinAdv.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValorMinAdv.Location = new System.Drawing.Point(47, 334);
+            this.lblValorMinAdv.Name = "lblValorMinAdv";
+            this.lblValorMinAdv.Size = new System.Drawing.Size(194, 21);
+            this.lblValorMinAdv.TabIndex = 41;
+            this.lblValorMinAdv.Text = "Valor Mínimo Advertencia";
+            this.lblValorMinAdv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RegistrarVariable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.maxAdv);
+            this.Controls.Add(this.minAdv);
+            this.Controls.Add(this.lblValorMaxAdv);
+            this.Controls.Add(this.lblValorMinAdv);
             this.Controls.Add(this.lblErrorValores);
             this.Controls.Add(this.numMax);
             this.Controls.Add(this.numMin);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblValorMax);
             this.Controls.Add(this.lblValorMin);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
@@ -200,6 +272,8 @@
             this.Size = new System.Drawing.Size(972, 571);
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxAdv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minAdv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,9 +287,13 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblNombreInstalacion;
         private System.Windows.Forms.Label lblMenuVariable;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblValorMax;
         private System.Windows.Forms.NumericUpDown numMin;
         private System.Windows.Forms.NumericUpDown numMax;
         private System.Windows.Forms.Label lblErrorValores;
+        private System.Windows.Forms.NumericUpDown maxAdv;
+        private System.Windows.Forms.NumericUpDown minAdv;
+        private System.Windows.Forms.Label lblValorMaxAdv;
+        private System.Windows.Forms.Label lblValorMinAdv;
     }
 }

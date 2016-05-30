@@ -240,12 +240,12 @@ namespace Interfaz
             if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
             {
                 btnAgregarVariable.Enabled = true;
-                //btnAgregarVariable.BackColor = Color.Chartreuse;
+                btnAgregarVariable.BackColor = Color.Chartreuse;
             }
             else
             {
                 btnAgregarVariable.Enabled = false;
-                //btnAgregarVariable.BackColor = Color.LightGreen;
+                btnAgregarVariable.BackColor = Color.LightGreen;
             }
         }
 
@@ -259,8 +259,8 @@ namespace Interfaz
                 btnValoresHistoricos.Enabled = true;
                 Variable variableSeleccionada = (Variable)lstVariables.SelectedItems[0].Tag;
                 btnValoresHistoricos.Enabled = !Auxiliar.EsListaVacia(variableSeleccionada.Historico);
-                //btnEliminarVariable.BackColor = Color.Red;
-                //btnEditarVariable.BackColor = Color.PaleTurquoise;
+                btnEliminarVariable.BackColor = Color.Red;
+                btnEditarVariable.BackColor = Color.PaleTurquoise;
             }
             else
             {
@@ -268,8 +268,8 @@ namespace Interfaz
                 btnEliminarVariable.Enabled = false;
                 btnAgregarValorVariable.Enabled = false;
                 btnValoresHistoricos.Enabled = false;
-                //btnEliminarVariable.BackColor = Color.LightPink;
-                //btnEditarVariable.BackColor = Color.LightCyan;
+                btnEliminarVariable.BackColor = Color.LightPink;
+                btnEditarVariable.BackColor = Color.LightCyan;
             }
         }
 
@@ -325,13 +325,14 @@ namespace Interfaz
             }
         }
 
-        private void ActivacionBotonIncidente()
+        private void ActivacionBotonesIncidente()
         {
             if (!(modelo.ExistenDispositivos() || modelo.ExistenInstalaciones() // || modelo.ExistenPlantas()
                 ))
             {
                 btnAgregarIncidente.Enabled = false;
                 btnAgregarIncidente.BackColor = Color.LightGreen;
+                btnVerIncidentes.Enabled = false;
             }
             else
             {
@@ -339,11 +340,13 @@ namespace Interfaz
                 {
                     btnAgregarIncidente.Enabled = true;
                     btnAgregarIncidente.BackColor = Color.Chartreuse;
+                    btnVerIncidentes.Enabled = true;
                 }
                 else
                 {
                     btnAgregarIncidente.Enabled = false;
                     btnAgregarIncidente.BackColor = Color.LightGreen;
+                    btnVerIncidentes.Enabled = false;
                 }
             }
         }
@@ -360,7 +363,7 @@ namespace Interfaz
             }
             Cursor.Current = Cursors.Default;
             treeViewPlantaDeProduccion.EndUpdate();
-            ActivacionBotonIncidente();
+            ActivacionBotonesIncidente();
         }
 
         private TreeNode ObtenerNodoDeRamaJerarquica(Componente componente)
@@ -390,7 +393,7 @@ namespace Interfaz
             Componente componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
             if (Auxiliar.NoEsNulo(componenteSeleccionado))
             {
-                ActivacionBotonIncidente();
+                ActivacionBotonesIncidente();
                 if (componenteSeleccionado.Variables.Count > 0)
                 {
                     foreach (Variable variableDelComponente in componenteSeleccionado.Variables)
@@ -531,6 +534,12 @@ namespace Interfaz
         {
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarIncidente(modelo, panelSistema));
+        }
+
+        private void btnVerIncidentes_Click(object sender, EventArgs e)
+        {
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, null));
         }
     }
 }

@@ -20,3 +20,4 @@ C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.exe
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.pdb
 C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.RegistrarIncidente.resources
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Interfaz\obj\Debug\Interfaz.VerIncidentes.resources
