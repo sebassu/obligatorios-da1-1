@@ -34,7 +34,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Debe seleccionar un componente para acceder a esta funcionalidad");
+                MessageBox.Show("Debe seleccionar un componente para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -53,7 +54,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Editar Dispositivo\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar la función de \"Editar Dispositivo\" para la selección realizada", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -71,7 +73,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("No existen tipos de dispositivos registrados en el sistema");
+                MessageBox.Show("No existen tipos de dispositivos registrados en el sistema", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -83,22 +86,16 @@ namespace Interfaz
 
         private void btnAgregarVariable_Click(object sender, EventArgs e)
         {
-            if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
+            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
             {
-                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
-                {
-                    Componente unComponente = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
-                    panelSistema.Controls.Clear();
-                    panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema, unComponente));
-                }
-                else
-                {
-                    MessageBox.Show("Debe seleccionar un Componente para acceder a esta funcionalidad");
-                }
+                Componente unComponente = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema, unComponente));
             }
             else
             {
-                MessageBox.Show("No existen componentes registrados en el sistema");
+                MessageBox.Show("Debe seleccionar un Componente para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -130,7 +127,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Debe seleccionar una Variable para acceder a esta funcionalidad");
+                MessageBox.Show("Debe seleccionar una Variable para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -153,12 +151,13 @@ namespace Interfaz
             Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
             Componente componentePadre = unaVariable.ComponentePadre;
             DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
-                    + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+                    + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resultado == DialogResult.Yes)
             {
                 componentePadre.EliminarVariable(unaVariable);
                 lstVariables.Items.Remove(lstVariables.SelectedItems[0]);
-                MessageBox.Show("La variable seleccionada fue borrada correctamente", "Éxito");
+                MessageBox.Show("La variable seleccionada fue borrada correctamente", "Éxito", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             ActivacionBotonesVariables();
             RecargarTableroDeControl();
@@ -192,16 +191,16 @@ namespace Interfaz
             componente4.AgregarVariable(variable1);
             componente4.AgregarVariable(variable2);
             Componente componente5 = Dispositivo.NombreTipoEnUso("Prensa", tipo1, true);
-            componente3.AgregarComponente(componente4);
-            componente3.AgregarComponente(componente5);
-            componente1.AgregarComponente(componente2);
-            componente1.AgregarComponente(componente3);
+            componente3.AgregarDependencia(componente4);
+            componente3.AgregarDependencia(componente5);
+            componente1.AgregarDependencia(componente2);
+            componente1.AgregarDependencia(componente3);
             modelo.RegistrarComponente(componente1);
             Componente componente6 = Instalacion.ConstructorNombre("Clarificación");
             Componente componente7 = Dispositivo.NombreTipoEnUso("Batea", tipo2, true);
             Componente componente8 = Dispositivo.NombreTipoEnUso("Calentadores", tipo2, true);
-            componente6.AgregarComponente(componente7);
-            componente6.AgregarComponente(componente8);
+            componente6.AgregarDependencia(componente7);
+            componente6.AgregarDependencia(componente8);
             modelo.RegistrarComponente(componente6);
             Componente componente9 = Instalacion.ConstructorNombre("Evaporación");
             Componente componente10 = Instalacion.ConstructorNombre("Evaporadores");
@@ -211,15 +210,15 @@ namespace Interfaz
             componente10.AgregarVariable(variable4);
             Componente componente11 = Dispositivo.NombreTipoEnUso("Evaporador 1", tipo1, true);
             Componente componente12 = Dispositivo.NombreTipoEnUso("Evaporador 2", tipo1, true);
-            componente10.AgregarComponente(componente11);
-            componente10.AgregarComponente(componente12);
-            componente9.AgregarComponente(componente10);
+            componente10.AgregarDependencia(componente11);
+            componente10.AgregarDependencia(componente12);
+            componente9.AgregarDependencia(componente10);
             modelo.RegistrarComponente(componente9);
             Componente componente13 = Instalacion.ConstructorNombre("Centrifugación");
             Componente componente14 = Dispositivo.NombreTipoEnUso("Centrifugadora 1", tipo2, true);
             Componente componente15 = Dispositivo.NombreTipoEnUso("Centrifugadora 2", tipo2, true);
-            componente13.AgregarComponente(componente14);
-            componente13.AgregarComponente(componente15);
+            componente13.AgregarDependencia(componente14);
+            componente13.AgregarDependencia(componente15);
             modelo.RegistrarComponente(componente13);
             RecargarTodoComponente();
         }
@@ -228,25 +227,14 @@ namespace Interfaz
         {
             RecargarTreeView();
             RecargarTableroDeControl();
-            ActivacionBotonesInstalacion();
             ActivacionBotonesVariables();
-            ActivacionBotonesDispositivo();
             ActivacionBotonesTipo();
             ActivacionBotonAgregarVariable();
         }
 
         private void ActivacionBotonAgregarVariable()
         {
-            if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
-            {
-                btnAgregarVariable.Enabled = true;
-                //btnAgregarVariable.BackColor = Color.Chartreuse;
-            }
-            else
-            {
-                btnAgregarVariable.Enabled = false;
-                //btnAgregarVariable.BackColor = Color.LightGreen;
-            }
+            //TODO
         }
 
         private void ActivacionBotonesVariables()
@@ -259,8 +247,6 @@ namespace Interfaz
                 btnValoresHistoricos.Enabled = true;
                 Variable variableSeleccionada = (Variable)lstVariables.SelectedItems[0].Tag;
                 btnValoresHistoricos.Enabled = !Auxiliar.EsListaVacia(variableSeleccionada.Historico);
-                //btnEliminarVariable.BackColor = Color.Red;
-                //btnEditarVariable.BackColor = Color.PaleTurquoise;
             }
             else
             {
@@ -268,44 +254,6 @@ namespace Interfaz
                 btnEliminarVariable.Enabled = false;
                 btnAgregarValorVariable.Enabled = false;
                 btnValoresHistoricos.Enabled = false;
-                //btnEliminarVariable.BackColor = Color.LightPink;
-                //btnEditarVariable.BackColor = Color.LightCyan;
-            }
-        }
-
-        private void ActivacionBotonesDispositivo()
-        {
-            if (modelo.ExistenDispositivos())
-            {
-                btnEditarDispositivo.Enabled = true;
-                btnEliminarDispositivo.Enabled = true;
-                //btnEliminarDispositivo.BackColor = Color.Red;
-                //btnEditarDispositivo.BackColor = Color.PaleTurquoise;
-            }
-            else
-            {
-                btnEditarDispositivo.Enabled = false;
-                btnEliminarDispositivo.Enabled = false;
-                //btnEliminarDispositivo.BackColor = Color.LightPink;
-                //btnEditarDispositivo.BackColor = Color.LightCyan;
-            }
-        }
-
-        private void ActivacionBotonesInstalacion()
-        {
-            if (modelo.ExistenInstalaciones())
-            {
-                btnEditarInstalacion.Enabled = true;
-                btnEliminarInstalacion.Enabled = true;
-                //btnEliminarInstalacion.BackColor = Color.Red;
-                //btnEditarInstalacion.BackColor = Color.PaleTurquoise;
-            }
-            else
-            {
-                btnEditarInstalacion.Enabled = false;
-                btnEliminarInstalacion.Enabled = false;
-                //btnEliminarInstalacion.BackColor = Color.LightPink;
-                //btnEditarInstalacion.BackColor = Color.LightCyan;
             }
         }
 
@@ -315,38 +263,28 @@ namespace Interfaz
             {
                 btnAgregarDispositivo.Enabled = true;
                 btnMenuOpcionesTipo.Enabled = true;
-                //btnAgregarDispositivo.BackColor = Color.Chartreuse;
             }
             else
             {
                 btnAgregarDispositivo.Enabled = false;
                 btnMenuOpcionesTipo.Enabled = false;
-                //btnAgregarDispositivo.BackColor = Color.LightGreen;
             }
         }
 
         private void ActivacionBotonIncidente()
         {
-            if (!(modelo.ExistenDispositivos() || modelo.ExistenInstalaciones() // || modelo.ExistenPlantas()
-                ))
+            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            {
+                btnAgregarIncidente.Enabled = true;
+                btnAgregarIncidente.BackColor = Color.Chartreuse;
+            }
+            else
             {
                 btnAgregarIncidente.Enabled = false;
                 btnAgregarIncidente.BackColor = Color.LightGreen;
             }
-            else
-            {
-                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
-                {
-                    btnAgregarIncidente.Enabled = true;
-                    btnAgregarIncidente.BackColor = Color.Chartreuse;
-                }
-                else
-                {
-                    btnAgregarIncidente.Enabled = false;
-                    btnAgregarIncidente.BackColor = Color.LightGreen;
-                }
-            }
         }
+
 
         private void RecargarTreeView()
         {
@@ -458,27 +396,26 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(instalacionAEliminar))
             {
                 DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
-                    + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+                        + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    Instalacion padre = instalacionAEliminar.InstalacionPadre;
+                    IElementoSCADA padre = instalacionAEliminar.ElementoPadre;
                     if (Auxiliar.NoEsNulo(padre))
                     {
-                        padre.EliminarComponente(instalacionAEliminar);
+                        padre.EliminarDependencia(instalacionAEliminar);
                     }
                     else
                     {
                         modelo.EliminarComponente(instalacionAEliminar);
                     }
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
-                    ActivacionBotonesInstalacion();
-                    ActivacionBotonesDispositivo();
                     RecargarTableroDeControl();
                 }
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Dispositivo\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Dispositivo\" para la selección realizada",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -493,26 +430,26 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(dispositivoAEliminar))
             {
                 DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
-                    + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
+                        + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    Instalacion padre = dispositivoAEliminar.InstalacionPadre;
+                    IElementoSCADA padre = dispositivoAEliminar.ElementoPadre;
                     if (Auxiliar.NoEsNulo(padre))
                     {
-                        padre.EliminarComponente(dispositivoAEliminar);
+                        padre.EliminarDependencia(dispositivoAEliminar);
                     }
                     else
                     {
                         modelo.EliminarComponente(dispositivoAEliminar);
                     }
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
-                    ActivacionBotonesDispositivo();
                     RecargarTableroDeControl();
                 }
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Instalación\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Instalación\" para la selección realizada",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

@@ -65,18 +65,19 @@ namespace Interfaz
                     Dispositivo dispositivoAAgregar = Dispositivo.NombreTipoEnUso(nombreDispositivo, tipoDispositivo, estaEnUso);
                     if (Auxiliar.NoEsNulo(instalacionAModificar))
                     {
-                        instalacionAModificar.AgregarComponente(dispositivoAAgregar);
+                        instalacionAModificar.AgregarDependencia(dispositivoAAgregar);
                     }
-                    else {
+                    else
+                    {
                         modelo.RegistrarComponente(dispositivoAAgregar);
                     }
                 }
                 MessageBox.Show("El dispositivo fue registrado correctamente");
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }
-            catch (ComponenteExcepcion excepcion)
+            catch (ElementoSCADAExcepcion excepcion)
             {
-                MessageBox.Show(excepcion.Message, "Error");
+                MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

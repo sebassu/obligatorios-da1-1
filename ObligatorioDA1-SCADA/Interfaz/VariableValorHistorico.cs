@@ -18,7 +18,8 @@ namespace Interfaz
             {
                 valoresHistoricos.Rows.Add("Sin", "datos a", " mostrar");
             }
-            else {
+            else
+            {
                 foreach (Tuple<DateTime, decimal> elemento in variable.Historico)
                 {
                     DateTime fechaYHora = elemento.Item1;

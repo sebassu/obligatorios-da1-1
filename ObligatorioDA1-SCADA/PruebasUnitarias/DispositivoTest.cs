@@ -6,8 +6,8 @@ using Excepciones;
 
 namespace PruebasUnitarias
 {
-    [ExcludeFromCodeCoverage]
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class DispositivoTest
     {
         [TestMethod]
@@ -55,7 +55,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetDispositivoTipoTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -83,7 +83,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void NombreTipoEnUsoTest3()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -91,7 +91,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void NombreTipoEnUsoTest4()
         {
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", null, false);
@@ -149,7 +149,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void IncrementarCantidadAlarmasTest2()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -169,7 +169,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void DecrementarCantidadAlarmasTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -179,7 +179,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void IncrementarCantidadAlarmasTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -198,7 +198,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void IncrementarCantidadAdvertenciasTest2()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -218,7 +218,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void DecrementarCantidadAdvertenciasTest3()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
@@ -228,7 +228,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void IncrementarCantidadAdvertenciasTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -236,23 +236,23 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
-        public void AgregarCompoenenteDispositivoTest()
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
+        public void AgregarDependenciaDispositivoTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
             Dispositivo otroDispositivo = Dispositivo.DispositivoInvalido();
-            unDispositivo.AgregarComponente(otroDispositivo);
+            unDispositivo.AgregarDependencia(otroDispositivo);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
-        public void EliminarComponenteTest()
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
+        public void EliminarDependenciaDispositivoTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
             Dispositivo otroDispositivo = Dispositivo.DispositivoInvalido();
-            unDispositivo.EliminarComponente(otroDispositivo);
+            unDispositivo.EliminarDependencia(otroDispositivo);
         }
 
         [TestMethod]
@@ -260,6 +260,15 @@ namespace PruebasUnitarias
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             CollectionAssert.AreEqual(unDispositivo.Dependencias, new List<Componente>());
+        }
+
+
+        [TestMethod]
+        public void ToStringDispositivoTest()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
+            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Centrifugadora", unTipo, true);
+            Assert.AreEqual("Centrifugadora (D)", unDispositivo.ToString());
         }
     }
 }

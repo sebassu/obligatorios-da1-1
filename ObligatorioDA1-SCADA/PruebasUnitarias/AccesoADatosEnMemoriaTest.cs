@@ -5,8 +5,8 @@ using Excepciones;
 
 namespace PruebasUnitarias
 {
-    [ExcludeFromCodeCoverage]
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class AccesoADatosEnMemoriaTest
     {
         [TestMethod]
@@ -123,63 +123,6 @@ namespace PruebasUnitarias
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             unSistema.RegistrarTipo(Tipo.TipoInvalido());
             Assert.IsTrue(unSistema.ExistenTipos());
-        }
-
-        [TestMethod]
-        public void ExistenDispositivosTest1()
-        {
-            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            Assert.IsFalse(unSistema.ExistenDispositivos());
-        }
-
-        [TestMethod]
-        public void ExistenDispositivosTest2()
-        {
-            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            unSistema.RegistrarComponente(Dispositivo.DispositivoInvalido());
-            Assert.IsTrue(unSistema.ExistenDispositivos());
-        }
-
-        [TestMethod]
-        public void ExistenDispositivosTest3()
-        {
-            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación.");
-            unaInstalacion.AgregarComponente(Dispositivo.DispositivoInvalido());
-            unSistema.RegistrarComponente(unaInstalacion);
-            Assert.IsTrue(unSistema.ExistenDispositivos());
-        }
-
-        [TestMethod]
-        public void ExistenDispositivosTest4()
-        {
-            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación.");
-            unSistema.RegistrarComponente(unaInstalacion);
-            Assert.IsFalse(unSistema.ExistenDispositivos());
-        }
-
-        [TestMethod]
-        public void ExistenInstalacionesTest1()
-        {
-            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            Assert.IsFalse(unSistema.ExistenInstalaciones());
-        }
-
-        [TestMethod]
-        public void ExistenInstalacionesTest2()
-        {
-            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            unSistema.RegistrarComponente(Dispositivo.DispositivoInvalido());
-            Assert.IsFalse(unSistema.ExistenInstalaciones());
-        }
-
-        [TestMethod]
-        public void ExistenInstalacionesTest3()
-        {
-            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
-            unSistema.RegistrarComponente(Instalacion.InstalacionInvalida());
-            Assert.IsTrue(unSistema.ExistenInstalaciones());
         }
     }
 }

@@ -373,14 +373,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void CompareToTest1()
+        public void CompareToTestVariable1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
             Assert.AreEqual(0, unaVariable.CompareTo(unaVariable));
         }
 
         [TestMethod]
-        public void CompareToTest2()
+        public void CompareToTestVariable2()
         {
             Variable variable1 = Variable.NombreMinimoMaximo("ABC", 0, 10);
             Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
@@ -388,7 +388,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void CompareToTest3()
+        public void CompareToTestVariable3()
         {
             Variable variable1 = Variable.NombreMinimoMaximo("XYZ", 0, 10);
             Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
@@ -397,7 +397,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void CompareToTest4()
+        public void CompareToTestVariable4()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
             unaVariable.CompareTo(new object());
@@ -405,14 +405,14 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void CompareToTest5()
+        public void CompareToTestVariable5()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
             unaVariable.CompareTo(null);
         }
 
         [TestMethod]
-        public void ToStringTest1()
+        public void ToStringVariableTest1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Variable", -10, 30);
             unaVariable.ValorActual = 1;
@@ -420,7 +420,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void ToStringTest2()
+        public void ToStringVariableTest2()
         {
             Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 30M);
             Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);

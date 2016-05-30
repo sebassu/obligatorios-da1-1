@@ -22,7 +22,7 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new ComponenteExcepcion("Tipo inválido.");
+                    throw new ElementoSCADAExcepcion("Tipo inválido.");
                 }
             }
         }
@@ -36,7 +36,7 @@ namespace Dominio
             }
             set
             {
-                if (Auxiliar.NoEsNulo(instalacionPadre))
+                if (Auxiliar.NoEsNulo(elementoPadre))
                 {
                     CorregirAlarmasActivasPadres(value);
                 }
@@ -58,14 +58,14 @@ namespace Dominio
 
         private void RestarTotalAlarmasYAdvertenciasPadre()
         {
-            instalacionPadre.DecrementarAlarmas(cantidadAlarmasActivas);
-            instalacionPadre.DecrementarAdvertencias(cantidadAdvertenciasActivas);
+            elementoPadre.DecrementarAlarmas(cantidadAlarmasActivas);
+            elementoPadre.DecrementarAdvertencias(cantidadAdvertenciasActivas);
         }
 
         private void SumarTotalAlarmasYAdvertenciasPadre()
         {
-            instalacionPadre.IncrementarAlarmas(cantidadAlarmasActivas);
-            instalacionPadre.IncrementarAdvertencias(cantidadAdvertenciasActivas);
+            elementoPadre.IncrementarAlarmas(cantidadAlarmasActivas);
+            elementoPadre.IncrementarAdvertencias(cantidadAdvertenciasActivas);
         }
 
         public override IList Dependencias
@@ -90,7 +90,7 @@ namespace Dominio
         {
             if (Auxiliar.EsListaVacia(variables))
             {
-                throw new ComponenteExcepcion("La lista de variables controladas es vacía.");
+                throw new ElementoSCADAExcepcion("La lista de variables controladas es vacía.");
             }
             else
             {
@@ -102,7 +102,7 @@ namespace Dominio
         {
             if (Auxiliar.EsListaVacia(variables))
             {
-                throw new ComponenteExcepcion("La lista de variables controladas es vacía.");
+                throw new ElementoSCADAExcepcion("La lista de variables controladas es vacía.");
             }
             else
             {
@@ -110,14 +110,14 @@ namespace Dominio
             }
         }
 
-        public override void AgregarComponente(Componente unComponente)
+        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
         {
-            throw new ComponenteExcepcion("No es posible asignarle componentes a un dispositivo.");
+            throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo.");
         }
 
-        public override void EliminarComponente(Componente unComponente)
+        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
         {
-            throw new ComponenteExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
+            throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
         }
 
         private Dispositivo()

@@ -25,7 +25,8 @@ namespace Interfaz
                 numMax.Value = unaVariable.MaximoAlarma;
                 lblMenuVariable.Text = "Modificar Variable";
             }
-            else {
+            else
+            {
                 componenteAModificar = unComponente;
             }
             lblErrorNombre.Hide();
@@ -55,29 +56,31 @@ namespace Interfaz
                     if (Auxiliar.NoEsNulo(variableAModificar))
                     {
                         ModificarVariable(nombre, valorMinimo, valorMaximo);
-                        MessageBox.Show("La variable fue modificada correctamente.", "Éxito");
+                        MessageBox.Show("La variable fue modificada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else {
+                    else
+                    {
                         componenteAModificar.AgregarVariable(Variable.NombreMinimoMaximo(nombre, valorMinimo, valorMaximo));
-                        MessageBox.Show("La variable fue registrada correctamente.", "Éxito");
+                        MessageBox.Show("La variable fue registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }
-                else {
-                    MessageBox.Show("Revise los datos ingresados y reintente.", "Error");
+                else
+                {
+                    MessageBox.Show("Revise los datos ingresados y reintente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (VariableExcepcion ex1)
             {
-                MessageBox.Show(ex1.Message, "Error");
+                MessageBox.Show(ex1.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ModificarVariable(string nombre, decimal valorMinimo, decimal valorMaximo)
         {
             variableAModificar.Nombre = nombre;
-           // variableAModificar.Maximo = valorMaximo;
-           // variableAModificar.Minimo = valorMinimo;
+            // variableAModificar.Maximo = valorMaximo;
+            // variableAModificar.Minimo = valorMinimo;
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)

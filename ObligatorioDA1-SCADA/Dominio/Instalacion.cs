@@ -16,80 +16,44 @@ namespace Dominio
             }
         }
 
-        public override void AgregarComponente(Componente componenteAAgregar)
+        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
         {
-            if (EsComponenteValido(componenteAAgregar))
+            Componente elementoCasteado = elementoAAgregar as Componente;
+            if (EsDependenciaValida(elementoCasteado))
             {
-                dependencias.Add(componenteAAgregar);
+                dependencias.Add(elementoCasteado);
                 dependencias.Sort();
-                componenteAAgregar.InstalacionPadre = this;
-                uint cantidadDispositivosAVariar = DeterminarCambioDeDispositivos(componenteAAgregar);
-                cantidadDispositivosHijos += cantidadDispositivosAVariar;
-                SumarDispositivosEnJerarquia(cantidadDispositivosAVariar);
+                IncrementarAlarmas(elementoAAgregar.CantidadAlarmasActivas);
+                IncrementarAdvertencias(elementoAAgregar.CantidadAdvertenciasActivas);
+                elementoCasteado.ElementoPadre = this;
             }
             else
             {
-                throw new ComponenteExcepcion("Componente inválido recibido.");
+                throw new ElementoSCADAExcepcion("Elemento inválido recibido.");
             }
         }
 
-        public override void EliminarComponente(Componente componenteAEliminar)
+        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
         {
-            if (EsComponenteValido(componenteAEliminar))
+            Componente elementoCasteado = elementoAEliminar as Componente;
+            if (EsDependenciaValida(elementoCasteado))
             {
-                dependencias.Remove(componenteAEliminar);
-                dependencias.Sort();
-                uint cantidadDispositivosAVariar = DeterminarCambioDeDispositivos(componenteAEliminar);
-                cantidadDispositivosHijos -= cantidadDispositivosAVariar;
-                RestarDispositivosEnJerarquia(cantidadDispositivosAVariar);
-            }
-            else
-            {
-                throw new ComponenteExcepcion("Componente inválido recibido.");
-            }
-        }
-
-        private static uint DeterminarCambioDeDispositivos(Componente componenteAAgregar)
-        {
-            uint cantidadDispositivosAVariar = 0;
-            if (componenteAAgregar is Dispositivo)
-            {
-                cantidadDispositivosAVariar = 1;
-            }
-            else
-            {
-                Instalacion instalacionAAgregar = componenteAAgregar as Instalacion;
-                if (Auxiliar.NoEsNulo(instalacionAAgregar))
+                if (dependencias.Remove(elementoCasteado))
                 {
-                    cantidadDispositivosAVariar = instalacionAAgregar.CantidadDispositivosHijos;
+                    DecrementarAlarmas(elementoAEliminar.CantidadAlarmasActivas);
+                    DecrementarAdvertencias(elementoAEliminar.CantidadAdvertenciasActivas);
                 }
+                dependencias.Sort();
             }
-            return cantidadDispositivosAVariar;
-        }
-
-        private void SumarDispositivosEnJerarquia(uint cantidad)
-        {
-            Instalacion instalacionActual = instalacionPadre;
-            while (Auxiliar.NoEsNulo(instalacionActual))
+            else
             {
-                instalacionActual.cantidadDispositivosHijos += cantidad;
-                instalacionActual = instalacionActual.instalacionPadre;
+                throw new ElementoSCADAExcepcion("Elemento inválido recibido.");
             }
         }
 
-        private void RestarDispositivosEnJerarquia(uint cantidad)
+        private bool EsDependenciaValida(Componente unElemento)
         {
-            Instalacion instalacionActual = instalacionPadre;
-            while (Auxiliar.NoEsNulo(instalacionActual))
-            {
-                instalacionActual.cantidadDispositivosHijos -= cantidad;
-                instalacionActual = instalacionActual.instalacionPadre;
-            }
-        }
-
-        private bool EsComponenteValido(Componente unComponente)
-        {
-            return Auxiliar.NoEsNulo(unComponente) && !unComponente.Equals(this);
+            return Auxiliar.NoEsNulo(unElemento) && !unElemento.Equals(this) && !unElemento.Equals(elementoPadre);
         }
 
         internal static Instalacion InstalacionInvalida()
@@ -121,15 +85,6 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (I)";
-        }
-
-        private uint cantidadDispositivosHijos;
-        public uint CantidadDispositivosHijos
-        {
-            get
-            {
-                return cantidadDispositivosHijos;
-            }
         }
     }
 }

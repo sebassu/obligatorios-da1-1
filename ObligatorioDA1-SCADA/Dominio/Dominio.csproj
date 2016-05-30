@@ -45,10 +45,13 @@
     <Compile Include="Auxiliar.cs" />
     <Compile Include="Componente.cs" />
     <Compile Include="Dispositivo.cs" />
+    <Compile Include="ElementoSCADA.cs" />
+    <Compile Include="IElementoSCADA.cs" />
     <Compile Include="Incidente.cs" />
     <Compile Include="Instalacion.cs" />
     <Compile Include="IAccesoADatos.cs" />
     <Compile Include="AccesoADatosEnMemoria.cs" />
+    <Compile Include="PlantaIndustrial.cs" />
     <Compile Include="Tipo.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>
