@@ -1,6 +1,5 @@
 ﻿using Excepciones;
 using System;
-using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
@@ -59,7 +58,7 @@ namespace Dominio
             }
         }
 
-        protected ElementoSCADA elementoPadre;
+        protected IElementoSCADA elementoPadre;
         public override IElementoSCADA ElementoPadre
         {
             get
@@ -80,7 +79,7 @@ namespace Dominio
             }
         }
 
-        internal virtual void IncrementarAlarmas(uint valor = 1)
+        internal override void IncrementarAlarmas(uint valor = 1)
         {
             cantidadAlarmasActivas += valor;
             if (Auxiliar.NoEsNulo(elementoPadre) && EnUso)
@@ -89,7 +88,7 @@ namespace Dominio
             }
         }
 
-        internal void DecrementarAlarmas(uint valor = 1)
+        internal override void DecrementarAlarmas(uint valor = 1)
         {
             if (cantidadAlarmasActivas < valor)
             {
@@ -105,7 +104,7 @@ namespace Dominio
             }
         }
 
-        internal virtual void IncrementarAdvertencias(uint valor = 1)
+        internal override void IncrementarAdvertencias(uint valor = 1)
         {
             cantidadAdvertenciasActivas += valor;
             if (Auxiliar.NoEsNulo(elementoPadre) && EnUso)
@@ -114,7 +113,7 @@ namespace Dominio
             }
         }
 
-        internal void DecrementarAdvertencias(uint valor = 1)
+        internal override void DecrementarAdvertencias(uint valor = 1)
         {
             if (cantidadAdvertenciasActivas < valor)
             {

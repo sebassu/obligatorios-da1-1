@@ -1,18 +1,17 @@
 ﻿using Excepciones;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Dominio
 {
     public class PlantaIndustrial : ElementoSCADA
     {
-        private List<IElementoSCADA> dependencias;
+        private IManejadorDependencias<IElementoSCADA> dependencias;
         public override IList Dependencias
         {
             get
             {
-                return dependencias.AsReadOnly();
+                return dependencias.ElementosHijos;
             }
         }
 
@@ -69,7 +68,7 @@ namespace Dominio
             nombre = "Planta industrial inválida.";
             direccion = "Dirección inválida.";
             ciudad = "Ciudad inválida.";
-            dependencias = new List<IElementoSCADA>();
+            dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
             id = Guid.NewGuid();
         }
 
@@ -83,40 +82,18 @@ namespace Dominio
             Nombre = unNombre;
             Direccion = unaDireccion;
             Ciudad = unaCiudad;
-            dependencias = new List<IElementoSCADA>();
+            dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
             id = Guid.NewGuid();
         }
 
         public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
         {
-            if (EsDependenciaValida(elementoAAgregar))
-            {
-                dependencias.Add(elementoAAgregar);
-                dependencias.Sort();
-                elementoAAgregar.ElementoPadre = this;
-            }
-            else
-            {
-                throw new ElementoSCADAExcepcion("Elemento inválido recibido.");
-            }
+            dependencias.AgregarDependencia(elementoAAgregar);
         }
 
         public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
         {
-            if (EsDependenciaValida(elementoAEliminar))
-            {
-                dependencias.Remove(elementoAEliminar);
-                dependencias.Sort();
-            }
-            else
-            {
-                throw new ElementoSCADAExcepcion("Elemento inválido recibido.");
-            }
-        }
-
-        private bool EsDependenciaValida(IElementoSCADA unElemento)
-        {
-            return Auxiliar.NoEsNulo(unElemento) && !unElemento.Equals(this) && !unElemento.Equals(elementoPadre);
+            dependencias.EliminarDependencia(elementoAEliminar);
         }
 
         public override void AgregarVariable(Variable unaVariable)
