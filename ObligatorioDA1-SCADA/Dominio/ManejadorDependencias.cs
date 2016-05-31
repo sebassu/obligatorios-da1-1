@@ -7,13 +7,6 @@ namespace Dominio
     public class ManejadorDependenciasConLista<T> : IManejadorDependencias<T> where T : IElementoSCADA
     {
         private IElementoSCADA elementoAsociado;
-        public IElementoSCADA ElementoAsociado
-        {
-            get
-            {
-                return elementoAsociado;
-            }
-        }
 
         private List<T> hijos;
         public IList ElementosHijos

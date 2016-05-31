@@ -120,6 +120,19 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Paneles");
             Assert.AreEqual("Paneles (I)", unaInstalacion.ToString());
         }
+
+        [TestMethod]
+        public void ReasignacionDeDependenciasTest()
+        {
+            Instalacion unaInstalacion = Instalacion.InstalacionInvalida();
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            unaInstalacion.AgregarDependencia(unDispositivo);
+            CollectionAssert.Contains(unaInstalacion.Dependencias, unDispositivo);
+            Instalacion otraInstalacion = Instalacion.InstalacionInvalida();
+            otraInstalacion.AgregarDependencia(unDispositivo);
+            CollectionAssert.Contains(otraInstalacion.Dependencias, unDispositivo);
+            CollectionAssert.DoesNotContain(unaInstalacion.Dependencias, unDispositivo);
+        }
     }
 }
 

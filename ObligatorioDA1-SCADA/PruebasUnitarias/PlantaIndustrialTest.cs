@@ -209,5 +209,30 @@ namespace PruebasUnitarias
             PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.NombreDireccionCiudad("GHY-12", "Cuareim 2389", "Montevideo");
             Assert.AreEqual("GHY-12 (P)", unaPlantaIndustrial.ToString());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
+        public void AgregarDependenciaCiclicaTest1()
+        {
+            PlantaIndustrial plantaIndustrial1 = PlantaIndustrial.PlantaIndustrialInvalida();
+            PlantaIndustrial plantaIndustrial2 = PlantaIndustrial.PlantaIndustrialInvalida();
+            PlantaIndustrial plantaIndustrial3 = PlantaIndustrial.PlantaIndustrialInvalida();
+            plantaIndustrial1.AgregarDependencia(plantaIndustrial2);
+            plantaIndustrial2.AgregarDependencia(plantaIndustrial3);
+            plantaIndustrial3.AgregarDependencia(plantaIndustrial1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
+        public void AgregarDependenciaCiclicaTest2()
+        {
+            PlantaIndustrial plantaIndustrial1 = PlantaIndustrial.PlantaIndustrialInvalida();
+            PlantaIndustrial plantaIndustrial11 = PlantaIndustrial.PlantaIndustrialInvalida();
+            plantaIndustrial1.AgregarDependencia(plantaIndustrial11);
+            PlantaIndustrial plantaIndustrial2 = PlantaIndustrial.PlantaIndustrialInvalida();
+            PlantaIndustrial plantaIndustrial21 = PlantaIndustrial.PlantaIndustrialInvalida();
+            plantaIndustrial11.AgregarDependencia(plantaIndustrial2);
+            plantaIndustrial21.AgregarDependencia(plantaIndustrial1);
+        }
     }
 }
