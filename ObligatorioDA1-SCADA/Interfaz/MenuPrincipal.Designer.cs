@@ -295,6 +295,7 @@
             this.btnAgregarPlantaIndustrial.Name = "btnAgregarPlantaIndustrial";
             this.btnAgregarPlantaIndustrial.Size = new System.Drawing.Size(213, 22);
             this.btnAgregarPlantaIndustrial.Text = "Registrar Planta Industrial";
+            this.btnAgregarPlantaIndustrial.Click += new System.EventHandler(this.btnAgregarPlantaIndustrial_Click);
             // 
             // btnEliminarPlantaIndustrial
             // 

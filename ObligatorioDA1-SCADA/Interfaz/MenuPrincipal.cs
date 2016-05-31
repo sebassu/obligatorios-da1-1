@@ -541,5 +541,11 @@ namespace Interfaz
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, null));
         }
+
+        private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)
+        {
+            panelSistema.Controls.Clear();
+            panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, null));
+        }
     }
 }
