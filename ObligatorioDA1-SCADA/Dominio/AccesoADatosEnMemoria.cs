@@ -6,7 +6,7 @@ namespace Dominio
 {
     public class AccesoADatosEnMemoria : IAccesoADatos
     {
-        private List<Componente> componentesPrimarios;
+        private List<IElementoSCADA> componentesPrimarios;
         public IList ComponentesPrimarios
         {
             get
@@ -26,7 +26,7 @@ namespace Dominio
 
         public AccesoADatosEnMemoria()
         {
-            componentesPrimarios = new List<Componente>();
+            componentesPrimarios = new List<IElementoSCADA>();
             tipos = new List<Tipo>();
         }
 
@@ -69,6 +69,18 @@ namespace Dominio
         public bool ExistenTipos()
         {
             return existenTipos;
+        }
+
+        public void RegistrarPlantaIndustrial(PlantaIndustrial unaPlanta)
+        {
+            if (Auxiliar.NoEsNulo(unaPlanta))
+            {
+                componentesPrimarios.Add(unaPlanta);
+            }
+            else
+            {
+                throw new AccesoADatosEnMemoriaExcepcion("Objeto (Planta Industrial) nulo recibido.");
+            }
         }
     }
 }

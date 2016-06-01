@@ -144,8 +144,17 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AccesoADatosEnMemoriaExcepcion))]
         public void RegistrarPlantaIndustrialTest3()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            PlantaIndustrial unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
+            unSistema.RegistrarPlantaIndustrial(unaPlanta);
+            CollectionAssert.Contains(unSistema.ComponentesPrimarios, unaPlanta);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AccesoADatosEnMemoriaExcepcion))]
+        public void RegistrarPlantaIndustrialTest4()
         {
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             unSistema.RegistrarComponente(null);
