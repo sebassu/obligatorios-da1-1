@@ -25,18 +25,14 @@ namespace Dominio
 
         public void AgregarDependencia(IElementoSCADA elementoAAgregar)
         {
-            T elementoCasteado = elementoAAgregar as T;
-            IElementoSCADA padreAsociado = elementoAsociado.ElementoPadre;
-            IElementoSCADA elementoABuscar = (Auxiliar.NoEsNulo(padreAsociado) ? padreAsociado : elementoAsociado);
-            if (EsDependenciaValida(elementoCasteado, elementoABuscar))
+            T nuevaDependencia = elementoAAgregar as T;
+            IElementoSCADA padreElementoAsociado = elementoAsociado.ElementoPadre;
+            IElementoSCADA elementoABuscar = (Auxiliar.NoEsNulo(padreElementoAsociado) ? padreElementoAsociado : elementoAsociado);
+            if (EsDependenciaValida(nuevaDependencia, elementoABuscar))
             {
-                IElementoSCADA padreAnterior = elementoCasteado.ElementoPadre;
-                if (Auxiliar.NoEsNulo(padreAnterior))
-                {
-                    padreAnterior.EliminarDependencia(elementoAAgregar);
-                }
-                hijos.Add(elementoCasteado);
-                elementoCasteado.ElementoPadre = elementoAsociado;
+                EliminarDependenciaDelPadreAnterior(elementoAAgregar);
+                hijos.Add(nuevaDependencia);
+                nuevaDependencia.ElementoPadre = elementoAsociado;
                 hijos.Sort();
                 elementoAsociado.IncrementarAlarmas(elementoAAgregar.CantidadAlarmasActivas);
                 elementoAsociado.IncrementarAdvertencias(elementoAAgregar.CantidadAdvertenciasActivas);
@@ -44,6 +40,15 @@ namespace Dominio
             else
             {
                 throw new ElementoSCADAExcepcion("Elemento inválido recibido.");
+            }
+        }
+
+        private static void EliminarDependenciaDelPadreAnterior(IElementoSCADA elementoAAgregar)
+        {
+            IElementoSCADA padreAnterior = elementoAAgregar.ElementoPadre;
+            if (Auxiliar.NoEsNulo(padreAnterior))
+            {
+                padreAnterior.EliminarDependencia(elementoAAgregar);
             }
         }
 
@@ -62,7 +67,7 @@ namespace Dominio
             }
         }
 
-        private bool EsDependenciaValida(IElementoSCADA elementoActual, IElementoSCADA elementoABuscar)
+        private static bool EsDependenciaValida(IElementoSCADA elementoActual, IElementoSCADA elementoABuscar)
         {
             if (elementoActual == null || elementoActual.Equals(elementoABuscar))
             {
