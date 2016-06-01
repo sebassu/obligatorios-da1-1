@@ -302,12 +302,14 @@
             this.btnEliminarPlantaIndustrial.Name = "btnEliminarPlantaIndustrial";
             this.btnEliminarPlantaIndustrial.Size = new System.Drawing.Size(213, 22);
             this.btnEliminarPlantaIndustrial.Text = "Eliminar Planta Industrial";
+            this.btnEliminarPlantaIndustrial.Click += new System.EventHandler(this.btnEliminarPlantaIndustrial_Click);
             // 
             // btnEditarPlantaIndustrial
             // 
             this.btnEditarPlantaIndustrial.Name = "btnEditarPlantaIndustrial";
             this.btnEditarPlantaIndustrial.Size = new System.Drawing.Size(213, 22);
             this.btnEditarPlantaIndustrial.Text = "Modificar Planta Industrial";
+            this.btnEditarPlantaIndustrial.Click += new System.EventHandler(this.btnEditarPlantaIndustrial_Click);
             // 
             // instalacionesMenu
             // 

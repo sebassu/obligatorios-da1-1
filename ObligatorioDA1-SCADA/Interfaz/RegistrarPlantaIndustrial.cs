@@ -15,15 +15,15 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        //private PlantaIndustrial plantaAModificar;
+        private PlantaIndustrial plantaAModificar;
 
-        public RegistrarPlantaIndustrial(IAccesoADatos modelo, Panel panelSistema, /*PlantaIndustrial plantaAModificar = */ object p = null)
+        public RegistrarPlantaIndustrial(IAccesoADatos modelo, Panel panelSistema, PlantaIndustrial plantaAModificar = null)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
 
-            /*if (plantaAModificar == null)
+            if (plantaAModificar == null)
             {
                 lblMenuPlantaIndustrial.Text = "Registrar Planta Industrial";
             }
@@ -32,9 +32,9 @@ namespace Interfaz
                 lblMenuPlantaIndustrial.Text = "Editar Planta Industrial";
                 this.plantaAModificar = plantaAModificar;
                 txtNombrePlanta.Text = plantaAModificar.Nombre;
-                txtNombreDireccion.Text = plantaAModificar.Direccion;
-                txtNombreCiudad.Text = plantaAModificar.Ciudad;
-            }*/
+                txtDireccionPlanta.Text = plantaAModificar.Direccion;
+                txtCiudadPlanta.Text = plantaAModificar.Ciudad;
+            }
 
             lblErrorNombre.Hide();
             lblErrorDireccion.Hide();
@@ -96,6 +96,11 @@ namespace Interfaz
         private void txtCiudadPlanta_KeyPress(object sender, KeyPressEventArgs e)
         {
             AuxiliarInterfaz.ComprobarTexto(sender, e);
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            //falta codigo
         }
     }
 }
