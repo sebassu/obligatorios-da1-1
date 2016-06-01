@@ -48,7 +48,8 @@ namespace Interfaz
             {
                 if (lblErrorNombre.Visible || lblErrorDescripcion.Visible)
                 {
-                    MessageBox.Show("No se puede registrar el tipo de dispositivo, hay campos con errores de formato", "Error");
+                    MessageBox.Show("No se puede registrar el tipo de dispositivo, hay campos con errores de formato.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (Auxiliar.EsTextoValido(txtNombre.Text) && Auxiliar.EsTextoValido(txtDescripcion.Text))
                 {
@@ -56,25 +57,27 @@ namespace Interfaz
                     {
                         tipoAModificar.Nombre = txtNombre.Text;
                         tipoAModificar.Descripcion = txtDescripcion.Text;
-                        MessageBox.Show("El tipo de dispositivo fue modificado correctamente", "Éxito");
+                        MessageBox.Show("El tipo de dispositivo fue modificado correctamente.", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
                         Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
                         modelo.RegistrarTipo(unTipo);
-                        MessageBox.Show("El tipo de dispositivo fue registrado correctamente", "Éxito");
+                        MessageBox.Show("El tipo de dispositivo fue registrado correctamente.", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     panelSistema.Controls.Clear();
                     panelSistema.Controls.Add(new MenuOpcionesTipoDispositivo(modelo, panelSistema));
                 }
                 else
                 {
-                    MessageBox.Show("No deje campos sin rellenar", "Error");
+                    MessageBox.Show("Existen campos sin llenar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (TipoExcepcion ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

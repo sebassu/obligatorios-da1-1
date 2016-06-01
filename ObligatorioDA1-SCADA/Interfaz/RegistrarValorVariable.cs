@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -25,9 +26,17 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            unaVariable.ValorActual = numValor.Value;
-            MessageBox.Show("Valor agregado correctamente", "Éxito");
-            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+            try
+            {
+                unaVariable.ValorActual = numValor.Value;
+                MessageBox.Show("Valor agregado correctamente", "Éxito", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+            }
+            catch (ElementoSCADAExcepcion ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

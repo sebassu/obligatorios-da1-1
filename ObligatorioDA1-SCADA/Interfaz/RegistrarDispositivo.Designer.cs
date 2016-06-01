@@ -83,7 +83,6 @@
             this.txtNombreDispositivo.Name = "txtNombreDispositivo";
             this.txtNombreDispositivo.Size = new System.Drawing.Size(319, 26);
             this.txtNombreDispositivo.TabIndex = 7;
-            this.txtNombreDispositivo.Text = "sdadasd";
             this.txtNombreDispositivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreDispositivo_KeyPress);
             this.txtNombreDispositivo.Leave += new System.EventHandler(this.txtNombreDispositivo_Leave);
             // 

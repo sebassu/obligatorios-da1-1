@@ -6,8 +6,8 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
-    [ExcludeFromCodeCoverage]
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class IncidenteTest
     {
         [TestMethod]

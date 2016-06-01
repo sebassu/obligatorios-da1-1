@@ -182,9 +182,9 @@
             this.lblErrorValores.ForeColor = System.Drawing.Color.Red;
             this.lblErrorValores.Location = new System.Drawing.Point(346, 244);
             this.lblErrorValores.Name = "lblErrorValores";
-            this.lblErrorValores.Size = new System.Drawing.Size(282, 21);
+            this.lblErrorValores.Size = new System.Drawing.Size(231, 21);
             this.lblErrorValores.TabIndex = 40;
-            this.lblErrorValores.Text = "El rango de valores no es el adecuado";
+            this.lblErrorValores.Text = "El rango de valores es inválido.";
             this.lblErrorValores.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // maxAdv

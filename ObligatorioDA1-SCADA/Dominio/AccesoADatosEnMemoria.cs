@@ -65,37 +65,6 @@ namespace Dominio
             return tipos.Remove(unTipo);
         }
 
-        public bool ExistenDispositivos()
-        {
-            foreach (Componente componenteIteracion in ComponentesPrimarios)
-            {
-                if (componenteIteracion is Dispositivo)
-                {
-                    return true;
-                }
-                else {
-                    Instalacion componenteCasteado = componenteIteracion as Instalacion;
-                    if (componenteCasteado.CantidadDispositivosHijos > 0)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        public bool ExistenInstalaciones()
-        {
-            foreach (Componente componenteIteracion in ComponentesPrimarios)
-            {
-                if (componenteIteracion is Instalacion)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         bool existenTipos;
         public bool ExistenTipos()
         {

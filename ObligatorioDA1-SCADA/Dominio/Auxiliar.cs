@@ -6,15 +6,21 @@ namespace Dominio
 {
     public abstract class Auxiliar
     {
-        public static bool ContieneCaracteresAlfabeticos(string value)
-        {
-            Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
-            return caracteresAlfabeticos.IsMatch(value);
-        }
 
         public static bool EsTextoValido(string value)
         {
             return !string.IsNullOrEmpty(value) && ContieneCaracteresAlfabeticos(value);
+        }
+
+        public static bool EsDireccionValida(string value)
+        {
+            Regex finalizaConNumeros = new Regex(@"[0-9]+$\Z");
+            return EsTextoValido(value) && finalizaConNumeros.IsMatch(value);
+        }
+
+        public static bool EsCiudadValida(string value)
+        {
+            return !string.IsNullOrEmpty(value) && !NoContieneLetrasExclusivamente(value);
         }
 
         public static bool NoEsNulo(object unObjeto)
@@ -42,6 +48,18 @@ namespace Dominio
             decimal valorMinimoValido = rango.Item1;
             decimal valorMaximoValido = rango.Item2;
             return valor < valorMinimoValido || valor > valorMaximoValido;
+        }
+
+        private static bool ContieneCaracteresAlfabeticos(string value)
+        {
+            Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
+            return caracteresAlfabeticos.IsMatch(value);
+        }
+
+        private static bool NoContieneLetrasExclusivamente(string value)
+        {
+            Regex caracteresAlfabeticos = new Regex(@"[^ A-Z]", RegexOptions.IgnoreCase);
+            return caracteresAlfabeticos.IsMatch(value);
         }
     }
 }

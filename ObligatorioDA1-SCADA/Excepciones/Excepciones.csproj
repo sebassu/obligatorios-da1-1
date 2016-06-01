@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoADatosEnMemoriaExcepcion.cs" />
-    <Compile Include="ComponenteExcepcion.cs" />
+    <Compile Include="ElementoSCADAExcepcion.cs" />
     <Compile Include="IncidenteExcepcion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoExcepcion.cs" />

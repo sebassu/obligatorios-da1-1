@@ -65,12 +65,6 @@
     <Compile Include="RegistrarDispositivo.Designer.cs">
       <DependentUpon>RegistrarDispositivo.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistrarIncidente.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="RegistrarIncidente.Designer.cs">
-      <DependentUpon>RegistrarIncidente.cs</DependentUpon>
-    </Compile>
     <Compile Include="RegistrarInstalacion.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -138,9 +132,6 @@
     </Compile>
     <EmbeddedResource Include="RegistrarDispositivo.resx">
       <DependentUpon>RegistrarDispositivo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RegistrarIncidente.resx">
-      <DependentUpon>RegistrarIncidente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrarInstalacion.resx">
       <DependentUpon>RegistrarInstalacion.cs</DependentUpon>

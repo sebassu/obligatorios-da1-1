@@ -1,95 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Excepciones;
 using System;
 
 namespace Dominio
 {
     public class Instalacion : Componente
     {
-        private List<Componente> dependencias;
+        private IManejadorDependencias<Componente> dependencias;
         public override IList Dependencias
         {
             get
             {
-                return dependencias.AsReadOnly();
+                return dependencias.ElementosHijos;
             }
         }
 
-        public override void AgregarComponente(Componente componenteAAgregar)
+        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
         {
-            if (EsComponenteValido(componenteAAgregar))
-            {
-                dependencias.Add(componenteAAgregar);
-                dependencias.Sort();
-                componenteAAgregar.InstalacionPadre = this;
-                uint cantidadDispositivosAVariar = DeterminarCambioDeDispositivos(componenteAAgregar);
-                cantidadDispositivosHijos += cantidadDispositivosAVariar;
-                SumarDispositivosEnJerarquia(cantidadDispositivosAVariar);
-            }
-            else
-            {
-                throw new ComponenteExcepcion("Componente inválido recibido.");
-            }
+            dependencias.AgregarDependencia(elementoAAgregar);
         }
 
-        public override void EliminarComponente(Componente componenteAEliminar)
+        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
         {
-            if (EsComponenteValido(componenteAEliminar))
-            {
-                dependencias.Remove(componenteAEliminar);
-                dependencias.Sort();
-                uint cantidadDispositivosAVariar = DeterminarCambioDeDispositivos(componenteAEliminar);
-                cantidadDispositivosHijos -= cantidadDispositivosAVariar;
-                RestarDispositivosEnJerarquia(cantidadDispositivosAVariar);
-            }
-            else
-            {
-                throw new ComponenteExcepcion("Componente inválido recibido.");
-            }
-        }
-
-        private static uint DeterminarCambioDeDispositivos(Componente componenteAAgregar)
-        {
-            uint cantidadDispositivosAVariar = 0;
-            if (componenteAAgregar is Dispositivo)
-            {
-                cantidadDispositivosAVariar = 1;
-            }
-            else
-            {
-                Instalacion instalacionAAgregar = componenteAAgregar as Instalacion;
-                if (Auxiliar.NoEsNulo(instalacionAAgregar))
-                {
-                    cantidadDispositivosAVariar = instalacionAAgregar.CantidadDispositivosHijos;
-                }
-            }
-            return cantidadDispositivosAVariar;
-        }
-
-        private void SumarDispositivosEnJerarquia(uint cantidad)
-        {
-            Instalacion instalacionActual = instalacionPadre;
-            while (Auxiliar.NoEsNulo(instalacionActual))
-            {
-                instalacionActual.cantidadDispositivosHijos += cantidad;
-                instalacionActual = instalacionActual.instalacionPadre;
-            }
-        }
-
-        private void RestarDispositivosEnJerarquia(uint cantidad)
-        {
-            Instalacion instalacionActual = instalacionPadre;
-            while (Auxiliar.NoEsNulo(instalacionActual))
-            {
-                instalacionActual.cantidadDispositivosHijos -= cantidad;
-                instalacionActual = instalacionActual.instalacionPadre;
-            }
-        }
-
-        private bool EsComponenteValido(Componente unComponente)
-        {
-            return Auxiliar.NoEsNulo(unComponente) && !unComponente.Equals(this);
+            dependencias.EliminarDependencia(elementoAEliminar);
         }
 
         internal static Instalacion InstalacionInvalida()
@@ -105,7 +38,7 @@ namespace Dominio
         private Instalacion()
         {
             nombre = "Instalación inválida.";
-            dependencias = new List<Componente>();
+            dependencias = new ManejadorDependenciasConLista<Componente>(this);
             variables = new List<Variable>();
             id = Guid.NewGuid();
         }
@@ -113,7 +46,7 @@ namespace Dominio
         private Instalacion(string unNombre)
         {
             Nombre = unNombre;
-            dependencias = new List<Componente>();
+            dependencias = new ManejadorDependenciasConLista<Componente>(this);
             variables = new List<Variable>();
             id = Guid.NewGuid();
         }
@@ -121,15 +54,6 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (I)";
-        }
-
-        private uint cantidadDispositivosHijos;
-        public uint CantidadDispositivosHijos
-        {
-            get
-            {
-                return cantidadDispositivosHijos;
-            }
         }
     }
 }

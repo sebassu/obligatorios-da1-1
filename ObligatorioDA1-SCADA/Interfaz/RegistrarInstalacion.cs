@@ -57,9 +57,9 @@ namespace Interfaz
                 }
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
             }
-            catch (ComponenteExcepcion excepcion)
+            catch (ElementoSCADAExcepcion excepcion)
             {
-                MessageBox.Show(excepcion.Message, "Error");
+                MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
