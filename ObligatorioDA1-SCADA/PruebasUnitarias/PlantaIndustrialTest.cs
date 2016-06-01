@@ -231,6 +231,7 @@ namespace PruebasUnitarias
             plantaIndustrial1.AgregarDependencia(plantaIndustrial11);
             PlantaIndustrial plantaIndustrial2 = PlantaIndustrial.PlantaIndustrialInvalida();
             PlantaIndustrial plantaIndustrial21 = PlantaIndustrial.PlantaIndustrialInvalida();
+            plantaIndustrial2.AgregarDependencia(plantaIndustrial21);
             plantaIndustrial11.AgregarDependencia(plantaIndustrial2);
             plantaIndustrial21.AgregarDependencia(plantaIndustrial1);
         }

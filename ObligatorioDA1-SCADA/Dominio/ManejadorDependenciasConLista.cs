@@ -26,8 +26,15 @@ namespace Dominio
         public void AgregarDependencia(IElementoSCADA elementoAAgregar)
         {
             T elementoCasteado = elementoAAgregar as T;
-            if (EsDependenciaValida(elementoCasteado))
+            IElementoSCADA padreAsociado = elementoAsociado.ElementoPadre;
+            IElementoSCADA elementoABuscar = (Auxiliar.NoEsNulo(padreAsociado) ? padreAsociado : elementoAsociado);
+            if (EsDependenciaValida(elementoCasteado, elementoABuscar))
             {
+                IElementoSCADA padreAnterior = elementoCasteado.ElementoPadre;
+                if (Auxiliar.NoEsNulo(padreAnterior))
+                {
+                    padreAnterior.EliminarDependencia(elementoAAgregar);
+                }
                 hijos.Add(elementoCasteado);
                 elementoCasteado.ElementoPadre = elementoAsociado;
                 hijos.Sort();
@@ -55,9 +62,21 @@ namespace Dominio
             }
         }
 
-        private bool EsDependenciaValida(T unElemento)
+        private bool EsDependenciaValida(IElementoSCADA elementoActual, IElementoSCADA elementoABuscar)
         {
-            return Auxiliar.NoEsNulo(unElemento) && !unElemento.Equals(elementoAsociado) && !unElemento.Equals(elementoAsociado.ElementoPadre);
+            if (elementoActual == null || elementoActual.Equals(elementoABuscar))
+            {
+                return false;
+            }
+            else
+            {
+                bool retorno = true;
+                foreach (IElementoSCADA elementoIteracion in elementoActual.Dependencias)
+                {
+                    retorno &= EsDependenciaValida(elementoIteracion, elementoABuscar);
+                }
+                return retorno;
+            }
         }
     }
 }
