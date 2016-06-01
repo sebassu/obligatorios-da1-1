@@ -124,5 +124,31 @@ namespace PruebasUnitarias
             unSistema.RegistrarTipo(Tipo.TipoInvalido());
             Assert.IsTrue(unSistema.ExistenTipos());
         }
+
+        [TestMethod]
+        public void RegistrarPlantaIndustrialTest1()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
+            unSistema.RegistrarPlantaIndustrial(unaPlanta);
+            CollectionAssert.Contains(unSistema.ComponentesPrimarios, unaPlanta);
+        }
+
+        [TestMethod]
+        public void RegistrarPlantaIndustrialTest2()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            PlantaIndustrial unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
+            unSistema.RegistrarPlantaIndustrial(unaPlanta);
+            CollectionAssert.Contains(unSistema.ComponentesPrimarios, unaPlanta);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AccesoADatosEnMemoriaExcepcion))]
+        public void RegistrarPlantaIndustrialTest3()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            unSistema.RegistrarComponente(null);
+        }
     }
 }
