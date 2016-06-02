@@ -195,13 +195,13 @@ namespace Interfaz
             componente3.AgregarDependencia(componente5);
             componente1.AgregarDependencia(componente2);
             componente1.AgregarDependencia(componente3);
-            modelo.RegistrarComponente(componente1);
+            modelo.RegistrarElemento(componente1);
             Componente componente6 = Instalacion.ConstructorNombre("Clarificación");
             Componente componente7 = Dispositivo.NombreTipoEnUso("Batea", tipo2, true);
             Componente componente8 = Dispositivo.NombreTipoEnUso("Calentadores", tipo2, true);
             componente6.AgregarDependencia(componente7);
             componente6.AgregarDependencia(componente8);
-            modelo.RegistrarComponente(componente6);
+            modelo.RegistrarElemento(componente6);
             Componente componente9 = Instalacion.ConstructorNombre("Evaporación");
             Componente componente10 = Instalacion.ConstructorNombre("Evaporadores");
             Variable variable3 = Variable.NombreMinimoMaximo("Temperatura", 0, 200);
@@ -213,13 +213,13 @@ namespace Interfaz
             componente10.AgregarDependencia(componente11);
             componente10.AgregarDependencia(componente12);
             componente9.AgregarDependencia(componente10);
-            modelo.RegistrarComponente(componente9);
+            modelo.RegistrarElemento(componente9);
             Componente componente13 = Instalacion.ConstructorNombre("Centrifugación");
             Componente componente14 = Dispositivo.NombreTipoEnUso("Centrifugadora 1", tipo2, true);
             Componente componente15 = Dispositivo.NombreTipoEnUso("Centrifugadora 2", tipo2, true);
             componente13.AgregarDependencia(componente14);
             componente13.AgregarDependencia(componente15);
-            modelo.RegistrarComponente(componente13);
+            modelo.RegistrarElemento(componente13);
             RecargarTodoComponente();
         }
 
@@ -303,7 +303,7 @@ namespace Interfaz
             Cursor.Current = Cursors.WaitCursor;
             treeViewPlantaDeProduccion.BeginUpdate();
             treeViewPlantaDeProduccion.Nodes.Clear();
-            foreach (Componente componente in modelo.ComponentesPrimarios)
+            foreach (Componente componente in modelo.ElementosPrimarios)
             {
                 TreeNode nodo = ObtenerNodoDeRamaJerarquica(componente);
                 treeViewPlantaDeProduccion.Nodes.Add(nodo);
@@ -364,7 +364,7 @@ namespace Interfaz
         private void RecargarTableroDeControl()
         {
             lstTableroControl.Clear();
-            foreach (Componente componente in modelo.ComponentesPrimarios)
+            foreach (Componente componente in modelo.ElementosPrimarios)
             {
                 if (componente.CantidadAlarmasActivas > 0)
                 {
@@ -418,7 +418,7 @@ namespace Interfaz
                     }
                     else
                     {
-                        modelo.EliminarComponente(instalacionAEliminar);
+                        modelo.EliminarElemento(instalacionAEliminar);
                     }
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
                     RecargarTableroDeControl();
@@ -452,7 +452,7 @@ namespace Interfaz
                     }
                     else
                     {
-                        modelo.EliminarComponente(dispositivoAEliminar);
+                        modelo.EliminarElemento(dispositivoAEliminar);
                     }
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
                     RecargarTableroDeControl();

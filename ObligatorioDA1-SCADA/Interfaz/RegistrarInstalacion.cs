@@ -47,7 +47,7 @@ namespace Interfaz
                 if (instalacionAModificar == null)
                 {
                     Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
-                    modelo.RegistrarComponente(unaInstalacion);
+                    modelo.RegistrarElemento(unaInstalacion);
                     MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
                 }
                 else

@@ -4,14 +4,12 @@ namespace Dominio
 {
     public interface IAccesoADatos
     {
-        IList ComponentesPrimarios { get; }
+        IList ElementosPrimarios { get; }
         IList Tipos { get; }
         void RegistrarTipo(Tipo unTipo);
-        void RegistrarComponente(Componente unComponente);
+        void RegistrarElemento(IElementoSCADA unElemento);
         bool EliminarTipo(Tipo unTipo);
-        bool EliminarComponente(Componente unComponente);
+        bool EliminarElemento(IElementoSCADA unElemento);
         bool ExistenTipos();
-        void RegistrarPlantaIndustrial(PlantaIndustrial unaPlanta);
-        bool EliminarPlantaIndustrial(PlantaIndustrial unaPlanta);
     }
 }

@@ -70,7 +70,7 @@ namespace Interfaz
                     }
                     else
                     {
-                        modelo.RegistrarComponente(dispositivoAAgregar);
+                        modelo.RegistrarElemento(dispositivoAAgregar);
                     }
                 }
                 MessageBox.Show("El dispositivo fue registrado correctamente");

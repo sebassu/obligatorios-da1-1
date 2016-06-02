@@ -57,7 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponenteTest.cs" />
     <Compile Include="InstalacionTest.cs" />
-    <Compile Include="AccesoADatosEnMemoriaTest.cs" />
+    <Compile Include="AccesoADatosBaseDeDatosTest.cs" />
     <Compile Include="IncidenteTest.cs" />
     <Compile Include="ElementoSCADATest.cs" />
     <Compile Include="PlantaIndustrialTest.cs" />
