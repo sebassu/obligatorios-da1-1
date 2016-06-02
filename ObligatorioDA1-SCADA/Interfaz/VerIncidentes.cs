@@ -15,7 +15,7 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, Incidente unIncidente/*en realidad se recibe un IElementoSCADA*/)
+        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, IElementoSCADA unELemento)
         {
             InitializeComponent();
             this.modelo = modelo;
@@ -26,16 +26,25 @@ namespace Interfaz
         private void RecargarListaIncidentes()
         {
             //Prueba
-            lstTiposDispositivos.Rows.Clear();
-            foreach (Tipo tipo in modelo.Tipos)
-            {
-                lstTiposDispositivos.Rows.Add(tipo, tipo.Descripcion, 1);
-            }
+            //lstTiposDispositivos.Rows.Clear();
+            //foreach (IElementoSCADA elemento in modelo.ComponentesPrimarios)
+            //{
+            //    lstTiposDispositivos.Rows.Add(elemento, elemento.Descripcion, 1);
+            //}
         }
 
         private void btnVolverMenuPrincipal_Click(object sender, EventArgs e)
         {
             AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+        }
+
+        private void btnAplicarFiltros_Click(object sender, EventArgs e)
+        {
+            if (fechaDesde.Value > fechaHasta.Value)
+            {
+                MessageBox.Show("La fecha desde debe ser menor o igual a la fecha hasta", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

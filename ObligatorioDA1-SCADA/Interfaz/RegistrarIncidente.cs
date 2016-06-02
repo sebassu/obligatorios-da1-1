@@ -15,12 +15,14 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
+        private IElementoSCADA unElemento;
 
-        public RegistrarIncidente(IAccesoADatos modelo, Panel panelSistema)
+        public RegistrarIncidente(IAccesoADatos modelo, Panel panelSistema, IElementoSCADA unElemento)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            this.unElemento = unElemento;
             lblErrorDescripcion.Hide();
             lblErrorFecha.Hide();
         }

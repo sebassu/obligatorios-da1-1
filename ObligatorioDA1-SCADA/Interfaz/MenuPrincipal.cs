@@ -230,22 +230,22 @@ namespace Interfaz
             RecargarTableroDeControl();
             ActivacionBotonesVariables();
             ActivacionBotonesTipo();
-            ActivacionBotonAgregarVariable();
+            //ActivacionBotonAgregarVariable();
         }
 
-        private void ActivacionBotonAgregarVariable()
-        {
-            /*if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
-            {
-                btnAgregarVariable.Enabled = true;
-                btnAgregarVariable.BackColor = Color.Chartreuse;
-            }
-            else
-            {
-                btnAgregarVariable.Enabled = false;
-                btnAgregarVariable.BackColor = Color.LightGreen;
-            }*/
-        }
+        //private void ActivacionBotonAgregarVariable()
+        //{
+        //    /*if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
+        //    {
+        //        btnAgregarVariable.Enabled = true;
+        //        btnAgregarVariable.BackColor = Color.Chartreuse;
+        //    }
+        //    else
+        //    {
+        //        btnAgregarVariable.Enabled = false;
+        //        btnAgregarVariable.BackColor = Color.LightGreen;
+        //    }*/
+        //}
 
         private void ActivacionBotonesVariables()
         {
@@ -266,7 +266,8 @@ namespace Interfaz
                 btnEliminarVariable.Enabled = false;
                 btnAgregarValorVariable.Enabled = false;
                 btnValoresHistoricos.Enabled = false;
-
+                btnEliminarVariable.BackColor = Color.LightPink;
+                btnEditarVariable.BackColor = Color.LightCyan;
             }
         }
 
@@ -478,14 +479,40 @@ namespace Interfaz
 
         private void btnAgregarIncidente_Click(object sender, EventArgs e)
         {
+            VerificarElementoSeleccionado(AgregarIncidente);
+        }
+
+        private void AgregarIncidente()
+        {
+            IElementoSCADA unElemento = treeViewPlantaDeProduccion.SelectedNode.Tag as IElementoSCADA;
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema));
+            panelSistema.Controls.Add(new RegistrarIncidente(modelo, panelSistema, unElemento));
         }
 
         private void btnVerIncidentes_Click(object sender, EventArgs e)
         {
+            VerificarElementoSeleccionado(AbrirIncidentes);
+        }
+
+        private void VerificarElementoSeleccionado(Action unaAccionARealizar)
+        {
+            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            if (Auxiliar.NoEsNulo(seleccionado))
+            {
+                unaAccionARealizar.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AbrirIncidentes()
+        {
+            IElementoSCADA unElemento = treeViewPlantaDeProduccion.SelectedNode.Tag as IElementoSCADA;
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, null));
+            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, unElemento));
         }
 
         private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)
