@@ -55,7 +55,7 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Editar Dispositivo\" para la selección realizada", "Error",
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar Dispositivo\" para la selección realizada", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -393,7 +393,7 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Editar Instalación\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar Instalación\" para la selección realizada");
             }
         }
 
@@ -558,6 +558,44 @@ namespace Interfaz
             else
             {
                 // Eliminar Dependencia de AccesoADatos.
+            }
+        }
+
+        private void btnEliminarPlantaIndustrial_Click(object sender, EventArgs e)
+        {
+            //VerificarPlantaIndustrialSeleccionada(EliminarPlantaIndustrialSeleccionada);
+        }
+
+        private void VerificarPlantaIndustrialSeleccionada(Action unaAccionARealizar)
+        {
+            PlantaIndustrial plantaSeleccionada = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+            if (Auxiliar.NoEsNulo(plantaSeleccionada))
+            {
+                unaAccionARealizar.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una Planta Industrial para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEditarPlantaIndustrial_Click(object sender, EventArgs e)
+        {
+            VerificarPlantaIndustrialSeleccionada(AbrirPanelEditarPlantaIndustrial);
+        }
+
+        private void AbrirPanelEditarPlantaIndustrial()
+        {
+            PlantaIndustrial plantaAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+            if (Auxiliar.NoEsNulo(plantaAModificar))
+            {
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaAModificar));
+            }
+            else
+            {
+                MessageBox.Show("Es necesario utilizar otra función de \"Modificar\" para la selección realizada");
             }
         }
     }
