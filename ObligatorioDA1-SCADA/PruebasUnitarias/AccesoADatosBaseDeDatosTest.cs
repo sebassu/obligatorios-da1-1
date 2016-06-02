@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Dominio;
-using System.Diagnostics.CodeAnalysis;
 using Excepciones;
+using Persistencia;
+using System.Diagnostics.CodeAnalysis;
 
 namespace PruebasUnitarias
 {
@@ -28,7 +29,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AccesoADatosException))]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void RegistrarTipoTest3()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
@@ -73,7 +74,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AccesoADatosException))]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void RegistrarComponenteTest5()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
@@ -153,7 +154,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AccesoADatosException))]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void RegistrarPlantaIndustrialTest4()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
@@ -194,15 +195,15 @@ namespace PruebasUnitarias
         public void RegistrarIncidenteTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
+            PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unSistema.RegistrarIncidente(unaPlanta, unIncidente);
             CollectionAssert.Contains(unSistema.Incidentes, unIncidente);
-            Assert.AreEqual(unaPlanta.Id, unIncidente.IdElementoAsociado);
+            Assert.AreEqual(unaPlanta.ID, unIncidente.IdElementoAsociado);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AccesoADatosException))]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void RegistrarIncidenteTest2()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
@@ -211,7 +212,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AccesoADatosException))]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void EliminarIncidenteTest()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
@@ -220,7 +221,7 @@ namespace PruebasUnitarias
             unSistema.RegistrarIncidente(unaPlanta, unIncidente);
             CollectionAssert.Contains(unSistema.Incidentes, unIncidente);
             unSistema.EliminarIncidente(unIncidente);
-            CollectionAssert.DoesNotContain(unIncidente);
+            CollectionAssert.DoesNotContain(unSistema.Incidentes, unIncidente);
         }
     }
 }

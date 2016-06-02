@@ -179,6 +179,10 @@
       <Project>{88f9e548-8e79-42de-8f4f-c00bdd29ff7c}</Project>
       <Name>Excepciones</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Persistencia\Persistencia.csproj">
+      <Project>{ab45c5a2-e548-4686-9f8d-f6d8651cd159}</Project>
+      <Name>Persistencia</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

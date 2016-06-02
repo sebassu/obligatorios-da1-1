@@ -63,13 +63,12 @@ namespace Dominio
             return new PlantaIndustrial();
         }
 
-        private PlantaIndustrial()
+        private PlantaIndustrial() : base()
         {
             nombre = "Planta industrial inválida.";
             direccion = "Dirección inválida.";
             ciudad = "Ciudad inválida.";
             dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
-            id = Guid.NewGuid();
         }
 
         public static PlantaIndustrial NombreDireccionCiudad(string unNombre, string unaDireccion, string unaCiudad)
@@ -77,13 +76,11 @@ namespace Dominio
             return new PlantaIndustrial(unNombre, unaDireccion, unaCiudad);
         }
 
-        private PlantaIndustrial(string unNombre, string unaDireccion, string unaCiudad)
+        private PlantaIndustrial(string unNombre, string unaDireccion, string unaCiudad) : base(unNombre)
         {
-            Nombre = unNombre;
             Direccion = unaDireccion;
             Ciudad = unaCiudad;
             dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
-            id = Guid.NewGuid();
         }
 
         public override void AgregarDependencia(IElementoSCADA elementoAAgregar)

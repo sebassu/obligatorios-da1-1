@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
@@ -9,6 +11,21 @@ namespace Dominio
     public class Variable : IComparable
     {
         private Guid id;
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        protected virtual Guid ID
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
+        }
+
         private Tuple<decimal, decimal> rangoAdvertencia;
         private Tuple<decimal, decimal> rangoAlarma;
         private DateTime fechaUltimaModificacion;

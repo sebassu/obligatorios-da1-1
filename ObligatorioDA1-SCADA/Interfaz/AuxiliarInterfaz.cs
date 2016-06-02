@@ -1,4 +1,4 @@
-﻿using Dominio;
+﻿using Persistencia;
 using System.Windows.Forms;
 
 namespace Interfaz

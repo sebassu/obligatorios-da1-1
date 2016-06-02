@@ -1,4 +1,4 @@
-﻿using Dominio;
+﻿using Persistencia;
 using System;
 using System.Windows.Forms;
 
@@ -14,7 +14,7 @@ namespace Interfaz
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            IAccesoADatos modelo = new AccesoADatosEnMemoria();
+            IAccesoADatos modelo = new AccesoADatosBaseDeDatos();
             Application.Run(new VentanaPrincipal(modelo));
         }
     }

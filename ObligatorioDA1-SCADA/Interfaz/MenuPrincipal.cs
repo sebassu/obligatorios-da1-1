@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Persistencia;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -177,7 +178,7 @@ namespace Interfaz
 
         private void CargarDatosDePrueba()
         {
-            modelo = new AccesoADatosEnMemoria();
+            modelo = new AccesoADatosBaseDeDatos();
             Tipo tipo1 = Tipo.NombreDescripcion("Tipo 1", "Buen tipo");
             Tipo tipo2 = Tipo.NombreDescripcion("Tipo 2", "Otro tipo");
             modelo.RegistrarTipo(tipo1);

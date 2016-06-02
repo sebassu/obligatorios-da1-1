@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
 
 namespace Interfaz
 {

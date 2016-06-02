@@ -1,11 +1,15 @@
 ﻿using Excepciones;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
     public class ManejadorDependenciasConLista<T> : IManejadorDependencias<T> where T : IElementoSCADA
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         private IElementoSCADA elementoAsociado;
 
         private List<T> hijos;

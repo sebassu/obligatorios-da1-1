@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace Dominio
 {
     public abstract class IElementoSCADA
     {
+        internal abstract Guid ID { get; }
         public abstract string Nombre { get; set; }
         public abstract bool EnUso { get; set; }
         public abstract IElementoSCADA ElementoPadre { get; set; }

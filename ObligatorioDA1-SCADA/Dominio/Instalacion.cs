@@ -35,20 +35,15 @@ namespace Dominio
             return new Instalacion(unNombre);
         }
 
-        private Instalacion()
+        private Instalacion() : base()
         {
             nombre = "Instalación inválida.";
             dependencias = new ManejadorDependenciasConLista<Componente>(this);
-            variables = new List<Variable>();
-            id = Guid.NewGuid();
         }
 
-        private Instalacion(string unNombre)
+        private Instalacion(string unNombre) : base(unNombre)
         {
-            Nombre = unNombre;
             dependencias = new ManejadorDependenciasConLista<Componente>(this);
-            variables = new List<Variable>();
-            id = Guid.NewGuid();
         }
 
         public override string ToString()

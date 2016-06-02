@@ -5,8 +5,21 @@ namespace Dominio
 {
     public class Incidente
     {
+        private Guid idElementoAsociado;
+        internal virtual Guid IdElementoAsociado
+        {
+            get
+            {
+                return idElementoAsociado;
+            }
+            set
+            {
+                idElementoAsociado = value;
+            }
+        }
+
         private string descripcion;
-        public string Descripcion
+        public virtual string Descripcion
         {
             get
             {
@@ -26,7 +39,7 @@ namespace Dominio
         }
 
         private DateTime fecha;
-        public DateTime Fecha
+        public virtual DateTime Fecha
         {
             get
             {
@@ -39,7 +52,7 @@ namespace Dominio
         }
 
         private byte nivelGravedad;
-        public byte NivelGravedad
+        public virtual byte NivelGravedad
         {
             get
             {
@@ -68,6 +81,20 @@ namespace Dominio
             fecha = default(DateTime);
             nivelGravedad = 0;
             descripcion = "Descripción inválida.";
+        }
+
+        public static Incidente ElementoDescripcionFechaGravedad(IElementoSCADA unElementoSCADA, string unaDescripcion,
+            DateTime unaFecha, byte unNivelDeGravedad)
+        {
+            return new Incidente(unElementoSCADA, unaDescripcion, unaFecha, unNivelDeGravedad);
+        }
+
+        private Incidente(IElementoSCADA unElementoSCADA, string unaDescripcion, DateTime unaFecha, byte unNivelDeGravedad)
+        {
+            idElementoAsociado = unElementoSCADA.ID;
+            Descripcion = unaDescripcion;
+            Fecha = unaFecha;
+            NivelGravedad = unNivelDeGravedad;
         }
     }
 }

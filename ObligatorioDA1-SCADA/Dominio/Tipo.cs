@@ -1,12 +1,28 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Excepciones;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
     public class Tipo
     {
         private Guid id;
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        protected virtual Guid ID
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
+        }
 
         private string nombre;
         public string Nombre

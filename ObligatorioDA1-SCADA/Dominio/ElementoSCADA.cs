@@ -1,5 +1,7 @@
 ﻿using Excepciones;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
@@ -7,6 +9,16 @@ namespace Dominio
     public abstract class ElementoSCADA : IElementoSCADA, IComparable
     {
         protected Guid id;
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        internal override Guid ID
+        {
+            get
+            {
+                return id;
+            }
+        }
 
         protected string nombre;
         public override string Nombre
@@ -162,5 +174,15 @@ namespace Dominio
         }
 
         public abstract override string ToString();
+
+        protected ElementoSCADA(string unNombre) : this()
+        {
+            Nombre = unNombre;
+        }
+
+        protected ElementoSCADA()
+        {
+            id = Guid.NewGuid();
+        }
     }
 }

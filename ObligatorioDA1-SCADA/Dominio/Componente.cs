@@ -1,4 +1,5 @@
 ﻿using Excepciones;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -44,6 +45,16 @@ namespace Dominio
             {
                 throw new ElementoSCADAExcepcion("Variable nula recibida.");
             }
+        }
+
+        protected Componente(string unNombre) : base(unNombre)
+        {
+            variables = new List<Variable>();
+        }
+
+        public Componente() : base()
+        {
+            variables = new List<Variable>();
         }
     }
 }

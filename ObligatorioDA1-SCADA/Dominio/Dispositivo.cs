@@ -120,21 +120,16 @@ namespace Dominio
             throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
         }
 
-        private Dispositivo()
+        private Dispositivo() : base()
         {
             nombre = "Dispositivo inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
-            variables = new List<Variable>();
-            id = Guid.NewGuid();
         }
 
-        private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
+        private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso) : base(unNombre)
         {
-            Nombre = unNombre;
             Tipo = unTipo;
             enUso = estaEnUso;
-            variables = new List<Variable>();
-            id = Guid.NewGuid();
         }
 
         public override string ToString()
