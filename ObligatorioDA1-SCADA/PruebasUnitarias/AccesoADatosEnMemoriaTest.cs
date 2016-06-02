@@ -159,5 +159,35 @@ namespace PruebasUnitarias
             IAccesoADatos unSistema = new AccesoADatosEnMemoria();
             unSistema.RegistrarComponente(null);
         }
+
+        [TestMethod]
+        public void EliminarPlantaIndustrialTest1()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
+            unSistema.RegistrarPlantaIndustrial(unaPlanta);
+            unSistema.EliminarPlantaIndustrial(unaPlanta);
+            Assert.AreEqual(0, unSistema.ComponentesPrimarios.Count);
+        }
+
+        [TestMethod]
+        public void EliminarPlantaIndustrialTest2()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            PlantaIndustrial unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
+            unSistema.RegistrarPlantaIndustrial(unaPlanta);
+            unSistema.EliminarPlantaIndustrial(unaPlanta);
+            Assert.AreEqual(0, unSistema.ComponentesPrimarios.Count);
+        }
+
+        [TestMethod]
+        public void EliminarPlantaIndustrialTest3()
+        {
+            IAccesoADatos unSistema = new AccesoADatosEnMemoria();
+            PlantaIndustrial unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
+            unSistema.RegistrarPlantaIndustrial(unaPlanta);
+            unSistema.EliminarPlantaIndustrial(unaPlanta);
+            Assert.AreEqual(0, unSistema.ComponentesPrimarios.Count);
+        }
     }
 }
