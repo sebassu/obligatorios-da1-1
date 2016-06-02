@@ -3,6 +3,7 @@ using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Drawing;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -63,10 +64,10 @@ namespace Interfaz
         {
             if (modelo.ExistenTipos())
             {
-                Instalacion unaInstalacion = null;
+                IElementoSCADA unaInstalacion = null;
                 if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
                 {
-                    unaInstalacion = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+                    unaInstalacion = treeViewPlantaDeProduccion.SelectedNode.Tag as IElementoSCADA;
                 }
                 panelSistema.Controls.Clear();
                 panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, unaInstalacion));
@@ -313,16 +314,15 @@ namespace Interfaz
             ActivacionBotonesIncidente();
         }
 
-        private TreeNode ObtenerNodoDeRamaJerarquica(Componente componente)
+        private TreeNode ObtenerNodoDeRamaJerarquica(IElementoSCADA elementoActual)
         {
             List<TreeNode> listaAuxiliar = new List<TreeNode>();
-            foreach (Componente hijo in componente.Dependencias)
+            foreach (IElementoSCADA hijo in elementoActual.Dependencias)
             {
                 listaAuxiliar.Add(ObtenerNodoDeRamaJerarquica(hijo));
             }
-            TreeNode retorno = new TreeNode(componente.ToString(), listaAuxiliar.ToArray());
-            Dispositivo dispositivo = componente as Dispositivo;
-            if (Auxiliar.NoEsNulo(dispositivo) && !dispositivo.EnUso)
+            TreeNode retorno = new TreeNode(elementoActual.ToString(), listaAuxiliar.ToArray());
+            if (!elementoActual.EnUso)
             {
                 retorno.ForeColor = Color.OrangeRed;
             }
@@ -330,7 +330,7 @@ namespace Interfaz
             {
                 retorno.ForeColor = Color.Black;
             }
-            retorno.Tag = componente;
+            retorno.Tag = elementoActual;
             return retorno;
         }
 
@@ -364,9 +364,9 @@ namespace Interfaz
         private void RecargarTableroDeControl()
         {
             lstTableroControl.Clear();
-            foreach (Componente componente in modelo.ComponentesPrimarios)
+            foreach (IElementoSCADA elemento in modelo.ComponentesPrimarios)
             {
-                if (componente.CantidadAlarmasActivas > 0)
+                if (elemento.CantidadAlarmasActivas > 0)
                 {
                     lstTableroControl.SelectionBackColor = Color.Red;
                 }
@@ -374,7 +374,7 @@ namespace Interfaz
                 {
                     lstTableroControl.SelectionBackColor = Color.Chartreuse;
                 }
-                lstTableroControl.AppendText("\n" + componente.Nombre + ": " + componente.CantidadAlarmasActivas + " Alarmas\n");
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarmas\n");
             }
         }
 
@@ -492,6 +492,73 @@ namespace Interfaz
         {
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, null));
+        }
+
+        private void treeViewPlantaDeProduccion_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                DoDragDrop(e.Item, DragDropEffects.Move);
+            }
+        }
+
+        private void treeViewPlantaDeProduccion_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = e.AllowedEffect;
+        }
+
+        private void treeViewPlantaDeProduccion_DragOver(object sender, DragEventArgs e)
+        {
+            Point targetPoint = treeViewPlantaDeProduccion.PointToClient(new Point(e.X, e.Y));
+            treeViewPlantaDeProduccion.SelectedNode = treeViewPlantaDeProduccion.GetNodeAt(targetPoint);
+        }
+
+        private void treeViewPlantaDeProduccion_DragDrop(object sender, DragEventArgs e)
+        {
+            Point puntoLlegada = treeViewPlantaDeProduccion.PointToClient(new Point(e.X, e.Y));
+            TreeNode nodoDestino = treeViewPlantaDeProduccion.GetNodeAt(puntoLlegada);
+            TreeNode nodoArrastrado = (TreeNode)e.Data.GetData(typeof(TreeNode));
+            if (Auxiliar.NoEsNulo(nodoArrastrado) && !nodoArrastrado.Equals(nodoDestino))
+            {
+                try
+                {
+                    if (e.Effect == DragDropEffects.Move)
+                    {
+                        IElementoSCADA elementoArrastrado = nodoArrastrado.Tag as IElementoSCADA;
+                        EliminarPadre(elementoArrastrado);
+                        if (Auxiliar.NoEsNulo(nodoDestino))
+                        {
+                            IElementoSCADA elementoDestino = nodoDestino.Tag as IElementoSCADA;
+                            elementoDestino.AgregarDependencia(elementoArrastrado);
+                            nodoArrastrado.Remove();
+                            nodoDestino.Nodes.Add(nodoArrastrado);
+                        }
+                        else
+                        {
+                            //Agregar Dependencia en AccesoADatos.
+                        }
+                    }
+                    nodoDestino.Expand();
+                    RecargarTableroDeControl();
+                }
+                catch (ElementoSCADAExcepcion excepcionProducida)
+                {
+                    MessageBox.Show(excepcionProducida.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void EliminarPadre(IElementoSCADA elementoArrastrado)
+        {
+            IElementoSCADA padreArrastrado = elementoArrastrado.ElementoPadre;
+            if (Auxiliar.NoEsNulo(padreArrastrado))
+            {
+                padreArrastrado.EliminarDependencia(elementoArrastrado);
+            }
+            else
+            {
+                // Eliminar Dependencia de AccesoADatos.
+            }
         }
     }
 }

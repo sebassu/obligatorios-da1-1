@@ -86,7 +86,11 @@
             this.treeViewPlantaDeProduccion.Name = "treeViewPlantaDeProduccion";
             this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 426);
             this.treeViewPlantaDeProduccion.TabIndex = 3;
+            this.treeViewPlantaDeProduccion.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeViewPlantaDeProduccion_ItemDrag);
             this.treeViewPlantaDeProduccion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPlantaDeProduccion_AfterSelect);
+            this.treeViewPlantaDeProduccion.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeViewPlantaDeProduccion_DragDrop);
+            this.treeViewPlantaDeProduccion.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeViewPlantaDeProduccion_DragEnter);
+            this.treeViewPlantaDeProduccion.DragOver += new System.Windows.Forms.DragEventHandler(this.treeViewPlantaDeProduccion_DragOver);
             // 
             // lblPlantaDeProduccion
             // 

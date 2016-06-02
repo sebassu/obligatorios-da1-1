@@ -10,14 +10,14 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private Dispositivo dispositivoAModificar;
-        private Instalacion instalacionAModificar;
+        private IElementoSCADA elementoAModificar;
 
-        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema, Instalacion unaInstalacion = null, Dispositivo unDispositivo = null)
+        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema, IElementoSCADA unElemento = null, Dispositivo unDispositivo = null)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            instalacionAModificar = unaInstalacion;
+            elementoAModificar = unElemento;
             foreach (Tipo tipo in modelo.Tipos)
             {
                 cbxTipoDispositivo.Items.Add(tipo);
@@ -64,9 +64,9 @@ namespace Interfaz
                 else
                 {
                     Dispositivo dispositivoAAgregar = Dispositivo.NombreTipoEnUso(nombreDispositivo, tipoDispositivo, estaEnUso);
-                    if (Auxiliar.NoEsNulo(instalacionAModificar))
+                    if (Auxiliar.NoEsNulo(elementoAModificar))
                     {
-                        instalacionAModificar.AgregarDependencia(dispositivoAAgregar);
+                        elementoAModificar.AgregarDependencia(dispositivoAAgregar);
                     }
                     else
                     {
