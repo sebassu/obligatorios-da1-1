@@ -394,7 +394,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Modificar Instalación\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar Instalación\" para la selección realizada", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -622,7 +623,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar otra función de \"Modificar\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar otra función de \"Modificar\" para la selección realizada", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
