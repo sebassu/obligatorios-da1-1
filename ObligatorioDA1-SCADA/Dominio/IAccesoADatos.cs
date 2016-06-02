@@ -12,5 +12,6 @@ namespace Dominio
         bool EliminarComponente(Componente unComponente);
         bool ExistenTipos();
         void RegistrarPlantaIndustrial(PlantaIndustrial unaPlanta);
+        bool EliminarPlantaIndustrial(PlantaIndustrial unaPlanta);
     }
 }

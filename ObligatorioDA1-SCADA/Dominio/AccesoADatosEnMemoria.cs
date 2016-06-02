@@ -82,5 +82,10 @@ namespace Dominio
                 throw new AccesoADatosEnMemoriaExcepcion("Objeto (Planta Industrial) nulo recibido.");
             }
         }
+
+        public bool EliminarPlantaIndustrial(PlantaIndustrial unaPlanta)
+        {
+            return componentesPrimarios.Remove(unaPlanta);
+        }
     }
 }
