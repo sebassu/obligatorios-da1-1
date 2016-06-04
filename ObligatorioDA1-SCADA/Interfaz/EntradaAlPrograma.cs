@@ -1,6 +1,7 @@
 ﻿using Persistencia;
 using System;
 using System.Windows.Forms;
+using Dominio;
 
 namespace Interfaz
 {
@@ -15,6 +16,7 @@ namespace Interfaz
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             IAccesoADatos modelo = new AccesoADatosBaseDeDatos();
+            modelo.EliminarDatos();
             Application.Run(new VentanaPrincipal(modelo));
         }
     }

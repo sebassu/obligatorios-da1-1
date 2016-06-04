@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Excepciones;
-using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
     public class Dispositivo : Componente
     {
         private Tipo tipoDispositivo;
+
+        [NotMapped]
         public Tipo Tipo
         {
             get
@@ -135,6 +138,20 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (D)";
+        }
+
+        // A efectos del correcto funcionamiento del Entity Framework.
+        [Required]
+        protected virtual Tipo TipoAuxiliar
+        {
+            get
+            {
+                return tipoDispositivo;
+            }
+            set
+            {
+                tipoDispositivo = value;
+            }
         }
     }
 }

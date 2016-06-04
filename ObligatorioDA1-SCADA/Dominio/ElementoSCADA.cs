@@ -8,18 +8,6 @@ namespace Dominio
 {
     public abstract class ElementoSCADA : IElementoSCADA, IComparable
     {
-        protected Guid id;
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        internal override Guid ID
-        {
-            get
-            {
-                return id;
-            }
-        }
-
         protected string nombre;
         public override string Nombre
         {
@@ -146,7 +134,7 @@ namespace Dominio
             ElementoSCADA elementoAComparar = obj as ElementoSCADA;
             if (Auxiliar.NoEsNulo(elementoAComparar))
             {
-                return id == elementoAComparar.id;
+                return ID == elementoAComparar.ID;
             }
             else
             {
@@ -182,7 +170,7 @@ namespace Dominio
 
         protected ElementoSCADA()
         {
-            id = Guid.NewGuid();
+            ID = Guid.NewGuid();
         }
     }
 }

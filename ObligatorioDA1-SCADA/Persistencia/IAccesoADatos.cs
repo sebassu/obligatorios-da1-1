@@ -10,8 +10,9 @@ namespace Persistencia
         IList Incidentes { get; }
         void RegistrarTipo(Tipo unTipo);
         void RegistrarElemento(IElementoSCADA unElemento);
-        bool EliminarTipo(Tipo unTipo);
-        bool EliminarElemento(IElementoSCADA unElemento);
+        void EliminarTipo(Tipo unTipo);
+        void EliminarElemento(IElementoSCADA unElemento);
+        void EliminarDatos();
         bool ExistenTipos();
         void RegistrarIncidente(IElementoSCADA unElemento, Incidente incidenteARegistrar);
         void EliminarIncidente(Incidente unIncidente);

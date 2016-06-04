@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Persistencia
 {
     internal class Repositorio<T> : IRepositorio<T>, IDisposable where T : class
     {
-        private ContextoSCADA contexto;
-        private DbSet<T> coleccionEntidades;
+        protected ContextoSCADA contexto;
+        protected DbSet<T> coleccionEntidades;
 
         internal Repositorio(ContextoSCADA unContexto)
         {
@@ -17,27 +16,9 @@ namespace Persistencia
             coleccionEntidades = unContexto.Set<T>();
         }
 
-        public virtual List<T> Obtener(Expression<Func<T, bool>> expresionFiltro = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> ordenacion = null, string propertiesInclude = "")
+        public virtual List<T> Obtener()
         {
-            IQueryable<T> consulta = coleccionEntidades;
-            if (expresionFiltro != null)
-            {
-                consulta = consulta.Where(expresionFiltro);
-            }
-            foreach (var propertyInclude in propertiesInclude.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                consulta = consulta.Include(propertyInclude);
-            }
-            if (ordenacion != null)
-            {
-                return ordenacion(consulta).ToList();
-            }
-            else
-            {
-                return consulta.ToList();
-            }
+            return coleccionEntidades.ToList();
         }
 
         public virtual T RetornarPorId(object id)
@@ -53,42 +34,45 @@ namespace Persistencia
 
         public virtual void Eliminar(object id)
         {
-            T entityToDelete = coleccionEntidades.Find(id);
-            Eliminar(entityToDelete);
-            contexto.SaveChanges();
+            T entidadAEliminar = coleccionEntidades.Find(id);
+            Eliminar(entidadAEliminar);
         }
 
         public virtual void Eliminar(T entidadAEliminar)
         {
-            if (contexto.Entry(entidadAEliminar).State == EntityState.Detached)
-            {
-                coleccionEntidades.Attach(entidadAEliminar);
-            }
+            AttachSiCorresponde(entidadAEliminar);
             coleccionEntidades.Remove(entidadAEliminar);
+            contexto.SaveChanges();
+        }
+
+        protected void AttachSiCorresponde(T entidad)
+        {
+            if (contexto.Entry(entidad).State == EntityState.Detached)
+            {
+                coleccionEntidades.Attach(entidad);
+            }
         }
 
         public virtual void Actualizar(T entidadAActualizar)
         {
             coleccionEntidades.Attach(entidadAActualizar);
             contexto.Entry(entidadAActualizar).State = EntityState.Modified;
+            contexto.SaveChanges();
         }
 
         private bool fueDisposed = false;
-        protected virtual void Dispose(bool siendoDisposed)
+        protected virtual void DisposeAuxiliar()
         {
             if (!fueDisposed)
             {
-                if (siendoDisposed)
-                {
-                    contexto.Dispose();
-                }
+                contexto.Dispose();
             }
             fueDisposed = true;
         }
 
         public void Dispose()
         {
-            Dispose(true);
+            DisposeAuxiliar();
             GC.SuppressFinalize(this);
         }
     }

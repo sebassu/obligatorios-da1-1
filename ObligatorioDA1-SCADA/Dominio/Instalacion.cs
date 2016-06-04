@@ -1,12 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
     public class Instalacion : Componente
     {
         private IManejadorDependencias<Componente> dependencias;
+
         public override IList Dependencias
         {
             get
@@ -49,6 +50,20 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (I)";
+        }
+
+        // A efectos del buen funcionamiento de Entity Framework.
+        [Required]
+        protected virtual IManejadorDependencias<Componente> DependenciasAux
+        {
+            get
+            {
+                return dependencias;
+            }
+            set
+            {
+                dependencias = value;
+            }
         }
     }
 }

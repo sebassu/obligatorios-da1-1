@@ -7,8 +7,7 @@ namespace Persistencia
 {
     interface IRepositorio<T> : IDisposable where T : class
     {
-        List<T> Obtener(Expression<Func<T, bool>> expresionFiltro = null,
-           Func<IQueryable<T>, IOrderedQueryable<T>> ordenacion = null, string propertiesInclude = "");
+        List<T> Obtener();
         T RetornarPorId(object id);
         void Insertar(T entidad);
         void Eliminar(object id);

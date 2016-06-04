@@ -8,21 +8,9 @@ namespace Dominio
 {
     public class Tipo
     {
-        private Guid id;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        protected virtual Guid ID
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-            }
-        }
+        public virtual Guid ID { get; set; }
 
         private string nombre;
         public string Nombre
@@ -74,18 +62,13 @@ namespace Dominio
             return new Tipo(unNombre, unaDescripcion);
         }
 
-        private Tipo()
-        {
-            nombre = "Tipo inválido.";
-            descripcion = "Descripción inválida.";
-            id = Guid.NewGuid();
-        }
+        private Tipo() : this("Tipo inválido.", "Descripción inválida.") { }
 
         private Tipo(string unNombre, string unaDescripcion)
         {
             Nombre = unNombre;
             Descripcion = unaDescripcion;
-            id = Guid.NewGuid();
+            ID = Guid.NewGuid();
         }
 
         public override bool Equals(object obj)
@@ -93,7 +76,7 @@ namespace Dominio
             Tipo tipoAComparar = obj as Tipo;
             if (Auxiliar.NoEsNulo(tipoAComparar))
             {
-                return id == tipoAComparar.id;
+                return ID.Equals(tipoAComparar.ID);
             }
             else
             {

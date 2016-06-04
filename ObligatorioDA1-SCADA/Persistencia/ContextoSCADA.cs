@@ -15,6 +15,13 @@ namespace Persistencia
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ContextoSCADA>());
         }
 
+        public void EliminarDatos()
+        {
+            Database.ExecuteSqlCommand("delete from IElementoSCADA");
+            Database.ExecuteSqlCommand("delete from Tipo");
+            Database.ExecuteSqlCommand("delete from Incidente");
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

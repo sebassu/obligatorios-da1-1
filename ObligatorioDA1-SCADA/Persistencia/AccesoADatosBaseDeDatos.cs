@@ -1,24 +1,33 @@
 ﻿using System;
 using Dominio;
 using System.Collections;
+using Excepciones;
 
 namespace Persistencia
 {
     public class AccesoADatosBaseDeDatos : IAccesoADatos
     {
+        private RepositorioElementosSCADA manejadorElementosPrimerNivel;
         private Repositorio<Tipo> manejadorTipos;
 
         public AccesoADatosBaseDeDatos()
         {
             manejadorTipos = new Repositorio<Tipo>(new ContextoSCADA());
+            manejadorElementosPrimerNivel = new RepositorioElementosSCADA(new ContextoSCADA());
         }
 
         public IList ElementosPrimarios
         {
             get
             {
-                throw new NotImplementedException();
+                return manejadorElementosPrimerNivel.Obtener().AsReadOnly();
             }
+        }
+
+        public void EliminarDatos()
+        {
+            ContextoSCADA contexto = new ContextoSCADA();
+            contexto.EliminarDatos();
         }
 
         public IList Incidentes
@@ -33,13 +42,13 @@ namespace Persistencia
         {
             get
             {
-                throw new NotImplementedException();
+                return manejadorTipos.Obtener().AsReadOnly();
             }
         }
 
-        public bool EliminarElemento(IElementoSCADA unElemento)
+        public void EliminarElemento(IElementoSCADA unElemento)
         {
-            throw new NotImplementedException();
+            manejadorElementosPrimerNivel.Eliminar(unElemento);
         }
 
         public void EliminarIncidente(Incidente unIncidente)
@@ -47,9 +56,9 @@ namespace Persistencia
             throw new NotImplementedException();
         }
 
-        public bool EliminarTipo(Tipo unTipo)
+        public void EliminarTipo(Tipo unTipo)
         {
-            throw new NotImplementedException();
+            manejadorTipos.Eliminar(unTipo);
         }
 
         public bool ExistenTipos()
@@ -59,7 +68,14 @@ namespace Persistencia
 
         public void RegistrarElemento(IElementoSCADA unElemento)
         {
-            throw new NotImplementedException();
+            if (Auxiliar.NoEsNulo(unElemento))
+            {
+                manejadorElementosPrimerNivel.Insertar(unElemento);
+            }
+            else
+            {
+                throw new AccesoADatosExcepcion("Elemento nulo recibido.");
+            }
         }
 
         public void RegistrarIncidente(IElementoSCADA unElemento, Incidente incidenteARegistrar)
@@ -69,7 +85,14 @@ namespace Persistencia
 
         public void RegistrarTipo(Tipo unTipo)
         {
-            manejadorTipos.Insertar(unTipo);
+            if (Auxiliar.NoEsNulo(unTipo))
+            {
+                manejadorTipos.Insertar(unTipo);
+            }
+            else
+            {
+                throw new AccesoADatosExcepcion("Tipo nulo recibido.");
+            }
         }
     }
 }

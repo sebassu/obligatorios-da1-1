@@ -262,7 +262,6 @@ namespace PruebasUnitarias
             CollectionAssert.AreEqual(unDispositivo.Dependencias, new List<Componente>());
         }
 
-
         [TestMethod]
         public void ToStringDispositivoTest()
         {

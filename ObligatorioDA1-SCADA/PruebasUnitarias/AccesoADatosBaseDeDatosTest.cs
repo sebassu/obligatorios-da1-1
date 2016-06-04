@@ -10,6 +10,14 @@ namespace PruebasUnitarias
     [ExcludeFromCodeCoverage]
     public class AccesoADatosBaseDeDatosTest
     {
+        [TestCleanup]
+        public void BorrarBaseDeDatos()
+        {
+            AccesoADatosBaseDeDatos unSistema = new AccesoADatosBaseDeDatos();
+            unSistema.EliminarDatos();
+        }
+
+
         [TestMethod]
         public void RegistrarTipoTest1()
         {
@@ -40,7 +48,9 @@ namespace PruebasUnitarias
         public void RegistrarComponenteTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unComponente = Dispositivo.DispositivoInvalido();
+            Tipo unTipo = Tipo.TipoInvalido();
+            IElementoSCADA unComponente = Dispositivo.NombreTipoEnUso("Nombre dispositivo", unTipo, true);
+            unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
         }
@@ -51,6 +61,7 @@ namespace PruebasUnitarias
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
             IElementoSCADA unComponente = Dispositivo.NombreTipoEnUso("Nombre dispositivo", unTipo, true);
+            unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
         }
@@ -95,7 +106,9 @@ namespace PruebasUnitarias
         public void EliminarComponenteTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unComponente = Dispositivo.DispositivoInvalido();
+            Tipo unTipo = Tipo.TipoInvalido();
+            IElementoSCADA unComponente = Dispositivo.NombreTipoEnUso("Nombre dispositivo", unTipo, true);
+            unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
             unSistema.EliminarElemento(unComponente);
             CollectionAssert.DoesNotContain(unSistema.ElementosPrimarios, unComponente);

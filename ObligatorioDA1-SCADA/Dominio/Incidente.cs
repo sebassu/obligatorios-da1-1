@@ -1,10 +1,16 @@
 ﻿using Excepciones;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
     public class Incidente
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public virtual Guid ID { get; set; }
+
         private Guid idElementoAsociado;
         internal virtual Guid IdElementoAsociado
         {

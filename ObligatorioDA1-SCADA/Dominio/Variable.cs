@@ -10,21 +10,9 @@ namespace Dominio
 {
     public class Variable : IComparable
     {
-        private Guid id;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        protected virtual Guid ID
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-            }
-        }
+        protected virtual Guid ID { get; set; }
 
         private Tuple<decimal, decimal> rangoAdvertencia;
         private Tuple<decimal, decimal> rangoAlarma;
@@ -193,6 +181,8 @@ namespace Dominio
         }
 
         private Componente componentePadre;
+
+        [Required]
         public Componente ComponentePadre
         {
             get
@@ -217,15 +207,7 @@ namespace Dominio
             return new Variable();
         }
 
-        private Variable()
-        {
-            nombre = "Variable inválida.";
-            id = Guid.NewGuid();
-            Tuple<decimal, decimal> tuplaAuxiliar = Tuple.Create(0M, 0M);
-            rangoAdvertencia = tuplaAuxiliar;
-            rangoAlarma = tuplaAuxiliar;
-            historicoDeValores = new List<Tuple<DateTime, decimal>>();
-        }
+        private Variable() : this("Variable inválida.", 0M, 0M) { }
 
         public static Variable NombreMinimoMaximo(string unNombre, decimal valorMinimo, decimal valorMaximo)
         {
@@ -244,7 +226,7 @@ namespace Dominio
                 Tuple<decimal, decimal> tuplaAuxiliar = Tuple.Create(valorMinimo, valorMaximo);
                 rangoAdvertencia = tuplaAuxiliar;
                 rangoAlarma = tuplaAuxiliar;
-                id = Guid.NewGuid();
+                ID = Guid.NewGuid();
                 historicoDeValores = new List<Tuple<DateTime, decimal>>();
             }
         }
@@ -257,7 +239,7 @@ namespace Dominio
 
         private Variable(string unNombre, Tuple<decimal, decimal> rangoAdvertencia, Tuple<decimal, decimal> rangoAlarma)
         {
-            id = Guid.NewGuid();
+            ID = Guid.NewGuid();
             Nombre = unNombre;
             SetValoresLimites(rangoAdvertencia, rangoAlarma);
             historicoDeValores = new List<Tuple<DateTime, decimal>>();
@@ -268,7 +250,7 @@ namespace Dominio
             Variable variableAComparar = obj as Variable;
             if (Auxiliar.NoEsNulo(variableAComparar))
             {
-                return id == variableAComparar.id;
+                return ID.Equals(variableAComparar.ID);
             }
             else
             {
