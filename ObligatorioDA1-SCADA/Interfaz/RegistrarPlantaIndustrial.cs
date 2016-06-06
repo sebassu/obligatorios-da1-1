@@ -2,6 +2,7 @@
 using Persistencia;
 using System.Windows.Forms;
 using Dominio;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -29,11 +30,9 @@ namespace Interfaz
                 txtDireccionPlanta.Text = plantaAModificar.Direccion;
                 txtCiudadPlanta.Text = plantaAModificar.Ciudad;
             }
-
             lblErrorNombre.Hide();
             lblErrorDireccion.Hide();
             lblErrorCiudad.Hide();
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -94,7 +93,44 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //falta codigo
+
+            if (lblErrorNombre.Visible || lblErrorDireccion.Visible || lblErrorCiudad.Visible)
+            {
+                MessageBox.Show("No se puede registrar la planta industrial, hay campos con errores.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    string nombrePlantaIndustrial = txtNombrePlanta.Text;
+                    string direccionPlantaIndustrial = txtDireccionPlanta.Text;
+                    string ciudadPlantaIndustrial = txtCiudadPlanta.Text;
+                    if (plantaAModificar == null)
+                    {
+                        modelo.RegistrarElemento(PlantaIndustrial.NombreDireccionCiudad(nombrePlantaIndustrial,
+                            direccionPlantaIndustrial, ciudadPlantaIndustrial));
+                        MessageBox.Show("La planta industrial fue registrada correctamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        plantaAModificar.Nombre = nombrePlantaIndustrial;
+                        plantaAModificar.Direccion = direccionPlantaIndustrial;
+                        plantaAModificar.Ciudad = ciudadPlantaIndustrial;
+                        MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        /********************************/
+                        //ACTUALIZAR
+                        /***************************/
+                    }
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                }
+                catch (ElementoSCADAExcepcion excepcion)
+                {
+                    MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

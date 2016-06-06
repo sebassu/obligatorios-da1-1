@@ -1,12 +1,14 @@
 ﻿using Excepciones;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
     public class PlantaIndustrial : ElementoSCADA
     {
-        private IManejadorDependencias<IElementoSCADA> dependencias;
+        private ManejadorDependenciasConLista<ElementoSCADA> dependencias;
         public override IList Dependencias
         {
             get
@@ -68,7 +70,7 @@ namespace Dominio
             nombre = "Planta industrial inválida.";
             direccion = "Dirección inválida.";
             ciudad = "Ciudad inválida.";
-            dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
+            dependencias = new ManejadorDependenciasConLista<ElementoSCADA>(this);
         }
 
         public static PlantaIndustrial NombreDireccionCiudad(string unNombre, string unaDireccion, string unaCiudad)
@@ -80,15 +82,15 @@ namespace Dominio
         {
             Direccion = unaDireccion;
             Ciudad = unaCiudad;
-            dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
+            dependencias = new ManejadorDependenciasConLista<ElementoSCADA>(this);
         }
 
-        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
+        public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
             dependencias.AgregarDependencia(elementoAAgregar);
         }
 
-        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
+        public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
             dependencias.EliminarDependencia(elementoAEliminar);
         }
@@ -106,6 +108,20 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (P)";
+        }
+
+        // A efectos del correcto funcionamiento del Entity Framework.
+        [Required]
+        public virtual ManejadorDependenciasConLista<ElementoSCADA> DependenciasAuxiliar
+        {
+            get
+            {
+                return dependencias;
+            }
+            set
+            {
+                dependencias = value;
+            }
         }
     }
 }

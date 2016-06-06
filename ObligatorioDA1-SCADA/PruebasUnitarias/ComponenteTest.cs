@@ -66,7 +66,7 @@ namespace PruebasUnitarias
         public void SetInstalacionPadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Molinos");
             unDispositivo.ElementoPadre = unaInstalacion;
         }

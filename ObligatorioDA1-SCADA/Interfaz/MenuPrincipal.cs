@@ -62,15 +62,23 @@ namespace Interfaz
 
         private void btnAgregarDispositivo_Click(object sender, EventArgs e)
         {
+            /*****************************************/
+            //Evaluar Cambiar a interfaz.
+            /*****************************************/
             if (modelo.ExistenTipos())
             {
-                Instalacion unaInstalacion = null;
+                ElementoSCADA unElemento = null;
                 if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
                 {
-                    unaInstalacion = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+                    object objetoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag;
+                    unElemento = objetoSeleccionado as Instalacion;
+                    if (unElemento == null)
+                    {
+                        unElemento = objetoSeleccionado as PlantaIndustrial;
+                    }
                 }
                 panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, unaInstalacion));
+                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, unElemento));
             }
             else
             {
@@ -184,22 +192,22 @@ namespace Interfaz
             modelo.RegistrarTipo(tipo1);
             modelo.RegistrarTipo(tipo2);
             Componente componente1 = Instalacion.ConstructorNombre("Extracción");
-            Componente componente2 = Dispositivo.NombreTipoEnUso("Picadora", tipo1, true);
+            Componente componente2 = Dispositivo.NombreTipo("Picadora", tipo1);
             Componente componente3 = Instalacion.ConstructorNombre("Molienda");
-            Componente componente4 = Dispositivo.NombreTipoEnUso("Molino", tipo1, true);
+            Componente componente4 = Dispositivo.NombreTipo("Molino", tipo1);
             Variable variable1 = Variable.NombreMinimoMaximo("Velocidad", 0, 100);
             Variable variable2 = Variable.NombreMinimoMaximo("Carga", 0, 500);
             componente4.AgregarVariable(variable1);
             componente4.AgregarVariable(variable2);
-            Componente componente5 = Dispositivo.NombreTipoEnUso("Prensa", tipo1, true);
+            Componente componente5 = Dispositivo.NombreTipo("Prensa", tipo1);
             componente3.AgregarDependencia(componente4);
             componente3.AgregarDependencia(componente5);
             componente1.AgregarDependencia(componente2);
             componente1.AgregarDependencia(componente3);
             modelo.RegistrarElemento(componente1);
             Componente componente6 = Instalacion.ConstructorNombre("Clarificación");
-            Componente componente7 = Dispositivo.NombreTipoEnUso("Batea", tipo2, true);
-            Componente componente8 = Dispositivo.NombreTipoEnUso("Calentadores", tipo2, true);
+            Componente componente7 = Dispositivo.NombreTipo("Batea", tipo2);
+            Componente componente8 = Dispositivo.NombreTipo("Calentadores", tipo2);
             componente6.AgregarDependencia(componente7);
             componente6.AgregarDependencia(componente8);
             modelo.RegistrarElemento(componente6);
@@ -209,15 +217,15 @@ namespace Interfaz
             Variable variable4 = Variable.NombreMinimoMaximo("Presión", 10, 30);
             componente10.AgregarVariable(variable3);
             componente10.AgregarVariable(variable4);
-            Componente componente11 = Dispositivo.NombreTipoEnUso("Evaporador 1", tipo1, true);
-            Componente componente12 = Dispositivo.NombreTipoEnUso("Evaporador 2", tipo1, true);
+            Componente componente11 = Dispositivo.NombreTipo("Evaporador 1", tipo1);
+            Componente componente12 = Dispositivo.NombreTipo("Evaporador 2", tipo1);
             componente10.AgregarDependencia(componente11);
             componente10.AgregarDependencia(componente12);
             componente9.AgregarDependencia(componente10);
             modelo.RegistrarElemento(componente9);
             Componente componente13 = Instalacion.ConstructorNombre("Centrifugación");
-            Componente componente14 = Dispositivo.NombreTipoEnUso("Centrifugadora 1", tipo2, true);
-            Componente componente15 = Dispositivo.NombreTipoEnUso("Centrifugadora 2", tipo2, true);
+            Componente componente14 = Dispositivo.NombreTipo("Centrifugadora 1", tipo2);
+            Componente componente15 = Dispositivo.NombreTipo("Centrifugadora 2", tipo2);
             componente13.AgregarDependencia(componente14);
             componente13.AgregarDependencia(componente15);
             modelo.RegistrarElemento(componente13);
@@ -304,9 +312,9 @@ namespace Interfaz
             Cursor.Current = Cursors.WaitCursor;
             treeViewPlantaDeProduccion.BeginUpdate();
             treeViewPlantaDeProduccion.Nodes.Clear();
-            foreach (Componente componente in modelo.ElementosPrimarios)
+            foreach (ElementoSCADA elemento in modelo.ElementosPrimarios)
             {
-                TreeNode nodo = ObtenerNodoDeRamaJerarquica(componente);
+                TreeNode nodo = ObtenerNodoDeRamaJerarquica(elemento);
                 treeViewPlantaDeProduccion.Nodes.Add(nodo);
             }
             Cursor.Current = Cursors.Default;
@@ -314,15 +322,15 @@ namespace Interfaz
             ActivacionBotonesIncidente();
         }
 
-        private TreeNode ObtenerNodoDeRamaJerarquica(Componente componente)
+        private TreeNode ObtenerNodoDeRamaJerarquica(ElementoSCADA elemento)
         {
             List<TreeNode> listaAuxiliar = new List<TreeNode>();
-            foreach (Componente hijo in componente.Dependencias)
+            foreach (ElementoSCADA hijo in elemento.Dependencias)
             {
                 listaAuxiliar.Add(ObtenerNodoDeRamaJerarquica(hijo));
             }
-            TreeNode retorno = new TreeNode(componente.ToString(), listaAuxiliar.ToArray());
-            Dispositivo dispositivo = componente as Dispositivo;
+            TreeNode retorno = new TreeNode(elemento.ToString(), listaAuxiliar.ToArray());
+            Dispositivo dispositivo = elemento as Dispositivo;
             if (Auxiliar.NoEsNulo(dispositivo) && !dispositivo.EnUso)
             {
                 retorno.ForeColor = Color.OrangeRed;
@@ -331,7 +339,7 @@ namespace Interfaz
             {
                 retorno.ForeColor = Color.Black;
             }
-            retorno.Tag = componente;
+            retorno.Tag = elemento;
             return retorno;
         }
 
@@ -365,17 +373,20 @@ namespace Interfaz
         private void RecargarTableroDeControl()
         {
             lstTableroControl.Clear();
-            foreach (Componente componente in modelo.ElementosPrimarios)
+            foreach (ElementoSCADA elemento in modelo.ElementosPrimarios)
             {
-                if (componente.CantidadAlarmasActivas > 0)
+                if (elemento.EnUso)
                 {
-                    lstTableroControl.SelectionBackColor = Color.Red;
+                    if (elemento.CantidadAlarmasActivas > 0)
+                    {
+                        lstTableroControl.SelectionBackColor = Color.Red;
+                    }
+                    else
+                    {
+                        lstTableroControl.SelectionBackColor = Color.Chartreuse;
+                    }
+                    lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarmas\n");
                 }
-                else
-                {
-                    lstTableroControl.SelectionBackColor = Color.Chartreuse;
-                }
-                lstTableroControl.AppendText("\n" + componente.Nombre + ": " + componente.CantidadAlarmasActivas + " Alarmas\n");
             }
         }
 
@@ -412,7 +423,7 @@ namespace Interfaz
                         + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    IElementoSCADA padre = instalacionAEliminar.ElementoPadre;
+                    ElementoSCADA padre = instalacionAEliminar.ElementoPadre;
                     if (Auxiliar.NoEsNulo(padre))
                     {
                         padre.EliminarDependencia(instalacionAEliminar);
@@ -446,7 +457,7 @@ namespace Interfaz
                         + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    IElementoSCADA padre = dispositivoAEliminar.ElementoPadre;
+                    ElementoSCADA padre = dispositivoAEliminar.ElementoPadre;
                     if (Auxiliar.NoEsNulo(padre))
                     {
                         padre.EliminarDependencia(dispositivoAEliminar);

@@ -1,32 +1,34 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
 namespace Persistencia
 {
-    internal class Repositorio<T> : IRepositorio<T>, IDisposable where T : class
+    internal class RepositorioPlantaIndustrial : IRepositorio<PlantaIndustrial>
     {
-        protected ContextoSCADA contexto;
-        protected DbSet<T> coleccionEntidades;
+        public ContextoSCADA contexto;
+        public DbSet<PlantaIndustrial> coleccionEntidades;
 
-        internal Repositorio(ContextoSCADA unContexto)
+        internal RepositorioPlantaIndustrial(ContextoSCADA unContexto)
         {
             contexto = unContexto;
-            coleccionEntidades = unContexto.Set<T>();
+            contexto.Configuration.LazyLoadingEnabled = true;
+            coleccionEntidades = unContexto.Set<PlantaIndustrial>();
         }
 
-        public virtual List<T> Obtener()
+        public virtual List<PlantaIndustrial> Obtener()
         {
             return coleccionEntidades.ToList();
         }
 
-        public virtual T RetornarPorId(object id)
+        public virtual PlantaIndustrial RetornarPorId(object id)
         {
             return coleccionEntidades.Find(id);
         }
 
-        public virtual void Insertar(T entidad)
+        public virtual void Insertar(PlantaIndustrial entidad)
         {
             coleccionEntidades.Add(entidad);
             contexto.SaveChanges();
@@ -34,18 +36,18 @@ namespace Persistencia
 
         public virtual void Eliminar(object id)
         {
-            T entidadAEliminar = coleccionEntidades.Find(id);
+            PlantaIndustrial entidadAEliminar = coleccionEntidades.Find(id);
             Eliminar(entidadAEliminar);
         }
 
-        public virtual void Eliminar(T entidadAEliminar)
+        public virtual void Eliminar(PlantaIndustrial entidadAEliminar)
         {
             AttachSiCorresponde(entidadAEliminar);
             coleccionEntidades.Remove(entidadAEliminar);
             contexto.SaveChanges();
         }
 
-        protected void AttachSiCorresponde(T entidad)
+        protected void AttachSiCorresponde(PlantaIndustrial entidad)
         {
             if (contexto.Entry(entidad).State == EntityState.Detached)
             {
@@ -53,7 +55,7 @@ namespace Persistencia
             }
         }
 
-        public virtual void Actualizar(T entidadAActualizar)
+        public virtual void Actualizar(PlantaIndustrial entidadAActualizar)
         {
             coleccionEntidades.Attach(entidadAActualizar);
             contexto.Entry(entidadAActualizar).State = EntityState.Modified;
@@ -77,4 +79,3 @@ namespace Persistencia
         }
     }
 }
-

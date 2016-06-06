@@ -2,25 +2,38 @@
 using Dominio;
 using System.Collections;
 using Excepciones;
+using System.Collections.Generic;
 
 namespace Persistencia
 {
     public class AccesoADatosBaseDeDatos : IAccesoADatos
     {
-        private RepositorioElementosSCADA manejadorElementosPrimerNivel;
-        private Repositorio<Tipo> manejadorTipos;
+        private RepositorioDispositivo manejadorDispositivosPrimerNivel;
+        private RepositorioTipo manejadorTipos;
+        private RepositorioPlantaIndustrial manejadorPlantasPrimerNivel;
 
         public AccesoADatosBaseDeDatos()
         {
-            manejadorTipos = new Repositorio<Tipo>(new ContextoSCADA());
-            manejadorElementosPrimerNivel = new RepositorioElementosSCADA(new ContextoSCADA());
+            manejadorTipos = new RepositorioTipo(new ContextoSCADA());
+            manejadorDispositivosPrimerNivel = new RepositorioDispositivo(new ContextoSCADA());
+            manejadorPlantasPrimerNivel = new RepositorioPlantaIndustrial(new ContextoSCADA());
         }
 
         public IList ElementosPrimarios
         {
             get
             {
-                return manejadorElementosPrimerNivel.Obtener().AsReadOnly();
+                List<ElementoSCADA> listaAuxiliar = new List<ElementoSCADA>();
+                foreach (Dispositivo dispositivoIteracion in manejadorDispositivosPrimerNivel.Obtener())
+                {
+                    listaAuxiliar.Add(dispositivoIteracion);
+                }
+                foreach (PlantaIndustrial plantaIndustrialIteracion in manejadorPlantasPrimerNivel.Obtener())
+                {
+                    listaAuxiliar.Add(plantaIndustrialIteracion);
+                }
+                listaAuxiliar.Sort();
+                return listaAuxiliar.AsReadOnly();
             }
         }
 
@@ -46,9 +59,9 @@ namespace Persistencia
             }
         }
 
-        public void EliminarElemento(IElementoSCADA unElemento)
+        public void EliminarElemento(ElementoSCADA unElemento)
         {
-            manejadorElementosPrimerNivel.Eliminar(unElemento);
+            manejadorDispositivosPrimerNivel.Eliminar(unElemento);
         }
 
         public void EliminarIncidente(Incidente unIncidente)
@@ -66,11 +79,27 @@ namespace Persistencia
             return manejadorTipos.Obtener().Count != 0;
         }
 
-        public void RegistrarElemento(IElementoSCADA unElemento)
+        public void RegistrarElemento(ElementoSCADA unElemento)
         {
             if (Auxiliar.NoEsNulo(unElemento))
             {
-                manejadorElementosPrimerNivel.Insertar(unElemento);
+                Dispositivo elementoCasteadoADispositivo = unElemento as Dispositivo;
+                if (Auxiliar.NoEsNulo(elementoCasteadoADispositivo))
+                {
+                    manejadorDispositivosPrimerNivel.Insertar(elementoCasteadoADispositivo);
+                }
+                else
+                {
+                    PlantaIndustrial elementoCasteadoAPlanta = unElemento as PlantaIndustrial;
+                    if (Auxiliar.NoEsNulo(elementoCasteadoAPlanta))
+                    {
+                        manejadorPlantasPrimerNivel.Insertar(elementoCasteadoAPlanta);
+                    }
+                    else
+                    {
+                        throw new AccesoADatosExcepcion("Tipo de elemento no soportado.");
+                    }
+                }
             }
             else
             {
@@ -78,7 +107,7 @@ namespace Persistencia
             }
         }
 
-        public void RegistrarIncidente(IElementoSCADA unElemento, Incidente incidenteARegistrar)
+        public void RegistrarIncidente(ElementoSCADA unElemento, Incidente incidenteARegistrar)
         {
             throw new NotImplementedException();
         }

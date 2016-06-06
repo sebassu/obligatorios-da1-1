@@ -55,7 +55,6 @@
     <Compile Include="Componente.cs" />
     <Compile Include="Dispositivo.cs" />
     <Compile Include="ElementoSCADA.cs" />
-    <Compile Include="IElementoSCADA.cs" />
     <Compile Include="IManejadorDependencias.cs" />
     <Compile Include="Incidente.cs" />
     <Compile Include="Instalacion.cs" />

@@ -1,12 +1,11 @@
 ﻿using Excepciones;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("PruebasUnitarias")]
-[assembly: AssemblyVersion("1.0")]
+[assembly: AssemblyVersion("2.0")]
 namespace Dominio
 {
     public abstract class Componente : ElementoSCADA

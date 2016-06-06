@@ -338,7 +338,7 @@ namespace PruebasUnitarias
         public void GetComponentePadreTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9M, 100);
             unDispositivo.AgregarVariable(unaVariable);
             CollectionAssert.Contains(unaVariable.ComponentePadre.Variables, unaVariable);
@@ -367,7 +367,7 @@ namespace PruebasUnitarias
         public void SetComponentePadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9M, 100);
             unaVariable.ComponentePadre = unDispositivo;
         }

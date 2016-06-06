@@ -9,7 +9,7 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, Incidente unIncidente/*en realidad se recibe un IElementoSCADA*/)
+        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, Incidente unIncidente/*en realidad se recibe un ElementoSCADA*/)
         {
             InitializeComponent();
             this.modelo = modelo;

@@ -16,12 +16,12 @@ namespace Dominio
             }
         }
 
-        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
+        public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
             dependencias.AgregarDependencia(elementoAAgregar);
         }
 
-        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
+        public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
             dependencias.EliminarDependencia(elementoAEliminar);
         }

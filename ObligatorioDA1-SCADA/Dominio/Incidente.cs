@@ -89,13 +89,13 @@ namespace Dominio
             descripcion = "Descripción inválida.";
         }
 
-        public static Incidente ElementoDescripcionFechaGravedad(IElementoSCADA unElementoSCADA, string unaDescripcion,
+        public static Incidente ElementoDescripcionFechaGravedad(ElementoSCADA unElementoSCADA, string unaDescripcion,
             DateTime unaFecha, byte unNivelDeGravedad)
         {
             return new Incidente(unElementoSCADA, unaDescripcion, unaFecha, unNivelDeGravedad);
         }
 
-        private Incidente(IElementoSCADA unElementoSCADA, string unaDescripcion, DateTime unaFecha, byte unNivelDeGravedad)
+        private Incidente(ElementoSCADA unElementoSCADA, string unaDescripcion, DateTime unaFecha, byte unNivelDeGravedad)
         {
             idElementoAsociado = unElementoSCADA.ID;
             Descripcion = unaDescripcion;

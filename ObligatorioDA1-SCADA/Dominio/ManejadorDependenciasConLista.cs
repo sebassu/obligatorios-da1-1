@@ -6,11 +6,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
-    public class ManejadorDependenciasConLista<T> : IManejadorDependencias<T> where T : IElementoSCADA
+    public class ManejadorDependenciasConLista<T> : IManejadorDependencias<T> where T : ElementoSCADA
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        private IElementoSCADA elementoAsociado;
+        private ElementoSCADA elementoAsociado;
 
         private List<T> hijos;
         public IList ElementosHijos
@@ -21,17 +21,17 @@ namespace Dominio
             }
         }
 
-        internal ManejadorDependenciasConLista(IElementoSCADA unElemento)
+        internal ManejadorDependenciasConLista(ElementoSCADA unElemento)
         {
             elementoAsociado = unElemento;
             hijos = new List<T>();
         }
 
-        public void AgregarDependencia(IElementoSCADA elementoAAgregar)
+        public void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
             T nuevaDependencia = elementoAAgregar as T;
-            IElementoSCADA padreElementoAsociado = elementoAsociado.ElementoPadre;
-            IElementoSCADA elementoABuscar = (Auxiliar.NoEsNulo(padreElementoAsociado) ? padreElementoAsociado : elementoAsociado);
+            ElementoSCADA padreElementoAsociado = elementoAsociado.ElementoPadre;
+            ElementoSCADA elementoABuscar = (Auxiliar.NoEsNulo(padreElementoAsociado) ? padreElementoAsociado : elementoAsociado);
             if (EsDependenciaValida(nuevaDependencia, elementoABuscar))
             {
                 EliminarDependenciaDelPadreAnterior(elementoAAgregar);
@@ -47,16 +47,16 @@ namespace Dominio
             }
         }
 
-        private static void EliminarDependenciaDelPadreAnterior(IElementoSCADA elementoAAgregar)
+        private static void EliminarDependenciaDelPadreAnterior(ElementoSCADA elementoAAgregar)
         {
-            IElementoSCADA padreAnterior = elementoAAgregar.ElementoPadre;
+            ElementoSCADA padreAnterior = elementoAAgregar.ElementoPadre;
             if (Auxiliar.NoEsNulo(padreAnterior))
             {
                 padreAnterior.EliminarDependencia(elementoAAgregar);
             }
         }
 
-        public void EliminarDependencia(IElementoSCADA elementoAEliminar)
+        public void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
             T elementoCasteado = elementoAEliminar as T;
             if (hijos.Remove(elementoCasteado))
@@ -71,7 +71,7 @@ namespace Dominio
             }
         }
 
-        private static bool EsDependenciaValida(IElementoSCADA elementoActual, IElementoSCADA elementoABuscar)
+        private static bool EsDependenciaValida(ElementoSCADA elementoActual, ElementoSCADA elementoABuscar)
         {
             if (elementoActual == null || elementoActual.Equals(elementoABuscar))
             {
@@ -80,7 +80,7 @@ namespace Dominio
             else
             {
                 bool retorno = true;
-                foreach (IElementoSCADA elementoIteracion in elementoActual.Dependencias)
+                foreach (ElementoSCADA elementoIteracion in elementoActual.Dependencias)
                 {
                     retorno &= EsDependenciaValida(elementoIteracion, elementoABuscar);
                 }

@@ -1,15 +1,28 @@
 ﻿using Excepciones;
 using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
 {
-    public abstract class ElementoSCADA : IElementoSCADA, IComparable
+    public abstract class ElementoSCADA : IComparable
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid ID { get; set; }
+
+        [NotMapped]
+        public abstract IList Dependencias { get; }
+
+        public abstract void AgregarDependencia(ElementoSCADA elementoAAgregar);
+        public abstract void EliminarDependencia(ElementoSCADA elementoAEliminar);
+        public abstract void AgregarVariable(Variable unaVariable);
+        public abstract void EliminarVariable(Variable unaVariable);
+
         protected string nombre;
-        public override string Nombre
+        public virtual string Nombre
         {
             get
             {
@@ -28,20 +41,16 @@ namespace Dominio
             }
         }
 
-        public override bool EnUso
+        public virtual bool EnUso
         {
             get
             {
                 return true;
             }
-            set
-            {
-                throw new ElementoSCADAExcepcion("No es posible desactivar al elemento.");
-            }
         }
 
         protected uint cantidadAlarmasActivas;
-        public override uint CantidadAlarmasActivas
+        public virtual uint CantidadAlarmasActivas
         {
             get
             {
@@ -50,7 +59,7 @@ namespace Dominio
         }
 
         protected uint cantidadAdvertenciasActivas;
-        public override uint CantidadAdvertenciasActivas
+        public virtual uint CantidadAdvertenciasActivas
         {
             get
             {
@@ -58,8 +67,8 @@ namespace Dominio
             }
         }
 
-        protected IElementoSCADA elementoPadre;
-        public override IElementoSCADA ElementoPadre
+        protected ElementoSCADA elementoPadre;
+        public virtual ElementoSCADA ElementoPadre
         {
             get
             {
@@ -79,16 +88,16 @@ namespace Dominio
             }
         }
 
-        internal override void IncrementarAlarmas(uint valor = 1)
+        internal virtual void IncrementarAlarmas(uint valor = 1)
         {
             cantidadAlarmasActivas += valor;
-            if (Auxiliar.NoEsNulo(elementoPadre) && EnUso)
+            if (Auxiliar.NoEsNulo(elementoPadre))
             {
                 elementoPadre.IncrementarAlarmas(valor);
             }
         }
 
-        internal override void DecrementarAlarmas(uint valor = 1)
+        internal virtual void DecrementarAlarmas(uint valor = 1)
         {
             if (cantidadAlarmasActivas < valor)
             {
@@ -97,23 +106,23 @@ namespace Dominio
             else
             {
                 cantidadAlarmasActivas -= valor;
-                if (Auxiliar.NoEsNulo(elementoPadre) && EnUso)
+                if (Auxiliar.NoEsNulo(elementoPadre))
                 {
                     elementoPadre.DecrementarAlarmas(valor);
                 }
             }
         }
 
-        internal override void IncrementarAdvertencias(uint valor = 1)
+        internal virtual void IncrementarAdvertencias(uint valor = 1)
         {
             cantidadAdvertenciasActivas += valor;
-            if (Auxiliar.NoEsNulo(elementoPadre) && EnUso)
+            if (Auxiliar.NoEsNulo(elementoPadre))
             {
                 elementoPadre.IncrementarAdvertencias(valor);
             }
         }
 
-        internal override void DecrementarAdvertencias(uint valor = 1)
+        internal virtual void DecrementarAdvertencias(uint valor = 1)
         {
             if (cantidadAdvertenciasActivas < valor)
             {
@@ -122,7 +131,7 @@ namespace Dominio
             else
             {
                 cantidadAdvertenciasActivas -= valor;
-                if (Auxiliar.NoEsNulo(elementoPadre) && EnUso)
+                if (Auxiliar.NoEsNulo(elementoPadre))
                 {
                     elementoPadre.DecrementarAdvertencias(valor);
                 }

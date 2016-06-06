@@ -13,7 +13,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void SetNombreElementoSCADATest1()
         {
-            IElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
+            ElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.Nombre = "Molino";
             Assert.AreEqual("Molino", unDispositivo.Nombre);
         }
@@ -21,7 +21,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void SetNombreElementoSCADATest2()
         {
-            IElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
+            ElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.Nombre = "  centrifugadora-12  ";
             Assert.AreEqual("centrifugadora-12", unDispositivo.Nombre);
         }
@@ -30,7 +30,7 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetNombreElementoSCADATest3()
         {
-            IElementoSCADA unaInstalacion = Instalacion.InstalacionInvalida();
+            ElementoSCADA unaInstalacion = Instalacion.InstalacionInvalida();
             unaInstalacion.Nombre = "";
         }
 
@@ -38,7 +38,7 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetNombreElementoSCADATest4()
         {
-            IElementoSCADA unaInstalacion = Instalacion.InstalacionInvalida();
+            ElementoSCADA unaInstalacion = Instalacion.InstalacionInvalida();
             unaInstalacion.Nombre = "1234";
         }
 
@@ -46,16 +46,16 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetNombreElementoSCADATest5()
         {
-            IElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
             unaPlantaIndustrial.Nombre = " !%$@<> . @#$";
         }
 
         [TestMethod]
         public void IncrementarCantidadAlarmasPadreTest1()
         {
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            ElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", 0, 10);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
@@ -64,26 +64,13 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void IncrementarCantidadAlarmasPadreTest2NoEnUso()
+        public void IncrementarCantidadAlarmasPadreTest2Anidadas()
         {
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            ElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA instalacion1 = Instalacion.ConstructorNombre("Instalación hija");
+            ElementoSCADA instalacion2 = Instalacion.ConstructorNombre("Otro hijo independiente");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo);
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -70, 10);
-            unDispositivo.AgregarVariable(unaVariable);
-            unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 200;
-            Assert.AreEqual((uint)0, unaInstalacion.CantidadAlarmasActivas);
-        }
-
-        [TestMethod]
-        public void IncrementarCantidadAlarmasPadreTest3Anidadas()
-        {
-            IElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
-            IElementoSCADA instalacion1 = Instalacion.ConstructorNombre("Instalación hija");
-            IElementoSCADA instalacion2 = Instalacion.ConstructorNombre("Otro hijo independiente");
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", 0, 10);
             unDispositivo.AgregarVariable(unaVariable);
             instalacion1.AgregarDependencia(unDispositivo);
@@ -96,11 +83,11 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void IncrementarCantidadAlarmasPadreTest4DentroDelRango()
+        public void IncrementarCantidadAlarmasPadreTest3DentroDelRango()
         {
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            ElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -30, 200);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
@@ -110,42 +97,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void IncrementarCantidadAlarmasPadreTest5Desactivacion()
-        {
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
-            Variable unaVariable = Variable.NombreMinimoMaximo("Calor", -200, 80);
-            unDispositivo.AgregarVariable(unaVariable);
-            unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 3000;
-            unDispositivo.EnUso = false;
-            Assert.AreEqual((uint)0, unaInstalacion.CantidadAlarmasActivas);
-        }
-
-        [TestMethod]
-        public void IncrementarCantidadAlarmasPadreTest6Activacion()
-        {
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", -10, 10);
-            unDispositivo.AgregarVariable(unaVariable);
-            unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 3000;
-            unDispositivo.EnUso = true;
-            Assert.AreEqual((uint)1, unaInstalacion.CantidadAlarmasActivas);
-        }
-
-        [TestMethod]
         public void IncrementarCantidadAdvertenciasPadreTest1()
         {
             Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
             Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
             Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
-            IElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
             unaPlantaIndustrial.AgregarDependencia(unDispositivo);
             unaVariable.ValorActual = 30;
@@ -154,32 +113,16 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void IncrementarCantidadAdvertenciasPadreTest2NoEnUso()
+        public void IncrementarCantidadAdvertenciasPadreTest2Anidadas()
         {
             Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
             Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
             Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            ElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA instalacion1 = Instalacion.ConstructorNombre("Instalación hija");
+            ElementoSCADA instalacion2 = Instalacion.ConstructorNombre("Otro hijo independiente");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo);
-            unDispositivo.AgregarVariable(unaVariable);
-            unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 30;
-            Assert.AreEqual((uint)0, unaInstalacion.CantidadAdvertenciasActivas);
-            Assert.AreEqual((uint)0, unaInstalacion.CantidadAlarmasActivas);
-        }
-
-        [TestMethod]
-        public void IncrementarCantidadAdvertenciasPadreTest3Anidadas()
-        {
-            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
-            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
-            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
-            IElementoSCADA unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
-            IElementoSCADA instalacion1 = Instalacion.ConstructorNombre("Instalación hija");
-            IElementoSCADA instalacion2 = Instalacion.ConstructorNombre("Otro hijo independiente");
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
             unaPlantaIndustrial.AgregarDependencia(unDispositivo);
             unaPlantaIndustrial.AgregarDependencia(instalacion1);
@@ -191,14 +134,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void IncrementarCantidadAdvertenciasPadreTest4RangoNormal()
+        public void IncrementarCantidadAdvertenciasPadreTest3RangoNormal()
         {
             Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
             Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
             Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            ElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
             unaVariable.ValorActual = 30;
@@ -207,14 +150,14 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void IncrementarCantidadAdvertenciasPadreTest5Alarma()
+        public void IncrementarCantidadAdvertenciasPadreTest4Alarma()
         {
             Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
             Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
             Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
+            ElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
             unaVariable.ValorActual = 30;
@@ -224,43 +167,11 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void IncrementarCantidadAdvertenciasPadreTest6Desactivacion()
-        {
-            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
-            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
-            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
-            unDispositivo.AgregarVariable(unaVariable);
-            unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 30;
-            unDispositivo.EnUso = false;
-            Assert.AreEqual((uint)0, unaInstalacion.CantidadAdvertenciasActivas);
-        }
-
-        [TestMethod]
-        public void IncrementarCantidadAdvertenciasPadreTest7Activacion()
-        {
-            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-10M, 20M);
-            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
-            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", rangoAdvertencia, rangoAlarma);
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Nombre instalación");
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
-            unDispositivo.AgregarVariable(unaVariable);
-            unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 30;
-            unDispositivo.EnUso = true;
-            Assert.AreEqual((uint)1, unaInstalacion.CantidadAdvertenciasActivas);
-        }
-
-        [TestMethod]
         public void GetInstalacionPadreTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            IElementoSCADA unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
-            IElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Molinos");
+            ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
+            ElementoSCADA unaInstalacion = Instalacion.ConstructorNombre("Molinos");
             unaInstalacion.AgregarDependencia(unDispositivo);
             CollectionAssert.Contains(unDispositivo.ElementoPadre.Dependencias, unDispositivo);
         }
@@ -269,7 +180,7 @@ namespace PruebasUnitarias
         public void EqualsTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Assert.AreEqual(unDispositivo, unDispositivo);
         }
 
@@ -300,7 +211,7 @@ namespace PruebasUnitarias
         {
             Tipo unTipo = Tipo.TipoInvalido();
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Evaporadores");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Un nombre", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Un nombre", unTipo);
             Assert.AreNotEqual(unaInstalacion, unDispositivo);
         }
 
@@ -308,7 +219,7 @@ namespace PruebasUnitarias
         public void CompareToElementoSCADATest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Assert.AreEqual(0, unDispositivo.CompareTo(unDispositivo));
         }
 

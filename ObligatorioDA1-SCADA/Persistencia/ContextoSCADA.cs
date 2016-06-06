@@ -6,7 +6,8 @@ namespace Persistencia
 {
     public class ContextoSCADA : DbContext
     {
-        public DbSet<IElementoSCADA> ElementosPrimarios { get; set; }
+        public DbSet<Dispositivo> DispositivosPrimarios { get; set; }
+        public DbSet<PlantaIndustrial> PlantasPrimarias { get; set; }
         public DbSet<Tipo> Tipos { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
 
@@ -17,9 +18,9 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-            Database.ExecuteSqlCommand("delete from IElementoSCADA");
-            Database.ExecuteSqlCommand("delete from Tipo");
-            Database.ExecuteSqlCommand("delete from Incidente");
+            /*  Database.ExecuteSqlCommand("delete from ElementoSCADA");
+              Database.ExecuteSqlCommand("delete from Tipo");
+              Database.ExecuteSqlCommand("delete from Incidente");*/
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

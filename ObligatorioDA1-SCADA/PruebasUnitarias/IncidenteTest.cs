@@ -105,7 +105,7 @@ namespace PruebasUnitarias
         public void DescripcionFechaNivelDeGravedadTest1()
         {
             DateTime unaFecha = DateTime.Now;
-            IElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
+            ElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
             Incidente unIncidente = Incidente.ElementoDescripcionFechaGravedad(unDispositivo, "Accidente", unaFecha, 5);
             Assert.AreEqual("Accidente", unIncidente.Descripcion);
             Assert.AreEqual(unaFecha, unIncidente.Fecha);
@@ -117,7 +117,7 @@ namespace PruebasUnitarias
         public void DescripcionFechaNivelDeGravedadTest2()
         {
             DateTime unaFecha = DateTime.Now;
-            IElementoSCADA unaInstalacion = Instalacion.InstalacionInvalida();
+            ElementoSCADA unaInstalacion = Instalacion.InstalacionInvalida();
             Incidente unIncidente = Incidente.ElementoDescripcionFechaGravedad(unaInstalacion, "&$/$&;!", unaFecha, 1);
         }
     }

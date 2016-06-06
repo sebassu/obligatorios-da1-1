@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Excepciones;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System;
 
 namespace Dominio
 {
@@ -30,32 +32,11 @@ namespace Dominio
             }
         }
 
-        private bool enUso;
         public override bool EnUso
         {
             get
             {
-                return enUso;
-            }
-            set
-            {
-                if (Auxiliar.NoEsNulo(elementoPadre))
-                {
-                    CorregirAlarmasActivasPadres(value);
-                }
-                enUso = value;
-            }
-        }
-
-        private void CorregirAlarmasActivasPadres(bool pasaAUsarse)
-        {
-            if (enUso && !pasaAUsarse)
-            {
-                RestarTotalAlarmasYAdvertenciasPadre();
-            }
-            else if (!enUso && pasaAUsarse)
-            {
-                SumarTotalAlarmasYAdvertenciasPadre();
+                return Auxiliar.NoEsNulo(elementoPadre);
             }
         }
 
@@ -79,9 +60,9 @@ namespace Dominio
             }
         }
 
-        public static Dispositivo NombreTipoEnUso(string unNombre, Tipo unTipo, bool estaEnUso = false)
+        public static Dispositivo NombreTipo(string unNombre, Tipo unTipo)
         {
-            return new Dispositivo(unNombre, unTipo, estaEnUso);
+            return new Dispositivo(unNombre, unTipo);
         }
 
         internal static Dispositivo DispositivoInvalido()
@@ -113,12 +94,12 @@ namespace Dominio
             }
         }
 
-        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
+        public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
             throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo.");
         }
 
-        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
+        public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
             throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
         }
@@ -129,10 +110,9 @@ namespace Dominio
             tipoDispositivo = Tipo.TipoInvalido();
         }
 
-        private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso) : base(unNombre)
+        private Dispositivo(string unNombre, Tipo unTipo) : base(unNombre)
         {
             Tipo = unTipo;
-            enUso = estaEnUso;
         }
 
         public override string ToString()

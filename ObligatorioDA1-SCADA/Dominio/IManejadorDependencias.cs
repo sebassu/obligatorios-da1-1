@@ -2,10 +2,10 @@
 
 namespace Dominio
 {
-    public interface IManejadorDependencias<T> where T : IElementoSCADA
+    public interface IManejadorDependencias<T> where T : ElementoSCADA
     {
         IList ElementosHijos { get; }
-        void AgregarDependencia(IElementoSCADA elementoAAgregar);
-        void EliminarDependencia(IElementoSCADA elementoAEliminar);
+        void AgregarDependencia(ElementoSCADA elementoAAgregar);
+        void EliminarDependencia(ElementoSCADA elementoAEliminar);
     }
 }

@@ -49,7 +49,7 @@ namespace PruebasUnitarias
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
-            IElementoSCADA unComponente = Dispositivo.NombreTipoEnUso("Nombre dispositivo", unTipo, true);
+            ElementoSCADA unComponente = Dispositivo.NombreTipo("Nombre dispositivo", unTipo);
             unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
@@ -60,7 +60,7 @@ namespace PruebasUnitarias
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
-            IElementoSCADA unComponente = Dispositivo.NombreTipoEnUso("Nombre dispositivo", unTipo, true);
+            ElementoSCADA unComponente = Dispositivo.NombreTipo("Nombre dispositivo", unTipo);
             unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
@@ -70,7 +70,7 @@ namespace PruebasUnitarias
         public void RegistrarComponenteTest3()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unComponente = Instalacion.InstalacionInvalida();
+            ElementoSCADA unComponente = Instalacion.InstalacionInvalida();
             unSistema.RegistrarElemento(unComponente);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
         }
@@ -79,7 +79,7 @@ namespace PruebasUnitarias
         public void RegistrarComponenteTest4()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unComponente = Instalacion.ConstructorNombre("Generadores");
+            ElementoSCADA unComponente = Instalacion.ConstructorNombre("Generadores");
             unSistema.RegistrarElemento(unComponente);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
         }
@@ -107,7 +107,7 @@ namespace PruebasUnitarias
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
-            IElementoSCADA unComponente = Dispositivo.NombreTipoEnUso("Nombre dispositivo", unTipo, true);
+            ElementoSCADA unComponente = Dispositivo.NombreTipo("Nombre dispositivo", unTipo);
             unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
             unSistema.EliminarElemento(unComponente);
@@ -118,7 +118,7 @@ namespace PruebasUnitarias
         public void EliminarComponenteTest2()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unComponente = Instalacion.ConstructorNombre("Una instalación");
+            ElementoSCADA unComponente = Instalacion.ConstructorNombre("Una instalación");
             unSistema.RegistrarElemento(unComponente);
             unSistema.EliminarElemento(unComponente);
             CollectionAssert.DoesNotContain(unSistema.ElementosPrimarios, unComponente);
@@ -143,7 +143,7 @@ namespace PruebasUnitarias
         public void RegistrarPlantaIndustrialTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             unSistema.RegistrarElemento(unaPlanta);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unaPlanta);
         }
@@ -152,7 +152,7 @@ namespace PruebasUnitarias
         public void RegistrarPlantaIndustrialTest2()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
+            ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
             unSistema.RegistrarElemento(unaPlanta);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unaPlanta);
         }
@@ -161,7 +161,7 @@ namespace PruebasUnitarias
         public void RegistrarPlantaIndustrialTest3()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
+            ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
             unSistema.RegistrarElemento(unaPlanta);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unaPlanta);
         }
@@ -178,7 +178,7 @@ namespace PruebasUnitarias
         public void EliminarPlantaIndustrialTest1()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             unSistema.RegistrarElemento(unaPlanta);
             unSistema.EliminarElemento(unaPlanta);
             CollectionAssert.DoesNotContain(unSistema.ElementosPrimarios, unaPlanta);
@@ -188,7 +188,7 @@ namespace PruebasUnitarias
         public void EliminarPlantaIndustrialTest2()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
+            ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
             unSistema.RegistrarElemento(unaPlanta);
             unSistema.EliminarElemento(unaPlanta);
             CollectionAssert.DoesNotContain(unSistema.ElementosPrimarios, unaPlanta);
@@ -198,7 +198,7 @@ namespace PruebasUnitarias
         public void EliminarPlantaIndustrialTest3()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
+            ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
             unSistema.RegistrarElemento(unaPlanta);
             unSistema.EliminarElemento(unaPlanta);
             CollectionAssert.DoesNotContain(unSistema.ElementosPrimarios, unaPlanta);
@@ -229,7 +229,7 @@ namespace PruebasUnitarias
         public void EliminarIncidenteTest()
         {
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            IElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unSistema.RegistrarIncidente(unaPlanta, unIncidente);
             CollectionAssert.Contains(unSistema.Incidentes, unIncidente);

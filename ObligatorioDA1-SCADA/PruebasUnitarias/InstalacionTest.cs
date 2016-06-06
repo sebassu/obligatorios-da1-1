@@ -107,14 +107,6 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementoSCADAExcepcion))]
-        public void SetEnUsoTest()
-        {
-            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Transmisión");
-            unaInstalacion.EnUso = false;
-        }
-
-        [TestMethod]
         public void ToStringInstalacionTest()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Paneles");

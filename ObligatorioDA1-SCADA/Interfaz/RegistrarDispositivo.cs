@@ -11,14 +11,14 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private Dispositivo dispositivoAModificar;
-        private Instalacion instalacionAModificar;
+        private ElementoSCADA elementoAModificar;
 
-        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema, Instalacion unaInstalacion = null, Dispositivo unDispositivo = null)
+        public RegistrarDispositivo(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA unElemento = null, Dispositivo unDispositivo = null)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            instalacionAModificar = unaInstalacion;
+            elementoAModificar = unElemento;
             foreach (Tipo tipo in modelo.Tipos)
             {
                 cbxTipoDispositivo.Items.Add(tipo);
@@ -51,35 +51,42 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            try
+            if (lblErrorNombre.Visible || cbxTipoDispositivo.SelectedItem == null)
             {
-                string nombreDispositivo = txtNombreDispositivo.Text;
-                Tipo tipoDispositivo = (Tipo)cbxTipoDispositivo.SelectedItem;
-                bool estaEnUso = chkEnUso.Checked;
-                if (Auxiliar.NoEsNulo(dispositivoAModificar))
+                MessageBox.Show("No se puede registrar el dispositivo, hay campos con errores.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
                 {
-                    dispositivoAModificar.Nombre = nombreDispositivo;
-                    dispositivoAModificar.Tipo = tipoDispositivo;
-                    dispositivoAModificar.EnUso = estaEnUso;
-                }
-                else
-                {
-                    Dispositivo dispositivoAAgregar = Dispositivo.NombreTipoEnUso(nombreDispositivo, tipoDispositivo, estaEnUso);
-                    if (Auxiliar.NoEsNulo(instalacionAModificar))
+                    string nombreDispositivo = txtNombreDispositivo.Text;
+                    Tipo tipoDispositivo = (Tipo)cbxTipoDispositivo.SelectedItem;
+                    bool estaEnUso = chkEnUso.Checked;
+                    if (Auxiliar.NoEsNulo(dispositivoAModificar))
                     {
-                        instalacionAModificar.AgregarDependencia(dispositivoAAgregar);
+                        dispositivoAModificar.Nombre = nombreDispositivo;
+                        dispositivoAModificar.Tipo = tipoDispositivo;
                     }
                     else
                     {
-                        modelo.RegistrarElemento(dispositivoAAgregar);
+                        Dispositivo dispositivoAAgregar = Dispositivo.NombreTipo(nombreDispositivo, tipoDispositivo);
+                        if (Auxiliar.NoEsNulo(elementoAModificar))
+                        {
+                            elementoAModificar.AgregarDependencia(dispositivoAAgregar);
+                        }
+                        else
+                        {
+                            modelo.RegistrarElemento(dispositivoAAgregar);
+                        }
                     }
+                    MessageBox.Show("El dispositivo fue registrado correctamente");
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }
-                MessageBox.Show("El dispositivo fue registrado correctamente");
-                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
-            }
-            catch (ElementoSCADAExcepcion excepcion)
-            {
-                MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (ElementoSCADAExcepcion excepcion)
+                {
+                    MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
