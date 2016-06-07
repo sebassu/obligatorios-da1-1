@@ -23,7 +23,7 @@ namespace Interfaz
         private void btnAgregarInstalacion_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema));
+            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, null, false));
         }
 
         private void VerificarComponenteSeleccionado(Action unaAccionARealizar)
@@ -51,7 +51,7 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(instalacionAModificar))
             {
                 panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, instalacionAModificar));
+                panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, instalacionAModificar, true));
             }
             else
             {
@@ -491,7 +491,7 @@ namespace Interfaz
         private void btnAgregarIncidente_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema));
+            panelSistema.Controls.Add(new RegistrarIncidente(modelo, panelSistema));
         }
 
         private void btnVerIncidentes_Click(object sender, EventArgs e)

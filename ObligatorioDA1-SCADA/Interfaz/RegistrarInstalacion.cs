@@ -11,12 +11,14 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private Instalacion instalacionAModificar;
+        private bool esParaModificar;
 
-        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema, Instalacion instalacionAModificar = null)
+        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema, Instalacion instalacionAModificar = null, bool esParaModificar = false)
         {
             InitializeComponent();
             this.modelo = modelo;
-            if (instalacionAModificar == null)
+            this.esParaModificar = esParaModificar;
+            if (!esParaModificar && instalacionAModificar == null)
             {
                 lblMenuInstalacion.Text = "Registrar Instalación";
             }
@@ -42,25 +44,42 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            try
+            if (lblErrorNombre.Visible)
             {
-                string unNombre = txtNombreInstalacion.Text;
-                if (instalacionAModificar == null)
-                {
-                    Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
-                    modelo.RegistrarElemento(unaInstalacion);
-                    MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
-                }
-                else
-                {
-                    instalacionAModificar.Nombre = unNombre;
-                    MessageBox.Show("La instalación fue modificada correctamente", "Éxito");
-                }
-                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                MessageBox.Show("No se puede registrar la instalación, hay campos con errores.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (ElementoSCADAExcepcion excepcion)
+            else
             {
-                MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    string unNombre = txtNombreInstalacion.Text;
+                    if (!esParaModificar)
+                    {
+                        if (instalacionAModificar == null)
+                        {
+                            Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
+                            modelo.RegistrarElemento(unaInstalacion);
+                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
+                        }
+                        else
+                        {
+                            Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
+                            instalacionAModificar.AgregarDependencia(unaInstalacion);
+                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
+                        }
+                    }
+                    else
+                    {
+                        instalacionAModificar.Nombre = unNombre;
+                        MessageBox.Show("La instalación fue modificada correctamente", "Éxito");
+                    }
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                }
+                catch (ElementoSCADAExcepcion excepcion)
+                {
+                    MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
