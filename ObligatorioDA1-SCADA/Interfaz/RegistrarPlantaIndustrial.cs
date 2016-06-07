@@ -11,14 +11,17 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private PlantaIndustrial plantaAModificar;
+        private bool esParaModificar;
 
-        public RegistrarPlantaIndustrial(IAccesoADatos modelo, Panel panelSistema, PlantaIndustrial plantaAModificar = null)
+        public RegistrarPlantaIndustrial(IAccesoADatos modelo, Panel panelSistema,
+            PlantaIndustrial plantaAModificar = null, bool esParaModificar = false)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            this.esParaModificar = esParaModificar;
 
-            if (plantaAModificar == null)
+            if (!esParaModificar)
             {
                 lblMenuPlantaIndustrial.Text = "Registrar Planta Industrial";
             }
@@ -30,6 +33,7 @@ namespace Interfaz
                 txtDireccionPlanta.Text = plantaAModificar.Direccion;
                 txtCiudadPlanta.Text = plantaAModificar.Ciudad;
             }
+
             lblErrorNombre.Hide();
             lblErrorDireccion.Hide();
             lblErrorCiudad.Hide();
@@ -106,12 +110,24 @@ namespace Interfaz
                     string nombrePlantaIndustrial = txtNombrePlanta.Text;
                     string direccionPlantaIndustrial = txtDireccionPlanta.Text;
                     string ciudadPlantaIndustrial = txtCiudadPlanta.Text;
-                    if (plantaAModificar == null)
+                    if (!esParaModificar)
                     {
-                        modelo.RegistrarElemento(PlantaIndustrial.NombreDireccionCiudad(nombrePlantaIndustrial,
-                            direccionPlantaIndustrial, ciudadPlantaIndustrial));
-                        MessageBox.Show("La planta industrial fue registrada correctamente", "Éxito",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (plantaAModificar == null)
+                        {
+                            PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.NombreDireccionCiudad(nombrePlantaIndustrial,
+                                direccionPlantaIndustrial, ciudadPlantaIndustrial);
+                            modelo.RegistrarElemento(unaPlantaIndustrial);
+                            MessageBox.Show("La planta industrial fue registrada correctamente", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.NombreDireccionCiudad(nombrePlantaIndustrial,
+                                direccionPlantaIndustrial, ciudadPlantaIndustrial);
+                            plantaAModificar.AgregarDependencia(unaPlantaIndustrial);
+                            MessageBox.Show("La planta industrial fue registrada correctamente", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                     else
                     {

@@ -503,7 +503,7 @@ namespace Interfaz
         private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)
         {
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, null));
+            panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, null, false));
         }
 
         private void btnEliminarPlantaIndustrial_Click(object sender, EventArgs e)
@@ -536,7 +536,7 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(plantaAModificar))
             {
                 panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaAModificar));
+                panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaAModificar, true));
             }
             else
             {

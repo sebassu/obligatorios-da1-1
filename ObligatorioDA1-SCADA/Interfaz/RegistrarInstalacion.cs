@@ -18,7 +18,7 @@ namespace Interfaz
             InitializeComponent();
             this.modelo = modelo;
             this.esParaModificar = esParaModificar;
-            if (!esParaModificar && instalacionAModificar == null)
+            if (!esParaModificar)
             {
                 lblMenuInstalacion.Text = "Registrar Instalación";
             }
@@ -60,19 +60,22 @@ namespace Interfaz
                         {
                             Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
                             modelo.RegistrarElemento(unaInstalacion);
-                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
+                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
                             Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
                             instalacionAModificar.AgregarDependencia(unaInstalacion);
-                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
+                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
                         instalacionAModificar.Nombre = unNombre;
-                        MessageBox.Show("La instalación fue modificada correctamente", "Éxito");
+                        MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }
