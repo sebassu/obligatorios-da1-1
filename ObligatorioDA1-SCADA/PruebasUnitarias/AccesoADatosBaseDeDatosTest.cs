@@ -10,18 +10,24 @@ namespace PruebasUnitarias
     [ExcludeFromCodeCoverage]
     public class AccesoADatosBaseDeDatosTest
     {
+
+        private IAccesoADatos unSistema;
+
+        [TestInitialize]
+        public void CrearObjetoAccesoADatos()
+        {
+            unSistema = new AccesoADatosBaseDeDatos();
+        }
+
         [TestCleanup]
         public void BorrarBaseDeDatos()
         {
-            AccesoADatosBaseDeDatos unSistema = new AccesoADatosBaseDeDatos();
             unSistema.EliminarDatos();
         }
-
 
         [TestMethod]
         public void RegistrarTipoTest1()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
             unSistema.RegistrarTipo(unTipo);
             CollectionAssert.Contains(unSistema.Tipos, unTipo);
@@ -30,7 +36,6 @@ namespace PruebasUnitarias
         [TestMethod]
         public void RegistrarTipoTest2()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.NombreDescripcion("Otro tipo", "Abc, def.");
             unSistema.RegistrarTipo(unTipo);
             CollectionAssert.Contains(unSistema.Tipos, unTipo);
@@ -40,14 +45,31 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void RegistrarTipoTest3()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             unSistema.RegistrarTipo(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
+        public void RegistrarTipoTest4()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Otro tipo", "Abc, def.");
+            unSistema.RegistrarTipo(unTipo);
+            unSistema.RegistrarTipo(unTipo);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
+        public void RegistrarTipoTest5()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion("Nombre igual.", "Descripción");
+            Tipo otroTipo = Tipo.NombreDescripcion("Nombre igual.", "distinta.");
+            unSistema.RegistrarTipo(unTipo);
+            unSistema.RegistrarTipo(otroTipo);
         }
 
         [TestMethod]
         public void RegistrarComponenteTest1()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
             ElementoSCADA unComponente = Dispositivo.NombreTipo("Nombre dispositivo", unTipo);
             unSistema.RegistrarTipo(unTipo);
@@ -58,44 +80,34 @@ namespace PruebasUnitarias
         [TestMethod]
         public void RegistrarComponenteTest2()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
             ElementoSCADA unComponente = Dispositivo.NombreTipo("Nombre dispositivo", unTipo);
             unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
-        }
-
-        [TestMethod]
-        public void RegistrarComponenteTest3()
-        {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            ElementoSCADA unComponente = Instalacion.InstalacionInvalida();
-            unSistema.RegistrarElemento(unComponente);
-            CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
-        }
-
-        [TestMethod]
-        public void RegistrarComponenteTest4()
-        {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            ElementoSCADA unComponente = Instalacion.ConstructorNombre("Generadores");
-            unSistema.RegistrarElemento(unComponente);
-            CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
+            int posicionComponente = unSistema.ElementosPrimarios.IndexOf(unComponente);
+            Dispositivo dispositivoRecuperado = (Dispositivo)unSistema.ElementosPrimarios[posicionComponente];
+            Assert.AreEqual(unTipo, dispositivoRecuperado.Tipo);
         }
 
         [TestMethod]
         [ExpectedException(typeof(AccesoADatosExcepcion))]
-        public void RegistrarComponenteTest5()
+        public void RegistrarComponenteTest3()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
+            ElementoSCADA unComponente = Instalacion.ConstructorNombre("Generadores");
+            unSistema.RegistrarElemento(unComponente);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
+        public void RegistrarComponenteTest4()
+        {
             unSistema.RegistrarElemento(null);
         }
 
         [TestMethod]
         public void EliminarTipoTest()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.NombreDescripcion("Abc", "Descripción");
             unSistema.RegistrarTipo(unTipo);
             unSistema.EliminarTipo(unTipo);
@@ -105,36 +117,32 @@ namespace PruebasUnitarias
         [TestMethod]
         public void EliminarComponenteTest1()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Tipo unTipo = Tipo.TipoInvalido();
             ElementoSCADA unComponente = Dispositivo.NombreTipo("Nombre dispositivo", unTipo);
             unSistema.RegistrarTipo(unTipo);
             unSistema.RegistrarElemento(unComponente);
+            CollectionAssert.Contains(unSistema.ElementosPrimarios, unComponente);
             unSistema.EliminarElemento(unComponente);
             CollectionAssert.DoesNotContain(unSistema.ElementosPrimarios, unComponente);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void EliminarComponenteTest2()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             ElementoSCADA unComponente = Instalacion.ConstructorNombre("Una instalación");
-            unSistema.RegistrarElemento(unComponente);
             unSistema.EliminarElemento(unComponente);
-            CollectionAssert.DoesNotContain(unSistema.ElementosPrimarios, unComponente);
         }
 
         [TestMethod]
         public void ExistenTiposTest1()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Assert.IsFalse(unSistema.ExistenTipos());
         }
 
         [TestMethod]
         public void ExistenTiposTest2()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             unSistema.RegistrarTipo(Tipo.TipoInvalido());
             Assert.IsTrue(unSistema.ExistenTipos());
         }
@@ -142,7 +150,6 @@ namespace PruebasUnitarias
         [TestMethod]
         public void RegistrarPlantaIndustrialTest1()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             ElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             unSistema.RegistrarElemento(unaPlanta);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unaPlanta);
@@ -151,7 +158,6 @@ namespace PruebasUnitarias
         [TestMethod]
         public void RegistrarPlantaIndustrialTest2()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
             unSistema.RegistrarElemento(unaPlanta);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unaPlanta);
@@ -160,24 +166,56 @@ namespace PruebasUnitarias
         [TestMethod]
         public void RegistrarPlantaIndustrialTest3()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
             unSistema.RegistrarElemento(unaPlanta);
             CollectionAssert.Contains(unSistema.ElementosPrimarios, unaPlanta);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void RegistrarPlantaIndustrialTest4()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
+            ElementoSCADA plantaPrimerNivel = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA plantaHija = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA instalacionHija = Instalacion.InstalacionInvalida();
+            ElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
+            instalacionHija.AgregarDependencia(unDispositivo);
+            plantaPrimerNivel.AgregarDependencia(instalacionHija);
+            plantaPrimerNivel.AgregarDependencia(plantaHija);
+            unSistema.RegistrarElemento(plantaPrimerNivel);
+            CollectionAssert.Contains(unSistema.ElementosPrimarios, plantaPrimerNivel);
+            int posicionPlanta = unSistema.ElementosPrimarios.IndexOf(plantaPrimerNivel);
+            ElementoSCADA plantaRecuperada = (PlantaIndustrial)unSistema.ElementosPrimarios[posicionPlanta];
+            CollectionAssert.AreEqual(plantaPrimerNivel.Dependencias, plantaRecuperada.Dependencias);
+        }
+
+        [TestMethod]
+        public void RegistrarPlantaIndustrialTest5()
+        {
+            ElementoSCADA plantaPrimerNivel = PlantaIndustrial.PlantaIndustrialInvalida();
+            ElementoSCADA instalacionHija = Instalacion.InstalacionInvalida();
+            ElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
+            instalacionHija.AgregarDependencia(unDispositivo);
+            plantaPrimerNivel.AgregarDependencia(instalacionHija);
+            unSistema.RegistrarElemento(plantaPrimerNivel);
+            CollectionAssert.Contains(unSistema.ElementosPrimarios, plantaPrimerNivel);
+            int posicionPlanta = unSistema.ElementosPrimarios.IndexOf(plantaPrimerNivel);
+            ElementoSCADA plantaRecuperada = (PlantaIndustrial)unSistema.ElementosPrimarios[posicionPlanta];
+            CollectionAssert.AreEqual(plantaPrimerNivel.Dependencias, plantaRecuperada.Dependencias);
+            int posicionInstalacion = plantaRecuperada.Dependencias.IndexOf(instalacionHija);
+            ElementoSCADA instalacionRecuperada = (Instalacion)plantaRecuperada.Dependencias[posicionInstalacion];
+            CollectionAssert.AreEqual(instalacionRecuperada.Dependencias, instalacionHija.Dependencias);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(AccesoADatosExcepcion))]
+        public void RegistrarPlantaIndustrialTest6()
+        {
             unSistema.RegistrarElemento(null);
         }
 
         [TestMethod]
         public void EliminarPlantaIndustrialTest1()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             ElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             unSistema.RegistrarElemento(unaPlanta);
             unSistema.EliminarElemento(unaPlanta);
@@ -187,7 +225,6 @@ namespace PruebasUnitarias
         [TestMethod]
         public void EliminarPlantaIndustrialTest2()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("Planta Industrial 1", "Cuareim 1451", "Montevideo");
             unSistema.RegistrarElemento(unaPlanta);
             unSistema.EliminarElemento(unaPlanta);
@@ -197,7 +234,6 @@ namespace PruebasUnitarias
         [TestMethod]
         public void EliminarPlantaIndustrialTest3()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             ElementoSCADA unaPlanta = PlantaIndustrial.NombreDireccionCiudad("  Planta Industrial 1  ", "  Cuareim 1451  ", "  Montevideo  ");
             unSistema.RegistrarElemento(unaPlanta);
             unSistema.EliminarElemento(unaPlanta);
@@ -207,7 +243,6 @@ namespace PruebasUnitarias
         [TestMethod]
         public void RegistrarIncidenteTest1()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unSistema.RegistrarIncidente(unaPlanta, unIncidente);
@@ -222,19 +257,6 @@ namespace PruebasUnitarias
             IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unSistema.RegistrarIncidente(null, unIncidente);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(AccesoADatosExcepcion))]
-        public void EliminarIncidenteTest()
-        {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
-            ElementoSCADA unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
-            Incidente unIncidente = Incidente.IncidenteInvalido();
-            unSistema.RegistrarIncidente(unaPlanta, unIncidente);
-            CollectionAssert.Contains(unSistema.Incidentes, unIncidente);
-            unSistema.EliminarIncidente(unIncidente);
-            CollectionAssert.DoesNotContain(unSistema.Incidentes, unIncidente);
         }
     }
 }

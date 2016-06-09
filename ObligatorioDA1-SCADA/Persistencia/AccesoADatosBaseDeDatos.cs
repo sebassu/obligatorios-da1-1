@@ -24,15 +24,14 @@ namespace Persistencia
             get
             {
                 List<ElementoSCADA> listaAuxiliar = new List<ElementoSCADA>();
-                foreach (Dispositivo dispositivoIteracion in manejadorDispositivosPrimerNivel.Obtener())
-                {
-                    listaAuxiliar.Add(dispositivoIteracion);
-                }
                 foreach (PlantaIndustrial plantaIndustrialIteracion in manejadorPlantasPrimerNivel.Obtener())
                 {
                     listaAuxiliar.Add(plantaIndustrialIteracion);
                 }
-                listaAuxiliar.Sort();
+                foreach (Dispositivo dispositivoIteracion in manejadorDispositivosPrimerNivel.Obtener())
+                {
+                    listaAuxiliar.Add(dispositivoIteracion);
+                }
                 return listaAuxiliar.AsReadOnly();
             }
         }
@@ -59,16 +58,6 @@ namespace Persistencia
             }
         }
 
-        public void EliminarElemento(ElementoSCADA unElemento)
-        {
-            manejadorDispositivosPrimerNivel.Eliminar(unElemento);
-        }
-
-        public void EliminarIncidente(Incidente unIncidente)
-        {
-            throw new NotImplementedException();
-        }
-
         public void EliminarTipo(Tipo unTipo)
         {
             manejadorTipos.Eliminar(unTipo);
@@ -81,19 +70,33 @@ namespace Persistencia
 
         public void RegistrarElemento(ElementoSCADA unElemento)
         {
+            Action<Dispositivo> insercionDispositivo = delegate (Dispositivo d) { manejadorDispositivosPrimerNivel.Insertar(d); };
+            Action<PlantaIndustrial> insercionPlanta = delegate (PlantaIndustrial p) { manejadorPlantasPrimerNivel.Insertar(p); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, insercionDispositivo, insercionPlanta);
+        }
+
+        public void EliminarElemento(ElementoSCADA unElemento)
+        {
+            Action<Dispositivo> eliminacionDispositivo = delegate (Dispositivo d) { manejadorDispositivosPrimerNivel.Eliminar(d); };
+            Action<PlantaIndustrial> eliminacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantasPrimerNivel.Eliminar(p); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, eliminacionDispositivo, eliminacionPlanta);
+        }
+
+        private void EjecutarAccionEnSetQueCorresponda(ElementoSCADA unElemento, Action<Dispositivo> accionAEjecutarParaDispositivo, Action<PlantaIndustrial> accionAEjecutarParaPlanta)
+        {
             if (Auxiliar.NoEsNulo(unElemento))
             {
                 Dispositivo elementoCasteadoADispositivo = unElemento as Dispositivo;
                 if (Auxiliar.NoEsNulo(elementoCasteadoADispositivo))
                 {
-                    manejadorDispositivosPrimerNivel.Insertar(elementoCasteadoADispositivo);
+                    accionAEjecutarParaDispositivo(elementoCasteadoADispositivo);
                 }
                 else
                 {
                     PlantaIndustrial elementoCasteadoAPlanta = unElemento as PlantaIndustrial;
                     if (Auxiliar.NoEsNulo(elementoCasteadoAPlanta))
                     {
-                        manejadorPlantasPrimerNivel.Insertar(elementoCasteadoAPlanta);
+                        accionAEjecutarParaPlanta(elementoCasteadoAPlanta);
                     }
                     else
                     {
@@ -114,7 +117,7 @@ namespace Persistencia
 
         public void RegistrarTipo(Tipo unTipo)
         {
-            if (Auxiliar.NoEsNulo(unTipo))
+            if (Auxiliar.NoEsNulo(unTipo) && !Tipos.Contains(unTipo))
             {
                 manejadorTipos.Insertar(unTipo);
             }

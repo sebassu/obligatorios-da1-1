@@ -76,7 +76,7 @@ namespace Dominio
             Tipo tipoAComparar = obj as Tipo;
             if (Auxiliar.NoEsNulo(tipoAComparar))
             {
-                return ID.Equals(tipoAComparar.ID);
+                return ID.Equals(tipoAComparar.ID) || nombre == tipoAComparar.Nombre;
             }
             else
             {

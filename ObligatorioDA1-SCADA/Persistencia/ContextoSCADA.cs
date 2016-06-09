@@ -18,9 +18,9 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-            /*  Database.ExecuteSqlCommand("delete from ElementoSCADA");
-              Database.ExecuteSqlCommand("delete from Tipo");
-              Database.ExecuteSqlCommand("delete from Incidente");*/
+            Database.ExecuteSqlCommand("delete from ElementoSCADA");
+            Database.ExecuteSqlCommand("delete from Tipo");
+            Database.ExecuteSqlCommand("delete from Incidente");
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

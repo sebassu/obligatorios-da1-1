@@ -52,6 +52,7 @@
     <Compile Include="AccesoADatosBaseDeDatos.cs" />
     <Compile Include="ContextoSCADA.cs" />
     <Compile Include="IRepositorio.cs" />
+    <Compile Include="Repositorio.cs" />
     <Compile Include="RepositorioDispositivo.cs" />
     <Compile Include="IAccesoADatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

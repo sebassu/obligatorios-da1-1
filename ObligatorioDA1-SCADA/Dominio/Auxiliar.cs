@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Dominio
 {
-    public abstract class Auxiliar
+    public static class Auxiliar
     {
 
         public static bool EsTextoValido(string value)

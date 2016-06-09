@@ -15,6 +15,5 @@ namespace Persistencia
         void EliminarDatos();
         bool ExistenTipos();
         void RegistrarIncidente(ElementoSCADA unElemento, Incidente incidenteARegistrar);
-        void EliminarIncidente(Incidente unIncidente);
     }
 }

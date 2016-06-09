@@ -143,11 +143,20 @@ namespace PruebasUnitarias
         {
             Tipo tipo1 = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
             Tipo tipo2 = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
-            Assert.AreNotEqual(tipo1, tipo2);
+            Assert.AreEqual(tipo1, tipo2);
+            Assert.AreEqual(tipo2, tipo1);
         }
 
         [TestMethod]
         public void EqualsTipoTest3()
+        {
+            Tipo tipo1 = Tipo.NombreDescripcion("Nombre del tipo", "Descripciones");
+            Tipo tipo2 = Tipo.NombreDescripcion("Nombre del tipo", "distintas.");
+            Assert.AreEqual(tipo1, tipo2);
+        }
+
+        [TestMethod]
+        public void EqualsTipoTest4()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
             Variable objetoDeOtroTipo = Variable.VariableInvalida();
