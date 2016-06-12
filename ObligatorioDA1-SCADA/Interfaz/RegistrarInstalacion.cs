@@ -10,14 +10,16 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        private Instalacion instalacionAModificar;
+        private ElementoSCADA instalacionAModificar;
         private bool esParaModificar;
 
-        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema, Instalacion instalacionAModificar = null, bool esParaModificar = false)
+        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema,
+            ElementoSCADA instalacionAModificar = null, bool esParaModificar = false)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.esParaModificar = esParaModificar;
+            this.instalacionAModificar = instalacionAModificar;
             if (!esParaModificar)
             {
                 lblMenuInstalacion.Text = "Registrar Instalación";
@@ -25,7 +27,6 @@ namespace Interfaz
             else
             {
                 lblMenuInstalacion.Text = "Editar Instalación";
-                this.instalacionAModificar = instalacionAModificar;
                 txtNombreInstalacion.Text = instalacionAModificar.Nombre;
             }
             this.panelSistema = panelSistema;
@@ -56,19 +57,17 @@ namespace Interfaz
                     string unNombre = txtNombreInstalacion.Text;
                     if (!esParaModificar)
                     {
-                        if (instalacionAModificar == null)
-                        {
-                            Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
-                            modelo.RegistrarElemento(unaInstalacion);
-                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
+                        if (instalacionAModificar != null)
                         {
                             Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
                             instalacionAModificar.AgregarDependencia(unaInstalacion);
                             MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo registrar la instalación", "Error", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else

@@ -20,6 +20,7 @@ namespace Interfaz
             this.modelo = modelo;
             this.panelSistema = panelSistema;
             this.esParaModificar = esParaModificar;
+            this.plantaAModificar = plantaAModificar;
 
             if (!esParaModificar)
             {
@@ -28,7 +29,6 @@ namespace Interfaz
             else
             {
                 lblMenuPlantaIndustrial.Text = "Editar Planta Industrial";
-                this.plantaAModificar = plantaAModificar;
                 txtNombrePlanta.Text = plantaAModificar.Nombre;
                 txtDireccionPlanta.Text = plantaAModificar.Direccion;
                 txtCiudadPlanta.Text = plantaAModificar.Ciudad;
@@ -134,7 +134,7 @@ namespace Interfaz
                         plantaAModificar.Nombre = nombrePlantaIndustrial;
                         plantaAModificar.Direccion = direccionPlantaIndustrial;
                         plantaAModificar.Ciudad = ciudadPlantaIndustrial;
-                        MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
+                        MessageBox.Show("La planta industrial fue modificada correctamente", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         modelo.ActualizarElemento(plantaAModificar);
                     }

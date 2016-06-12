@@ -36,6 +36,16 @@ namespace Interfaz
                 cbxTipoDispositivo.SelectedIndex = 0;
                 txtNombreDispositivo.Text = "";
             }
+            if (Auxiliar.NoEsNulo(elementoAModificar))
+            {
+                chkEnUso.Checked = true;
+                chkEnUso.Enabled = false;
+            }
+            else
+            {
+                chkEnUso.Checked = false;
+                chkEnUso.Enabled = false;
+            }
             lblErrorNombre.Hide();
         }
 
