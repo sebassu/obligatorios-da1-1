@@ -26,11 +26,17 @@ namespace Persistencia
                 List<ElementoSCADA> listaAuxiliar = new List<ElementoSCADA>();
                 foreach (PlantaIndustrial plantaIndustrialIteracion in manejadorPlantasPrimerNivel.Obtener())
                 {
-                    listaAuxiliar.Add(plantaIndustrialIteracion);
+                    if (plantaIndustrialIteracion.EsDePrimerNivel())
+                    {
+                        listaAuxiliar.Add(plantaIndustrialIteracion);
+                    }
                 }
                 foreach (Dispositivo dispositivoIteracion in manejadorDispositivosPrimerNivel.Obtener())
                 {
-                    listaAuxiliar.Add(dispositivoIteracion);
+                    if (dispositivoIteracion.EsDePrimerNivel())
+                    {
+                        listaAuxiliar.Add(dispositivoIteracion);
+                    }
                 }
                 return listaAuxiliar.AsReadOnly();
             }
@@ -125,6 +131,23 @@ namespace Persistencia
             {
                 throw new AccesoADatosExcepcion("Tipo nulo recibido.");
             }
+        }
+
+        public void ActualizarTipo(Tipo unTipo)
+        {
+            manejadorTipos.Actualizar(unTipo);
+        }
+
+        public void ActualizarElemento(ElementoSCADA unElemento)
+        {
+            Action<Dispositivo> actualizacionDispositivo = delegate (Dispositivo d) { manejadorDispositivosPrimerNivel.Actualizar(d); };
+            Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantasPrimerNivel.Actualizar(p); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, actualizacionDispositivo, actualizacionPlanta);
+        }
+
+        public void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo)
+        {
+            manejadorPlantasPrimerNivel.ActualizarAgregacionDispositivo((PlantaIndustrial)unElemento, unDispositivo);
         }
     }
 }

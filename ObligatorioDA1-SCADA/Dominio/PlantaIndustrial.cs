@@ -1,19 +1,20 @@
 ﻿using Excepciones;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
     public class PlantaIndustrial : ElementoSCADA
     {
-        private ManejadorDependenciasConLista<ElementoSCADA> dependencias;
-        public override IList Dependencias
+        private List<ElementoSCADA> dependencias;
+        public override List<ElementoSCADA> Dependencias
         {
             get
             {
-                return dependencias.ElementosHijos;
+                return dependencias;
+            }
+            protected set
+            {
+                dependencias = value;
             }
         }
 
@@ -51,7 +52,6 @@ namespace Dominio
                 if (Auxiliar.EsCiudadValida(value))
                 {
                     ciudad = value.Trim();
-
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace Dominio
             nombre = "Planta industrial inválida.";
             direccion = "Dirección inválida.";
             ciudad = "Ciudad inválida.";
-            dependencias = new ManejadorDependenciasConLista<ElementoSCADA>(this);
+            dependencias = new List<ElementoSCADA>();
         }
 
         public static PlantaIndustrial NombreDireccionCiudad(string unNombre, string unaDireccion, string unaCiudad)
@@ -82,17 +82,17 @@ namespace Dominio
         {
             Direccion = unaDireccion;
             Ciudad = unaCiudad;
-            dependencias = new ManejadorDependenciasConLista<ElementoSCADA>(this);
+            dependencias = new List<ElementoSCADA>();
         }
 
         public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
-            dependencias.AgregarDependencia(elementoAAgregar);
+            ManejadorDependenciasConLista<ElementoSCADA>.AgregarDependencia(elementoAAgregar, dependencias, this);
         }
 
         public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
-            dependencias.EliminarDependencia(elementoAEliminar);
+            ManejadorDependenciasConLista<ElementoSCADA>.EliminarDependencia(elementoAEliminar, dependencias, this);
         }
 
         public override void AgregarVariable(Variable unaVariable)
@@ -108,20 +108,6 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (P)";
-        }
-
-        // A efectos del correcto funcionamiento del Entity Framework.
-        [Required]
-        public virtual ManejadorDependenciasConLista<ElementoSCADA> DependenciasAuxiliar
-        {
-            get
-            {
-                return dependencias;
-            }
-            set
-            {
-                dependencias = value;
-            }
         }
     }
 }

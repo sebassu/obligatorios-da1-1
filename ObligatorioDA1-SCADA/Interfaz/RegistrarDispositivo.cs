@@ -74,6 +74,7 @@ namespace Interfaz
                         if (Auxiliar.NoEsNulo(elementoAModificar))
                         {
                             elementoAModificar.AgregarDependencia(dispositivoAAgregar);
+                            modelo.ActualizarElementoAgregacionDispositivo(elementoAModificar, dispositivoAAgregar);
                         }
                         else
                         {

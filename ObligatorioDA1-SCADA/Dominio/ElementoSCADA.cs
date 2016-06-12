@@ -1,6 +1,7 @@
 ﻿using Excepciones;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -13,13 +14,22 @@ namespace Dominio
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid ID { get; set; }
 
-        [NotMapped]
-        public abstract IList Dependencias { get; }
-
         public abstract void AgregarDependencia(ElementoSCADA elementoAAgregar);
         public abstract void EliminarDependencia(ElementoSCADA elementoAEliminar);
         public abstract void AgregarVariable(Variable unaVariable);
         public abstract void EliminarVariable(Variable unaVariable);
+
+        public virtual List<ElementoSCADA> Dependencias
+        {
+            get
+            {
+                return new List<ElementoSCADA>();
+            }
+            protected set
+            {
+                return;
+            }
+        }
 
         protected string nombre;
         public virtual string Nombre
@@ -49,6 +59,11 @@ namespace Dominio
             }
         }
 
+        public virtual bool EsDePrimerNivel()
+        {
+            return elementoPadre == null;
+        }
+
         protected uint cantidadAlarmasActivas;
         public virtual uint CantidadAlarmasActivas
         {
@@ -68,6 +83,8 @@ namespace Dominio
         }
 
         protected ElementoSCADA elementoPadre;
+
+        [InverseProperty("Dependencias")]
         public virtual ElementoSCADA ElementoPadre
         {
             get
@@ -76,15 +93,7 @@ namespace Dominio
             }
             set
             {
-                ElementoSCADA elementoCasteado = value as ElementoSCADA;
-                if (Auxiliar.NoEsNulo(value) && value.Dependencias.Contains(this))
-                {
-                    elementoPadre = elementoCasteado;
-                }
-                else
-                {
-                    throw new ElementoSCADAExcepcion("El elemento recibido es inválido.");
-                }
+                elementoPadre = value;
             }
         }
 
@@ -170,8 +179,6 @@ namespace Dominio
             return base.GetHashCode();
         }
 
-        public abstract override string ToString();
-
         protected ElementoSCADA(string unNombre) : this()
         {
             Nombre = unNombre;
@@ -181,5 +188,7 @@ namespace Dominio
         {
             ID = Guid.NewGuid();
         }
+
+        public abstract override string ToString();
     }
 }

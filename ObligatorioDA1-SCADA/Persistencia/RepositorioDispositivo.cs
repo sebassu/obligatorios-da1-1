@@ -11,7 +11,7 @@ namespace Persistencia
 
         public override List<Dispositivo> Obtener()
         {
-            return coleccionEntidades.Include("TipoAuxiliar").ToList();
+            return coleccionEntidades.Include("ElementoPadre").Include("TipoAuxiliar").ToList();
         }
 
         public override void Insertar(Dispositivo entidad)

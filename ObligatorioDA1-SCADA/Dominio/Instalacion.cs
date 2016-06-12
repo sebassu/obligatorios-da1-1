@@ -1,29 +1,30 @@
-﻿using System.Collections;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace Dominio
 {
     public class Instalacion : Componente
     {
-        private IManejadorDependencias<Componente> dependencias;
-
-        public override IList Dependencias
+        private List<ElementoSCADA> dependencias;
+        public override List<ElementoSCADA> Dependencias
         {
             get
             {
-                return dependencias.ElementosHijos;
+                return dependencias;
+            }
+            protected set
+            {
+                dependencias = value;
             }
         }
 
         public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
-            dependencias.AgregarDependencia(elementoAAgregar);
+            ManejadorDependenciasConLista<Componente>.AgregarDependencia(elementoAAgregar, dependencias, this);
         }
 
         public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
-            dependencias.EliminarDependencia(elementoAEliminar);
+            ManejadorDependenciasConLista<Componente>.EliminarDependencia(elementoAEliminar, dependencias, this);
         }
 
         internal static Instalacion InstalacionInvalida()
@@ -39,31 +40,17 @@ namespace Dominio
         private Instalacion() : base()
         {
             nombre = "Instalación inválida.";
-            dependencias = new ManejadorDependenciasConLista<Componente>(this);
+            dependencias = new List<ElementoSCADA>();
         }
 
         private Instalacion(string unNombre) : base(unNombre)
         {
-            dependencias = new ManejadorDependenciasConLista<Componente>(this);
+            dependencias = new List<ElementoSCADA>();
         }
 
         public override string ToString()
         {
             return nombre + " (I)";
-        }
-
-        // A efectos del buen funcionamiento de Entity Framework.
-        [Required]
-        protected virtual IManejadorDependencias<Componente> DependenciasAux
-        {
-            get
-            {
-                return dependencias;
-            }
-            set
-            {
-                dependencias = value;
-            }
         }
     }
 }

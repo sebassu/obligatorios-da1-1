@@ -1,40 +1,19 @@
 ﻿using Excepciones;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
-    public class ManejadorDependenciasConLista<T> : IManejadorDependencias<T> where T : ElementoSCADA
+    public static class ManejadorDependenciasConLista<T> where T : ElementoSCADA
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        private ElementoSCADA elementoAsociado;
 
-        private List<T> hijos;
-        public IList ElementosHijos
-        {
-            get
-            {
-                return hijos.AsReadOnly();
-            }
-        }
-
-        internal ManejadorDependenciasConLista(ElementoSCADA unElemento)
-        {
-            elementoAsociado = unElemento;
-            hijos = new List<T>();
-        }
-
-        public void AgregarDependencia(ElementoSCADA elementoAAgregar)
+        public static void AgregarDependencia(ElementoSCADA elementoAAgregar, List<ElementoSCADA> hijos, ElementoSCADA elementoAsociado)
         {
             T nuevaDependencia = elementoAAgregar as T;
             ElementoSCADA padreElementoAsociado = elementoAsociado.ElementoPadre;
             ElementoSCADA elementoABuscar = (Auxiliar.NoEsNulo(padreElementoAsociado) ? padreElementoAsociado : elementoAsociado);
             if (EsDependenciaValida(nuevaDependencia, elementoABuscar))
             {
-                EliminarDependenciaDelPadreAnterior(elementoAAgregar);
+                EliminarDependenciaDelPadreAnterior(elementoAAgregar, hijos, elementoAsociado);
                 hijos.Add(nuevaDependencia);
                 nuevaDependencia.ElementoPadre = elementoAsociado;
                 hijos.Sort();
@@ -47,16 +26,16 @@ namespace Dominio
             }
         }
 
-        private static void EliminarDependenciaDelPadreAnterior(ElementoSCADA elementoAAgregar)
+        private static void EliminarDependenciaDelPadreAnterior(ElementoSCADA elementoAEliminar, List<ElementoSCADA> hijos, ElementoSCADA elementoAsociado)
         {
-            ElementoSCADA padreAnterior = elementoAAgregar.ElementoPadre;
+            ElementoSCADA padreAnterior = elementoAEliminar.ElementoPadre;
             if (Auxiliar.NoEsNulo(padreAnterior))
             {
-                padreAnterior.EliminarDependencia(elementoAAgregar);
+                padreAnterior.EliminarDependencia(elementoAEliminar);
             }
         }
 
-        public void EliminarDependencia(ElementoSCADA elementoAEliminar)
+        public static void EliminarDependencia(ElementoSCADA elementoAEliminar, List<ElementoSCADA> hijos, ElementoSCADA elementoAsociado)
         {
             T elementoCasteado = elementoAEliminar as T;
             if (hijos.Remove(elementoCasteado))

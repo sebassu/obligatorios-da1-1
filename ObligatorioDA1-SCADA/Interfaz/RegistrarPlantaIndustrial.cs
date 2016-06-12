@@ -63,7 +63,7 @@ namespace Interfaz
 
         private void txtDireccionPlanta_Leave(object sender, EventArgs e)
         {
-            if (Auxiliar.EsTextoValido(txtDireccionPlanta.Text))
+            if (Auxiliar.EsDireccionValida(txtDireccionPlanta.Text))
             {
                 lblErrorDireccion.Hide();
             }
@@ -80,7 +80,7 @@ namespace Interfaz
 
         private void txtCiudadPlanta_Leave(object sender, EventArgs e)
         {
-            if (Auxiliar.EsTextoValido(txtCiudadPlanta.Text))
+            if (Auxiliar.EsCiudadValida(txtCiudadPlanta.Text))
             {
                 lblErrorCiudad.Hide();
             }
@@ -136,9 +136,7 @@ namespace Interfaz
                         plantaAModificar.Ciudad = ciudadPlantaIndustrial;
                         MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        /********************************/
-                        //ACTUALIZAR
-                        /***************************/
+                        modelo.ActualizarElemento(plantaAModificar);
                     }
                     AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }

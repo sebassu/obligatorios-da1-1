@@ -15,5 +15,8 @@ namespace Persistencia
         void EliminarDatos();
         bool ExistenTipos();
         void RegistrarIncidente(ElementoSCADA unElemento, Incidente incidenteARegistrar);
+        void ActualizarTipo(Tipo unTipo);
+        void ActualizarElemento(ElementoSCADA unElemento);
+        void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo);
     }
 }

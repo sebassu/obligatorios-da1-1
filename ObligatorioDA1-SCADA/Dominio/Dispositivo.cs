@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Excepciones;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System;
 
 namespace Dominio
 {
@@ -50,14 +48,6 @@ namespace Dominio
         {
             elementoPadre.IncrementarAlarmas(cantidadAlarmasActivas);
             elementoPadre.IncrementarAdvertencias(cantidadAdvertenciasActivas);
-        }
-
-        public override IList Dependencias
-        {
-            get
-            {
-                return new List<Componente>();
-            }
         }
 
         public static Dispositivo NombreTipo(string unNombre, Tipo unTipo)

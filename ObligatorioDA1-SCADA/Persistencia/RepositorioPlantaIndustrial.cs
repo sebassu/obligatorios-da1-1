@@ -11,13 +11,19 @@ namespace Persistencia
 
         public override List<PlantaIndustrial> Obtener()
         {
-            return coleccionEntidades.ToList();
+            return coleccionEntidades.Include("Dependencias").ToList();
         }
 
         public override void Insertar(PlantaIndustrial entidad)
         {
             coleccionEntidades.Add(entidad);
             contexto.SaveChanges();
+        }
+
+        public void ActualizarAgregacionDispositivo(PlantaIndustrial entidad, Dispositivo unDispositivo)
+        {
+            contexto.Tipos.Attach(unDispositivo.Tipo);
+            base.Actualizar(entidad);
         }
     }
 }

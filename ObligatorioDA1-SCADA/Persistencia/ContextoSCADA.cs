@@ -8,6 +8,7 @@ namespace Persistencia
     {
         public DbSet<Dispositivo> DispositivosPrimarios { get; set; }
         public DbSet<PlantaIndustrial> PlantasPrimarias { get; set; }
+        public DbSet<Instalacion> Instalaciones { get; set; }
         public DbSet<Tipo> Tipos { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
 
