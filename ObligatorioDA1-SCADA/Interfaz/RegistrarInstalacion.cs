@@ -10,16 +10,16 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        private ElementoSCADA instalacionAModificar;
+        private ElementoSCADA elementoRecibido;
         private bool esParaModificar;
 
         public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema,
-            ElementoSCADA instalacionAModificar = null, bool esParaModificar = false)
+            ElementoSCADA elementoRecibido = null, bool esParaModificar = false)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.esParaModificar = esParaModificar;
-            this.instalacionAModificar = instalacionAModificar;
+            this.elementoRecibido = elementoRecibido;
             if (!esParaModificar)
             {
                 lblMenuInstalacion.Text = "Registrar Instalación";
@@ -27,7 +27,7 @@ namespace Interfaz
             else
             {
                 lblMenuInstalacion.Text = "Editar Instalación";
-                txtNombreInstalacion.Text = instalacionAModificar.Nombre;
+                txtNombreInstalacion.Text = elementoRecibido.Nombre;
             }
             this.panelSistema = panelSistema;
             lblErrorNombre.Hide();
@@ -57,10 +57,11 @@ namespace Interfaz
                     string unNombre = txtNombreInstalacion.Text;
                     if (!esParaModificar)
                     {
-                        if (instalacionAModificar != null)
+                        if (elementoRecibido != null)
                         {
                             Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
-                            instalacionAModificar.AgregarDependencia(unaInstalacion);
+                            elementoRecibido.AgregarDependencia(unaInstalacion);
+                            modelo.ActualizarElemento(elementoRecibido);
                             MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -72,7 +73,7 @@ namespace Interfaz
                     }
                     else
                     {
-                        instalacionAModificar.Nombre = unNombre;
+                        elementoRecibido.Nombre = unNombre;
                         MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
