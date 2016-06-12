@@ -126,5 +126,17 @@ namespace Persistencia
                 throw new AccesoADatosExcepcion("Tipo nulo recibido.");
             }
         }
+
+        public void ActualizarTipo(Tipo unTipo)
+        {
+            manejadorTipos.Actualizar(unTipo);
+        }
+
+        public void ActualizarElemento(ElementoSCADA unElemento)
+        {
+            Action<Dispositivo> actualizacionDispositivo = delegate (Dispositivo d) { manejadorDispositivosPrimerNivel.Actualizar(d); };
+            Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantasPrimerNivel.Actualizar(p); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, actualizacionDispositivo, actualizacionPlanta);
+        }
     }
 }

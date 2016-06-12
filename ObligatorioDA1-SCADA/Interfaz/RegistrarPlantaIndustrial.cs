@@ -20,6 +20,7 @@ namespace Interfaz
             this.modelo = modelo;
             this.panelSistema = panelSistema;
             this.esParaModificar = esParaModificar;
+            this.plantaAModificar = plantaAModificar;
 
             if (!esParaModificar)
             {
@@ -28,7 +29,6 @@ namespace Interfaz
             else
             {
                 lblMenuPlantaIndustrial.Text = "Editar Planta Industrial";
-                this.plantaAModificar = plantaAModificar;
                 txtNombrePlanta.Text = plantaAModificar.Nombre;
                 txtDireccionPlanta.Text = plantaAModificar.Direccion;
                 txtCiudadPlanta.Text = plantaAModificar.Ciudad;
@@ -63,7 +63,7 @@ namespace Interfaz
 
         private void txtDireccionPlanta_Leave(object sender, EventArgs e)
         {
-            if (Auxiliar.EsTextoValido(txtDireccionPlanta.Text))
+            if (Auxiliar.EsDireccionValida(txtDireccionPlanta.Text))
             {
                 lblErrorDireccion.Hide();
             }
@@ -80,7 +80,7 @@ namespace Interfaz
 
         private void txtCiudadPlanta_Leave(object sender, EventArgs e)
         {
-            if (Auxiliar.EsTextoValido(txtCiudadPlanta.Text))
+            if (Auxiliar.EsCiudadValida(txtCiudadPlanta.Text))
             {
                 lblErrorCiudad.Hide();
             }
@@ -134,11 +134,9 @@ namespace Interfaz
                         plantaAModificar.Nombre = nombrePlantaIndustrial;
                         plantaAModificar.Direccion = direccionPlantaIndustrial;
                         plantaAModificar.Ciudad = ciudadPlantaIndustrial;
-                        MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
+                        MessageBox.Show("La planta industrial fue modificada correctamente", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        /********************************/
-                        //ACTUALIZAR
-                        /***************************/
+                        modelo.ActualizarElemento(plantaAModificar);
                     }
                     AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }

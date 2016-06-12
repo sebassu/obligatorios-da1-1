@@ -22,8 +22,36 @@ namespace Interfaz
 
         private void btnAgregarInstalacion_Click(object sender, EventArgs e)
         {
+            VerificarElementoSeleccionado(AbrirPanelRegistrarInstalacion);
+        }
+
+        private void VerificarElementoSeleccionado(Action unaAccionARealizar)
+        {
+            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            if (Auxiliar.NoEsNulo(seleccionado))
+            {
+                if (seleccionado.Tag is PlantaIndustrial || seleccionado.Tag is Instalacion)
+                {
+                    unaAccionARealizar.Invoke();
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una planta industrial o una instalación para acceder a esta funcionalidad",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AbrirPanelRegistrarInstalacion()
+        {
+            ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, null, false));
+            panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, elementoSeleccionado, false));
         }
 
         private void VerificarComponenteSeleccionado(Action unaAccionARealizar)
@@ -274,6 +302,8 @@ namespace Interfaz
                 btnEliminarVariable.Enabled = false;
                 btnAgregarValorVariable.Enabled = false;
                 btnValoresHistoricos.Enabled = false;
+                btnEliminarVariable.BackColor = Color.LightPink;
+                btnEditarVariable.BackColor = Color.LightCyan;
 
             }
         }
@@ -472,7 +502,7 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Instalación\" para la selección realizada",
+                MessageBox.Show("Es necesario utilizar otra función de eliminado para la selección realizada",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -502,13 +532,31 @@ namespace Interfaz
 
         private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)
         {
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, null, false));
+            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            if (Auxiliar.NoEsNulo(seleccionado))
+            {
+                if (seleccionado.Tag is PlantaIndustrial)
+                {
+                    PlantaIndustrial plantaIndustrialPadre = seleccionado.Tag as PlantaIndustrial;
+                    panelSistema.Controls.Clear();
+                    panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaIndustrialPadre, false));
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una Planta Industrial para acceder a esta funcionalidad", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                panelSistema.Controls.Clear();
+                panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, null, false));
+            }
         }
 
         private void btnEliminarPlantaIndustrial_Click(object sender, EventArgs e)
         {
-            //VerificarPlantaIndustrialSeleccionada(EliminarPlantaIndustrialSeleccionada);
+            VerificarPlantaIndustrialSeleccionada(EliminarPlantaIndustrialSeleccionada);
         }
 
         private void VerificarPlantaIndustrialSeleccionada(Action unaAccionARealizar)
@@ -522,6 +570,35 @@ namespace Interfaz
             {
                 MessageBox.Show("Debe seleccionar una Planta Industrial para acceder a esta funcionalidad", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void EliminarPlantaIndustrialSeleccionada()
+        {
+            PlantaIndustrial plantaIndustrialAEliminar = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+            if (Auxiliar.NoEsNulo(plantaIndustrialAEliminar))
+            {
+                DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
+                        + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    ElementoSCADA padre = plantaIndustrialAEliminar.ElementoPadre;
+                    if (Auxiliar.NoEsNulo(padre))
+                    {
+                        padre.EliminarDependencia(plantaIndustrialAEliminar);
+                    }
+                    else
+                    {
+                        modelo.EliminarElemento(plantaIndustrialAEliminar);
+                    }
+                    treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
+                    RecargarTableroDeControl();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es necesario utilizar otra función de eliminado para la selección realizada",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
