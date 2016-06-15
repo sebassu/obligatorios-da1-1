@@ -13,7 +13,7 @@ namespace Dominio
         public virtual Guid ID { get; set; }
 
         private string nombre;
-        public string Nombre
+        public virtual string Nombre
         {
             get
             {
@@ -33,7 +33,7 @@ namespace Dominio
         }
 
         private string descripcion;
-        public string Descripcion
+        public virtual string Descripcion
         {
             get
             {

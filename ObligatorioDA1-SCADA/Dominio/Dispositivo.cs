@@ -1,6 +1,4 @@
 ﻿using Excepciones;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
@@ -8,8 +6,7 @@ namespace Dominio
     {
         private Tipo tipoDispositivo;
 
-        [NotMapped]
-        public Tipo Tipo
+        public virtual Tipo Tipo
         {
             get
             {
@@ -17,14 +14,7 @@ namespace Dominio
             }
             set
             {
-                if (Auxiliar.NoEsNulo(value))
-                {
-                    tipoDispositivo = value;
-                }
-                else
-                {
-                    throw new ElementoSCADAExcepcion("Tipo inválido.");
-                }
+                tipoDispositivo = value;
             }
         }
 
@@ -106,19 +96,6 @@ namespace Dominio
         public override string ToString()
         {
             return nombre + " (D)";
-        }
-
-        // A efectos del correcto funcionamiento del Entity Framework.
-        protected virtual Tipo TipoAuxiliar
-        {
-            get
-            {
-                return tipoDispositivo;
-            }
-            set
-            {
-                tipoDispositivo = value;
-            }
         }
     }
 }

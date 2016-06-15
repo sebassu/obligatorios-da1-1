@@ -66,6 +66,7 @@ namespace Interfaz
                     else
                     {
                         elementoRecibido.Nombre = unNombre;
+                        modelo.ActualizarElemento(elementoRecibido);
                         MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

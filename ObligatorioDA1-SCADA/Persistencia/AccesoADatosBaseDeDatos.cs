@@ -15,10 +15,10 @@ namespace Persistencia
 
         public AccesoADatosBaseDeDatos()
         {
-            manejadorTipos = new RepositorioTipo(new ContextoSCADA());
-            manejadorDispositivos = new RepositorioDispositivo(new ContextoSCADA());
-            manejadorPlantas = new RepositorioPlantaIndustrial(new ContextoSCADA());
-            manejadorInstalaciones = new RepositorioInstalacion(new ContextoSCADA());
+            manejadorTipos = new RepositorioTipo(new ContextoSCADA("name=ContextoSCADA"));
+            manejadorDispositivos = new RepositorioDispositivo(new ContextoSCADA("name=ContextoSCADA"));
+            manejadorPlantas = new RepositorioPlantaIndustrial(new ContextoSCADA("name=ContextoSCADA"));
+            manejadorInstalaciones = new RepositorioInstalacion(new ContextoSCADA("name=ContextoSCADA"));
         }
 
         public IList ElementosPrimarios
@@ -46,7 +46,7 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-            ContextoSCADA contexto = new ContextoSCADA();
+            ContextoSCADA contexto = new ContextoSCADA("name=ContextoSCADA");
             contexto.EliminarDatos();
         }
 

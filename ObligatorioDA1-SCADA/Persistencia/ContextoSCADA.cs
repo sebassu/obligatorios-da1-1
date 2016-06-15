@@ -11,7 +11,7 @@ namespace Persistencia
         public DbSet<Instalacion> Instalaciones { get; set; }
         public DbSet<Tipo> Tipos { get; set; }
 
-        public ContextoSCADA() : base("name=ContextoSCADA")
+        public ContextoSCADA(string nombreConexion) : base(nombreConexion)
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ContextoSCADA>());
         }
