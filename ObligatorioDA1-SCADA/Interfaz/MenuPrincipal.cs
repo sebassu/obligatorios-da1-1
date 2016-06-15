@@ -123,7 +123,7 @@ namespace Interfaz
 
         private void btnAgregarVariable_Click(object sender, EventArgs e)
         {
-            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode.Tag as Componente))
             {
                 Componente unComponente = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
                 panelSistema.Controls.Clear();

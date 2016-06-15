@@ -59,6 +59,9 @@
     <Compile Include="RepositorioInstalacion.cs" />
     <Compile Include="RepositorioPlantaIndustrial.cs" />
     <Compile Include="RepositorioTipo.cs" />
+    <Compile Include="Strategy.cs" />
+    <Compile Include="StrategyArchivoDeTexto.cs" />
+    <Compile Include="StrategyBaseDeDatos.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">

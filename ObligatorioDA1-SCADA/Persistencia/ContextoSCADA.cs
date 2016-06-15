@@ -10,6 +10,8 @@ namespace Persistencia
         public DbSet<PlantaIndustrial> Plantas { get; set; }
         public DbSet<Instalacion> Instalaciones { get; set; }
         public DbSet<Tipo> Tipos { get; set; }
+        public DbSet<Variable> Variables { get; set; }
+        public DbSet<Incidente> Incidentes { get; set; }
 
         public ContextoSCADA(string nombreConexion) : base(nombreConexion)
         {
@@ -18,10 +20,11 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-            Tipos.RemoveRange(Tipos);
             Dispositivos.RemoveRange(Dispositivos);
             Plantas.RemoveRange(Plantas);
             Instalaciones.RemoveRange(Instalaciones);
+            SaveChanges();
+            Tipos.RemoveRange(Tipos);
             SaveChanges();
         }
 
