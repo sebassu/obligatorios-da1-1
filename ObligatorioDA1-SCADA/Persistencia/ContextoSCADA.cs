@@ -22,7 +22,6 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-            Dispositivos.RemoveRange(Dispositivos);
             Plantas.RemoveRange(Plantas);
             Instalaciones.RemoveRange(Instalaciones);
             Dispositivos.RemoveRange(Dispositivos);

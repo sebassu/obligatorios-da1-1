@@ -30,6 +30,8 @@ namespace Interfaz
             try
             {
                 unaVariable.ValorActual = numValor.Value;
+                modelo.ActualizarVariable(unaVariable);
+                modelo.ActualizarElemento(unaVariable.ComponentePadre);
                 MessageBox.Show("Valor agregado correctamente", "Éxito", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);

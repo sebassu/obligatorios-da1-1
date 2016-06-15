@@ -11,7 +11,7 @@ namespace Persistencia
 
         public override List<Instalacion> Obtener()
         {
-            return coleccionEntidades.Include("Dependencias.Tipo").ToList();
+            return coleccionEntidades.Include("Dependencias.Tipo").Include("Variables.Historico").ToList();
         }
 
         public void ActualizarAgregacionDispositivo(Instalacion entidad, Dispositivo unDispositivo)

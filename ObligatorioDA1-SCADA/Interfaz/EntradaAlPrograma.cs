@@ -14,7 +14,7 @@ namespace Interfaz
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            IAccesoADatos modelo = new AccesoADatosBaseDeDatos();
+            IAccesoADatos modelo = new AccesoADatosBaseDeDatos("name=ContextoSCADA");
             //modelo.EliminarDatos();
             Application.Run(new VentanaPrincipal(modelo));
         }

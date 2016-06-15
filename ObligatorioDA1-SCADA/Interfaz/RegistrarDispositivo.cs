@@ -64,30 +64,38 @@ namespace Interfaz
                     string nombreDispositivo = txtNombreDispositivo.Text;
                     Tipo tipoDispositivo = (Tipo)cbxTipoDispositivo.SelectedItem;
                     bool estaEnUso = chkEnUso.Checked;
-                    if (Auxiliar.NoEsNulo(dispositivoAModificar))
-                    {
-                        dispositivoAModificar.Nombre = nombreDispositivo;
-                        dispositivoAModificar.Tipo = tipoDispositivo;
-                    }
-                    else
-                    {
-                        Dispositivo dispositivoAAgregar = Dispositivo.NombreTipo(nombreDispositivo, tipoDispositivo);
-                        if (Auxiliar.NoEsNulo(elementoAModificar))
-                        {
-                            elementoAModificar.AgregarDependencia(dispositivoAAgregar);
-                            modelo.ActualizarElementoAgregacionDispositivo(elementoAModificar, dispositivoAAgregar);
-                        }
-                        else
-                        {
-                            modelo.RegistrarElemento(dispositivoAAgregar);
-                        }
-                    }
-                    MessageBox.Show("El dispositivo fue registrado correctamente");
+                    EjecutarCambios(nombreDispositivo, tipoDispositivo);
                     AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }
                 catch (ElementoSCADAExcepcion excepcion)
                 {
                     MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void EjecutarCambios(string nombreDispositivo, Tipo tipoDispositivo)
+        {
+            if (Auxiliar.NoEsNulo(dispositivoAModificar))
+            {
+                dispositivoAModificar.Nombre = nombreDispositivo;
+                dispositivoAModificar.Tipo = tipoDispositivo;
+            }
+            else
+            {
+                Dispositivo dispositivoAAgregar = Dispositivo.NombreTipo(nombreDispositivo, tipoDispositivo);
+                if (Auxiliar.NoEsNulo(elementoAModificar))
+                {
+                    elementoAModificar.AgregarDependencia(dispositivoAAgregar);
+                    modelo.ActualizarElementoAgregacionDispositivo(elementoAModificar, dispositivoAAgregar);
+                    MessageBox.Show("El dispositivo fue modificado correctamente",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    modelo.RegistrarElemento(dispositivoAAgregar);
+                    MessageBox.Show("El dispositivo fue registrado correctamente",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

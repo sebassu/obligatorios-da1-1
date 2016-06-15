@@ -16,13 +16,13 @@ namespace PruebasUnitarias
         [TestInitialize]
         public void CrearObjetoAccesoADatos()
         {
-            unSistema = new AccesoADatosBaseDeDatos();
+            unSistema = new AccesoADatosBaseDeDatos("name=ContextoSCADAPrueba");
         }
 
         [TestCleanup]
         public void BorrarBaseDeDatos()
         {
-            unSistema.EliminarDatos();
+            unSistema.EliminarDatos("name=ContextoSCADAPrueba");
         }
 
         [TestMethod]
@@ -254,7 +254,6 @@ namespace PruebasUnitarias
         [ExpectedException(typeof(AccesoADatosExcepcion))]
         public void RegistrarIncidenteTest2()
         {
-            IAccesoADatos unSistema = new AccesoADatosBaseDeDatos();
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unSistema.RegistrarIncidente(null, unIncidente);
         }

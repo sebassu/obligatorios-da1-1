@@ -17,6 +17,7 @@ namespace Persistencia
         void RegistrarIncidente(ElementoSCADA unElemento, Incidente incidenteARegistrar);
         void ActualizarTipo(Tipo unTipo);
         void ActualizarElemento(ElementoSCADA unElemento);
+        void ActualizarVariable(Variable unaVariable);
         void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo);
     }
 }

@@ -3,11 +3,13 @@ using Dominio;
 using System.Collections;
 using Excepciones;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Persistencia
 {
     public class AccesoADatosBaseDeDatos : IAccesoADatos
     {
+        private string stringConexion;
         private RepositorioDispositivo manejadorDispositivos;
         private RepositorioTipo manejadorTipos;
         private RepositorioPlantaIndustrial manejadorPlantas;
@@ -15,12 +17,14 @@ namespace Persistencia
 
         private static readonly Action<Dispositivo> accionErronea = delegate (Dispositivo d) { throw new AccesoADatosExcepcion("Accion no soportada"); };
 
-        public AccesoADatosBaseDeDatos()
+        public AccesoADatosBaseDeDatos(string stringConexionASetear)
         {
-            manejadorTipos = new RepositorioTipo(new ContextoSCADA("name=ContextoSCADA"));
-            manejadorDispositivos = new RepositorioDispositivo(new ContextoSCADA("name=ContextoSCADA"));
-            manejadorPlantas = new RepositorioPlantaIndustrial(new ContextoSCADA("name=ContextoSCADA"));
-            manejadorInstalaciones = new RepositorioInstalacion(new ContextoSCADA("name=ContextoSCADA"));
+            stringConexion = stringConexionASetear;
+            ContextoSCADA contexto = new ContextoSCADA(stringConexionASetear);
+            manejadorTipos = new RepositorioTipo(contexto);
+            manejadorDispositivos = new RepositorioDispositivo(contexto);
+            manejadorPlantas = new RepositorioPlantaIndustrial(contexto);
+            manejadorInstalaciones = new RepositorioInstalacion(contexto);
         }
 
         public IList ElementosPrimarios
@@ -48,7 +52,7 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-            ContextoSCADA contexto = new ContextoSCADA("name=ContextoSCADA");
+            ContextoSCADA contexto = new ContextoSCADA(stringConexion);
             contexto.EliminarDatos();
         }
 
@@ -165,6 +169,16 @@ namespace Persistencia
             Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.ActualizarAgregacionDispositivo(p, unDispositivo); };
             Action<Instalacion> actualizacionInstalacion = delegate (Instalacion i) { manejadorInstalaciones.ActualizarAgregacionDispositivo(i, unDispositivo); };
             EjecutarAccionEnSetQueCorresponda(unElemento, accionErronea, actualizacionPlanta, actualizacionInstalacion);
+        }
+
+        public void ActualizarVariable(Variable unaVariable)
+        {
+            using (ContextoSCADA contexto = new ContextoSCADA("name=ContextoSCADA"))
+            {
+                contexto.Variables.Attach(unaVariable);
+                contexto.Entry(unaVariable).State = EntityState.Modified;
+                contexto.SaveChanges();
+            }
         }
     }
 }
