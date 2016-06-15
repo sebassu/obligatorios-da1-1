@@ -11,10 +11,8 @@ namespace Persistencia
         public DbSet<Instalacion> Instalaciones { get; set; }
         public DbSet<Tipo> Tipos { get; set; }
         public DbSet<Variable> Variables { get; set; }
-<<<<<<< HEAD
         public DbSet<Incidente> Incidentes { get; set; }
-=======
->>>>>>> 5ff69a5bab528fe3c6c5dd2f1c9ddaf74427fc60
+        public DbSet<Componente> Componentes { get; set; }
 
         public ContextoSCADA(string nombreConexion) : base(nombreConexion)
         {
@@ -25,10 +23,6 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-<<<<<<< HEAD
-            Dispositivos.RemoveRange(Dispositivos);
-=======
->>>>>>> 5ff69a5bab528fe3c6c5dd2f1c9ddaf74427fc60
             Plantas.RemoveRange(Plantas);
             Instalaciones.RemoveRange(Instalaciones);
             Dispositivos.RemoveRange(Dispositivos);

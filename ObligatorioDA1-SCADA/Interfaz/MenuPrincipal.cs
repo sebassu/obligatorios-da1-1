@@ -123,7 +123,8 @@ namespace Interfaz
 
         private void btnAgregarVariable_Click(object sender, EventArgs e)
         {
-            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode.Tag as Componente))
+            TreeNode nodoSeleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            if (Auxiliar.NoEsNulo(nodoSeleccionado) && treeViewPlantaDeProduccion.SelectedNode.Tag is Componente)
             {
                 Componente unComponente = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
                 panelSistema.Controls.Clear();
@@ -209,10 +210,11 @@ namespace Interfaz
 
         private void btnCargarDatosPrueba_Click(object sender, EventArgs e)
         {
-            CargarDatosDePrueba();
+            // CargarDatosDePrueba();
+            MessageBox.Show("Funcion no disponible");
         }
 
-        private void CargarDatosDePrueba()
+        /*private void CargarDatosDePrueba()
         {
             modelo = new AccesoADatosBaseDeDatos();
             Tipo tipo1 = Tipo.NombreDescripcion("Tipo 1", "Buen tipo");
@@ -258,7 +260,7 @@ namespace Interfaz
             componente13.AgregarDependencia(componente15);
             modelo.RegistrarElemento(componente13);
             RecargarTodoComponente();
-        }
+        }*/
 
         private void RecargarTodoComponente()
         {

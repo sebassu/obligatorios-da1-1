@@ -13,13 +13,15 @@ namespace Dominio
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid ID { get; set; }
 
-        private Tuple<decimal, decimal> rangoAdvertencia;
-        private Tuple<decimal, decimal> rangoAlarma;
         private DateTime fechaUltimaModificacion;
         private bool fueSeteada;
+        private decimal minimoAlarma;
+        private decimal minimoAdvertencia;
+        private decimal maximoAdvertencia;
+        private decimal maximoAlarma;
 
         private string nombre;
-        public string Nombre
+        public virtual string Nombre
         {
             get
             {
@@ -39,20 +41,28 @@ namespace Dominio
         }
 
         private bool alarmaActiva;
-        internal bool AlarmaActiva
+        public virtual bool AlarmaActiva
         {
             get
             {
                 return alarmaActiva;
             }
+            protected set
+            {
+                alarmaActiva = value;
+            }
         }
 
         private bool advertenciaActiva;
-        internal bool AdvertenciaActiva
+        public virtual bool AdvertenciaActiva
         {
             get
             {
                 return advertenciaActiva;
+            }
+            protected set
+            {
+                advertenciaActiva = value;
             }
         }
 
@@ -75,8 +85,8 @@ namespace Dominio
 
         private void ValidarActivacionesRangos(decimal valorAAnalizar)
         {
-            bool fueraDeRangoAlarma = Auxiliar.EstaFueraDelRango(valorAAnalizar, rangoAlarma);
-            bool fueraDeRangoAdvertencia = !fueraDeRangoAlarma && Auxiliar.EstaFueraDelRango(valorAAnalizar, rangoAdvertencia);
+            bool fueraDeRangoAlarma = Auxiliar.EstaFueraDelRango(valorAAnalizar, minimoAlarma, maximoAlarma);
+            bool fueraDeRangoAdvertencia = !fueraDeRangoAlarma && Auxiliar.EstaFueraDelRango(valorAAnalizar, minimoAdvertencia, maximoAdvertencia);
             if (Auxiliar.NoEsNulo(componentePadre))
             {
                 ValidarActivacionesDeAlarma(fueraDeRangoAlarma);
@@ -117,7 +127,7 @@ namespace Dominio
             {
                 return historicoDeValores;
             }
-            protected set
+            set
             {
                 historicoDeValores = value;
             }
@@ -133,16 +143,14 @@ namespace Dominio
             }
         }
 
-        public void SetValoresLimites(Tuple<decimal, decimal> limitesAdvertenciaASetear, Tuple<decimal, decimal> limitesAlarmaASetear)
+        public void SetValoresLimites(decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear, decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
         {
-            decimal minimoAlarma = limitesAlarmaASetear.Item1;
-            decimal minimoAdvertencia = limitesAdvertenciaASetear.Item1;
-            decimal maximoAdvertencia = limitesAdvertenciaASetear.Item2;
-            decimal maximoAlarma = limitesAlarmaASetear.Item2;
-            if (Auxiliar.ValoresMonotonosCrecientes(minimoAlarma, minimoAdvertencia, maximoAdvertencia, maximoAlarma))
+            if (Auxiliar.ValoresMonotonosCrecientes(minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear))
             {
-                rangoAdvertencia = limitesAdvertenciaASetear;
-                rangoAlarma = limitesAlarmaASetear;
+                minimoAlarma = minimoAlarmaASetear;
+                minimoAdvertencia = minimoAdvertenciaASetear;
+                maximoAdvertencia = maximoAdvertenciaASetear;
+                maximoAlarma = maximoAlarmaASetear;
                 ValidarActivacionesRangos(valorActual);
             }
             else
@@ -155,7 +163,11 @@ namespace Dominio
         {
             get
             {
-                return rangoAlarma.Item1;
+                return minimoAlarma;
+            }
+            protected set
+            {
+                minimoAlarma = value;
             }
         }
 
@@ -163,7 +175,11 @@ namespace Dominio
         {
             get
             {
-                return rangoAdvertencia.Item1;
+                return minimoAdvertencia;
+            }
+            protected set
+            {
+                minimoAdvertencia = value;
             }
         }
 
@@ -171,7 +187,11 @@ namespace Dominio
         {
             get
             {
-                return rangoAdvertencia.Item2;
+                return maximoAdvertencia;
+            }
+            protected set
+            {
+                maximoAdvertencia = value;
             }
         }
 
@@ -179,7 +199,11 @@ namespace Dominio
         {
             get
             {
-                return rangoAlarma.Item2;
+                return maximoAlarma;
+            }
+            protected set
+            {
+                maximoAlarma = value;
             }
         }
 
@@ -192,16 +216,9 @@ namespace Dominio
             {
                 return componentePadre;
             }
-            set
+            internal set
             {
-                if (Auxiliar.NoEsNulo(value) && value.Variables.Contains(this))
-                {
-                    componentePadre = value;
-                }
-                else
-                {
-                    throw new VariableExcepcion("El dispositivo a asignar no contiene a la variable.");
-                }
+                componentePadre = value;
             }
         }
 
@@ -226,25 +243,27 @@ namespace Dominio
             else
             {
                 Nombre = unNombre;
-                Tuple<decimal, decimal> tuplaAuxiliar = Tuple.Create(valorMinimo, valorMaximo);
-                rangoAdvertencia = tuplaAuxiliar;
-                rangoAlarma = tuplaAuxiliar;
+                minimoAlarma = valorMinimo;
+                minimoAdvertencia = valorMinimo;
+                maximoAdvertencia = valorMaximo;
+                maximoAlarma = valorMaximo;
                 ID = Guid.NewGuid();
                 historicoDeValores = new List<Tuple<DateTime, decimal>>();
             }
         }
 
-        public static Variable NombreRangosAdvertenciaAlarma(string nombre, Tuple<decimal, decimal> rangoAdvertencia,
-            Tuple<decimal, decimal> rangoAlarma)
+        public static Variable NombreRangosAdvertenciaAlarma(string nombre, decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
+            decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
         {
-            return new Variable(nombre, rangoAdvertencia, rangoAlarma);
+            return new Variable(nombre, minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear);
         }
 
-        private Variable(string unNombre, Tuple<decimal, decimal> rangoAdvertencia, Tuple<decimal, decimal> rangoAlarma)
+        private Variable(string unNombre, decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
+            decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
         {
             ID = Guid.NewGuid();
             Nombre = unNombre;
-            SetValoresLimites(rangoAdvertencia, rangoAlarma);
+            SetValoresLimites(minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear);
             historicoDeValores = new List<Tuple<DateTime, decimal>>();
         }
 

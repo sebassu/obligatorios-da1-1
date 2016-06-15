@@ -43,10 +43,8 @@ namespace Dominio
             return valor1 <= valor2 && valor2 <= valor3 && valor3 <= valor4;
         }
 
-        public static bool EstaFueraDelRango(decimal valor, Tuple<decimal, decimal> rango)
+        public static bool EstaFueraDelRango(decimal valor, decimal valorMinimoValido, decimal valorMaximoValido)
         {
-            decimal valorMinimoValido = rango.Item1;
-            decimal valorMaximoValido = rango.Item2;
             return valor < valorMinimoValido || valor > valorMaximoValido;
         }
 

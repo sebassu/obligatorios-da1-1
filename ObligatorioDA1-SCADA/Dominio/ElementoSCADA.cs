@@ -76,8 +76,8 @@ namespace Dominio
             return elementoPadre == null;
         }
 
-        protected uint cantidadAlarmasActivas;
-        public virtual uint CantidadAlarmasActivas
+        protected int cantidadAlarmasActivas;
+        public virtual int CantidadAlarmasActivas
         {
             get
             {
@@ -85,12 +85,12 @@ namespace Dominio
             }
             protected set
             {
-                cantidadAdvertenciasActivas = value;
+                cantidadAlarmasActivas = value;
             }
         }
 
-        protected uint cantidadAdvertenciasActivas;
-        public virtual uint CantidadAdvertenciasActivas
+        protected int cantidadAdvertenciasActivas;
+        public virtual int CantidadAdvertenciasActivas
         {
             get
             {
@@ -111,13 +111,13 @@ namespace Dominio
             {
                 return elementoPadre;
             }
-            set
+            internal set
             {
                 elementoPadre = value;
             }
         }
 
-        internal virtual void IncrementarAlarmas(uint valor = 1)
+        internal virtual void IncrementarAlarmas(int valor = 1)
         {
             cantidadAlarmasActivas += valor;
             if (Auxiliar.NoEsNulo(elementoPadre))
@@ -126,7 +126,7 @@ namespace Dominio
             }
         }
 
-        internal virtual void DecrementarAlarmas(uint valor = 1)
+        internal virtual void DecrementarAlarmas(int valor = 1)
         {
             if (cantidadAlarmasActivas < valor)
             {
@@ -142,7 +142,7 @@ namespace Dominio
             }
         }
 
-        internal virtual void IncrementarAdvertencias(uint valor = 1)
+        internal virtual void IncrementarAdvertencias(int valor = 1)
         {
             cantidadAdvertenciasActivas += valor;
             if (Auxiliar.NoEsNulo(elementoPadre))
@@ -151,7 +151,7 @@ namespace Dominio
             }
         }
 
-        internal virtual void DecrementarAdvertencias(uint valor = 1)
+        internal virtual void DecrementarAdvertencias(int valor = 1)
         {
             if (cantidadAdvertenciasActivas < valor)
             {

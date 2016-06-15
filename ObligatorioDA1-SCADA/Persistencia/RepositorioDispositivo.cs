@@ -11,12 +11,11 @@ namespace Persistencia
 
         public override List<Dispositivo> Obtener()
         {
-            return coleccionEntidades.Include("ElementoPadre").Include("Tipo").ToList();
+            return coleccionEntidades.Include("ElementoPadre").Include("Tipo").Include("Variables").ToList();
         }
 
         public override void Insertar(Dispositivo entidad)
         {
-            contexto = new ContextoSCADA("name=ContextoSCADA");
             if (contexto.Entry(entidad.Tipo).State == EntityState.Detached)
             {
                 contexto.Tipos.Attach(entidad.Tipo);

@@ -48,7 +48,7 @@ namespace Dominio
             return new Dispositivo();
         }
 
-        internal override void IncrementarAlarmas(uint valor = 1)
+        internal override void IncrementarAlarmas(int valor = 1)
         {
             if (Auxiliar.EsListaVacia(variables))
             {
@@ -60,7 +60,7 @@ namespace Dominio
             }
         }
 
-        internal override void IncrementarAdvertencias(uint valor = 1)
+        internal override void IncrementarAdvertencias(int valor = 1)
         {
             if (Auxiliar.EsListaVacia(variables))
             {
