@@ -8,15 +8,17 @@ namespace Persistencia
 {
     public class AccesoADatosBaseDeDatos : IAccesoADatos
     {
-        private RepositorioDispositivo manejadorDispositivosPrimerNivel;
+        private RepositorioDispositivo manejadorDispositivos;
         private RepositorioTipo manejadorTipos;
-        private RepositorioPlantaIndustrial manejadorPlantasPrimerNivel;
+        private RepositorioPlantaIndustrial manejadorPlantas;
+        private RepositorioInstalacion manejadorInstalaciones;
 
         public AccesoADatosBaseDeDatos()
         {
             manejadorTipos = new RepositorioTipo(new ContextoSCADA());
-            manejadorDispositivosPrimerNivel = new RepositorioDispositivo(new ContextoSCADA());
-            manejadorPlantasPrimerNivel = new RepositorioPlantaIndustrial(new ContextoSCADA());
+            manejadorDispositivos = new RepositorioDispositivo(new ContextoSCADA());
+            manejadorPlantas = new RepositorioPlantaIndustrial(new ContextoSCADA());
+            manejadorInstalaciones = new RepositorioInstalacion(new ContextoSCADA());
         }
 
         public IList ElementosPrimarios
@@ -24,14 +26,14 @@ namespace Persistencia
             get
             {
                 List<ElementoSCADA> listaAuxiliar = new List<ElementoSCADA>();
-                foreach (PlantaIndustrial plantaIndustrialIteracion in manejadorPlantasPrimerNivel.Obtener())
+                foreach (PlantaIndustrial plantaIndustrialIteracion in manejadorPlantas.Obtener())
                 {
                     if (plantaIndustrialIteracion.EsDePrimerNivel())
                     {
                         listaAuxiliar.Add(plantaIndustrialIteracion);
                     }
                 }
-                foreach (Dispositivo dispositivoIteracion in manejadorDispositivosPrimerNivel.Obtener())
+                foreach (Dispositivo dispositivoIteracion in manejadorDispositivos.Obtener())
                 {
                     if (dispositivoIteracion.EsDePrimerNivel())
                     {
@@ -76,15 +78,15 @@ namespace Persistencia
 
         public void RegistrarElemento(ElementoSCADA unElemento)
         {
-            Action<Dispositivo> insercionDispositivo = delegate (Dispositivo d) { manejadorDispositivosPrimerNivel.Insertar(d); };
-            Action<PlantaIndustrial> insercionPlanta = delegate (PlantaIndustrial p) { manejadorPlantasPrimerNivel.Insertar(p); };
+            Action<Dispositivo> insercionDispositivo = delegate (Dispositivo d) { manejadorDispositivos.Insertar(d); };
+            Action<PlantaIndustrial> insercionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.Insertar(p); };
             EjecutarAccionEnSetQueCorresponda(unElemento, insercionDispositivo, insercionPlanta);
         }
 
         public void EliminarElemento(ElementoSCADA unElemento)
         {
-            Action<Dispositivo> eliminacionDispositivo = delegate (Dispositivo d) { manejadorDispositivosPrimerNivel.Eliminar(d); };
-            Action<PlantaIndustrial> eliminacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantasPrimerNivel.Eliminar(p); };
+            Action<Dispositivo> eliminacionDispositivo = delegate (Dispositivo d) { manejadorDispositivos.Eliminar(d); };
+            Action<PlantaIndustrial> eliminacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.Eliminar(p); };
             EjecutarAccionEnSetQueCorresponda(unElemento, eliminacionDispositivo, eliminacionPlanta);
         }
 
@@ -140,14 +142,19 @@ namespace Persistencia
 
         public void ActualizarElemento(ElementoSCADA unElemento)
         {
-            Action<Dispositivo> actualizacionDispositivo = delegate (Dispositivo d) { manejadorDispositivosPrimerNivel.Actualizar(d); };
-            Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantasPrimerNivel.Actualizar(p); };
+            Action<Dispositivo> actualizacionDispositivo = delegate (Dispositivo d) { manejadorDispositivos.Actualizar(d); };
+            Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.Actualizar(p); };
             EjecutarAccionEnSetQueCorresponda(unElemento, actualizacionDispositivo, actualizacionPlanta);
         }
 
         public void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo)
         {
-            manejadorPlantasPrimerNivel.ActualizarAgregacionDispositivo((PlantaIndustrial)unElemento, unDispositivo);
+            if (unElemento is Instalacion)
+            {
+                manejadorInstalaciones.ActualizarAgregacionDispositivo((Instalacion)unElemento, unDispositivo);
+            }
+            else
+                manejadorPlantas.ActualizarAgregacionDispositivo((PlantaIndustrial)unElemento, unDispositivo);
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
 namespace Persistencia
 {
-    internal class Repositorio<T> : IRepositorio<T>, IDisposable where T : class
+    internal class Repositorio<T> : IRepositorio<T> where T : class
     {
         protected ContextoSCADA contexto;
         protected DbSet<T> coleccionEntidades;
@@ -13,7 +12,6 @@ namespace Persistencia
         internal Repositorio(ContextoSCADA unContexto)
         {
             contexto = unContexto;
-            contexto.Configuration.LazyLoadingEnabled = true;
             coleccionEntidades = unContexto.Set<T>();
         }
 
@@ -48,12 +46,6 @@ namespace Persistencia
             coleccionEntidades.Attach(entidadAActualizar);
             contexto.Entry(entidadAActualizar).State = EntityState.Modified;
             contexto.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            contexto.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="RepositorioDispositivo.cs" />
     <Compile Include="IAccesoADatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositorioInstalacion.cs" />
     <Compile Include="RepositorioPlantaIndustrial.cs" />
     <Compile Include="RepositorioTipo.cs" />
   </ItemGroup>

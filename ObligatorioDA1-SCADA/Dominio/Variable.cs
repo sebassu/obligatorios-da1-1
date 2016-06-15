@@ -1,6 +1,5 @@
 ﻿using Excepciones;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,8 +10,8 @@ namespace Dominio
     public class Variable : IComparable
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        protected virtual Guid ID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public virtual Guid ID { get; set; }
 
         private Tuple<decimal, decimal> rangoAdvertencia;
         private Tuple<decimal, decimal> rangoAlarma;
@@ -112,11 +111,15 @@ namespace Dominio
         }
 
         private List<Tuple<DateTime, decimal>> historicoDeValores;
-        public IList Historico
+        public virtual List<Tuple<DateTime, decimal>> Historico
         {
             get
             {
-                return historicoDeValores.AsReadOnly();
+                return historicoDeValores;
+            }
+            protected set
+            {
+                historicoDeValores = value;
             }
         }
 
@@ -182,7 +185,7 @@ namespace Dominio
 
         private Componente componentePadre;
 
-        [Required]
+        [InverseProperty("Variables")]
         public Componente ComponentePadre
         {
             get

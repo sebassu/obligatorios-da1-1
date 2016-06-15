@@ -1,6 +1,5 @@
 ﻿using Excepciones;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,7 +11,7 @@ namespace Dominio
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid ID { get; set; }
+        public virtual Guid ID { get; set; }
 
         public abstract void AgregarDependencia(ElementoSCADA elementoAAgregar);
         public abstract void EliminarDependencia(ElementoSCADA elementoAEliminar);
@@ -71,6 +70,10 @@ namespace Dominio
             {
                 return cantidadAlarmasActivas;
             }
+            protected set
+            {
+                cantidadAdvertenciasActivas = value;
+            }
         }
 
         protected uint cantidadAdvertenciasActivas;
@@ -79,6 +82,10 @@ namespace Dominio
             get
             {
                 return cantidadAdvertenciasActivas;
+            }
+            protected set
+            {
+                cantidadAdvertenciasActivas = value;
             }
         }
 

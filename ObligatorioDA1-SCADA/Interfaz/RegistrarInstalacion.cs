@@ -57,19 +57,11 @@ namespace Interfaz
                     string unNombre = txtNombreInstalacion.Text;
                     if (!esParaModificar)
                     {
-                        if (elementoRecibido != null)
-                        {
-                            Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
-                            elementoRecibido.AgregarDependencia(unaInstalacion);
-                            modelo.ActualizarElemento(elementoRecibido);
-                            MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se pudo registrar la instalación", "Error", 
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
+                        elementoRecibido.AgregarDependencia(unaInstalacion);
+                        modelo.ActualizarElemento(elementoRecibido);
+                        MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
@@ -80,6 +72,10 @@ namespace Interfaz
                     AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
                 }
                 catch (ElementoSCADAExcepcion excepcion)
+                {
+                    MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (AccesoADatosExcepcion excepcion)
                 {
                     MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

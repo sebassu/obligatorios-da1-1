@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Excepciones;
+﻿using Excepciones;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -111,7 +109,6 @@ namespace Dominio
         }
 
         // A efectos del correcto funcionamiento del Entity Framework.
-        [Required]
         protected virtual Tipo TipoAuxiliar
         {
             get

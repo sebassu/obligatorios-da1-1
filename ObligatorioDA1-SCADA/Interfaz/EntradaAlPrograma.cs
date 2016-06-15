@@ -1,7 +1,6 @@
 ﻿using Persistencia;
 using System;
 using System.Windows.Forms;
-using Dominio;
 
 namespace Interfaz
 {

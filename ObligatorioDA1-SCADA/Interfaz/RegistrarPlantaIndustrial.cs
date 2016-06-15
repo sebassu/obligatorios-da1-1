@@ -97,7 +97,6 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             if (lblErrorNombre.Visible || lblErrorDireccion.Visible || lblErrorCiudad.Visible)
             {
                 MessageBox.Show("No se puede registrar la planta industrial, hay campos con errores.", "Error",
@@ -125,6 +124,7 @@ namespace Interfaz
                             PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.NombreDireccionCiudad(nombrePlantaIndustrial,
                                 direccionPlantaIndustrial, ciudadPlantaIndustrial);
                             plantaAModificar.AgregarDependencia(unaPlantaIndustrial);
+                            modelo.ActualizarElemento(plantaAModificar);
                             MessageBox.Show("La planta industrial fue registrada correctamente", "Éxito",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }

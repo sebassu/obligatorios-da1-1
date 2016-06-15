@@ -6,7 +6,6 @@ namespace Persistencia
 {
     internal class RepositorioDispositivo : Repositorio<Dispositivo>
     {
-
         internal RepositorioDispositivo(ContextoSCADA unContexto) : base(unContexto) { }
 
         public override List<Dispositivo> Obtener()
@@ -16,9 +15,8 @@ namespace Persistencia
 
         public override void Insertar(Dispositivo entidad)
         {
-            contexto = new ContextoSCADA();
             contexto.Tipos.Attach(entidad.Tipo);
-            contexto.DispositivosPrimarios.Add(entidad);
+            contexto.Dispositivos.Add(entidad);
             contexto.SaveChanges();
         }
     }

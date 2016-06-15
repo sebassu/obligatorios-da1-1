@@ -1,5 +1,4 @@
 ﻿using Excepciones;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -11,11 +10,15 @@ namespace Dominio
     public abstract class Componente : ElementoSCADA
     {
         protected List<Variable> variables;
-        public IList Variables
+        public List<Variable> Variables
         {
             get
             {
-                return variables.AsReadOnly();
+                return variables;
+            }
+            protected set
+            {
+                variables = value;
             }
         }
 
