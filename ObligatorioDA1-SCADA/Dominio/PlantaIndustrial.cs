@@ -19,7 +19,7 @@ namespace Dominio
         }
 
         private string direccion;
-        public string Direccion
+        public virtual string Direccion
         {
             get
             {
@@ -41,7 +41,7 @@ namespace Dominio
         }
 
         private string ciudad;
-        public string Ciudad
+        public virtual string Ciudad
         {
             get
             {

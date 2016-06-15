@@ -339,17 +339,20 @@ namespace Interfaz
 
         private void RecargarTreeView()
         {
-            Cursor.Current = Cursors.WaitCursor;
-            treeViewPlantaDeProduccion.BeginUpdate();
-            treeViewPlantaDeProduccion.Nodes.Clear();
-            foreach (ElementoSCADA elemento in modelo.ElementosPrimarios)
+            using (ContextoSCADA c = new ContextoSCADA("name=ContextoSCADA"))
             {
-                TreeNode nodo = ObtenerNodoDeRamaJerarquica(elemento);
-                treeViewPlantaDeProduccion.Nodes.Add(nodo);
+                Cursor.Current = Cursors.WaitCursor;
+                treeViewPlantaDeProduccion.BeginUpdate();
+                treeViewPlantaDeProduccion.Nodes.Clear();
+                foreach (ElementoSCADA elemento in modelo.ElementosPrimarios)
+                {
+                    TreeNode nodo = ObtenerNodoDeRamaJerarquica(elemento);
+                    treeViewPlantaDeProduccion.Nodes.Add(nodo);
+                }
+                Cursor.Current = Cursors.Default;
+                treeViewPlantaDeProduccion.EndUpdate();
+                ActivacionBotonesIncidente();
             }
-            Cursor.Current = Cursors.Default;
-            treeViewPlantaDeProduccion.EndUpdate();
-            ActivacionBotonesIncidente();
         }
 
         private TreeNode ObtenerNodoDeRamaJerarquica(ElementoSCADA elemento)

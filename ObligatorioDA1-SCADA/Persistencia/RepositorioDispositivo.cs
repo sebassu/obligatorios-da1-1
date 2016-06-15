@@ -1,5 +1,6 @@
 ﻿using Dominio;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Persistencia
@@ -15,7 +16,11 @@ namespace Persistencia
 
         public override void Insertar(Dispositivo entidad)
         {
-            contexto.Tipos.Attach(entidad.Tipo);
+            contexto = new ContextoSCADA("name=ContextoSCADA");
+            if (contexto.Entry(entidad.Tipo).State == EntityState.Detached)
+            {
+                contexto.Tipos.Attach(entidad.Tipo);
+            }
             contexto.Dispositivos.Add(entidad);
             contexto.SaveChanges();
         }

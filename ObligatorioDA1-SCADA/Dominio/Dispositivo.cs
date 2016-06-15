@@ -6,7 +6,7 @@ namespace Dominio
     {
         private Tipo tipoDispositivo;
 
-        public virtual Tipo Tipo
+        public override Tipo Tipo
         {
             get
             {
