@@ -11,7 +11,7 @@ namespace Persistencia
 
         public override List<Dispositivo> Obtener()
         {
-            return coleccionEntidades.Include("ElementoPadre").Include("Tipo").Include("Variables").ToList();
+            return coleccionEntidades.Include("ElementoPadre").Include("Tipo").Include("Variables.Historico").ToList();
         }
 
         public override void Insertar(Dispositivo entidad)

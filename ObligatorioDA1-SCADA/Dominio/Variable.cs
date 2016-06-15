@@ -13,12 +13,23 @@ namespace Dominio
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid ID { get; set; }
 
-        private DateTime fechaUltimaModificacion;
-        private bool fueSeteada;
         private decimal minimoAlarma;
         private decimal minimoAdvertencia;
         private decimal maximoAdvertencia;
         private decimal maximoAlarma;
+
+        private bool fueSeteada;
+        public bool FueSeteada
+        {
+            get
+            {
+                return fueSeteada;
+            }
+            protected set
+            {
+                fueSeteada = value;
+            }
+        }
 
         private string nombre;
         public virtual string Nombre
@@ -67,19 +78,37 @@ namespace Dominio
         }
 
         private decimal valorActual;
-        public decimal ValorActual
+        public virtual decimal ValorActual
         {
             get
             {
                 return valorActual;
             }
-            set
+            protected set
             {
-                RegistrarValorAnterior();
-                ValidarActivacionesRangos(value);
-                fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
-                fueSeteada = true;
+            }
+        }
+
+        public void SetValorActual(decimal unValor)
+        {
+            RegistrarValorAnterior();
+            ValidarActivacionesRangos(unValor);
+            fechaUltimaModificacion = DateTime.Now;
+            valorActual = unValor;
+            fueSeteada = true;
+        }
+
+        private DateTime fechaUltimaModificacion;
+        public virtual DateTime FechaUltimaModificacion
+        {
+            get
+            {
+                return fechaUltimaModificacion;
+            }
+            protected set
+            {
+                fechaUltimaModificacion = value;
             }
         }
 
@@ -87,7 +116,7 @@ namespace Dominio
         {
             bool fueraDeRangoAlarma = Auxiliar.EstaFueraDelRango(valorAAnalizar, minimoAlarma, maximoAlarma);
             bool fueraDeRangoAdvertencia = !fueraDeRangoAlarma && Auxiliar.EstaFueraDelRango(valorAAnalizar, minimoAdvertencia, maximoAdvertencia);
-            if (Auxiliar.NoEsNulo(componentePadre))
+            if (Auxiliar.NoEsNulo(elementoPadre))
             {
                 ValidarActivacionesDeAlarma(fueraDeRangoAlarma);
                 ValidarActivacionesDeAdvertencia(fueraDeRangoAdvertencia);
@@ -100,11 +129,11 @@ namespace Dominio
         {
             if (!alarmaActiva && nuevoValorFueraDeRango)
             {
-                componentePadre.IncrementarAlarmas();
+                elementoPadre.IncrementarAlarmas();
             }
             else if (alarmaActiva && !nuevoValorFueraDeRango)
             {
-                componentePadre.DecrementarAlarmas();
+                elementoPadre.DecrementarAlarmas();
             }
         }
 
@@ -112,22 +141,22 @@ namespace Dominio
         {
             if (!advertenciaActiva && nuevoValorFueraDeRango)
             {
-                componentePadre.IncrementarAdvertencias();
+                elementoPadre.IncrementarAdvertencias();
             }
             else if (advertenciaActiva && !nuevoValorFueraDeRango)
             {
-                componentePadre.DecrementarAdvertencias();
+                elementoPadre.DecrementarAdvertencias();
             }
         }
 
-        private List<Tuple<DateTime, decimal>> historicoDeValores;
-        public virtual List<Tuple<DateTime, decimal>> Historico
+        private List<Medicion> historicoDeValores;
+        public virtual List<Medicion> Historico
         {
             get
             {
                 return historicoDeValores;
             }
-            set
+            internal set
             {
                 historicoDeValores = value;
             }
@@ -137,13 +166,13 @@ namespace Dominio
         {
             if (fueSeteada)
             {
-                Tuple<DateTime, decimal> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
+                Medicion elementoAAgregar = Medicion.FechaValor(fechaUltimaModificacion, valorActual);
                 historicoDeValores.Add(elementoAAgregar);
-                historicoDeValores.Sort();
             }
         }
 
-        public void SetValoresLimites(decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear, decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
+        public void SetValoresLimites(decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
+            decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
         {
             if (Auxiliar.ValoresMonotonosCrecientes(minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear))
             {
@@ -151,7 +180,10 @@ namespace Dominio
                 minimoAdvertencia = minimoAdvertenciaASetear;
                 maximoAdvertencia = maximoAdvertenciaASetear;
                 maximoAlarma = maximoAlarmaASetear;
-                ValidarActivacionesRangos(valorActual);
+                if (fueSeteada)
+                {
+                    ValidarActivacionesRangos(valorActual);
+                }
             }
             else
             {
@@ -207,18 +239,18 @@ namespace Dominio
             }
         }
 
-        private Componente componentePadre;
+        private ElementoSCADA elementoPadre;
 
         [InverseProperty("Variables")]
-        public Componente ComponentePadre
+        public ElementoSCADA ElementoPadre
         {
             get
             {
-                return componentePadre;
+                return elementoPadre;
             }
             internal set
             {
-                componentePadre = value;
+                elementoPadre = value;
             }
         }
 
@@ -235,22 +267,8 @@ namespace Dominio
         }
 
         private Variable(string unNombre, decimal valorMinimo, decimal valorMaximo)
-        {
-            if (valorMinimo > valorMaximo)
-            {
-                throw new VariableExcepcion("Rango mínimo-máximo inválido.");
-            }
-            else
-            {
-                Nombre = unNombre;
-                minimoAlarma = valorMinimo;
-                minimoAdvertencia = valorMinimo;
-                maximoAdvertencia = valorMaximo;
-                maximoAlarma = valorMaximo;
-                ID = Guid.NewGuid();
-                historicoDeValores = new List<Tuple<DateTime, decimal>>();
-            }
-        }
+            : this(unNombre, valorMinimo, valorMinimo, valorMaximo, valorMaximo)
+        { }
 
         public static Variable NombreRangosAdvertenciaAlarma(string nombre, decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
             decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
@@ -261,10 +279,13 @@ namespace Dominio
         private Variable(string unNombre, decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
             decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
         {
-            ID = Guid.NewGuid();
             Nombre = unNombre;
             SetValoresLimites(minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear);
-            historicoDeValores = new List<Tuple<DateTime, decimal>>();
+            ID = Guid.NewGuid();
+            historicoDeValores = new List<Medicion>();
+            alarmaActiva = false;
+            advertenciaActiva = false;
+            fechaUltimaModificacion = DateTime.Now;
         }
 
         public override bool Equals(object obj)

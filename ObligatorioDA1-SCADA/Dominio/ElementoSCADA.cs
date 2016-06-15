@@ -18,30 +18,6 @@ namespace Dominio
         public abstract void AgregarVariable(Variable unaVariable);
         public abstract void EliminarVariable(Variable unaVariable);
 
-        public virtual Tipo Tipo
-        {
-            get
-            {
-                return null;
-            }
-            set
-            {
-                return;
-            }
-        }
-
-        public virtual List<ElementoSCADA> Dependencias
-        {
-            get
-            {
-                return new List<ElementoSCADA>();
-            }
-            protected set
-            {
-                return;
-            }
-        }
-
         protected string nombre;
         public virtual string Nombre
         {
@@ -210,5 +186,42 @@ namespace Dominio
         }
 
         public abstract override string ToString();
+
+        // A efectos del correcto funcionamiento del Entity Framework.
+        public virtual Tipo Tipo
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                return;
+            }
+        }
+
+        public virtual List<ElementoSCADA> Dependencias
+        {
+            get
+            {
+                return new List<ElementoSCADA>();
+            }
+            protected set
+            {
+                return;
+            }
+        }
+
+        public virtual List<Variable> Variables
+        {
+            get
+            {
+                return new List<Variable>();
+            }
+            protected set
+            {
+                return;
+            }
+        }
     }
 }

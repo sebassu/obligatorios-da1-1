@@ -187,7 +187,7 @@ namespace Interfaz
         private void EliminarVariableSeleccionada()
         {
             Variable unaVariable = lstVariables.SelectedItems[0].Tag as Variable;
-            Componente componentePadre = unaVariable.ComponentePadre;
+            Componente componentePadre = unaVariable.ElementoPadre as Componente;
             DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
                     + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (resultado == DialogResult.Yes)

@@ -59,7 +59,7 @@ namespace PruebasUnitarias
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", 0, 10);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 99;
+            unaVariable.SetValorActual(99);
             Assert.AreEqual(1, unaInstalacion.CantidadAlarmasActivas);
         }
 
@@ -76,7 +76,7 @@ namespace PruebasUnitarias
             instalacion1.AgregarDependencia(unDispositivo);
             unaPlantaIndustrial.AgregarDependencia(instalacion1);
             unaPlantaIndustrial.AgregarDependencia(instalacion2);
-            unaVariable.ValorActual = -300;
+            unaVariable.SetValorActual(-300);
             Assert.AreEqual(1, instalacion1.CantidadAlarmasActivas);
             Assert.AreEqual(1, unaPlantaIndustrial.CantidadAlarmasActivas);
             Assert.AreEqual(0, instalacion2.CantidadAlarmasActivas);
@@ -91,8 +91,8 @@ namespace PruebasUnitarias
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -30, 200);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 3000;
-            unaVariable.ValorActual = 50;
+            unaVariable.SetValorActual(3000);
+            unaVariable.SetValorActual(50);
             Assert.AreEqual(0, unaInstalacion.CantidadAlarmasActivas);
         }
 
@@ -105,7 +105,7 @@ namespace PruebasUnitarias
             ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
             unaPlantaIndustrial.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 30;
+            unaVariable.SetValorActual(30);
             Assert.AreEqual(1, unaPlantaIndustrial.CantidadAdvertenciasActivas);
             Assert.AreEqual(0, unaPlantaIndustrial.CantidadAlarmasActivas);
         }
@@ -123,7 +123,7 @@ namespace PruebasUnitarias
             unaPlantaIndustrial.AgregarDependencia(unDispositivo);
             unaPlantaIndustrial.AgregarDependencia(instalacion1);
             unaPlantaIndustrial.AgregarDependencia(instalacion2);
-            unaVariable.ValorActual = -15;
+            unaVariable.SetValorActual(-15);
             Assert.AreEqual(1, unaPlantaIndustrial.CantidadAdvertenciasActivas);
             Assert.AreEqual(1, unaPlantaIndustrial.CantidadAdvertenciasActivas);
             Assert.AreEqual(0, instalacion2.CantidadAdvertenciasActivas);
@@ -138,8 +138,8 @@ namespace PruebasUnitarias
             ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 30;
-            unaVariable.ValorActual = 0;
+            unaVariable.SetValorActual(30);
+            unaVariable.SetValorActual(0);
             Assert.AreEqual(0, unaInstalacion.CantidadAdvertenciasActivas);
         }
 
@@ -152,8 +152,8 @@ namespace PruebasUnitarias
             ElementoSCADA unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
             unaInstalacion.AgregarDependencia(unDispositivo);
-            unaVariable.ValorActual = 30;
-            unaVariable.ValorActual = -300;
+            unaVariable.SetValorActual(30);
+            unaVariable.SetValorActual(-300);
             Assert.AreEqual(1, unaInstalacion.CantidadAlarmasActivas);
             Assert.AreEqual(0, unaInstalacion.CantidadAdvertenciasActivas);
         }

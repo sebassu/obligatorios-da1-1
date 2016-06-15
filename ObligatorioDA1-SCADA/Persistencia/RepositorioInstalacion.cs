@@ -11,25 +11,12 @@ namespace Persistencia
 
         public override List<Instalacion> Obtener()
         {
-            return coleccionEntidades.Include("Dependencias.Tipo").Include("Variables.Historico").ToList();
+            return coleccionEntidades.Include("ElementoPadre").Include("Dependencias.Tipo")
+                .Include("Dependencias.Variables.Historico").Include("Variables.Historico").ToList();
         }
 
         public void ActualizarAgregacionDispositivo(Instalacion entidad, Dispositivo unDispositivo)
         {
-            /*
-            if (contexto.Entry(entidad.ElementoPadre).State == EntityState.Detached)
-            {
-                PlantaIndustrial aux = entidad.ElementoPadre as PlantaIndustrial;
-                if (Auxiliar.NoEsNulo(aux))
-                {
-                    contexto.Plantas.Attach(aux);
-                }
-                else {
-                    contexto.Instalaciones.Attach((Instalacion)entidad.ElementoPadre);
-                }
-                contexto.Entry(entidad.ElementoPadre).State = EntityState.Modified;
-            }
-            contexto.Dispositivos.Add(unDispositivo);*/
             contexto.Tipos.Attach(unDispositivo.Tipo);
             coleccionEntidades.Attach(entidad);
             contexto.Entry(entidad).State = EntityState.Modified;

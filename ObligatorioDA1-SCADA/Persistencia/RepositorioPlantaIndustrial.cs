@@ -10,7 +10,7 @@ namespace Persistencia
 
         public override List<PlantaIndustrial> Obtener()
         {
-            return coleccionEntidades.Include("Dependencias.Tipo").ToList();
+            return coleccionEntidades.Include("Dependencias.Tipo").Include("Dependencias.Variables.Historico").ToList();
         }
 
         public void ActualizarAgregacionDispositivo(PlantaIndustrial entidad, Dispositivo unDispositivo)

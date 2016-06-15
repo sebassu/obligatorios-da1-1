@@ -12,7 +12,6 @@ namespace Persistencia
         public DbSet<Tipo> Tipos { get; set; }
         public DbSet<Variable> Variables { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
-        public DbSet<Componente> Componentes { get; set; }
 
         public ContextoSCADA(string nombreConexion) : base(nombreConexion)
         {
@@ -29,19 +28,11 @@ namespace Persistencia
             SaveChanges();
             Tipos.RemoveRange(Tipos);
             SaveChanges();
-            Tipos.RemoveRange(Tipos);
-            SaveChanges();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Entity<Tipo>().ToTable("Tipo");
-            modelBuilder.Entity<Dispositivo>().ToTable("Dispositivo");
-            modelBuilder.Entity<Instalacion>().ToTable("Instalacion");
-            modelBuilder.Entity<PlantaIndustrial>().ToTable("PlantaIndustrial");
-            modelBuilder.Entity<Variable>().ToTable("Variable");
-            modelBuilder.Entity<Tipo>().ToTable("Tipos");
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -10,7 +10,7 @@ namespace Dominio
     public abstract class Componente : ElementoSCADA
     {
         protected List<Variable> variables;
-        public List<Variable> Variables
+        public override List<Variable> Variables
         {
             get
             {
@@ -28,7 +28,7 @@ namespace Dominio
             {
                 variables.Add(unaVariable);
                 variables.Sort();
-                unaVariable.ComponentePadre = this;
+                unaVariable.ElementoPadre = this;
             }
             else
             {

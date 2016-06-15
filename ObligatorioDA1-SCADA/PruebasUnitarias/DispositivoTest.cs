@@ -86,7 +86,7 @@ namespace PruebasUnitarias
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
-            unaVariable.ValorActual = 5;
+            unaVariable.SetValorActual(5);
             Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, 0);
         }
 
@@ -97,7 +97,7 @@ namespace PruebasUnitarias
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
-            unaVariable.ValorActual = 100;
+            unaVariable.SetValorActual(100);
             Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, 1);
         }
 
@@ -108,7 +108,7 @@ namespace PruebasUnitarias
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
             Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
-            unaVariable.ValorActual = -100;
+            unaVariable.SetValorActual(-100);
             Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, 1);
         }
 

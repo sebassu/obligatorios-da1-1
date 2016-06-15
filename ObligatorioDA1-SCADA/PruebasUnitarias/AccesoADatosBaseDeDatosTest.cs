@@ -22,7 +22,7 @@ namespace PruebasUnitarias
         [TestCleanup]
         public void BorrarBaseDeDatos()
         {
-            unSistema.EliminarDatos("name=ContextoSCADAPrueba");
+            unSistema.EliminarDatos();
         }
 
         [TestMethod]

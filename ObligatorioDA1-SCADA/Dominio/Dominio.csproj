@@ -60,6 +60,7 @@
     <Compile Include="ManejadorDependenciasConLista.cs" />
     <Compile Include="PlantaIndustrial.cs" />
     <Compile Include="Tipo.cs" />
+    <Compile Include="Medicion.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>
   <ItemGroup>
