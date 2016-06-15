@@ -15,7 +15,7 @@ namespace Interfaz
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             IAccesoADatos modelo = new AccesoADatosBaseDeDatos();
-            //modelo.EliminarDatos();
+            modelo.EliminarDatos();
             Application.Run(new VentanaPrincipal(modelo));
         }
     }

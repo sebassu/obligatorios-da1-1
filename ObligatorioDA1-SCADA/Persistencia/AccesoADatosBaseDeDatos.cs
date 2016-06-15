@@ -80,17 +80,20 @@ namespace Persistencia
         {
             Action<Dispositivo> insercionDispositivo = delegate (Dispositivo d) { manejadorDispositivos.Insertar(d); };
             Action<PlantaIndustrial> insercionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.Insertar(p); };
-            EjecutarAccionEnSetQueCorresponda(unElemento, insercionDispositivo, insercionPlanta);
+            Action<Instalacion> insercionInstalacion = delegate (Instalacion i) { manejadorInstalaciones.Insertar(i); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, insercionDispositivo, insercionPlanta, insercionInstalacion);
         }
 
         public void EliminarElemento(ElementoSCADA unElemento)
         {
             Action<Dispositivo> eliminacionDispositivo = delegate (Dispositivo d) { manejadorDispositivos.Eliminar(d); };
             Action<PlantaIndustrial> eliminacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.Eliminar(p); };
-            EjecutarAccionEnSetQueCorresponda(unElemento, eliminacionDispositivo, eliminacionPlanta);
+            Action<Instalacion> eliminacionInstalacion = delegate (Instalacion i) { manejadorInstalaciones.Eliminar(i); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, eliminacionDispositivo, eliminacionPlanta, eliminacionInstalacion);
         }
 
-        private void EjecutarAccionEnSetQueCorresponda(ElementoSCADA unElemento, Action<Dispositivo> accionAEjecutarParaDispositivo, Action<PlantaIndustrial> accionAEjecutarParaPlanta)
+        private void EjecutarAccionEnSetQueCorresponda(ElementoSCADA unElemento, Action<Dispositivo> accionAEjecutarParaDispositivo,
+                    Action<PlantaIndustrial> accionAEjecutarParaPlanta, Action<Instalacion> accionAEjecutarParaInstalacion)
         {
             if (Auxiliar.NoEsNulo(unElemento))
             {
@@ -99,16 +102,23 @@ namespace Persistencia
                 {
                     accionAEjecutarParaDispositivo(elementoCasteadoADispositivo);
                 }
-                else
-                {
-                    PlantaIndustrial elementoCasteadoAPlanta = unElemento as PlantaIndustrial;
-                    if (Auxiliar.NoEsNulo(elementoCasteadoAPlanta))
+                else {
+                    Instalacion elementoCasteadoAInstalacion = unElemento as Instalacion;
+                    if (Auxiliar.NoEsNulo(elementoCasteadoAInstalacion))
                     {
-                        accionAEjecutarParaPlanta(elementoCasteadoAPlanta);
+                        accionAEjecutarParaInstalacion(elementoCasteadoAInstalacion);
                     }
                     else
                     {
-                        throw new AccesoADatosExcepcion("Tipo de elemento no soportado.");
+                        PlantaIndustrial elementoCasteadoAPlanta = unElemento as PlantaIndustrial;
+                        if (Auxiliar.NoEsNulo(elementoCasteadoAPlanta))
+                        {
+                            accionAEjecutarParaPlanta(elementoCasteadoAPlanta);
+                        }
+                        else
+                        {
+                            throw new AccesoADatosExcepcion("Tipo de elemento no soportado.");
+                        }
                     }
                 }
             }
@@ -144,7 +154,8 @@ namespace Persistencia
         {
             Action<Dispositivo> actualizacionDispositivo = delegate (Dispositivo d) { manejadorDispositivos.Actualizar(d); };
             Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.Actualizar(p); };
-            EjecutarAccionEnSetQueCorresponda(unElemento, actualizacionDispositivo, actualizacionPlanta);
+            Action<Instalacion> actualizacionInstalacion = delegate (Instalacion i) { manejadorInstalaciones.Actualizar(i); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, actualizacionDispositivo, actualizacionPlanta, actualizacionInstalacion);
         }
 
         public void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo)

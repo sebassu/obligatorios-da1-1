@@ -18,17 +18,17 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
+            Tipos.RemoveRange(Tipos);
             Dispositivos.RemoveRange(Dispositivos);
             Plantas.RemoveRange(Plantas);
             Instalaciones.RemoveRange(Instalaciones);
-            Tipos.RemoveRange(Tipos);
             SaveChanges();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
