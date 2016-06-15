@@ -9,11 +9,13 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, Incidente unIncidente/*en realidad se recibe un ElementoSCADA*/)
+        private ElementoSCADA unElemento;
+        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA unElemento)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            this.unElemento = unElemento;
             RecargarListaIncidentes();
         }
 
@@ -30,6 +32,31 @@ namespace Interfaz
         private void btnVolverMenuPrincipal_Click(object sender, EventArgs e)
         {
             AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+        }
+
+        private void dateTime_Leave(object sender, EventArgs e)
+        {
+            if (dateTimeFechaDesde.Value > dateTimeFechaHasta.Value)
+            {
+                lblErrorFiltrado.Show();
+            }
+            else
+            {
+                lblErrorFiltrado.Hide();
+            }
+        }
+
+        private void btnAplicarFiltrado_Click(object sender, EventArgs e)
+        {
+            if (lblErrorFiltrado.Visible)
+            {
+                MessageBox.Show("No se puede aplicar el filtrado, la fecha desde debe ser menor a la fecha hasta", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //Aplico el filtrado
+            }
         }
     }
 }

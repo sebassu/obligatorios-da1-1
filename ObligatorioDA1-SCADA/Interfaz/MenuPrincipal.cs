@@ -18,6 +18,7 @@ namespace Interfaz
             this.modelo = modelo;
             this.panelSistema = panelSistema;
             RecargarTodoComponente();
+            //ActivacionBotonesIncidente();
         }
 
         private void btnAgregarInstalacion_Click(object sender, EventArgs e)
@@ -269,6 +270,7 @@ namespace Interfaz
             ActivacionBotonesVariables();
             ActivacionBotonesTipo();
             ActivacionBotonAgregarVariable();
+            ActivacionBotonesIncidente();
         }
 
         private void ActivacionBotonAgregarVariable()
@@ -525,14 +527,48 @@ namespace Interfaz
 
         private void btnAgregarIncidente_Click(object sender, EventArgs e)
         {
+            VerificarElementoSCADASeleccionado(AbrirRegistrarIncidente);
+        }
+
+        private void AbrirRegistrarIncidente()
+        {
+            ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new RegistrarIncidente(modelo, panelSistema));
+            panelSistema.Controls.Add(new RegistrarIncidente(modelo, panelSistema, elementoSeleccionado));
         }
 
         private void btnVerIncidentes_Click(object sender, EventArgs e)
         {
+            VerificarElementoSCADASeleccionado(AbrirPanelVerIncidentes);
+        }
+
+        private void VerificarElementoSCADASeleccionado(Action unaAccionARealizar)
+        {
+            TreeNode elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            if (Auxiliar.NoEsNulo(elementoSeleccionado))
+            {
+                if (elementoSeleccionado.Tag is ElementoSCADA)
+                {
+                    unaAccionARealizar.Invoke();
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AbrirPanelVerIncidentes()
+        {
+            ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, null));
+            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, elementoSeleccionado));
         }
 
         private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)

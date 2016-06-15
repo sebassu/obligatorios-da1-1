@@ -1,0 +1,6 @@
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Excepciones\bin\Debug\Excepciones.dll.config
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Excepciones\bin\Debug\Excepciones.dll
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Excepciones\bin\Debug\Excepciones.pdb
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Excepciones\obj\Debug\Excepciones.csprojResolveAssemblyReference.cache
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Excepciones\obj\Debug\Excepciones.dll
+C:\Users\Juan\Documents\ORT\5º Semestre\Diseño de Aplicaciones 1\Obligatorio1\ObligatorioDA1-SCADA\Excepciones\obj\Debug\Excepciones.pdb

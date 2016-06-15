@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+using System.IO;
 
 namespace Persistencia
 {
@@ -22,7 +23,15 @@ namespace Persistencia
 
         public override void Insertar(Incidente entidad)
         {
-            throw new NotImplementedException();
+            string fecha = entidad.Fecha.ToString();
+            string nivelGravedad = entidad.NivelGravedad.ToString();
+
+            string[] lineas = new string[] { entidad.Descripcion, fecha, nivelGravedad };
+
+            System.IO.StreamWriter file = new System.IO.StreamWriter("c:\\test.txt");
+            file.WriteLine(lineas);
+
+            file.Close();
         }
 
         public override List<Incidente> Obtener()

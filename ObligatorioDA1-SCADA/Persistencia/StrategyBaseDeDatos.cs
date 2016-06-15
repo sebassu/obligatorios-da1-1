@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dominio;
 using Persistencia;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Persistencia
 {
@@ -20,22 +21,26 @@ namespace Persistencia
         }
         public override void Actualizar(Incidente entidadAActualizar)
         {
-            throw new NotImplementedException();
+            manejadorIncidentes.Attach(entidadAActualizar);
+            contexto.Entry(entidadAActualizar).State = System.Data.Entity.EntityState.Modified;
+            contexto.SaveChanges();
         }
 
         public override void Eliminar(Incidente entidadAEliminar)
         {
-            throw new NotImplementedException();
+            manejadorIncidentes.Remove(entidadAEliminar);
+            contexto.SaveChanges();
         }
 
         public override void Insertar(Incidente entidad)
         {
-
+            manejadorIncidentes.Add(entidad);
+            contexto.SaveChanges();
         }
 
         public override List<Incidente> Obtener()
         {
-            throw new NotImplementedException();
+            return manejadorIncidentes.ToList();
         }
     }
 }
