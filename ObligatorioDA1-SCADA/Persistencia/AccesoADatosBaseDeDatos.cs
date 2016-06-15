@@ -13,6 +13,8 @@ namespace Persistencia
         private RepositorioPlantaIndustrial manejadorPlantas;
         private RepositorioInstalacion manejadorInstalaciones;
 
+        private static readonly Action<Dispositivo> accionErronea = delegate (Dispositivo d) { throw new AccesoADatosExcepcion("Accion no soportada"); };
+
         public AccesoADatosBaseDeDatos()
         {
             manejadorTipos = new RepositorioTipo(new ContextoSCADA("name=ContextoSCADA"));
@@ -160,12 +162,9 @@ namespace Persistencia
 
         public void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo)
         {
-            if (unElemento is Instalacion)
-            {
-                manejadorInstalaciones.ActualizarAgregacionDispositivo((Instalacion)unElemento, unDispositivo);
-            }
-            else
-                manejadorPlantas.ActualizarAgregacionDispositivo((PlantaIndustrial)unElemento, unDispositivo);
+            Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.ActualizarAgregacionDispositivo(p, unDispositivo); };
+            Action<Instalacion> actualizacionInstalacion = delegate (Instalacion i) { manejadorInstalaciones.ActualizarAgregacionDispositivo(i, unDispositivo); };
+            EjecutarAccionEnSetQueCorresponda(unElemento, accionErronea, actualizacionPlanta, actualizacionInstalacion);
         }
     }
 }

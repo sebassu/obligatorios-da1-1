@@ -122,6 +122,7 @@
             // chkEnUso
             // 
             this.chkEnUso.AutoSize = true;
+            this.chkEnUso.Enabled = false;
             this.chkEnUso.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkEnUso.Location = new System.Drawing.Point(155, 283);
             this.chkEnUso.Name = "chkEnUso";

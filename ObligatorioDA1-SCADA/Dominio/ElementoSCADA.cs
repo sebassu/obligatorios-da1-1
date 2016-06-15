@@ -18,6 +18,18 @@ namespace Dominio
         public abstract void AgregarVariable(Variable unaVariable);
         public abstract void EliminarVariable(Variable unaVariable);
 
+        public virtual Tipo Tipo
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                return;
+            }
+        }
+
         public virtual List<ElementoSCADA> Dependencias
         {
             get
@@ -50,6 +62,7 @@ namespace Dominio
             }
         }
 
+        [NotMapped]
         public virtual bool EnUso
         {
             get
