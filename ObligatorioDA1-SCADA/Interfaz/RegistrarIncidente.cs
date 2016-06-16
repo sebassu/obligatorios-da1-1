@@ -58,18 +58,27 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            try
-            {
 
-                byte gravedad = (byte)numValor.Value;
-                DateTime fecha = monthCalendar.SelectionStart;
-                string descripcion = txtDescripcion.Text;
-                Incidente incidenteAAgregar = Incidente.IDElementoDescripcionFechaGravedad(elementoAsociado.ID, descripcion, fecha, gravedad);
-                modelo.RegistrarIncidente(incidenteAAgregar);
-            }
-            catch (IncidenteExcepcion ex)
+            if (lblErrorDescripcion.Visible || lblErrorFecha.Visible)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Aún quedan campos sin completar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    byte gravedad = (byte)numValor.Value;
+                    DateTime fecha = monthCalendar.SelectionStart;
+                    string descripcion = txtDescripcion.Text;
+                    Incidente incidenteAAgregar = Incidente.IDElementoDescripcionFechaGravedad(elementoAsociado.ID, descripcion, fecha, gravedad);
+                    modelo.RegistrarIncidente(incidenteAAgregar);
+                    MessageBox.Show("El incidente ha sido registrado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (IncidenteExcepcion ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
