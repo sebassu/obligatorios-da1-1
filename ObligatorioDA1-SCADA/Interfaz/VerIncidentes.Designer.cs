@@ -95,38 +95,6 @@
             this.lstIncidentes.Size = new System.Drawing.Size(768, 345);
             this.lstIncidentes.TabIndex = 40;
             // 
-            // colDescripcion
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colDescripcion.DefaultCellStyle = dataGridViewCellStyle7;
-            this.colDescripcion.FillWeight = 149.1292F;
-            this.colDescripcion.HeaderText = "Descripción";
-            this.colDescripcion.MinimumWidth = 429;
-            this.colDescripcion.Name = "colDescripcion";
-            this.colDescripcion.ReadOnly = true;
-            this.colDescripcion.Width = 429;
-            // 
-            // colFecha
-            // 
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colFecha.DefaultCellStyle = dataGridViewCellStyle8;
-            this.colFecha.FillWeight = 50.87117F;
-            this.colFecha.HeaderText = "Fecha";
-            this.colFecha.MinimumWidth = 146;
-            this.colFecha.Name = "colFecha";
-            this.colFecha.ReadOnly = true;
-            this.colFecha.Width = 146;
-            // 
-            // colNivelGravedad
-            // 
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colNivelGravedad.DefaultCellStyle = dataGridViewCellStyle9;
-            this.colNivelGravedad.HeaderText = "Nivel de gravedad";
-            this.colNivelGravedad.Name = "colNivelGravedad";
-            this.colNivelGravedad.ReadOnly = true;
-            this.colNivelGravedad.Width = 151;
-            // 
             // btnVolverMenuPrincipal
             // 
             this.btnVolverMenuPrincipal.Location = new System.Drawing.Point(831, 509);
@@ -278,96 +246,25 @@
             this.colDescripcion.ReadOnly = true;
             this.colDescripcion.Width = 325;
             // 
-            // fechaHasta
+            // colFecha
             // 
-            this.fechaHasta.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fechaHasta.Location = new System.Drawing.Point(581, 95);
-            this.fechaHasta.Name = "fechaHasta";
-            this.fechaHasta.Size = new System.Drawing.Size(218, 21);
-            this.fechaHasta.TabIndex = 42;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colFecha.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colFecha.FillWeight = 50.87117F;
+            this.colFecha.HeaderText = "Fecha";
+            this.colFecha.MinimumWidth = 146;
+            this.colFecha.Name = "colFecha";
+            this.colFecha.ReadOnly = true;
+            this.colFecha.Width = 146;
             // 
-            // nivelDeGravedad
+            // colNivelGravedad
             // 
-            this.nivelDeGravedad.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nivelDeGravedad.Location = new System.Drawing.Point(243, 129);
-            this.nivelDeGravedad.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nivelDeGravedad.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nivelDeGravedad.Name = "nivelDeGravedad";
-            this.nivelDeGravedad.Size = new System.Drawing.Size(56, 26);
-            this.nivelDeGravedad.TabIndex = 43;
-            this.nivelDeGravedad.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // btnAplicarFiltros
-            // 
-            this.btnAplicarFiltros.Location = new System.Drawing.Point(831, 105);
-            this.btnAplicarFiltros.Name = "btnAplicarFiltros";
-            this.btnAplicarFiltros.Size = new System.Drawing.Size(75, 38);
-            this.btnAplicarFiltros.TabIndex = 44;
-            this.btnAplicarFiltros.Text = "Aplicar Filtros";
-            this.btnAplicarFiltros.UseVisualStyleBackColor = true;
-            this.btnAplicarFiltros.Click += new System.EventHandler(this.btnAplicarFiltros_Click);
-            // 
-            // lblFiltrado
-            // 
-            this.lblFiltrado.AutoSize = true;
-            this.lblFiltrado.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFiltrado.Location = new System.Drawing.Point(90, 57);
-            this.lblFiltrado.Name = "lblFiltrado";
-            this.lblFiltrado.Size = new System.Drawing.Size(158, 21);
-            this.lblFiltrado.TabIndex = 46;
-            this.lblFiltrado.Text = "Opciones de Filtrado";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(90, 95);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 21);
-            this.label1.TabIndex = 47;
-            this.label1.Text = "Fecha:";
-            // 
-            // lblNivelGravedad
-            // 
-            this.lblNivelGravedad.AutoSize = true;
-            this.lblNivelGravedad.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNivelGravedad.Location = new System.Drawing.Point(90, 131);
-            this.lblNivelGravedad.Name = "lblNivelGravedad";
-            this.lblNivelGravedad.Size = new System.Drawing.Size(142, 21);
-            this.lblNivelGravedad.TabIndex = 48;
-            this.lblNivelGravedad.Text = "Nivel de Gravedad:";
-            // 
-            // lblFechaDesde
-            // 
-            this.lblFechaDesde.AutoSize = true;
-            this.lblFechaDesde.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaDesde.Location = new System.Drawing.Point(239, 95);
-            this.lblFechaDesde.Name = "lblFechaDesde";
-            this.lblFechaDesde.Size = new System.Drawing.Size(55, 21);
-            this.lblFechaDesde.TabIndex = 49;
-            this.lblFechaDesde.Text = "Desde";
-            // 
-            // lblFechaHasta
-            // 
-            this.lblFechaHasta.AutoSize = true;
-            this.lblFechaHasta.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaHasta.Location = new System.Drawing.Point(523, 95);
-            this.lblFechaHasta.Name = "lblFechaHasta";
-            this.lblFechaHasta.Size = new System.Drawing.Size(52, 21);
-            this.lblFechaHasta.TabIndex = 50;
-            this.lblFechaHasta.Text = "Hasta";
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colNivelGravedad.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colNivelGravedad.HeaderText = "Nivel de gravedad";
+            this.colNivelGravedad.Name = "colNivelGravedad";
+            this.colNivelGravedad.ReadOnly = true;
+            this.colNivelGravedad.Width = 151;
             // 
             // ElementoPadre
             // 
@@ -399,6 +296,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numNivelGravedad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

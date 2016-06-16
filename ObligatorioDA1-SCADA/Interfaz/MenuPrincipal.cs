@@ -483,28 +483,6 @@ namespace Interfaz
 
         private void btnVerIncidentes_Click(object sender, EventArgs e)
         {
-            VerificarElementoSeleccionado(AbrirIncidentes);
-        }
-
-        private void VerificarElementoSeleccionado(Action unaAccionARealizar)
-        {
-            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
-            if (Auxiliar.NoEsNulo(seleccionado))
-            {
-                unaAccionARealizar.Invoke();
-            }
-            else
-            {
-                MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void AbrirIncidentes()
-        {
-            IElementoSCADA unElemento = treeViewPlantaDeProduccion.SelectedNode.Tag as IElementoSCADA;
-            panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, unElemento));
             VerificarElementoSCADASeleccionado(AbrirPanelVerIncidentes);
         }
 
@@ -570,73 +548,6 @@ namespace Interfaz
             panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaIndustrialPadre, false));
         }
 
-        private void treeViewPlantaDeProduccion_ItemDrag(object sender, ItemDragEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                DoDragDrop(e.Item, DragDropEffects.Move);
-            }
-        }
-
-        private void treeViewPlantaDeProduccion_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = e.AllowedEffect;
-        }
-
-        private void treeViewPlantaDeProduccion_DragOver(object sender, DragEventArgs e)
-        {
-            Point targetPoint = treeViewPlantaDeProduccion.PointToClient(new Point(e.X, e.Y));
-            treeViewPlantaDeProduccion.SelectedNode = treeViewPlantaDeProduccion.GetNodeAt(targetPoint);
-        }
-
-        private void treeViewPlantaDeProduccion_DragDrop(object sender, DragEventArgs e)
-        {
-            Point puntoLlegada = treeViewPlantaDeProduccion.PointToClient(new Point(e.X, e.Y));
-            TreeNode nodoDestino = treeViewPlantaDeProduccion.GetNodeAt(puntoLlegada);
-            TreeNode nodoArrastrado = (TreeNode)e.Data.GetData(typeof(TreeNode));
-            if (Auxiliar.NoEsNulo(nodoArrastrado) && !nodoArrastrado.Equals(nodoDestino))
-            {
-                try
-                {
-                    if (e.Effect == DragDropEffects.Move)
-                    {
-                        IElementoSCADA elementoArrastrado = nodoArrastrado.Tag as IElementoSCADA;
-                        EliminarPadre(elementoArrastrado);
-                        if (Auxiliar.NoEsNulo(nodoDestino))
-                        {
-                            IElementoSCADA elementoDestino = nodoDestino.Tag as IElementoSCADA;
-                            elementoDestino.AgregarDependencia(elementoArrastrado);
-                            nodoArrastrado.Remove();
-                            nodoDestino.Nodes.Add(nodoArrastrado);
-                        }
-                        else
-                        {
-                            //Agregar Dependencia en AccesoADatos.
-                        }
-                    }
-                    nodoDestino.Expand();
-                    RecargarTableroDeControl();
-                }
-                catch (ElementoSCADAExcepcion excepcionProducida)
-                {
-                    MessageBox.Show(excepcionProducida.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void EliminarPadre(IElementoSCADA elementoArrastrado)
-        {
-            IElementoSCADA padreArrastrado = elementoArrastrado.ElementoPadre;
-            if (Auxiliar.NoEsNulo(padreArrastrado))
-            {
-                padreArrastrado.EliminarDependencia(elementoArrastrado);
-            }
-            else
-            {
-                // Eliminar Dependencia de AccesoADatos.
-            }
-        }
-
         private void btnEliminarPlantaIndustrial_Click(object sender, EventArgs e)
         {
             VerificarPlantaIndustrialSeleccionada(EliminarPlantaIndustrialSeleccionada);
@@ -693,8 +604,7 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar otra función de \"Modificar\" para la selección realizada", "Error", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Es necesario utilizar otra función de \"Modificar\" para la selección realizada");
             }
         }
 
