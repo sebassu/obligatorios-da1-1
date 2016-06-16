@@ -58,7 +58,6 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             if (lblErrorDescripcion.Visible || lblErrorFecha.Visible)
             {
                 MessageBox.Show("Aún quedan campos sin completar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

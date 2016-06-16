@@ -242,21 +242,13 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void RegistrarIncidenteTest1()
+        public void RegistrarIncidenteBaseDeDatosTest()
         {
             PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             Incidente unIncidente = Incidente.IDElementoDescripcionFechaGravedad(unaPlanta.ID, "Descripción", DateTime.Now, 5);
             unSistema.RegistrarIncidente(unIncidente);
             CollectionAssert.Contains(unSistema.Incidentes, unIncidente);
             Assert.AreEqual(unaPlanta.ID, unIncidente.IdElementoAsociado);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(AccesoADatosExcepcion))]
-        public void RegistrarIncidenteTest2()
-        {
-            Incidente unIncidente = Incidente.IncidenteInvalido();
-            unSistema.RegistrarIncidente(unIncidente);
         }
     }
 }

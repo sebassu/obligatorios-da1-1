@@ -61,7 +61,6 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetDireccionPlantaIndustrialTest6Invalida()
         {
             PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();
@@ -109,7 +108,6 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetCiudadPlantaIndustrialTest6Inválida()
         {
             PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.PlantaIndustrialInvalida();

@@ -90,7 +90,6 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(TipoExcepcion))]
         public void SetDescripcionTipoTest5()
         {
             Tipo unTipo = Tipo.TipoInvalido();

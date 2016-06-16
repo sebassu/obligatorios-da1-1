@@ -14,8 +14,7 @@ namespace PruebasUnitarias
         public void IncidenteInvalidoTest()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
-            Assert.AreEqual(default(DateTime), unIncidente.Fecha);
-            Assert.AreEqual(0, unIncidente.NivelGravedad);
+            Assert.AreEqual(1, unIncidente.NivelGravedad);
             Assert.AreEqual("Descripción inválida.", unIncidente.Descripcion);
         }
 

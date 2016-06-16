@@ -1,7 +1,6 @@
 ﻿using Dominio;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Runtime.CompilerServices;
 
 namespace Persistencia
 {
@@ -23,17 +22,15 @@ namespace Persistencia
 
         public void EliminarDatos()
         {
-            Plantas.RemoveRange(Plantas);
-            Instalaciones.RemoveRange(Instalaciones);
-            Dispositivos.RemoveRange(Dispositivos);
-            SaveChanges();
-            Tipos.RemoveRange(Tipos);
-            SaveChanges();
+            Database.ExecuteSqlCommand("delete from ElementoSCADA");
+            Database.ExecuteSqlCommand("delete from Tipo");
+            Database.ExecuteSqlCommand("delete from Incidente");
+            Database.ExecuteSqlCommand("delete from Variable");
+            Database.ExecuteSqlCommand("delete from Medicion");
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PlantaIndustrial>().HasMany(p => p.Dependencias).WithOptional().WillCascadeOnDelete(true);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }

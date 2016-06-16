@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.lblMenuPrincipal = new System.Windows.Forms.Label();
-            this.treeViewPlantaDeProduccion = new System.Windows.Forms.TreeView();
+            this.treeViewProduccion = new System.Windows.Forms.TreeView();
             this.lblPlantaDeProduccion = new System.Windows.Forms.Label();
             this.lblTableroControl = new System.Windows.Forms.Label();
             this.lblVariables = new System.Windows.Forms.Label();
@@ -77,18 +77,18 @@
             this.lblMenuPrincipal.TabIndex = 2;
             this.lblMenuPrincipal.Text = "Menú Principal";
             // 
-            // treeViewPlantaDeProduccion
+            // treeViewProduccion
             // 
-            this.treeViewPlantaDeProduccion.AllowDrop = true;
-            this.treeViewPlantaDeProduccion.BackColor = System.Drawing.SystemColors.Window;
-            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeViewPlantaDeProduccion.HideSelection = false;
-            this.treeViewPlantaDeProduccion.Location = new System.Drawing.Point(22, 110);
-            this.treeViewPlantaDeProduccion.Name = "treeViewPlantaDeProduccion";
-            this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 426);
-            this.treeViewPlantaDeProduccion.TabIndex = 3;
-            this.treeViewPlantaDeProduccion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPlantaDeProduccion_AfterSelect);
-            this.treeViewPlantaDeProduccion.DoubleClick += new System.EventHandler(this.treeViewPlantaDeProduccion_DoubleClick);
+            this.treeViewProduccion.AllowDrop = true;
+            this.treeViewProduccion.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewProduccion.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeViewProduccion.HideSelection = false;
+            this.treeViewProduccion.Location = new System.Drawing.Point(22, 110);
+            this.treeViewProduccion.Name = "treeViewProduccion";
+            this.treeViewProduccion.Size = new System.Drawing.Size(225, 426);
+            this.treeViewProduccion.TabIndex = 3;
+            this.treeViewProduccion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPlantaDeProduccion_AfterSelect);
+            this.treeViewProduccion.DoubleClick += new System.EventHandler(this.treeViewPlantaDeProduccion_DoubleClick);
             // 
             // lblPlantaDeProduccion
             // 
@@ -238,7 +238,7 @@
             this.lstTableroControl.ReadOnly = true;
             this.lstTableroControl.Size = new System.Drawing.Size(266, 184);
             this.lstTableroControl.TabIndex = 29;
-            this.lstTableroControl.Text = "";
+            this.lstTableroControl.Text = "Sin datos a mostrar.";
             // 
             // btnMenuOpcionesTipo
             // 
@@ -448,7 +448,7 @@
             this.Controls.Add(this.lblVariables);
             this.Controls.Add(this.lblTableroControl);
             this.Controls.Add(this.lblPlantaDeProduccion);
-            this.Controls.Add(this.treeViewPlantaDeProduccion);
+            this.Controls.Add(this.treeViewProduccion);
             this.Controls.Add(this.lblMenuPrincipal);
             this.Controls.Add(this.menuOpciones);
             this.Name = "MenuPrincipal";
@@ -463,7 +463,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblMenuPrincipal;
-        private System.Windows.Forms.TreeView treeViewPlantaDeProduccion;
+        private System.Windows.Forms.TreeView treeViewProduccion;
         private System.Windows.Forms.Label lblPlantaDeProduccion;
         private System.Windows.Forms.Label lblTableroControl;
         private System.Windows.Forms.Label lblVariables;

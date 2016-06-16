@@ -11,7 +11,6 @@ namespace Dominio
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid ID { get; set; }
 
-        [ForeignKey("ElementoSCADA")]
         private Guid idElementoAsociado;
         public virtual Guid IdElementoAsociado
         {
@@ -85,8 +84,8 @@ namespace Dominio
 
         private Incidente()
         {
-            fecha = default(DateTime);
-            nivelGravedad = 0;
+            fecha = DateTime.Now;
+            nivelGravedad = 1;
             descripcion = "Descripción inválida.";
         }
 

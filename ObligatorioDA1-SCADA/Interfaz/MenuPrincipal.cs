@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Drawing;
 using Excepciones;
-using System.Linq;
 using System.Collections;
 
 namespace Interfaz
@@ -39,7 +38,7 @@ namespace Interfaz
 
         private void VerificarElementoSeleccionado(Action unaAccionARealizar)
         {
-            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            TreeNode seleccionado = treeViewProduccion.SelectedNode;
             if (Auxiliar.NoEsNulo(seleccionado))
             {
                 if (seleccionado.Tag is PlantaIndustrial || seleccionado.Tag is Instalacion)
@@ -61,14 +60,14 @@ namespace Interfaz
 
         private void AbrirPanelRegistrarInstalacion()
         {
-            ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
+            ElementoSCADA elementoSeleccionado = treeViewProduccion.SelectedNode.Tag as ElementoSCADA;
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarInstalacion(modelo, panelSistema, elementoSeleccionado, false));
         }
 
         private void VerificarComponenteSeleccionado(Action unaAccionARealizar)
         {
-            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            TreeNode seleccionado = treeViewProduccion.SelectedNode;
             if (Auxiliar.NoEsNulo(seleccionado))
             {
                 unaAccionARealizar.Invoke();
@@ -87,7 +86,8 @@ namespace Interfaz
 
         private void AbrirPanelEditarInstalacion()
         {
-            Instalacion instalacionAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+            object seleccion = treeViewProduccion.SelectedNode.Tag;
+            Instalacion instalacionAModificar = seleccion as Instalacion;
             if (Auxiliar.NoEsNulo(instalacionAModificar))
             {
                 panelSistema.Controls.Clear();
@@ -95,8 +95,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Modificar\" al elemento que corresponda para la selección realizada",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar " + seleccion.GetType().Name +
+                    "\" para la selección realizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -105,9 +105,9 @@ namespace Interfaz
             if (modelo.ExistenTipos())
             {
                 ElementoSCADA unElemento = null;
-                if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+                if (Auxiliar.NoEsNulo(treeViewProduccion.SelectedNode))
                 {
-                    object objetoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag;
+                    object objetoSeleccionado = treeViewProduccion.SelectedNode.Tag;
                     unElemento = objetoSeleccionado as Instalacion;
                     if (unElemento == null)
                     {
@@ -132,17 +132,17 @@ namespace Interfaz
 
         private void btnAgregarVariable_Click(object sender, EventArgs e)
         {
-            TreeNode nodoSeleccionado = treeViewPlantaDeProduccion.SelectedNode;
-            if (Auxiliar.NoEsNulo(nodoSeleccionado) && treeViewPlantaDeProduccion.SelectedNode.Tag is Componente)
+            TreeNode nodoSeleccionado = treeViewProduccion.SelectedNode;
+            if (Auxiliar.NoEsNulo(nodoSeleccionado) && treeViewProduccion.SelectedNode.Tag is Componente)
             {
-                Componente unComponente = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
+                Componente unComponente = treeViewProduccion.SelectedNode.Tag as Componente;
                 panelSistema.Controls.Clear();
                 panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema, unComponente));
             }
             else
             {
                 MessageBox.Show("Debe seleccionar un Componente para acceder a esta funcionalidad", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -175,7 +175,7 @@ namespace Interfaz
             else
             {
                 MessageBox.Show("Debe seleccionar una Variable para acceder a esta funcionalidad", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -266,7 +266,7 @@ namespace Interfaz
 
         private void ActivacionBotonesIncidente()
         {
-            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            if (Auxiliar.NoEsNulo(treeViewProduccion.SelectedNode))
             {
                 btnAgregarIncidente.Enabled = true;
                 btnAgregarIncidente.BackColor = Color.Chartreuse;
@@ -278,21 +278,21 @@ namespace Interfaz
             }
         }
 
-
         private void RecargarTreeView()
         {
             using (ContextoSCADA c = new ContextoSCADA("name=ContextoSCADA"))
             {
                 Cursor.Current = Cursors.WaitCursor;
-                treeViewPlantaDeProduccion.BeginUpdate();
-                treeViewPlantaDeProduccion.Nodes.Clear();
+                treeViewProduccion.BeginUpdate();
+                treeViewProduccion.Nodes.Clear();
                 foreach (ElementoSCADA elemento in modelo.ElementosPrimarios)
                 {
                     TreeNode nodo = ObtenerNodoDeRamaJerarquica(elemento);
-                    treeViewPlantaDeProduccion.Nodes.Add(nodo);
+                    treeViewProduccion.Nodes.Add(nodo);
                 }
                 Cursor.Current = Cursors.Default;
-                treeViewPlantaDeProduccion.EndUpdate();
+                treeViewProduccion.EndUpdate();
+                treeViewProduccion.ExpandAll();
                 ActivacionBotonesIncidente();
             }
         }
@@ -321,7 +321,7 @@ namespace Interfaz
         private void treeViewPlantaDeProduccion_AfterSelect(object sender, TreeViewEventArgs e)
         {
             lstVariables.Clear();
-            ElementoSCADA componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
+            ElementoSCADA componenteSeleccionado = treeViewProduccion.SelectedNode.Tag as ElementoSCADA;
             if (Auxiliar.NoEsNulo(componenteSeleccionado))
             {
                 ActivacionBotonesIncidente();
@@ -342,9 +342,9 @@ namespace Interfaz
 
         private void RecargarTableroDeControl()
         {
-            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            if (Auxiliar.NoEsNulo(treeViewProduccion.SelectedNode))
             {
-                PlantaIndustrial elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+                PlantaIndustrial elementoSeleccionado = treeViewProduccion.SelectedNode.Tag as PlantaIndustrial;
                 if (Auxiliar.NoEsNulo(elementoSeleccionado))
                 {
                     lstTableroControl.Clear();
@@ -357,7 +357,7 @@ namespace Interfaz
                     }
                     else
                     {
-                        lstTableroControl.AppendText("Sin datos a mostrar.");
+                        lstTableroControl.AppendText("\nSin datos a mostrar.");
                     }
                 }
             }
@@ -390,9 +390,10 @@ namespace Interfaz
 
         private void AbrirPanelEditarDispositivo()
         {
-            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            if (Auxiliar.NoEsNulo(treeViewProduccion.SelectedNode))
             {
-                Dispositivo dispositivoAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Dispositivo;
+                object seleccion = treeViewProduccion.SelectedNode.Tag;
+                Dispositivo dispositivoAModificar = seleccion as Dispositivo;
                 if (Auxiliar.NoEsNulo(dispositivoAModificar))
                 {
                     panelSistema.Controls.Clear();
@@ -400,8 +401,8 @@ namespace Interfaz
                 }
                 else
                 {
-                    MessageBox.Show("Es necesario utilizar la función de \"Modificar\" de otro tipo para la selección realizada",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Es necesario utilizar la función de \"Modificar " + seleccion.GetType().Name +
+                        "\" para la selección realizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -413,22 +414,35 @@ namespace Interfaz
 
         private void EliminarInstalacionSeleccionada()
         {
-            Instalacion instalacionAEliminar = treeViewPlantaDeProduccion.SelectedNode.Tag as Instalacion;
+            object seleccion = treeViewProduccion.SelectedNode.Tag;
+            Instalacion instalacionAEliminar = seleccion as Instalacion;
             if (Auxiliar.NoEsNulo(instalacionAEliminar))
+            {
+                EliminarElemento(instalacionAEliminar);
+            }
+            else
+            {
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar" + seleccion.GetType().Name
+                    + "\"  para la selección realizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void EliminarElemento(ElementoSCADA elementoAEliminar)
+        {
+            if (Auxiliar.EsListaVacia(elementoAEliminar.Dependencias))
             {
                 DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
                         + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    modelo.EliminarElemento(instalacionAEliminar);
-                    treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
+                    modelo.EliminarElemento(elementoAEliminar);
+                    treeViewProduccion.Nodes.Remove(treeViewProduccion.SelectedNode);
                     RecargarTableroDeControl();
                 }
             }
-            else
-            {
-                MessageBox.Show("Es necesario utilizar la función de \"Eliminar\" al elemento que corresponda para la selección realizada",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else {
+                MessageBox.Show("No es posible eliminar al elemento seleccionado: posee dependencias.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -439,22 +453,16 @@ namespace Interfaz
 
         private void EliminarDispositivoSeleccionado()
         {
-            Dispositivo dispositivoAEliminar = treeViewPlantaDeProduccion.SelectedNode.Tag as Dispositivo;
+            object seleccion = treeViewProduccion.SelectedNode.Tag;
+            Dispositivo dispositivoAEliminar = seleccion as Dispositivo;
             if (Auxiliar.NoEsNulo(dispositivoAEliminar))
             {
-                DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
-                        + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (resultado == DialogResult.Yes)
-                {
-                    modelo.EliminarElemento(dispositivoAEliminar);
-                    treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
-                    RecargarTableroDeControl();
-                }
+                EliminarElemento(dispositivoAEliminar);
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar otra función de eliminado para la selección realizada",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar" + seleccion.GetType().Name
+                    + "\"  para la selección realizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -476,7 +484,7 @@ namespace Interfaz
 
         private void AbrirRegistrarIncidente()
         {
-            ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
+            ElementoSCADA elementoSeleccionado = treeViewProduccion.SelectedNode.Tag as ElementoSCADA;
             panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarIncidente(modelo, panelSistema, elementoSeleccionado));
         }
@@ -488,7 +496,7 @@ namespace Interfaz
 
         private void VerificarElementoSCADASeleccionado(Action unaAccionARealizar)
         {
-            TreeNode elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            TreeNode elementoSeleccionado = treeViewProduccion.SelectedNode;
             if (Auxiliar.NoEsNulo(elementoSeleccionado))
             {
                 if (elementoSeleccionado.Tag is ElementoSCADA)
@@ -503,8 +511,8 @@ namespace Interfaz
 
         private void AbrirPanelVerIncidentes()
         {
-            ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
-            DialogResult resultado = MessageBox.Show("¿Desea vizualizar los incidentes de manera recursiva?",
+            ElementoSCADA elementoSeleccionado = treeViewProduccion.SelectedNode.Tag as ElementoSCADA;
+            DialogResult resultado = MessageBox.Show("¿Desea visualizar los incidentes de manera recursiva?",
                         "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             IList incidentesAVisualizar = FiltrarPorDependencias(modelo.Incidentes, elementoSeleccionado, resultado == DialogResult.Yes);
             panelSistema.Controls.Clear();
@@ -539,7 +547,7 @@ namespace Interfaz
         private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)
         {
             PlantaIndustrial plantaIndustrialPadre = null;
-            TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
+            TreeNode seleccionado = treeViewProduccion.SelectedNode;
             if (Auxiliar.NoEsNulo(seleccionado))
             {
                 plantaIndustrialPadre = seleccionado.Tag as PlantaIndustrial;
@@ -555,9 +563,9 @@ namespace Interfaz
 
         private void VerificarPlantaIndustrialSeleccionada(Action unaAccionARealizar)
         {
-            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            if (Auxiliar.NoEsNulo(treeViewProduccion.SelectedNode))
             {
-                PlantaIndustrial plantaSeleccionada = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+                PlantaIndustrial plantaSeleccionada = treeViewProduccion.SelectedNode.Tag as PlantaIndustrial;
                 if (Auxiliar.NoEsNulo(plantaSeleccionada))
                 {
                     unaAccionARealizar.Invoke();
@@ -570,22 +578,16 @@ namespace Interfaz
 
         private void EliminarPlantaIndustrialSeleccionada()
         {
-            PlantaIndustrial plantaIndustrialAEliminar = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+            object seleccion = treeViewProduccion.SelectedNode.Tag;
+            PlantaIndustrial plantaIndustrialAEliminar = seleccion as PlantaIndustrial;
             if (Auxiliar.NoEsNulo(plantaIndustrialAEliminar))
             {
-                DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
-                        + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (resultado == DialogResult.Yes)
-                {
-                    modelo.EliminarElemento(plantaIndustrialAEliminar);
-                    treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
-                    RecargarTableroDeControl();
-                }
+                EliminarElemento(plantaIndustrialAEliminar);
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar otra función de eliminado para la selección realizada",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar " + seleccion.GetType().Name
+                    + "\"  para la selección realizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -596,7 +598,8 @@ namespace Interfaz
 
         private void AbrirPanelEditarPlantaIndustrial()
         {
-            PlantaIndustrial plantaAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+            object seleccion = treeViewProduccion.SelectedNode.Tag;
+            PlantaIndustrial plantaAModificar = seleccion as PlantaIndustrial;
             if (Auxiliar.NoEsNulo(plantaAModificar))
             {
                 panelSistema.Controls.Clear();
@@ -604,7 +607,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar otra función de \"Modificar\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar " + seleccion.GetType().Name +
+                    "\" para la selección realizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -630,9 +634,9 @@ namespace Interfaz
 
         private void treeViewPlantaDeProduccion_DoubleClick(object sender, EventArgs e)
         {
-            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            if (Auxiliar.NoEsNulo(treeViewProduccion.SelectedNode))
             {
-                ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
+                ElementoSCADA elementoSeleccionado = treeViewProduccion.SelectedNode.Tag as ElementoSCADA;
                 if (Auxiliar.NoEsNulo(elementoSeleccionado))
                 {
                     MostrarDrillDownVariables(elementoSeleccionado);

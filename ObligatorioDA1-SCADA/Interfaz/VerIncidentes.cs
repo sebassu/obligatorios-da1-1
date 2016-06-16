@@ -12,6 +12,7 @@ namespace Interfaz
         private Panel panelSistema;
         private ElementoSCADA unElemento;
         private IList incidentesAVisualizar;
+
         public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA unElemento, IList incidentesAVisualizar)
         {
             InitializeComponent();
@@ -19,15 +20,18 @@ namespace Interfaz
             this.panelSistema = panelSistema;
             this.unElemento = unElemento;
             this.incidentesAVisualizar = incidentesAVisualizar;
+            foreach (Tuple<string, Incidente> incidente in incidentesAVisualizar)
+            {
+                RecargarListaIncidentes(incidente, true);
+            }
         }
 
-        private void RecargarListaIncidentes(Tuple<string, Incidente> incidenteAVisualizar)
+        private void RecargarListaIncidentes(Tuple<string, Incidente> incidenteAVisualizar, bool noAplicarFiltrado = false)
         {
-            if (incidenteAVisualizar.Item2.Fecha >= dateTimeFechaDesde.Value.Date &&
+            if (noAplicarFiltrado || (incidenteAVisualizar.Item2.Fecha >= dateTimeFechaDesde.Value.Date &&
                 incidenteAVisualizar.Item2.Fecha <= dateTimeFechaHasta.Value.Date &&
-                incidenteAVisualizar.Item2.NivelGravedad == numNivelGravedad.Value)
+                incidenteAVisualizar.Item2.NivelGravedad == numNivelGravedad.Value))
             {
-
                 lstIncidentes.Rows.Add(incidenteAVisualizar.Item2.Descripcion, incidenteAVisualizar.Item2.Fecha.Day + "/" +
                     incidenteAVisualizar.Item2.Fecha.Month + "/" + incidenteAVisualizar.Item2.Fecha.Year,
                     incidenteAVisualizar.Item2.NivelGravedad, incidenteAVisualizar.Item1);
@@ -56,7 +60,7 @@ namespace Interfaz
             lstIncidentes.Rows.Clear();
             if (lblErrorFiltrado.Visible)
             {
-                MessageBox.Show("No se puede aplicar el filtrado, la fecha desde debe ser menor a la fecha hasta", "Error",
+                MessageBox.Show("No se puede aplicar el filtrado, la fecha \"desde\" debe ser menor a la fecha \"hasta\"", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
@@ -66,7 +70,6 @@ namespace Interfaz
                     RecargarListaIncidentes(incidente);
                 }
             }
-
         }
     }
 }

@@ -56,18 +56,11 @@ namespace Interfaz
                 {
                     if (Auxiliar.NoEsNulo(tipoAModificar))
                     {
-                        tipoAModificar.Nombre = txtNombre.Text;
-                        tipoAModificar.Descripcion = txtDescripcion.Text;
-                        modelo.ActualizarTipo(tipoAModificar);
-                        MessageBox.Show("El tipo de dispositivo fue modificado correctamente.", "Éxito",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ModificarTipo();
                     }
                     else
                     {
-                        Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
-                        modelo.RegistrarTipo(unTipo);
-                        MessageBox.Show("El tipo de dispositivo fue registrado correctamente.", "Éxito",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RegistrarTipo();
                     }
                     panelSistema.Controls.Clear();
                     panelSistema.Controls.Add(new MenuOpcionesTipoDispositivo(modelo, panelSistema));
@@ -81,6 +74,43 @@ namespace Interfaz
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void RegistrarTipo()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
+            modelo.RegistrarTipo(unTipo);
+            MessageBox.Show("El tipo de dispositivo fue registrado correctamente.", "Éxito",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ModificarTipo()
+        {
+            string nombreASetear = txtNombre.Text;
+            if (ValidarNoSeRepiteNombre(nombreASetear))
+            {
+                tipoAModificar.Nombre = txtNombre.Text;
+                tipoAModificar.Descripcion = txtDescripcion.Text;
+                modelo.ActualizarTipo(tipoAModificar);
+                MessageBox.Show("El tipo de dispositivo fue modificado correctamente.", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else {
+                MessageBox.Show("El nuevo nombre ingresado para el tipo ya fue registrado",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool ValidarNoSeRepiteNombre(string nombreASetear)
+        {
+            foreach (Tipo tipoIteracion in modelo.Tipos)
+            {
+                if (tipoIteracion.Nombre.Equals(nombreASetear))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)

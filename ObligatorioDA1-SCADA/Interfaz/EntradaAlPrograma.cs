@@ -42,7 +42,7 @@ namespace Interfaz
                     Console.WriteLine("Error al deserializar");
                 }
             }
-            sistemaActual.ManejadorIncidentes = new EstrategiaBaseDeDatos();
+            sistemaActual.ManejadorIncidentes = new EstrategiaBaseDeDatos("name=ContextoSCADA");
         }
 
         private static void SerializarEstrategia(object sender, EventArgs e, IAccesoADatos sistemaActual)

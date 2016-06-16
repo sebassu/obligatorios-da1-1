@@ -36,7 +36,7 @@ namespace Interfaz
                 cbxTipoDispositivo.SelectedIndex = 0;
                 txtNombreDispositivo.Text = "";
             }
-            chkEnUso.Checked = Auxiliar.NoEsNulo(unDispositivo) && unDispositivo.EnUso;
+            chkEnUso.Checked = Auxiliar.NoEsNulo(unElemento) || (Auxiliar.NoEsNulo(unDispositivo) && unDispositivo.EnUso);
             lblErrorNombre.Hide();
         }
 
