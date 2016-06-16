@@ -73,6 +73,7 @@ namespace Interfaz
                     Incidente incidenteAAgregar = Incidente.IDElementoDescripcionFechaGravedad(elementoAsociado.ID, descripcion, fecha, gravedad);
                     modelo.RegistrarIncidente(incidenteAAgregar);
                     MessageBox.Show("El incidente ha sido registrado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
 
                 }
                 catch (IncidenteExcepcion ex)

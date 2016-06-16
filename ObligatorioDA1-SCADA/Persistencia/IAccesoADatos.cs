@@ -17,7 +17,7 @@ namespace Persistencia
         bool ExistenTipos();
         void RegistrarIncidente(Incidente incidenteARegistrar);
         void ActualizarTipo(Tipo unTipo);
-        void ActualizarElemento(ElementoSCADA unElemento);
+        void ActualizarElemento(ElementoSCADA unElemento, bool afectaATodaLaJerarquia = false);
         void ActualizarVariable(Variable unaVariable);
         void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo);
         void CambiarEstrategia(int codigoEstrategia);

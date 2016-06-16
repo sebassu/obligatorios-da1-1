@@ -31,7 +31,7 @@ namespace Interfaz
             {
                 unaVariable.SetValorActual(numValor.Value);
                 modelo.ActualizarVariable(unaVariable);
-                modelo.ActualizarElemento(unaVariable.ElementoPadre);
+                modelo.ActualizarElemento(unaVariable.ElementoPadre, true);
                 MessageBox.Show("Valor agregado correctamente", "Éxito", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
