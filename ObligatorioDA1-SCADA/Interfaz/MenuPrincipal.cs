@@ -18,6 +18,7 @@ namespace Interfaz
             this.modelo = modelo;
             this.panelSistema = panelSistema;
             RecargarTodoComponente();
+            cbxMetodoGuardadoIncidentes.SelectedItem = "Base de Datos";
             //ActivacionBotonesIncidente();
         }
 
@@ -84,16 +85,13 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Modificar Dispositivo\" para la selección realizada", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar\" al elemento que corresponda para la selección realizada",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         private void btnAgregarDispositivo_Click(object sender, EventArgs e)
         {
-            /*****************************************/
-            //Evaluar Cambiar a interfaz.
-            /*****************************************/
             if (modelo.ExistenTipos())
             {
                 ElementoSCADA unElemento = null;
@@ -418,8 +416,8 @@ namespace Interfaz
                 }
                 else
                 {
-                    MessageBox.Show("Es necesario utilizar la función de \"Modificar Instalación\" para la selección realizada", "Errpr",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar\" al elemento que corresponda para la selección realizada",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -445,7 +443,7 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Dispositivo\" para la selección realizada",
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar\" al elemento que corresponda para la selección realizada",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
