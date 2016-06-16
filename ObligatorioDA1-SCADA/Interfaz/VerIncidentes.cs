@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Dominio;
 using Persistencia;
+using System.Collections;
 
 namespace Interfaz
 {
@@ -10,22 +11,26 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private ElementoSCADA unElemento;
-        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA unElemento)
+        private IList incidentesAVisualizar;
+        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA unElemento, IList incidentesAVisualizar)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
             this.unElemento = unElemento;
-            RecargarListaIncidentes();
+            this.incidentesAVisualizar = incidentesAVisualizar;
         }
 
-        private void RecargarListaIncidentes()
+        private void RecargarListaIncidentes(Tuple<string, Incidente> incidenteAVisualizar)
         {
-            //Prueba
-            lstTiposDispositivos.Rows.Clear();
-            foreach (Tipo tipo in modelo.Tipos)
+            if (incidenteAVisualizar.Item2.Fecha >= dateTimeFechaDesde.Value.Date &&
+                incidenteAVisualizar.Item2.Fecha <= dateTimeFechaHasta.Value.Date &&
+                incidenteAVisualizar.Item2.NivelGravedad == numNivelGravedad.Value)
             {
-                lstTiposDispositivos.Rows.Add(tipo, tipo.Descripcion, 1);
+
+                lstIncidentes.Rows.Add(incidenteAVisualizar.Item2.Descripcion, incidenteAVisualizar.Item2.Fecha.Day + "/" +
+                    incidenteAVisualizar.Item2.Fecha.Month + "/" + incidenteAVisualizar.Item2.Fecha.Year,
+                    incidenteAVisualizar.Item2.NivelGravedad, incidenteAVisualizar.Item1);
             }
         }
 
@@ -48,6 +53,7 @@ namespace Interfaz
 
         private void btnAplicarFiltrado_Click(object sender, EventArgs e)
         {
+            lstIncidentes.Rows.Clear();
             if (lblErrorFiltrado.Visible)
             {
                 MessageBox.Show("No se puede aplicar el filtrado, la fecha desde debe ser menor a la fecha hasta", "Error",
@@ -55,8 +61,12 @@ namespace Interfaz
             }
             else
             {
-                //Aplico el filtrado
+                foreach (Tuple<string, Incidente> incidente in incidentesAVisualizar)
+                {
+                    RecargarListaIncidentes(incidente);
+                }
             }
+
         }
     }
 }

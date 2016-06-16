@@ -166,12 +166,16 @@ namespace Persistencia
             manejadorTipos.Actualizar(unTipo);
         }
 
-        public void ActualizarElemento(ElementoSCADA unElemento)
+        public void ActualizarElemento(ElementoSCADA unElemento, bool afectaATodaLaJerarquia = false)
         {
             Action<Dispositivo> actualizacionDispositivo = delegate (Dispositivo d) { manejadorDispositivos.Actualizar(d); };
             Action<PlantaIndustrial> actualizacionPlanta = delegate (PlantaIndustrial p) { manejadorPlantas.Actualizar(p); };
             Action<Instalacion> actualizacionInstalacion = delegate (Instalacion i) { manejadorInstalaciones.Actualizar(i); };
             EjecutarAccionEnSetQueCorresponda(unElemento, actualizacionDispositivo, actualizacionPlanta, actualizacionInstalacion);
+            if (afectaATodaLaJerarquia && Auxiliar.NoEsNulo(unElemento.ElementoPadre))
+            {
+                ActualizarElemento(unElemento.ElementoPadre);
+            }
         }
 
         public void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo)

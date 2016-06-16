@@ -4,6 +4,8 @@ using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Collections;
 
 namespace Interfaz
 {
@@ -381,12 +383,12 @@ namespace Interfaz
             if (elemento.CantidadAlarmasActivas > 0)
             {
                 lstTableroControl.SelectionBackColor = Color.Red;
-                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarmas\n");
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarma(s)\n");
             }
             else if (elemento.CantidadAdvertenciasActivas > 0)
             {
                 lstTableroControl.SelectionBackColor = Color.Yellow;
-                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAdvertenciasActivas + " Advertencias\n");
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAdvertenciasActivas + " Advertencia(s)\n");
             }
             else
             {
@@ -516,8 +518,36 @@ namespace Interfaz
         private void AbrirPanelVerIncidentes()
         {
             ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
+            DialogResult resultado = MessageBox.Show("¿Desea vizualizar los incidentes de manera recursiva?",
+                        "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            IList incidentesAVisualizar = FiltrarPorDependencias(modelo.Incidentes, elementoSeleccionado, resultado == DialogResult.Yes);
             panelSistema.Controls.Clear();
-            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, elementoSeleccionado));
+            panelSistema.Controls.Add(new VerIncidentes(modelo, panelSistema, elementoSeleccionado, incidentesAVisualizar));
+        }
+
+        private IList FiltrarPorDependencias(IList incidentes, ElementoSCADA elementoActual, bool esRecursivo)
+        {
+            List<Tuple<string, Incidente>> retorno = new List<Tuple<string, Incidente>>();
+            FiltrarPorDependenciasAux(incidentes, elementoActual, esRecursivo, retorno);
+            return retorno.AsReadOnly();
+        }
+
+        private void FiltrarPorDependenciasAux(IList incidentes, ElementoSCADA elementoActual, bool esRecursivo, List<Tuple<string, Incidente>> retorno)
+        {
+            foreach (Incidente incidenteIteracion in incidentes)
+            {
+                if (incidenteIteracion.IdElementoAsociado.Equals(elementoActual.ID))
+                {
+                    retorno.Add(Tuple.Create(elementoActual.ToString(), incidenteIteracion));
+                }
+            }
+            if (esRecursivo)
+            {
+                foreach (ElementoSCADA elementoIteracion in elementoActual.Dependencias)
+                {
+                    FiltrarPorDependenciasAux(incidentes, elementoIteracion, esRecursivo, retorno);
+                }
+            }
         }
 
         private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)

@@ -33,10 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.lstTiposDispositivos = new System.Windows.Forms.DataGridView();
-            this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNivelGravedad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lstIncidentes = new System.Windows.Forms.DataGridView();
             this.btnVolverMenuPrincipal = new System.Windows.Forms.Button();
             this.lblIncidentes = new System.Windows.Forms.Label();
             this.lblFiltrado = new System.Windows.Forms.Label();
@@ -49,18 +46,22 @@
             this.dateTimeFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.btnAplicarFiltrado = new System.Windows.Forms.Button();
             this.lblErrorFiltrado = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.lstTiposDispositivos)).BeginInit();
+            this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNivelGravedad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ElementoPadre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.lstIncidentes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNivelGravedad)).BeginInit();
             this.SuspendLayout();
             // 
-            // lstTiposDispositivos
+            // lstIncidentes
             // 
-            this.lstTiposDispositivos.AllowUserToAddRows = false;
-            this.lstTiposDispositivos.AllowUserToDeleteRows = false;
-            this.lstTiposDispositivos.AllowUserToResizeColumns = false;
-            this.lstTiposDispositivos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.lstTiposDispositivos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.lstTiposDispositivos.BackgroundColor = System.Drawing.Color.Gray;
+            this.lstIncidentes.AllowUserToAddRows = false;
+            this.lstIncidentes.AllowUserToDeleteRows = false;
+            this.lstIncidentes.AllowUserToResizeColumns = false;
+            this.lstIncidentes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.lstIncidentes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.lstIncidentes.BackgroundColor = System.Drawing.Color.Gray;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -68,12 +69,13 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.lstTiposDispositivos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.lstTiposDispositivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.lstTiposDispositivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.lstIncidentes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.lstIncidentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.lstIncidentes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colDescripcion,
             this.colFecha,
-            this.colNivelGravedad});
+            this.colNivelGravedad,
+            this.ElementoPadre});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -81,49 +83,17 @@
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.lstTiposDispositivos.DefaultCellStyle = dataGridViewCellStyle5;
-            this.lstTiposDispositivos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.lstTiposDispositivos.Location = new System.Drawing.Point(90, 147);
-            this.lstTiposDispositivos.MultiSelect = false;
-            this.lstTiposDispositivos.Name = "lstTiposDispositivos";
-            this.lstTiposDispositivos.ReadOnly = true;
-            this.lstTiposDispositivos.RowHeadersWidth = 40;
-            this.lstTiposDispositivos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.lstTiposDispositivos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.lstTiposDispositivos.Size = new System.Drawing.Size(768, 345);
-            this.lstTiposDispositivos.TabIndex = 40;
-            // 
-            // colDescripcion
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colDescripcion.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colDescripcion.FillWeight = 149.1292F;
-            this.colDescripcion.HeaderText = "Descripción";
-            this.colDescripcion.MinimumWidth = 429;
-            this.colDescripcion.Name = "colDescripcion";
-            this.colDescripcion.ReadOnly = true;
-            this.colDescripcion.Width = 429;
-            // 
-            // colFecha
-            // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colFecha.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colFecha.FillWeight = 50.87117F;
-            this.colFecha.HeaderText = "Fecha";
-            this.colFecha.MinimumWidth = 146;
-            this.colFecha.Name = "colFecha";
-            this.colFecha.ReadOnly = true;
-            this.colFecha.Width = 146;
-            // 
-            // colNivelGravedad
-            // 
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colNivelGravedad.DefaultCellStyle = dataGridViewCellStyle4;
-            this.colNivelGravedad.HeaderText = "Nivel de gravedad";
-            this.colNivelGravedad.Name = "colNivelGravedad";
-            this.colNivelGravedad.ReadOnly = true;
-            this.colNivelGravedad.Width = 151;
+            this.lstIncidentes.DefaultCellStyle = dataGridViewCellStyle5;
+            this.lstIncidentes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.lstIncidentes.Location = new System.Drawing.Point(90, 147);
+            this.lstIncidentes.MultiSelect = false;
+            this.lstIncidentes.Name = "lstIncidentes";
+            this.lstIncidentes.ReadOnly = true;
+            this.lstIncidentes.RowHeadersWidth = 40;
+            this.lstIncidentes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.lstIncidentes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.lstIncidentes.Size = new System.Drawing.Size(768, 345);
+            this.lstIncidentes.TabIndex = 40;
             // 
             // btnVolverMenuPrincipal
             // 
@@ -264,6 +234,45 @@
             this.lblErrorFiltrado.Text = "La fecha \"desde\" debe ser mayor a la fecha \"hasta\"";
             this.lblErrorFiltrado.Visible = false;
             // 
+            // colDescripcion
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colDescripcion.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colDescripcion.FillWeight = 149.1292F;
+            this.colDescripcion.HeaderText = "Descripción";
+            this.colDescripcion.MinimumWidth = 325;
+            this.colDescripcion.Name = "colDescripcion";
+            this.colDescripcion.ReadOnly = true;
+            this.colDescripcion.Width = 325;
+            // 
+            // colFecha
+            // 
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colFecha.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colFecha.FillWeight = 50.87117F;
+            this.colFecha.HeaderText = "Fecha";
+            this.colFecha.MinimumWidth = 146;
+            this.colFecha.Name = "colFecha";
+            this.colFecha.ReadOnly = true;
+            this.colFecha.Width = 146;
+            // 
+            // colNivelGravedad
+            // 
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colNivelGravedad.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colNivelGravedad.HeaderText = "Nivel de gravedad";
+            this.colNivelGravedad.Name = "colNivelGravedad";
+            this.colNivelGravedad.ReadOnly = true;
+            this.colNivelGravedad.Width = 151;
+            // 
+            // ElementoPadre
+            // 
+            this.ElementoPadre.HeaderText = "Elemento";
+            this.ElementoPadre.Name = "ElementoPadre";
+            this.ElementoPadre.ReadOnly = true;
+            this.ElementoPadre.Width = 104;
+            // 
             // VerIncidentes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,12 +287,12 @@
             this.Controls.Add(this.lblNivelDeGravedad);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.lblFiltrado);
-            this.Controls.Add(this.lstTiposDispositivos);
+            this.Controls.Add(this.lstIncidentes);
             this.Controls.Add(this.btnVolverMenuPrincipal);
             this.Controls.Add(this.lblIncidentes);
             this.Name = "VerIncidentes";
             this.Size = new System.Drawing.Size(972, 571);
-            ((System.ComponentModel.ISupportInitialize)(this.lstTiposDispositivos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lstIncidentes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNivelGravedad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -292,12 +301,9 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView lstTiposDispositivos;
+        private System.Windows.Forms.DataGridView lstIncidentes;
         private System.Windows.Forms.Button btnVolverMenuPrincipal;
         private System.Windows.Forms.Label lblIncidentes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNivelGravedad;
         private System.Windows.Forms.Label lblFiltrado;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label lblNivelDeGravedad;
@@ -308,5 +314,9 @@
         private System.Windows.Forms.DateTimePicker dateTimeFechaHasta;
         private System.Windows.Forms.Button btnAplicarFiltrado;
         private System.Windows.Forms.Label lblErrorFiltrado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNivelGravedad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ElementoPadre;
     }
 }
