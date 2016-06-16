@@ -4,6 +4,7 @@ using Excepciones;
 using Persistencia;
 using System.Diagnostics.CodeAnalysis;
 using System;
+using System.IO;
 
 namespace PruebasUnitarias
 {
@@ -247,8 +248,31 @@ namespace PruebasUnitarias
             PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
             Incidente unIncidente = Incidente.IDElementoDescripcionFechaGravedad(unaPlanta.ID, "Descripción", DateTime.Now, 5);
             unSistema.RegistrarIncidente(unIncidente);
-            CollectionAssert.Contains(unSistema.Incidentes, unIncidente);
+            Assert.AreEqual(1, unSistema.Incidentes.Count);
+            Incidente incidenteRecuperado = unSistema.Incidentes[0] as Incidente;
             Assert.AreEqual(unaPlanta.ID, unIncidente.IdElementoAsociado);
+            Assert.AreEqual(unIncidente.IdElementoAsociado, incidenteRecuperado.IdElementoAsociado);
+            Assert.AreEqual(unIncidente.NivelGravedad, incidenteRecuperado.NivelGravedad);
+            Assert.AreEqual(unIncidente.Descripcion, incidenteRecuperado.Descripcion);
+        }
+
+        [TestMethod]
+        public void RegistrarIncidenteArchivoDeTextoTest()
+        {
+            unSistema.CambiarEstrategia(1);
+            PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
+            Incidente unIncidente = Incidente.IDElementoDescripcionFechaGravedad(unaPlanta.ID, "Descripción", DateTime.Now, 5);
+            unSistema.RegistrarIncidente(unIncidente);
+            Assert.AreEqual(1, unSistema.Incidentes.Count);
+            Incidente incidenteRecuperado = unSistema.Incidentes[0] as Incidente;
+            Assert.AreEqual(unaPlanta.ID, unIncidente.IdElementoAsociado);
+            Assert.AreEqual(unIncidente.IdElementoAsociado, incidenteRecuperado.IdElementoAsociado);
+            Assert.AreEqual(unIncidente.NivelGravedad, incidenteRecuperado.NivelGravedad);
+            Assert.AreEqual(unIncidente.Descripcion, incidenteRecuperado.Descripcion);
+            if (File.Exists("HistorialIncidentes.txt"))
+            {
+                File.Delete("HistorialIncidentes.txt");
+            }
         }
     }
 }

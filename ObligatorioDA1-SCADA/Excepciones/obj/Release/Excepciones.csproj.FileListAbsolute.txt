@@ -1,0 +1,5 @@
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Excepciones\bin\Release\Excepciones.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Excepciones\bin\Release\Excepciones.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Excepciones\obj\Release\Excepciones.csprojResolveAssemblyReference.cache
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Excepciones\obj\Release\Excepciones.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Excepciones\obj\Release\Excepciones.pdb

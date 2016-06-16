@@ -238,7 +238,7 @@
             this.lstTableroControl.ReadOnly = true;
             this.lstTableroControl.Size = new System.Drawing.Size(266, 184);
             this.lstTableroControl.TabIndex = 29;
-            this.lstTableroControl.Text = "Sin datos a mostrar.";
+            this.lstTableroControl.Text = "\nSin datos a mostrar.";
             // 
             // btnMenuOpcionesTipo
             // 
