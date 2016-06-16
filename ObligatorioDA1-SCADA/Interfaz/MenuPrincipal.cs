@@ -85,8 +85,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Modificar Dispositivo\" para la selección realizada", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar\" al elemento que corresponda para la selección realizada",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -443,7 +443,8 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Modificar Instalación\" para la selección realizada");
+                MessageBox.Show("Es necesario utilizar la función de \"Modificar\" al elemento que corresponda para la selección realizada",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -476,7 +477,7 @@ namespace Interfaz
             }
             else
             {
-                MessageBox.Show("Es necesario utilizar la función de \"Eliminar Dispositivo\" para la selección realizada",
+                MessageBox.Show("Es necesario utilizar la función de \"Eliminar\" al elemento que corresponda para la selección realizada",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
