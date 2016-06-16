@@ -15,12 +15,12 @@ namespace Dominio
         public static bool EsDireccionValida(string value)
         {
             Regex finalizaConNumeros = new Regex(@"[0-9]+$\Z");
-            return EsTextoValido(value) && finalizaConNumeros.IsMatch(value);
+            return string.IsNullOrEmpty(value) || (ContieneCaracteresAlfabeticos(value) && finalizaConNumeros.IsMatch(value));
         }
 
         public static bool EsCiudadValida(string value)
         {
-            return !string.IsNullOrEmpty(value) && !NoContieneLetrasExclusivamente(value);
+            return string.IsNullOrEmpty(value) || !NoContieneLetrasExclusivamente(value);
         }
 
         public static bool NoEsNulo(object unObjeto)
@@ -48,7 +48,7 @@ namespace Dominio
             return valor < valorMinimoValido || valor > valorMaximoValido;
         }
 
-        private static bool ContieneCaracteresAlfabeticos(string value)
+        public static bool ContieneCaracteresAlfabeticos(string value)
         {
             Regex caracteresAlfabeticos = new Regex(@"[A-Z]", RegexOptions.IgnoreCase);
             return caracteresAlfabeticos.IsMatch(value);

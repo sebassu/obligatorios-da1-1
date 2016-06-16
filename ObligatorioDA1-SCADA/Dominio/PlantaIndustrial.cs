@@ -49,9 +49,10 @@ namespace Dominio
             }
             set
             {
+                string ciudadASetear = value.Trim();
                 if (Auxiliar.EsCiudadValida(value))
                 {
-                    ciudad = value.Trim();
+                    ciudad = ciudadASetear;
                 }
                 else
                 {

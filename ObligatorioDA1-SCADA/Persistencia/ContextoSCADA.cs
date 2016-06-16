@@ -32,6 +32,7 @@ namespace Persistencia
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PlantaIndustrial>().HasMany(p => p.Dependencias).WithOptional().WillCascadeOnDelete(true);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }

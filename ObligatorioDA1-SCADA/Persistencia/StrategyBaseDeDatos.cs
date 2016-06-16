@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Dominio;
-using Persistencia;
 using System.Data.Entity;
 using System.Linq;
 
@@ -22,7 +18,7 @@ namespace Persistencia
         public override void Actualizar(Incidente entidadAActualizar)
         {
             manejadorIncidentes.Attach(entidadAActualizar);
-            contexto.Entry(entidadAActualizar).State = System.Data.Entity.EntityState.Modified;
+            contexto.Entry(entidadAActualizar).State = EntityState.Modified;
             contexto.SaveChanges();
         }
 

@@ -215,54 +215,6 @@ namespace Interfaz
             MessageBox.Show("Funcion no disponible");
         }
 
-        /*private void CargarDatosDePrueba()
-        {
-            modelo = new AccesoADatosBaseDeDatos();
-            Tipo tipo1 = Tipo.NombreDescripcion("Tipo 1", "Buen tipo");
-            Tipo tipo2 = Tipo.NombreDescripcion("Tipo 2", "Otro tipo");
-            modelo.RegistrarTipo(tipo1);
-            modelo.RegistrarTipo(tipo2);
-            Componente componente1 = Instalacion.ConstructorNombre("Extracción");
-            Componente componente2 = Dispositivo.NombreTipo("Picadora", tipo1);
-            Componente componente3 = Instalacion.ConstructorNombre("Molienda");
-            Componente componente4 = Dispositivo.NombreTipo("Molino", tipo1);
-            Variable variable1 = Variable.NombreMinimoMaximo("Velocidad", 0, 100);
-            Variable variable2 = Variable.NombreMinimoMaximo("Carga", 0, 500);
-            componente4.AgregarVariable(variable1);
-            componente4.AgregarVariable(variable2);
-            Componente componente5 = Dispositivo.NombreTipo("Prensa", tipo1);
-            componente3.AgregarDependencia(componente4);
-            componente3.AgregarDependencia(componente5);
-            componente1.AgregarDependencia(componente2);
-            componente1.AgregarDependencia(componente3);
-            modelo.RegistrarElemento(componente1);
-            Componente componente6 = Instalacion.ConstructorNombre("Clarificación");
-            Componente componente7 = Dispositivo.NombreTipo("Batea", tipo2);
-            Componente componente8 = Dispositivo.NombreTipo("Calentadores", tipo2);
-            componente6.AgregarDependencia(componente7);
-            componente6.AgregarDependencia(componente8);
-            modelo.RegistrarElemento(componente6);
-            Componente componente9 = Instalacion.ConstructorNombre("Evaporación");
-            Componente componente10 = Instalacion.ConstructorNombre("Evaporadores");
-            Variable variable3 = Variable.NombreMinimoMaximo("Temperatura", 0, 200);
-            Variable variable4 = Variable.NombreMinimoMaximo("Presión", 10, 30);
-            componente10.AgregarVariable(variable3);
-            componente10.AgregarVariable(variable4);
-            Componente componente11 = Dispositivo.NombreTipo("Evaporador 1", tipo1);
-            Componente componente12 = Dispositivo.NombreTipo("Evaporador 2", tipo1);
-            componente10.AgregarDependencia(componente11);
-            componente10.AgregarDependencia(componente12);
-            componente9.AgregarDependencia(componente10);
-            modelo.RegistrarElemento(componente9);
-            Componente componente13 = Instalacion.ConstructorNombre("Centrifugación");
-            Componente componente14 = Dispositivo.NombreTipo("Centrifugadora 1", tipo2);
-            Componente componente15 = Dispositivo.NombreTipo("Centrifugadora 2", tipo2);
-            componente13.AgregarDependencia(componente14);
-            componente13.AgregarDependencia(componente15);
-            modelo.RegistrarElemento(componente13);
-            RecargarTodoComponente();
-        }*/
-
         private void RecargarTodoComponente()
         {
             RecargarTreeView();
@@ -383,7 +335,7 @@ namespace Interfaz
         private void treeViewPlantaDeProduccion_AfterSelect(object sender, TreeViewEventArgs e)
         {
             lstVariables.Clear();
-            Componente componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
+            ElementoSCADA componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
             if (Auxiliar.NoEsNulo(componenteSeleccionado))
             {
                 ActivacionBotonesIncidente();
@@ -409,21 +361,43 @@ namespace Interfaz
 
         private void RecargarTableroDeControl()
         {
+            bool seleccionContieneElementos = false;
             lstTableroControl.Clear();
-            foreach (ElementoSCADA elemento in modelo.ElementosPrimarios)
+            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
             {
-                if (elemento.EnUso)
+                PlantaIndustrial elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+                if (Auxiliar.NoEsNulo(elementoSeleccionado))
                 {
-                    if (elemento.CantidadAlarmasActivas > 0)
+                    foreach (ElementoSCADA elemento in elementoSeleccionado.Dependencias)
                     {
-                        lstTableroControl.SelectionBackColor = Color.Red;
+                        seleccionContieneElementos = true;
+                        ImprimirMensajeAlarmasAdvertencias(elemento);
                     }
-                    else
-                    {
-                        lstTableroControl.SelectionBackColor = Color.Chartreuse;
-                    }
-                    lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarmas\n");
                 }
+            }
+            if (seleccionContieneElementos)
+            {
+                lstTableroControl.AppendText("\nSin datos a mostrar.\n");
+            }
+        }
+
+        private void ImprimirMensajeAlarmasAdvertencias(ElementoSCADA elemento)
+        {
+
+            if (elemento.CantidadAlarmasActivas > 0)
+            {
+                lstTableroControl.SelectionBackColor = Color.Red;
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarmas\n");
+            }
+            else if (elemento.CantidadAdvertenciasActivas > 0)
+            {
+                lstTableroControl.SelectionBackColor = Color.Yellow;
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Advertencias\n");
+            }
+            else
+            {
+                lstTableroControl.SelectionBackColor = Color.Chartreuse;
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarmas/Adtvertencias\n");
             }
         }
 
@@ -434,15 +408,19 @@ namespace Interfaz
 
         private void AbrirPanelEditarDispositivo()
         {
-            Dispositivo dispositivoAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Dispositivo;
-            if (Auxiliar.NoEsNulo(dispositivoAModificar))
+            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
             {
-                panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, null, dispositivoAModificar));
-            }
-            else
-            {
-                MessageBox.Show("Es necesario utilizar la función de \"Modificar Instalación\" para la selección realizada");
+                Dispositivo dispositivoAModificar = treeViewPlantaDeProduccion.SelectedNode.Tag as Dispositivo;
+                if (Auxiliar.NoEsNulo(dispositivoAModificar))
+                {
+                    panelSistema.Controls.Clear();
+                    panelSistema.Controls.Add(new RegistrarDispositivo(modelo, panelSistema, null, dispositivoAModificar));
+                }
+                else
+                {
+                    MessageBox.Show("Es necesario utilizar la función de \"Modificar Instalación\" para la selección realizada", "Errpr",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -460,15 +438,7 @@ namespace Interfaz
                         + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    ElementoSCADA padre = instalacionAEliminar.ElementoPadre;
-                    if (Auxiliar.NoEsNulo(padre))
-                    {
-                        padre.EliminarDependencia(instalacionAEliminar);
-                    }
-                    else
-                    {
-                        modelo.EliminarElemento(instalacionAEliminar);
-                    }
+                    modelo.EliminarElemento(instalacionAEliminar);
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
                     RecargarTableroDeControl();
                 }
@@ -494,15 +464,7 @@ namespace Interfaz
                         + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    ElementoSCADA padre = dispositivoAEliminar.ElementoPadre;
-                    if (Auxiliar.NoEsNulo(padre))
-                    {
-                        padre.EliminarDependencia(dispositivoAEliminar);
-                    }
-                    else
-                    {
-                        modelo.EliminarElemento(dispositivoAEliminar);
-                    }
+                    modelo.EliminarElemento(dispositivoAEliminar);
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
                     RecargarTableroDeControl();
                 }
@@ -551,11 +513,6 @@ namespace Interfaz
                 {
                     unaAccionARealizar.Invoke();
                 }
-                else
-                {
-                    MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
             else
             {
@@ -573,26 +530,14 @@ namespace Interfaz
 
         private void btnAgregarPlantaIndustrial_Click(object sender, EventArgs e)
         {
+            PlantaIndustrial plantaIndustrialPadre = null;
             TreeNode seleccionado = treeViewPlantaDeProduccion.SelectedNode;
             if (Auxiliar.NoEsNulo(seleccionado))
             {
-                if (seleccionado.Tag is PlantaIndustrial)
-                {
-                    PlantaIndustrial plantaIndustrialPadre = seleccionado.Tag as PlantaIndustrial;
-                    panelSistema.Controls.Clear();
-                    panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaIndustrialPadre, false));
-                }
-                else
-                {
-                    MessageBox.Show("Debe seleccionar una Planta Industrial para acceder a esta funcionalidad", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
+                plantaIndustrialPadre = seleccionado.Tag as PlantaIndustrial;
                 panelSistema.Controls.Clear();
-                panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, null, false));
             }
+            panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaIndustrialPadre, false));
         }
 
         private void btnEliminarPlantaIndustrial_Click(object sender, EventArgs e)
@@ -623,15 +568,7 @@ namespace Interfaz
                         + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    ElementoSCADA padre = plantaIndustrialAEliminar.ElementoPadre;
-                    if (Auxiliar.NoEsNulo(padre))
-                    {
-                        padre.EliminarDependencia(plantaIndustrialAEliminar);
-                    }
-                    else
-                    {
-                        modelo.EliminarElemento(plantaIndustrialAEliminar);
-                    }
+                    modelo.EliminarElemento(plantaIndustrialAEliminar);
                     treeViewPlantaDeProduccion.Nodes.Remove(treeViewPlantaDeProduccion.SelectedNode);
                     RecargarTableroDeControl();
                 }

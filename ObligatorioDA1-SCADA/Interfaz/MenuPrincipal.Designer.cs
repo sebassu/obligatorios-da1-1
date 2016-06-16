@@ -43,7 +43,6 @@
             this.btnAgregarValorVariable = new System.Windows.Forms.Button();
             this.btnValoresHistoricos = new System.Windows.Forms.Button();
             this.lstTableroControl = new System.Windows.Forms.RichTextBox();
-            this.btnCargarDatosPrueba = new System.Windows.Forms.Button();
             this.btnMenuOpcionesTipo = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.menuOpciones = new System.Windows.Forms.MenuStrip();
@@ -80,7 +79,7 @@
             // 
             this.treeViewPlantaDeProduccion.AllowDrop = true;
             this.treeViewPlantaDeProduccion.BackColor = System.Drawing.SystemColors.Window;
-            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeViewPlantaDeProduccion.HideSelection = false;
             this.treeViewPlantaDeProduccion.Location = new System.Drawing.Point(22, 110);
             this.treeViewPlantaDeProduccion.Name = "treeViewPlantaDeProduccion";
@@ -124,7 +123,7 @@
             // lstVariables
             // 
             this.lstVariables.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstVariables.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstVariables.HideSelection = false;
             this.lstVariables.Location = new System.Drawing.Point(363, 345);
             this.lstVariables.MultiSelect = false;
@@ -230,23 +229,14 @@
             // lstTableroControl
             // 
             this.lstTableroControl.BackColor = System.Drawing.Color.White;
-            this.lstTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstTableroControl.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lstTableroControl.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstTableroControl.Location = new System.Drawing.Point(363, 110);
             this.lstTableroControl.Name = "lstTableroControl";
             this.lstTableroControl.ReadOnly = true;
             this.lstTableroControl.Size = new System.Drawing.Size(266, 184);
             this.lstTableroControl.TabIndex = 29;
             this.lstTableroControl.Text = "";
-            // 
-            // btnCargarDatosPrueba
-            // 
-            this.btnCargarDatosPrueba.Location = new System.Drawing.Point(801, 450);
-            this.btnCargarDatosPrueba.Name = "btnCargarDatosPrueba";
-            this.btnCargarDatosPrueba.Size = new System.Drawing.Size(75, 47);
-            this.btnCargarDatosPrueba.TabIndex = 30;
-            this.btnCargarDatosPrueba.Text = "Cargar datos de Prueba";
-            this.btnCargarDatosPrueba.UseVisualStyleBackColor = true;
-            this.btnCargarDatosPrueba.Click += new System.EventHandler(this.btnCargarDatosPrueba_Click);
             // 
             // btnMenuOpcionesTipo
             // 
@@ -415,7 +405,6 @@
             this.Controls.Add(this.lblIncidentes);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnMenuOpcionesTipo);
-            this.Controls.Add(this.btnCargarDatosPrueba);
             this.Controls.Add(this.lstTableroControl);
             this.Controls.Add(this.btnValoresHistoricos);
             this.Controls.Add(this.btnAgregarValorVariable);
@@ -458,7 +447,6 @@
         private System.Windows.Forms.Button btnAgregarValorVariable;
         private System.Windows.Forms.Button btnValoresHistoricos;
         private System.Windows.Forms.RichTextBox lstTableroControl;
-        private System.Windows.Forms.Button btnCargarDatosPrueba;
         private System.Windows.Forms.Button btnMenuOpcionesTipo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MenuStrip menuOpciones;

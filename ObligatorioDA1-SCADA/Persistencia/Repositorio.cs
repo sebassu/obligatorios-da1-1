@@ -29,7 +29,7 @@ namespace Persistencia
         public virtual void Eliminar(T entidadAEliminar)
         {
             AttachSiCorresponde(entidadAEliminar);
-            contexto.Entry(entidadAEliminar).State = EntityState.Deleted;
+            coleccionEntidades.Remove(entidadAEliminar);
             contexto.SaveChanges();
         }
 

@@ -21,9 +21,10 @@ namespace Dominio
             }
             set
             {
+                string nombreASetear = value.Trim();
                 if (Auxiliar.EsTextoValido(value))
                 {
-                    nombre = value.Trim();
+                    nombre = nombreASetear;
                 }
                 else
                 {
@@ -41,9 +42,10 @@ namespace Dominio
             }
             set
             {
-                if (Auxiliar.EsTextoValido(value))
+                string descripcionASetear = value.Trim();
+                if (string.IsNullOrEmpty(value) || Auxiliar.ContieneCaracteresAlfabeticos(value))
                 {
-                    descripcion = value.Trim();
+                    descripcion = descripcionASetear;
                 }
                 else
                 {
