@@ -533,8 +533,9 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(seleccionado))
             {
                 plantaIndustrialPadre = seleccionado.Tag as PlantaIndustrial;
-                panelSistema.Controls.Clear();
+                //panelSistema.Controls.Clear();
             }
+            panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaIndustrialPadre, false));
         }
 
