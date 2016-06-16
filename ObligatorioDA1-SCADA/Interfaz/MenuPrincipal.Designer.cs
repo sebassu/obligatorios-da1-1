@@ -62,6 +62,8 @@
             this.lblIncidentes = new System.Windows.Forms.Label();
             this.btnAgregarIncidente = new System.Windows.Forms.Button();
             this.btnVerIncidentes = new System.Windows.Forms.Button();
+            this.lblMetodoGuardado = new System.Windows.Forms.Label();
+            this.cbxMetodoGuardadoIncidentes = new System.Windows.Forms.ComboBox();
             this.menuOpciones.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -240,7 +242,7 @@
             // 
             // btnCargarDatosPrueba
             // 
-            this.btnCargarDatosPrueba.Location = new System.Drawing.Point(801, 450);
+            this.btnCargarDatosPrueba.Location = new System.Drawing.Point(799, 423);
             this.btnCargarDatosPrueba.Name = "btnCargarDatosPrueba";
             this.btnCargarDatosPrueba.Size = new System.Drawing.Size(75, 47);
             this.btnCargarDatosPrueba.TabIndex = 30;
@@ -406,10 +408,36 @@
             this.btnVerIncidentes.UseVisualStyleBackColor = true;
             this.btnVerIncidentes.Click += new System.EventHandler(this.btnVerIncidentes_Click);
             // 
+            // lblMetodoGuardado
+            // 
+            this.lblMetodoGuardado.AutoSize = true;
+            this.lblMetodoGuardado.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMetodoGuardado.ForeColor = System.Drawing.Color.Black;
+            this.lblMetodoGuardado.Location = new System.Drawing.Point(662, 489);
+            this.lblMetodoGuardado.Name = "lblMetodoGuardado";
+            this.lblMetodoGuardado.Size = new System.Drawing.Size(266, 21);
+            this.lblMetodoGuardado.TabIndex = 37;
+            this.lblMetodoGuardado.Text = "Método de guardado de incidentes:";
+            this.lblMetodoGuardado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbxMetodoGuardadoIncidentes
+            // 
+            this.cbxMetodoGuardadoIncidentes.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxMetodoGuardadoIncidentes.FormattingEnabled = true;
+            this.cbxMetodoGuardadoIncidentes.Items.AddRange(new object[] {
+            "Base de Datos",
+            "Archivo de Texto"});
+            this.cbxMetodoGuardadoIncidentes.Location = new System.Drawing.Point(690, 514);
+            this.cbxMetodoGuardadoIncidentes.Name = "cbxMetodoGuardadoIncidentes";
+            this.cbxMetodoGuardadoIncidentes.Size = new System.Drawing.Size(220, 24);
+            this.cbxMetodoGuardadoIncidentes.TabIndex = 38;
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbxMetodoGuardadoIncidentes);
+            this.Controls.Add(this.lblMetodoGuardado);
             this.Controls.Add(this.btnVerIncidentes);
             this.Controls.Add(this.btnAgregarIncidente);
             this.Controls.Add(this.lblIncidentes);
@@ -477,5 +505,7 @@
         private System.Windows.Forms.Label lblIncidentes;
         private System.Windows.Forms.Button btnAgregarIncidente;
         private System.Windows.Forms.Button btnVerIncidentes;
+        private System.Windows.Forms.Label lblMetodoGuardado;
+        private System.Windows.Forms.ComboBox cbxMetodoGuardadoIncidentes;
     }
 }

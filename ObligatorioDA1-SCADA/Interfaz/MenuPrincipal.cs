@@ -18,6 +18,7 @@ namespace Interfaz
             this.modelo = modelo;
             this.panelSistema = panelSistema;
             RecargarTodoComponente();
+            cbxMetodoGuardadoIncidentes.SelectedItem = "Base de Datos";
             //ActivacionBotonesIncidente();
         }
 
@@ -383,7 +384,7 @@ namespace Interfaz
         private void treeViewPlantaDeProduccion_AfterSelect(object sender, TreeViewEventArgs e)
         {
             lstVariables.Clear();
-            Componente componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as Componente;
+            ElementoSCADA componenteSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
             if (Auxiliar.NoEsNulo(componenteSeleccionado))
             {
                 ActivacionBotonesIncidente();
