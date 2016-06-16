@@ -14,7 +14,19 @@ namespace Persistencia
         private RepositorioTipo manejadorTipos;
         private RepositorioPlantaIndustrial manejadorPlantas;
         private RepositorioInstalacion manejadorInstalaciones;
+
         private EstrategiaGuardadoIncidentes manejadorIncidentes;
+        public EstrategiaGuardadoIncidentes ManejadorIncidentes
+        {
+            get
+            {
+                return manejadorIncidentes;
+            }
+            set
+            {
+                manejadorIncidentes = value;
+            }
+        }
 
         private static readonly Action<Dispositivo> accionErronea = delegate (Dispositivo d) { throw new AccesoADatosExcepcion("Accion no soportada"); };
 
@@ -193,17 +205,30 @@ namespace Persistencia
 
         public void CambiarEstrategia(int codigoEstrategia)
         {
-            manejadorIncidentes.BorrarDatos();
             switch (codigoEstrategia)
             {
                 case 0:
-                    manejadorIncidentes = new EstrategiaBaseDeDatos(new ContextoSCADA(stringConexion));
+                    manejadorIncidentes = new EstrategiaBaseDeDatos();
                     break;
                 case 1:
                     manejadorIncidentes = new EstrategiaArchivoDeTexto();
                     break;
                 default:
                     throw new AccesoADatosExcepcion("Código de estrategia inválido.");
+            }
+        }
+
+        public int CodigoDeEstrategiaSeleccionada()
+        {
+            switch (manejadorIncidentes.GetType().Name)
+            {
+                case "EstrategiaBaseDeDatos":
+                    return 0;
+                case "EstrategiaArchivoDeTexto":
+                    return 1;
+                default:
+                    throw new AccesoADatosExcepcion("Estrategia inválida para el contexto de esta"
+                      + "función.");
             }
         }
     }

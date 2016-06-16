@@ -48,7 +48,7 @@ namespace Interfaz
                         modelo.EliminarTipo(tipoAEliminar);
                         MessageBox.Show("El tipo de dispositivo fue eliminado correctamente", "Éxito");
                     }
-                    catch (AccesoADatosExcepcion ex)
+                    catch (AccesoADatosExcepcion)
                     {
                         MessageBox.Show("El tipo se encuentra asignado a un Dispositivo.", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);

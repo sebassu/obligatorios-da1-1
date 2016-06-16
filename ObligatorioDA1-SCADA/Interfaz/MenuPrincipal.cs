@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Drawing;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -18,8 +19,15 @@ namespace Interfaz
             this.modelo = modelo;
             this.panelSistema = panelSistema;
             RecargarTodoComponente();
-            cbxMetodoGuardadoIncidentes.SelectedItem = "Base de Datos";
-            indiceSeleccionado = 0;
+            try
+            {
+                indiceSeleccionado = modelo.CodigoDeEstrategiaSeleccionada();
+                cbxMetodoGuardadoIncidentes.SelectedIndex = indiceSeleccionado;
+            }
+            catch (AccesoADatosExcepcion e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnAgregarInstalacion_Click(object sender, EventArgs e)
@@ -207,34 +215,13 @@ namespace Interfaz
             panelSistema.Controls.Add(new RegistrarVariable(modelo, panelSistema, null, unaVariable));
         }
 
-        private void btnCargarDatosPrueba_Click(object sender, EventArgs e)
-        {
-            // CargarDatosDePrueba();
-            MessageBox.Show("Funcion no disponible");
-        }
-
         private void RecargarTodoComponente()
         {
             RecargarTreeView();
             RecargarTableroDeControl();
             ActivacionBotonesVariables();
             ActivacionBotonesTipo();
-            ActivacionBotonAgregarVariable();
             ActivacionBotonesIncidente();
-        }
-
-        private void ActivacionBotonAgregarVariable()
-        {
-            /*if (modelo.ExistenDispositivos() || modelo.ExistenInstalaciones())
-            {
-                btnAgregarVariable.Enabled = true;
-                btnAgregarVariable.BackColor = Color.Chartreuse;
-            }
-            else
-            {
-                btnAgregarVariable.Enabled = false;
-                btnAgregarVariable.BackColor = Color.LightGreen;
-            }*/
         }
 
         private void ActivacionBotonesVariables()
@@ -258,7 +245,6 @@ namespace Interfaz
                 btnValoresHistoricos.Enabled = false;
                 btnEliminarVariable.BackColor = Color.LightPink;
                 btnEditarVariable.BackColor = Color.LightCyan;
-
             }
         }
 

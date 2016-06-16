@@ -59,7 +59,7 @@
     <Compile Include="RepositorioInstalacion.cs" />
     <Compile Include="RepositorioPlantaIndustrial.cs" />
     <Compile Include="RepositorioTipo.cs" />
-    <Compile Include="EstrategiaGuardado.cs" />
+    <Compile Include="EstrategiaGuardadoIncidentes.cs" />
     <Compile Include="EstrategiaArchivoDeTexto.cs" />
     <Compile Include="EstrategiaBaseDeDatos.cs" />
   </ItemGroup>

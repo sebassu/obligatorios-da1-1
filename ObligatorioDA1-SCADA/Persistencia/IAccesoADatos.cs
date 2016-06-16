@@ -8,6 +8,7 @@ namespace Persistencia
         IList ElementosPrimarios { get; }
         IList Tipos { get; }
         IList Incidentes { get; }
+        EstrategiaGuardadoIncidentes ManejadorIncidentes { get; set; }
         void RegistrarTipo(Tipo unTipo);
         void RegistrarElemento(ElementoSCADA unElemento);
         void EliminarTipo(Tipo unTipo);
@@ -20,5 +21,6 @@ namespace Persistencia
         void ActualizarVariable(Variable unaVariable);
         void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo);
         void CambiarEstrategia(int codigoEstrategia);
+        int CodigoDeEstrategiaSeleccionada();
     }
 }

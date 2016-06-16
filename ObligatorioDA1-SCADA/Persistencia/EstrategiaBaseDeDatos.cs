@@ -1,36 +1,29 @@
 ﻿using System.Collections.Generic;
 using Dominio;
-using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace Persistencia
 {
-    class EstrategiaBaseDeDatos : EstrategiaGuardadoIncidentes
+    [Serializable]
+    public class EstrategiaBaseDeDatos : EstrategiaGuardadoIncidentes
     {
-        protected ContextoSCADA contexto;
-        protected DbSet<Incidente> coleccionEntidades;
-
-        internal EstrategiaBaseDeDatos(ContextoSCADA unContexto)
-        {
-            contexto = unContexto;
-            coleccionEntidades = unContexto.Set<Incidente>();
-        }
-
-        public override void BorrarDatos()
-        {
-            coleccionEntidades.RemoveRange(coleccionEntidades);
-            contexto.SaveChanges();
-        }
 
         public override void Insertar(Incidente entidad)
         {
-            coleccionEntidades.Add(entidad);
-            contexto.SaveChanges();
+            using (ContextoSCADA contexto = new ContextoSCADA("name=ContextoSCADA"))
+            {
+                contexto.Incidentes.Add(entidad);
+                contexto.SaveChanges();
+            }
         }
 
         public override List<Incidente> Obtener()
         {
-            return coleccionEntidades.ToList();
+            using (ContextoSCADA contexto = new ContextoSCADA("name=ContextoSCADA"))
+            {
+                return contexto.Incidentes.ToList();
+            }
         }
     }
 }

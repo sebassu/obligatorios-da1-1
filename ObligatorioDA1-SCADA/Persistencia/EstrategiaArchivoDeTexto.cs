@@ -6,8 +6,10 @@ using System.IO;
 
 namespace Persistencia
 {
-    internal class EstrategiaArchivoDeTexto : EstrategiaGuardadoIncidentes
+    [Serializable]
+    public class EstrategiaArchivoDeTexto : EstrategiaGuardadoIncidentes
     {
+        [NonSerialized]
         private List<Incidente> incidentesRegistrados;
         private string ruta = "HistorialIncidentes.txt";
         private char separador = '^';
@@ -28,18 +30,23 @@ namespace Persistencia
             }
             else
             {
-                try
+                CargarDatosDeArchivo();
+            }
+        }
+
+        private void CargarDatosDeArchivo()
+        {
+            try
+            {
+                string[] lineasLeidas = File.ReadAllLines(ruta);
+                foreach (string linea in lineasLeidas)
                 {
-                    string[] lineasLeidas = File.ReadAllLines(ruta);
-                    foreach (string linea in lineasLeidas)
-                    {
-                        incidentesRegistrados.Add(RecomponerIncidenteDeAtributos(linea));
-                    }
+                    incidentesRegistrados.Add(RecomponerIncidenteDeAtributos(linea));
                 }
-                catch (Exception)
-                {
-                    throw new AccesoADatosExcepcion("Error al leer el archivo de texto.");
-                }
+            }
+            catch (Exception)
+            {
+                throw new AccesoADatosExcepcion("Error al leer el archivo de texto.");
             }
         }
 
@@ -77,19 +84,12 @@ namespace Persistencia
 
         public override List<Incidente> Obtener()
         {
+            if (incidentesRegistrados == null)
+            {
+                incidentesRegistrados = new List<Incidente>();
+                CargarDatosDeArchivo();
+            }
             return incidentesRegistrados;
-        }
-
-        public override void BorrarDatos()
-        {
-            try
-            {
-                File.Delete(ruta);
-            }
-            catch (Exception)
-            {
-                throw new AccesoADatosExcepcion("Error al eliminar el archivo de texto.");
-            }
         }
     }
 }
