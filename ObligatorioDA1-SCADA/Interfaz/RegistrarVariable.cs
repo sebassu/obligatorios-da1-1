@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
 using Excepciones;
 
 namespace Interfaz
@@ -21,8 +22,10 @@ namespace Interfaz
             {
                 variableAModificar = unaVariable;
                 txtNombre.Text = unaVariable.Nombre;
-                numMin.Value = unaVariable.MinimoAlarma;
-                numMax.Value = unaVariable.MaximoAlarma;
+                numMinAlarma.Value = unaVariable.MinimoAlarma;
+                numMaxAlarma.Value = unaVariable.MaximoAlarma;
+                minAdv.Value = unaVariable.MinimoAdvertencia;
+                maxAdv.Value = unaVariable.MaximoAdvertencia;
                 lblMenuVariable.Text = "Modificar Variable";
             }
             else
@@ -47,23 +50,15 @@ namespace Interfaz
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             string nombre = txtNombre.Text;
-            decimal valorMinimo = numMin.Value;
-            decimal valorMaximo = numMax.Value;
+            decimal valorMinimoAlarma = numMinAlarma.Value;
+            decimal valorMaximoAlarma = numMaxAlarma.Value;
+            decimal valorMinimoAdvertencia = minAdv.Value;
+            decimal valorMaximoAdvertencia = maxAdv.Value;
             try
             {
-                if (Auxiliar.EsTextoValido(nombre) && valorMaximo >= valorMinimo)
+                if (!(lblErrorNombre.Visible || lblErrorValores.Visible))
                 {
-                    if (Auxiliar.NoEsNulo(variableAModificar))
-                    {
-                        ModificarVariable(nombre, valorMinimo, valorMaximo);
-                        MessageBox.Show("La variable fue modificada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        componenteAModificar.AgregarVariable(Variable.NombreMinimoMaximo(nombre, valorMinimo, valorMaximo));
-                        MessageBox.Show("La variable fue registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                    EjecutarCambios(nombre, valorMinimoAlarma, valorMaximoAlarma, valorMinimoAdvertencia, valorMaximoAdvertencia);
                 }
                 else
                 {
@@ -76,11 +71,30 @@ namespace Interfaz
             }
         }
 
-        private void ModificarVariable(string nombre, decimal valorMinimo, decimal valorMaximo)
+        private void EjecutarCambios(string nombre, decimal valorMinimoAlarma, decimal valorMaximoAlarma, decimal valorMinimoAdvertencia, decimal valorMaximoAdvertencia)
+        {
+            if (Auxiliar.NoEsNulo(variableAModificar))
+            {
+                ModificarVariable(nombre, valorMinimoAlarma, valorMaximoAlarma, valorMinimoAdvertencia, valorMaximoAdvertencia);
+                modelo.ActualizarVariable(variableAModificar);
+                MessageBox.Show("La variable fue modificada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                Variable variableAAgregar = Variable.NombreRangosAdvertenciaAlarma(nombre, valorMinimoAlarma,
+                    valorMinimoAdvertencia, valorMaximoAdvertencia, valorMaximoAlarma);
+                componenteAModificar.AgregarVariable(variableAAgregar);
+                modelo.ActualizarElemento(componenteAModificar);
+                MessageBox.Show("La variable fue registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+        }
+
+        private void ModificarVariable(string nombre, decimal valorMinimo, decimal valorMaximo,
+            decimal minimoAdvertencia, decimal maximoAdvertencia)
         {
             variableAModificar.Nombre = nombre;
-            // variableAModificar.Maximo = valorMaximo;
-            // variableAModificar.Minimo = valorMinimo;
+            variableAModificar.SetValoresLimites(valorMinimo, minimoAdvertencia, maximoAdvertencia, valorMaximo);
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)
@@ -97,7 +111,12 @@ namespace Interfaz
 
         private void rangoValores_Leave(object sender, EventArgs e)
         {
-            if ((numMin.Value > minAdv.Value) || (minAdv.Value > maxAdv.Value) || (maxAdv.Value > numMax.Value))
+            decimal valorMinimoAlarma = numMinAlarma.Value;
+            decimal valorMaximoAlarma = numMaxAlarma.Value;
+            decimal valorMinimoAdvertencia = minAdv.Value;
+            decimal valorMaximoAdvertencia = maxAdv.Value;
+            if (!Auxiliar.ValoresMonotonosCrecientes(valorMinimoAlarma,
+                valorMinimoAdvertencia, valorMaximoAdvertencia, valorMaximoAlarma))
             {
                 lblErrorValores.Show();
             }

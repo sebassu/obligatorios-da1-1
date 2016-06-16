@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
 using Excepciones;
 
 namespace Interfaz
@@ -57,6 +58,7 @@ namespace Interfaz
                     {
                         tipoAModificar.Nombre = txtNombre.Text;
                         tipoAModificar.Descripcion = txtDescripcion.Text;
+                        modelo.ActualizarTipo(tipoAModificar);
                         MessageBox.Show("El tipo de dispositivo fue modificado correctamente.", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

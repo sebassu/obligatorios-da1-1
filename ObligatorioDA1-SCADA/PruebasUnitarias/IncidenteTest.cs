@@ -20,7 +20,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetFechaDispositivoTest1()
+        public void SetFechaIncidenteTest1()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             DateTime unaFecha = DateTime.Now;
@@ -29,7 +29,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetFechaDispositivoTest2()
+        public void SetFechaIncidenteTest2()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             DateTime unaFecha = new DateTime(2014, 10, 20);
@@ -38,7 +38,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetNivelGravedadTest1()
+        public void SetNivelGravedadIncidenteTest1()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.NivelGravedad = 1;
@@ -46,7 +46,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetNivelGravedadTest2()
+        public void SetNivelGravedadIncidenteTest2()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.NivelGravedad = 5;
@@ -55,7 +55,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(IncidenteExcepcion))]
-        public void SetNivelGravedadTest3()
+        public void SetNivelGravedadIncidenteTest3()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.NivelGravedad = 0;
@@ -63,14 +63,14 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(IncidenteExcepcion))]
-        public void SetNivelGravedadTest4()
+        public void SetNivelGravedadIncidenteTest4()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.NivelGravedad = 255;
         }
 
         [TestMethod]
-        public void SetDescripcionTest1()
+        public void SetDescripcionIncidenteTest1()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.Descripcion = "Accidente";
@@ -78,7 +78,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetDescripcionTest2()
+        public void SetDescripcionIncidenteTest2()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.Descripcion = "  Accidente  ";
@@ -87,7 +87,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(IncidenteExcepcion))]
-        public void SetDescripcionTest3()
+        public void SetDescripcionIncidenteTest3()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.Descripcion = "555555";
@@ -95,10 +95,30 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(IncidenteExcepcion))]
-        public void SetDescripcionTest4()
+        public void SetDescripcionIncidenteTest4()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
             unIncidente.Descripcion = "!@.$#%   *-/";
+        }
+
+        [TestMethod]
+        public void DescripcionFechaNivelDeGravedadTest1()
+        {
+            DateTime unaFecha = DateTime.Now;
+            ElementoSCADA unDispositivo = Dispositivo.DispositivoInvalido();
+            Incidente unIncidente = Incidente.IDElementoDescripcionFechaGravedad(unDispositivo.ID, "Accidente", unaFecha, 5);
+            Assert.AreEqual("Accidente", unIncidente.Descripcion);
+            Assert.AreEqual(unaFecha, unIncidente.Fecha);
+            Assert.AreEqual((byte)5, unIncidente.NivelGravedad);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IncidenteExcepcion))]
+        public void DescripcionFechaNivelDeGravedadTest2()
+        {
+            DateTime unaFecha = DateTime.Now;
+            ElementoSCADA unaInstalacion = Instalacion.InstalacionInvalida();
+            Incidente unIncidente = Incidente.IDElementoDescripcionFechaGravedad(unaInstalacion.ID, "&$/$&;!", unaFecha, 1);
         }
     }
 }

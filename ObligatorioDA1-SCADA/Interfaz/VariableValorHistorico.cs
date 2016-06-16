@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
 
 namespace Interfaz
 {
@@ -20,10 +21,10 @@ namespace Interfaz
             }
             else
             {
-                foreach (Tuple<DateTime, decimal> elemento in variable.Historico)
+                foreach (Medicion elemento in variable.Historico)
                 {
-                    DateTime fechaYHora = elemento.Item1;
-                    decimal valor = elemento.Item2;
+                    DateTime fechaYHora = elemento.Fecha;
+                    decimal valor = elemento.Valor;
                     valoresHistoricos.Rows.Add(valor, fechaYHora.ToShortDateString(), fechaYHora.ToShortTimeString());
                 }
             }

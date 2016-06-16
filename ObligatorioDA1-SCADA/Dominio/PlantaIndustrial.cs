@@ -1,22 +1,25 @@
 ﻿using Excepciones;
-using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Dominio
 {
     public class PlantaIndustrial : ElementoSCADA
     {
-        private IManejadorDependencias<IElementoSCADA> dependencias;
-        public override IList Dependencias
+        private List<ElementoSCADA> dependencias;
+        public override List<ElementoSCADA> Dependencias
         {
             get
             {
-                return dependencias.ElementosHijos;
+                return dependencias;
+            }
+            protected set
+            {
+                dependencias = value;
             }
         }
 
         private string direccion;
-        public string Direccion
+        public virtual string Direccion
         {
             get
             {
@@ -38,7 +41,7 @@ namespace Dominio
         }
 
         private string ciudad;
-        public string Ciudad
+        public virtual string Ciudad
         {
             get
             {
@@ -46,10 +49,10 @@ namespace Dominio
             }
             set
             {
+                string ciudadASetear = value.Trim();
                 if (Auxiliar.EsCiudadValida(value))
                 {
-                    ciudad = value.Trim();
-
+                    ciudad = ciudadASetear;
                 }
                 else
                 {
@@ -63,13 +66,12 @@ namespace Dominio
             return new PlantaIndustrial();
         }
 
-        private PlantaIndustrial()
+        private PlantaIndustrial() : base()
         {
             nombre = "Planta industrial inválida.";
             direccion = "Dirección inválida.";
             ciudad = "Ciudad inválida.";
-            dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
-            id = Guid.NewGuid();
+            dependencias = new List<ElementoSCADA>();
         }
 
         public static PlantaIndustrial NombreDireccionCiudad(string unNombre, string unaDireccion, string unaCiudad)
@@ -77,23 +79,21 @@ namespace Dominio
             return new PlantaIndustrial(unNombre, unaDireccion, unaCiudad);
         }
 
-        private PlantaIndustrial(string unNombre, string unaDireccion, string unaCiudad)
+        private PlantaIndustrial(string unNombre, string unaDireccion, string unaCiudad) : base(unNombre)
         {
-            Nombre = unNombre;
             Direccion = unaDireccion;
             Ciudad = unaCiudad;
-            dependencias = new ManejadorDependenciasConLista<IElementoSCADA>(this);
-            id = Guid.NewGuid();
+            dependencias = new List<ElementoSCADA>();
         }
 
-        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
+        public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
-            dependencias.AgregarDependencia(elementoAAgregar);
+            ManejadorDependenciasConLista<ElementoSCADA>.AgregarDependencia(elementoAAgregar, dependencias, this);
         }
 
-        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
+        public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
-            dependencias.EliminarDependencia(elementoAEliminar);
+            ManejadorDependenciasConLista<ElementoSCADA>.EliminarDependencia(elementoAEliminar, dependencias, this);
         }
 
         public override void AgregarVariable(Variable unaVariable)

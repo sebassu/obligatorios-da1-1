@@ -1,12 +1,32 @@
 ﻿using Excepciones;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio
 {
     public class Incidente
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public virtual Guid ID { get; set; }
+
+        [ForeignKey("ElementoSCADA")]
+        private Guid idElementoAsociado;
+        public virtual Guid IdElementoAsociado
+        {
+            get
+            {
+                return idElementoAsociado;
+            }
+            set
+            {
+                idElementoAsociado = value;
+            }
+        }
+
         private string descripcion;
-        public string Descripcion
+        public virtual string Descripcion
         {
             get
             {
@@ -26,7 +46,7 @@ namespace Dominio
         }
 
         private DateTime fecha;
-        public DateTime Fecha
+        public virtual DateTime Fecha
         {
             get
             {
@@ -39,7 +59,7 @@ namespace Dominio
         }
 
         private byte nivelGravedad;
-        public byte NivelGravedad
+        public virtual byte NivelGravedad
         {
             get
             {
@@ -68,6 +88,20 @@ namespace Dominio
             fecha = default(DateTime);
             nivelGravedad = 0;
             descripcion = "Descripción inválida.";
+        }
+
+        public static Incidente IDElementoDescripcionFechaGravedad(Guid idElementoSCADA, string unaDescripcion,
+            DateTime unaFecha, byte unNivelDeGravedad)
+        {
+            return new Incidente(idElementoSCADA, unaDescripcion, unaFecha, unNivelDeGravedad);
+        }
+
+        private Incidente(Guid idElementoSCADA, string unaDescripcion, DateTime unaFecha, byte unNivelDeGravedad)
+        {
+            idElementoAsociado = idElementoSCADA;
+            Descripcion = unaDescripcion;
+            Fecha = unaFecha;
+            NivelGravedad = unNivelDeGravedad;
         }
     }
 }

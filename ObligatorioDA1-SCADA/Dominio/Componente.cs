@@ -1,21 +1,24 @@
 ﻿using Excepciones;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("PruebasUnitarias")]
-[assembly: AssemblyVersion("1.0")]
+[assembly: AssemblyVersion("2.0")]
 namespace Dominio
 {
     public abstract class Componente : ElementoSCADA
     {
         protected List<Variable> variables;
-        public IList Variables
+        public override List<Variable> Variables
         {
             get
             {
-                return variables.AsReadOnly();
+                return variables;
+            }
+            protected set
+            {
+                variables = value;
             }
         }
 
@@ -25,7 +28,7 @@ namespace Dominio
             {
                 variables.Add(unaVariable);
                 variables.Sort();
-                unaVariable.ComponentePadre = this;
+                unaVariable.ElementoPadre = this;
             }
             else
             {
@@ -44,6 +47,16 @@ namespace Dominio
             {
                 throw new ElementoSCADAExcepcion("Variable nula recibida.");
             }
+        }
+
+        protected Componente(string unNombre) : base(unNombre)
+        {
+            variables = new List<Variable>();
+        }
+
+        public Componente() : base()
+        {
+            variables = new List<Variable>();
         }
     }
 }

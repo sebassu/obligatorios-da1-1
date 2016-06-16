@@ -1,15 +1,19 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Excepciones;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dominio
 {
     public class Tipo
     {
-        private Guid id;
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public virtual Guid ID { get; set; }
 
         private string nombre;
-        public string Nombre
+        public virtual string Nombre
         {
             get
             {
@@ -17,9 +21,10 @@ namespace Dominio
             }
             set
             {
+                string nombreASetear = value.Trim();
                 if (Auxiliar.EsTextoValido(value))
                 {
-                    nombre = value.Trim();
+                    nombre = nombreASetear;
                 }
                 else
                 {
@@ -29,7 +34,7 @@ namespace Dominio
         }
 
         private string descripcion;
-        public string Descripcion
+        public virtual string Descripcion
         {
             get
             {
@@ -37,9 +42,10 @@ namespace Dominio
             }
             set
             {
-                if (Auxiliar.EsTextoValido(value))
+                string descripcionASetear = value.Trim();
+                if (string.IsNullOrEmpty(value) || Auxiliar.ContieneCaracteresAlfabeticos(value))
                 {
-                    descripcion = value.Trim();
+                    descripcion = descripcionASetear;
                 }
                 else
                 {
@@ -58,18 +64,13 @@ namespace Dominio
             return new Tipo(unNombre, unaDescripcion);
         }
 
-        private Tipo()
-        {
-            nombre = "Tipo inválido.";
-            descripcion = "Descripción inválida.";
-            id = Guid.NewGuid();
-        }
+        private Tipo() : this("Tipo inválido.", "Descripción inválida.") { }
 
         private Tipo(string unNombre, string unaDescripcion)
         {
             Nombre = unNombre;
             Descripcion = unaDescripcion;
-            id = Guid.NewGuid();
+            ID = Guid.NewGuid();
         }
 
         public override bool Equals(object obj)
@@ -77,7 +78,7 @@ namespace Dominio
             Tipo tipoAComparar = obj as Tipo;
             if (Auxiliar.NoEsNulo(tipoAComparar))
             {
-                return id == tipoAComparar.id;
+                return ID.Equals(tipoAComparar.ID) || nombre == tipoAComparar.Nombre;
             }
             else
             {

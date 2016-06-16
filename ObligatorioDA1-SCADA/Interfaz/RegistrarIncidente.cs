@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -15,14 +10,14 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        private IElementoSCADA unElemento;
+        private ElementoSCADA elementoAsociado;
 
-        public RegistrarIncidente(IAccesoADatos modelo, Panel panelSistema, IElementoSCADA unElemento)
+        public RegistrarIncidente(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA elementoAModificar)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            this.unElemento = unElemento;
+            elementoAsociado = elementoAModificar;
             lblErrorDescripcion.Hide();
             lblErrorFecha.Hide();
         }
@@ -58,6 +53,33 @@ namespace Interfaz
             else
             {
                 lblErrorFecha.Hide();
+            }
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+
+            if (lblErrorDescripcion.Visible || lblErrorFecha.Visible)
+            {
+                MessageBox.Show("Aún quedan campos sin completar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    byte gravedad = (byte)numValor.Value;
+                    DateTime fecha = monthCalendar.SelectionStart;
+                    string descripcion = txtDescripcion.Text;
+                    Incidente incidenteAAgregar = Incidente.IDElementoDescripcionFechaGravedad(elementoAsociado.ID, descripcion, fecha, gravedad);
+                    modelo.RegistrarIncidente(incidenteAAgregar);
+                    MessageBox.Show("El incidente ha sido registrado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+
+                }
+                catch (IncidenteExcepcion ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

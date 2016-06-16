@@ -54,21 +54,21 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetInstalacionPadreTest1()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Molinos");
             unaInstalacion.ElementoPadre = null;
+            Assert.AreEqual(null, unaInstalacion.ElementoPadre);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetInstalacionPadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Molinos");
             unDispositivo.ElementoPadre = unaInstalacion;
+            Assert.AreEqual(unaInstalacion, unDispositivo.ElementoPadre);
         }
     }
 }

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Persistencia;
 using System.Windows.Forms;
 using Dominio;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -16,21 +11,24 @@ namespace Interfaz
         private IAccesoADatos modelo;
         private Panel panelSistema;
         private PlantaIndustrial plantaAModificar;
+        private bool esParaModificar;
 
-        public RegistrarPlantaIndustrial(IAccesoADatos modelo, Panel panelSistema, PlantaIndustrial plantaAModificar = null)
+        public RegistrarPlantaIndustrial(IAccesoADatos modelo, Panel panelSistema,
+            PlantaIndustrial plantaAModificar = null, bool esParaModificar = false)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
+            this.esParaModificar = esParaModificar;
+            this.plantaAModificar = plantaAModificar;
 
-            if (plantaAModificar == null)
+            if (!esParaModificar)
             {
                 lblMenuPlantaIndustrial.Text = "Registrar Planta Industrial";
             }
             else
             {
                 lblMenuPlantaIndustrial.Text = "Editar Planta Industrial";
-                this.plantaAModificar = plantaAModificar;
                 txtNombrePlanta.Text = plantaAModificar.Nombre;
                 txtDireccionPlanta.Text = plantaAModificar.Direccion;
                 txtCiudadPlanta.Text = plantaAModificar.Ciudad;
@@ -39,7 +37,6 @@ namespace Interfaz
             lblErrorNombre.Hide();
             lblErrorDireccion.Hide();
             lblErrorCiudad.Hide();
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -66,7 +63,7 @@ namespace Interfaz
 
         private void txtDireccionPlanta_Leave(object sender, EventArgs e)
         {
-            if (Auxiliar.EsTextoValido(txtDireccionPlanta.Text))
+            if (Auxiliar.EsDireccionValida(txtDireccionPlanta.Text))
             {
                 lblErrorDireccion.Hide();
             }
@@ -83,7 +80,7 @@ namespace Interfaz
 
         private void txtCiudadPlanta_Leave(object sender, EventArgs e)
         {
-            if (Auxiliar.EsTextoValido(txtCiudadPlanta.Text))
+            if (Auxiliar.EsCiudadValida(txtCiudadPlanta.Text))
             {
                 lblErrorCiudad.Hide();
             }
@@ -100,7 +97,54 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            //falta codigo
+            if (lblErrorNombre.Visible || lblErrorDireccion.Visible || lblErrorCiudad.Visible)
+            {
+                MessageBox.Show("No se puede registrar la planta industrial, hay campos con errores.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    string nombrePlantaIndustrial = txtNombrePlanta.Text;
+                    string direccionPlantaIndustrial = txtDireccionPlanta.Text;
+                    string ciudadPlantaIndustrial = txtCiudadPlanta.Text;
+                    if (!esParaModificar)
+                    {
+                        if (plantaAModificar == null)
+                        {
+                            PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.NombreDireccionCiudad(nombrePlantaIndustrial,
+                                direccionPlantaIndustrial, ciudadPlantaIndustrial);
+                            modelo.RegistrarElemento(unaPlantaIndustrial);
+                            MessageBox.Show("La planta industrial fue registrada correctamente", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            PlantaIndustrial unaPlantaIndustrial = PlantaIndustrial.NombreDireccionCiudad(nombrePlantaIndustrial,
+                                direccionPlantaIndustrial, ciudadPlantaIndustrial);
+                            plantaAModificar.AgregarDependencia(unaPlantaIndustrial);
+                            modelo.ActualizarElemento(plantaAModificar);
+                            MessageBox.Show("La planta industrial fue registrada correctamente", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        plantaAModificar.Nombre = nombrePlantaIndustrial;
+                        plantaAModificar.Direccion = direccionPlantaIndustrial;
+                        plantaAModificar.Ciudad = ciudadPlantaIndustrial;
+                        MessageBox.Show("La planta industrial fue modificada correctamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        modelo.ActualizarElemento(plantaAModificar);
+                    }
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                }
+                catch (ElementoSCADAExcepcion excepcion)
+                {
+                    MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

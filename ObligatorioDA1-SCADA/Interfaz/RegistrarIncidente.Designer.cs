@@ -60,6 +60,7 @@
             this.btnAceptar.TabIndex = 20;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // lblErrorDescripcion
             // 
@@ -79,9 +80,9 @@
             this.lblDescripcion.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescripcion.Location = new System.Drawing.Point(47, 117);
             this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(94, 21);
+            this.lblDescripcion.Size = new System.Drawing.Size(98, 21);
             this.lblDescripcion.TabIndex = 17;
-            this.lblDescripcion.Text = "Descripción";
+            this.lblDescripcion.Text = "Descripción:";
             this.lblDescripcion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMenuIncidente
@@ -112,9 +113,9 @@
             this.lblNivelGravedad.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNivelGravedad.Location = new System.Drawing.Point(47, 240);
             this.lblNivelGravedad.Name = "lblNivelGravedad";
-            this.lblNivelGravedad.Size = new System.Drawing.Size(138, 21);
+            this.lblNivelGravedad.Size = new System.Drawing.Size(142, 21);
             this.lblNivelGravedad.TabIndex = 22;
-            this.lblNivelGravedad.Text = "Nivel de Gravedad";
+            this.lblNivelGravedad.Text = "Nivel de Gravedad:";
             this.lblNivelGravedad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // numValor
@@ -148,7 +149,7 @@
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(58, 21);
             this.lblFecha.TabIndex = 24;
-            this.lblFecha.Text = "Fecha ";
+            this.lblFecha.Text = "Fecha:";
             this.lblFecha.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // monthCalendar
@@ -164,11 +165,11 @@
             this.lblErrorFecha.AutoSize = true;
             this.lblErrorFecha.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorFecha.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorFecha.Location = new System.Drawing.Point(561, 289);
+            this.lblErrorFecha.Location = new System.Drawing.Point(561, 291);
             this.lblErrorFecha.Name = "lblErrorFecha";
-            this.lblErrorFecha.Size = new System.Drawing.Size(350, 21);
+            this.lblErrorFecha.Size = new System.Drawing.Size(318, 21);
             this.lblErrorFecha.TabIndex = 26;
-            this.lblErrorFecha.Text = "La fecha no puede ser mayor a la del día de hoy";
+            this.lblErrorFecha.Text = "La fecha no puede ser posterior a la actual";
             this.lblErrorFecha.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RegistrarIncidente

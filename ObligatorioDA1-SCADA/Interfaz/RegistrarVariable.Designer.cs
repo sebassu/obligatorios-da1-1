@@ -36,15 +36,15 @@
             this.lblNombreInstalacion = new System.Windows.Forms.Label();
             this.lblMenuVariable = new System.Windows.Forms.Label();
             this.lblValorMax = new System.Windows.Forms.Label();
-            this.numMin = new System.Windows.Forms.NumericUpDown();
-            this.numMax = new System.Windows.Forms.NumericUpDown();
+            this.numMinAlarma = new System.Windows.Forms.NumericUpDown();
+            this.numMaxAlarma = new System.Windows.Forms.NumericUpDown();
             this.lblErrorValores = new System.Windows.Forms.Label();
             this.maxAdv = new System.Windows.Forms.NumericUpDown();
             this.minAdv = new System.Windows.Forms.NumericUpDown();
             this.lblValorMaxAdv = new System.Windows.Forms.Label();
             this.lblValorMinAdv = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinAlarma)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxAlarma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAdv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minAdv)).BeginInit();
             this.SuspendLayout();
@@ -135,45 +135,45 @@
             this.lblValorMax.Text = "Valor Máximo";
             this.lblValorMax.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // numMin
+            // numMinAlarma
             // 
-            this.numMin.DecimalPlaces = 3;
-            this.numMin.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numMin.Location = new System.Drawing.Point(179, 214);
-            this.numMin.Maximum = new decimal(new int[] {
+            this.numMinAlarma.DecimalPlaces = 3;
+            this.numMinAlarma.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMinAlarma.Location = new System.Drawing.Point(179, 214);
+            this.numMinAlarma.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
             0,
             0});
-            this.numMin.Minimum = new decimal(new int[] {
+            this.numMinAlarma.Minimum = new decimal(new int[] {
             1569325055,
             23283064,
             0,
             -2147483648});
-            this.numMin.Name = "numMin";
-            this.numMin.Size = new System.Drawing.Size(120, 26);
-            this.numMin.TabIndex = 38;
-            this.numMin.Leave += new System.EventHandler(this.rangoValores_Leave);
+            this.numMinAlarma.Name = "numMinAlarma";
+            this.numMinAlarma.Size = new System.Drawing.Size(120, 26);
+            this.numMinAlarma.TabIndex = 38;
+            this.numMinAlarma.Leave += new System.EventHandler(this.rangoValores_Leave);
             // 
-            // numMax
+            // numMaxAlarma
             // 
-            this.numMax.DecimalPlaces = 3;
-            this.numMax.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numMax.Location = new System.Drawing.Point(179, 272);
-            this.numMax.Maximum = new decimal(new int[] {
+            this.numMaxAlarma.DecimalPlaces = 3;
+            this.numMaxAlarma.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMaxAlarma.Location = new System.Drawing.Point(179, 272);
+            this.numMaxAlarma.Maximum = new decimal(new int[] {
             -1486618625,
             232830643,
             0,
             0});
-            this.numMax.Minimum = new decimal(new int[] {
+            this.numMaxAlarma.Minimum = new decimal(new int[] {
             -1486618625,
             232830643,
             0,
             -2147483648});
-            this.numMax.Name = "numMax";
-            this.numMax.Size = new System.Drawing.Size(120, 26);
-            this.numMax.TabIndex = 39;
-            this.numMax.Leave += new System.EventHandler(this.rangoValores_Leave);
+            this.numMaxAlarma.Name = "numMaxAlarma";
+            this.numMaxAlarma.Size = new System.Drawing.Size(120, 26);
+            this.numMaxAlarma.TabIndex = 39;
+            this.numMaxAlarma.Leave += new System.EventHandler(this.rangoValores_Leave);
             // 
             // lblErrorValores
             // 
@@ -258,8 +258,8 @@
             this.Controls.Add(this.lblValorMaxAdv);
             this.Controls.Add(this.lblValorMinAdv);
             this.Controls.Add(this.lblErrorValores);
-            this.Controls.Add(this.numMax);
-            this.Controls.Add(this.numMin);
+            this.Controls.Add(this.numMaxAlarma);
+            this.Controls.Add(this.numMinAlarma);
             this.Controls.Add(this.lblValorMax);
             this.Controls.Add(this.lblValorMin);
             this.Controls.Add(this.btnCancelar);
@@ -270,8 +270,8 @@
             this.Controls.Add(this.lblMenuVariable);
             this.Name = "RegistrarVariable";
             this.Size = new System.Drawing.Size(972, 571);
-            ((System.ComponentModel.ISupportInitialize)(this.numMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinAlarma)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxAlarma)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxAdv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minAdv)).EndInit();
             this.ResumeLayout(false);
@@ -288,8 +288,8 @@
         private System.Windows.Forms.Label lblNombreInstalacion;
         private System.Windows.Forms.Label lblMenuVariable;
         private System.Windows.Forms.Label lblValorMax;
-        private System.Windows.Forms.NumericUpDown numMin;
-        private System.Windows.Forms.NumericUpDown numMax;
+        private System.Windows.Forms.NumericUpDown numMinAlarma;
+        private System.Windows.Forms.NumericUpDown numMaxAlarma;
         private System.Windows.Forms.Label lblErrorValores;
         private System.Windows.Forms.NumericUpDown maxAdv;
         private System.Windows.Forms.NumericUpDown minAdv;

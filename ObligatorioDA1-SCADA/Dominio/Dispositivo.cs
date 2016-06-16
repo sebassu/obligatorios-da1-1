@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Excepciones;
-using System;
+﻿using Excepciones;
 
 namespace Dominio
 {
     public class Dispositivo : Componente
     {
         private Tipo tipoDispositivo;
-        public Tipo Tipo
+
+        public override Tipo Tipo
         {
             get
             {
@@ -16,43 +14,15 @@ namespace Dominio
             }
             set
             {
-                if (Auxiliar.NoEsNulo(value))
-                {
-                    tipoDispositivo = value;
-                }
-                else
-                {
-                    throw new ElementoSCADAExcepcion("Tipo inválido.");
-                }
+                tipoDispositivo = value;
             }
         }
 
-        private bool enUso;
         public override bool EnUso
         {
             get
             {
-                return enUso;
-            }
-            set
-            {
-                if (Auxiliar.NoEsNulo(elementoPadre))
-                {
-                    CorregirAlarmasActivasPadres(value);
-                }
-                enUso = value;
-            }
-        }
-
-        private void CorregirAlarmasActivasPadres(bool pasaAUsarse)
-        {
-            if (enUso && !pasaAUsarse)
-            {
-                RestarTotalAlarmasYAdvertenciasPadre();
-            }
-            else if (!enUso && pasaAUsarse)
-            {
-                SumarTotalAlarmasYAdvertenciasPadre();
+                return Auxiliar.NoEsNulo(elementoPadre);
             }
         }
 
@@ -68,17 +38,9 @@ namespace Dominio
             elementoPadre.IncrementarAdvertencias(cantidadAdvertenciasActivas);
         }
 
-        public override IList Dependencias
+        public static Dispositivo NombreTipo(string unNombre, Tipo unTipo)
         {
-            get
-            {
-                return new List<Componente>();
-            }
-        }
-
-        public static Dispositivo NombreTipoEnUso(string unNombre, Tipo unTipo, bool estaEnUso = false)
-        {
-            return new Dispositivo(unNombre, unTipo, estaEnUso);
+            return new Dispositivo(unNombre, unTipo);
         }
 
         internal static Dispositivo DispositivoInvalido()
@@ -86,7 +48,7 @@ namespace Dominio
             return new Dispositivo();
         }
 
-        internal override void IncrementarAlarmas(uint valor = 1)
+        internal override void IncrementarAlarmas(int valor = 1)
         {
             if (Auxiliar.EsListaVacia(variables))
             {
@@ -98,7 +60,7 @@ namespace Dominio
             }
         }
 
-        internal override void IncrementarAdvertencias(uint valor = 1)
+        internal override void IncrementarAdvertencias(int valor = 1)
         {
             if (Auxiliar.EsListaVacia(variables))
             {
@@ -110,31 +72,25 @@ namespace Dominio
             }
         }
 
-        public override void AgregarDependencia(IElementoSCADA elementoAAgregar)
+        public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
             throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo.");
         }
 
-        public override void EliminarDependencia(IElementoSCADA elementoAEliminar)
+        public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
             throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
         }
 
-        private Dispositivo()
+        private Dispositivo() : base()
         {
             nombre = "Dispositivo inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
-            variables = new List<Variable>();
-            id = Guid.NewGuid();
         }
 
-        private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
+        private Dispositivo(string unNombre, Tipo unTipo) : base(unNombre)
         {
-            Nombre = unNombre;
             Tipo = unTipo;
-            enUso = estaEnUso;
-            variables = new List<Variable>();
-            id = Guid.NewGuid();
         }
 
         public override string ToString()

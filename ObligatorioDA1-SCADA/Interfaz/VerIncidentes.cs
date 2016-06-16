@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
+using System.Collections;
 
 namespace Interfaz
 {
@@ -15,22 +10,28 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, IElementoSCADA unELemento)
+        private ElementoSCADA unElemento;
+        private IList incidentesAVisualizar;
+        public VerIncidentes(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA unElemento, IList incidentesAVisualizar)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            RecargarListaIncidentes();
+            this.unElemento = unElemento;
+            this.incidentesAVisualizar = incidentesAVisualizar;
         }
 
-        private void RecargarListaIncidentes()
+        private void RecargarListaIncidentes(Tuple<string, Incidente> incidenteAVisualizar)
         {
-            //Prueba
-            //lstTiposDispositivos.Rows.Clear();
-            //foreach (IElementoSCADA elemento in modelo.ComponentesPrimarios)
-            //{
-            //    lstTiposDispositivos.Rows.Add(elemento, elemento.Descripcion, 1);
-            //}
+            if (incidenteAVisualizar.Item2.Fecha >= dateTimeFechaDesde.Value.Date &&
+                incidenteAVisualizar.Item2.Fecha <= dateTimeFechaHasta.Value.Date &&
+                incidenteAVisualizar.Item2.NivelGravedad == numNivelGravedad.Value)
+            {
+
+                lstIncidentes.Rows.Add(incidenteAVisualizar.Item2.Descripcion, incidenteAVisualizar.Item2.Fecha.Day + "/" +
+                    incidenteAVisualizar.Item2.Fecha.Month + "/" + incidenteAVisualizar.Item2.Fecha.Year,
+                    incidenteAVisualizar.Item2.NivelGravedad, incidenteAVisualizar.Item1);
+            }
         }
 
         private void btnVolverMenuPrincipal_Click(object sender, EventArgs e)
@@ -38,12 +39,32 @@ namespace Interfaz
             AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
         }
 
-        private void btnAplicarFiltros_Click(object sender, EventArgs e)
+        private void dateTime_Leave(object sender, EventArgs e)
         {
-            if (fechaDesde.Value > fechaHasta.Value)
+            if (dateTimeFechaDesde.Value > dateTimeFechaHasta.Value)
             {
-                MessageBox.Show("La fecha desde debe ser menor o igual a la fecha hasta", "Error", 
+                lblErrorFiltrado.Show();
+            }
+            else
+            {
+                lblErrorFiltrado.Hide();
+            }
+        }
+
+        private void btnAplicarFiltrado_Click(object sender, EventArgs e)
+        {
+            lstIncidentes.Rows.Clear();
+            if (lblErrorFiltrado.Visible)
+            {
+                MessageBox.Show("No se puede aplicar el filtrado, la fecha desde debe ser menor a la fecha hasta", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                foreach (Tuple<string, Incidente> incidente in incidentesAVisualizar)
+                {
+                    RecargarListaIncidentes(incidente);
+                }
             }
         }
     }

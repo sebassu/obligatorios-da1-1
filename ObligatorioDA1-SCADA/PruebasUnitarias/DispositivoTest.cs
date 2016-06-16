@@ -21,22 +21,6 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetEnUsoDispositivoTest1()
-        {
-            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            unDispositivo.EnUso = true;
-            Assert.IsTrue(unDispositivo.EnUso);
-        }
-
-        [TestMethod]
-        public void SetEnUsoDispositivoTest2()
-        {
-            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            unDispositivo.EnUso = false;
-            Assert.IsFalse(unDispositivo.EnUso);
-        }
-
-        [TestMethod]
         public void SetDispositivoTipoTest1()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
@@ -55,53 +39,44 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void SetDispositivoTipoTest3()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.Tipo = null;
+            Assert.AreEqual(null, unDispositivo.Tipo);
         }
 
         [TestMethod]
-        public void NombreTipoEnUsoTest1()
+        public void NombreTipoTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Assert.AreEqual(unDispositivo.Nombre, "Nombre válido");
             Assert.AreEqual(unDispositivo.Tipo, unTipo);
-            Assert.AreEqual(unDispositivo.EnUso, true);
-        }
-
-        [TestMethod]
-        public void NombreTipoEnUsoTest2()
-        {
-            Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo);
-            Assert.AreEqual(unDispositivo.Nombre, "Nombre válido");
-            Assert.AreEqual(unDispositivo.Tipo, unTipo);
-            Assert.AreEqual(unDispositivo.EnUso, false);
+            Assert.AreEqual(false, unDispositivo.EnUso);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ElementoSCADAExcepcion))]
-        public void NombreTipoEnUsoTest3()
+        public void NombreTipoTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("12!,.1#@2", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("12!,.1#@2", unTipo);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ElementoSCADAExcepcion))]
-        public void NombreTipoEnUsoTest4()
+        public void NombreTipoTest3()
         {
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", null, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", null);
+            Assert.AreEqual("Nombre válido", unDispositivo.Nombre);
+            Assert.AreEqual(null, unDispositivo.Tipo);
         }
 
         [TestMethod]
         public void AlarmasActivasDispositivoTest1()
         {
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, (uint)0);
+            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, 0);
         }
 
         [TestMethod]
@@ -109,10 +84,10 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Una variable cualquiera", 0, 10);
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
-            unaVariable.ValorActual = 5;
-            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, (uint)0);
+            unaVariable.SetValorActual(5);
+            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, 0);
         }
 
         [TestMethod]
@@ -120,10 +95,10 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Una variable cualquiera", -10, 30);
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
-            unaVariable.ValorActual = 100;
-            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, (uint)1);
+            unaVariable.SetValorActual(100);
+            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, 1);
         }
 
         [TestMethod]
@@ -131,19 +106,19 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Una variable cualquiera", -10, 30);
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(unaVariable);
-            unaVariable.ValorActual = -100;
-            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, (uint)1);
+            unaVariable.SetValorActual(-100);
+            Assert.AreEqual(unDispositivo.CantidadAlarmasActivas, 1);
         }
 
         [TestMethod]
         public void IncrementarCantidadAlarmasTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(Variable.VariableInvalida());
-            uint cantidadAnterior = unDispositivo.CantidadAlarmasActivas;
+            int cantidadAnterior = unDispositivo.CantidadAlarmasActivas;
             unDispositivo.IncrementarAlarmas();
             Assert.AreEqual(cantidadAnterior + 1, unDispositivo.CantidadAlarmasActivas);
         }
@@ -160,9 +135,9 @@ namespace PruebasUnitarias
         public void DecrementarCantidadAlarmasTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(Variable.VariableInvalida());
-            uint cantidadAnterior = unDispositivo.CantidadAlarmasActivas;
+            int cantidadAnterior = unDispositivo.CantidadAlarmasActivas;
             unDispositivo.IncrementarAlarmas();
             unDispositivo.DecrementarAlarmas();
             Assert.AreEqual(cantidadAnterior, unDispositivo.CantidadAlarmasActivas);
@@ -173,7 +148,7 @@ namespace PruebasUnitarias
         public void DecrementarCantidadAlarmasTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(Variable.VariableInvalida());
             unDispositivo.DecrementarAlarmas();
         }
@@ -190,9 +165,9 @@ namespace PruebasUnitarias
         public void IncrementarCantidadAdvertenciasTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(Variable.VariableInvalida());
-            uint cantidadAnterior = unDispositivo.CantidadAdvertenciasActivas;
+            int cantidadAnterior = unDispositivo.CantidadAdvertenciasActivas;
             unDispositivo.IncrementarAdvertencias();
             Assert.AreEqual(cantidadAnterior + 1, unDispositivo.CantidadAdvertenciasActivas);
         }
@@ -209,9 +184,9 @@ namespace PruebasUnitarias
         public void DecrementarCantidadAdvertenciasTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(Variable.VariableInvalida());
-            uint cantidadAnterior = unDispositivo.CantidadAdvertenciasActivas;
+            int cantidadAnterior = unDispositivo.CantidadAdvertenciasActivas;
             unDispositivo.IncrementarAdvertencias();
             unDispositivo.DecrementarAdvertencias();
             Assert.AreEqual(cantidadAnterior, unDispositivo.CantidadAdvertenciasActivas);
@@ -222,7 +197,7 @@ namespace PruebasUnitarias
         public void DecrementarCantidadAdvertenciasTest3()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             unDispositivo.AgregarVariable(Variable.VariableInvalida());
             unDispositivo.DecrementarAdvertencias();
         }
@@ -240,7 +215,7 @@ namespace PruebasUnitarias
         public void AgregarDependenciaDispositivoTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Dispositivo otroDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.AgregarDependencia(otroDispositivo);
         }
@@ -250,7 +225,7 @@ namespace PruebasUnitarias
         public void EliminarDependenciaDispositivoTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, false);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Dispositivo otroDispositivo = Dispositivo.DispositivoInvalido();
             unDispositivo.EliminarDependencia(otroDispositivo);
         }
@@ -262,12 +237,11 @@ namespace PruebasUnitarias
             CollectionAssert.AreEqual(unDispositivo.Dependencias, new List<Componente>());
         }
 
-
         [TestMethod]
         public void ToStringDispositivoTest()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Centrifugadora", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Centrifugadora", unTipo);
             Assert.AreEqual("Centrifugadora (D)", unDispositivo.ToString());
         }
     }

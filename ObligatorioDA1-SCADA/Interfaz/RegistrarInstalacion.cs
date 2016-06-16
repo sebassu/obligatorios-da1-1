@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
 using Excepciones;
 
 namespace Interfaz
@@ -9,21 +10,24 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        private Instalacion instalacionAModificar;
+        private ElementoSCADA elementoRecibido;
+        private bool esParaModificar;
 
-        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema, Instalacion instalacionAModificar = null)
+        public RegistrarInstalacion(IAccesoADatos modelo, Panel panelSistema,
+            ElementoSCADA elementoRecibido = null, bool esParaModificar = false)
         {
             InitializeComponent();
             this.modelo = modelo;
-            if (instalacionAModificar == null)
+            this.esParaModificar = esParaModificar;
+            this.elementoRecibido = elementoRecibido;
+            if (!esParaModificar)
             {
                 lblMenuInstalacion.Text = "Registrar Instalación";
             }
             else
             {
                 lblMenuInstalacion.Text = "Editar Instalación";
-                this.instalacionAModificar = instalacionAModificar;
-                txtNombreInstalacion.Text = instalacionAModificar.Nombre;
+                txtNombreInstalacion.Text = elementoRecibido.Nombre;
             }
             this.panelSistema = panelSistema;
             lblErrorNombre.Hide();
@@ -41,25 +45,41 @@ namespace Interfaz
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            try
+            if (lblErrorNombre.Visible)
             {
-                string unNombre = txtNombreInstalacion.Text;
-                if (instalacionAModificar == null)
-                {
-                    Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
-                    modelo.RegistrarComponente(unaInstalacion);
-                    MessageBox.Show("La instalación fue registrada correctamente", "Éxito");
-                }
-                else
-                {
-                    instalacionAModificar.Nombre = unNombre;
-                    MessageBox.Show("La instalación fue modificada correctamente", "Éxito");
-                }
-                AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                MessageBox.Show("No se puede registrar la instalación, hay campos con errores.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (ElementoSCADAExcepcion excepcion)
+            else
             {
-                MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    string unNombre = txtNombreInstalacion.Text;
+                    if (!esParaModificar)
+                    {
+                        Instalacion unaInstalacion = Instalacion.ConstructorNombre(unNombre);
+                        elementoRecibido.AgregarDependencia(unaInstalacion);
+                        modelo.ActualizarElemento(elementoRecibido);
+                        MessageBox.Show("La instalación fue registrada correctamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        elementoRecibido.Nombre = unNombre;
+                        modelo.ActualizarElemento(elementoRecibido);
+                        MessageBox.Show("La instalación fue modificada correctamente", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
+                }
+                catch (ElementoSCADAExcepcion excepcion)
+                {
+                    MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (AccesoADatosExcepcion excepcion)
+                {
+                    MessageBox.Show(excepcion.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
