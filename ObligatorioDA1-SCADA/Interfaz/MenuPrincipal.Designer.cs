@@ -403,7 +403,7 @@
             this.lblMetodoGuardado.AutoSize = true;
             this.lblMetodoGuardado.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMetodoGuardado.ForeColor = System.Drawing.Color.Black;
-            this.lblMetodoGuardado.Location = new System.Drawing.Point(662, 489);
+            this.lblMetodoGuardado.Location = new System.Drawing.Point(688, 460);
             this.lblMetodoGuardado.Name = "lblMetodoGuardado";
             this.lblMetodoGuardado.Size = new System.Drawing.Size(266, 21);
             this.lblMetodoGuardado.TabIndex = 37;
@@ -412,15 +412,17 @@
             // 
             // cbxMetodoGuardadoIncidentes
             // 
+            this.cbxMetodoGuardadoIncidentes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxMetodoGuardadoIncidentes.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxMetodoGuardadoIncidentes.FormattingEnabled = true;
             this.cbxMetodoGuardadoIncidentes.Items.AddRange(new object[] {
             "Base de Datos",
             "Archivo de Texto"});
-            this.cbxMetodoGuardadoIncidentes.Location = new System.Drawing.Point(690, 514);
+            this.cbxMetodoGuardadoIncidentes.Location = new System.Drawing.Point(716, 485);
             this.cbxMetodoGuardadoIncidentes.Name = "cbxMetodoGuardadoIncidentes";
             this.cbxMetodoGuardadoIncidentes.Size = new System.Drawing.Size(220, 24);
             this.cbxMetodoGuardadoIncidentes.TabIndex = 38;
+            this.cbxMetodoGuardadoIncidentes.SelectedIndexChanged += new System.EventHandler(this.cbxMetodoGuardadoIncidentes_SelectedIndexChanged);
             // 
             // MenuPrincipal
             // 

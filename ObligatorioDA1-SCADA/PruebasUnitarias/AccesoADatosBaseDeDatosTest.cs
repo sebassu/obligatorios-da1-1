@@ -3,6 +3,7 @@ using Dominio;
 using Excepciones;
 using Persistencia;
 using System.Diagnostics.CodeAnalysis;
+using System;
 
 namespace PruebasUnitarias
 {
@@ -244,8 +245,8 @@ namespace PruebasUnitarias
         public void RegistrarIncidenteTest1()
         {
             PlantaIndustrial unaPlanta = PlantaIndustrial.PlantaIndustrialInvalida();
-            Incidente unIncidente = Incidente.IncidenteInvalido();
-            unSistema.RegistrarIncidente(unaPlanta, unIncidente);
+            Incidente unIncidente = Incidente.IDElementoDescripcionFechaGravedad(unaPlanta.ID, "Descripción", DateTime.Now, 5);
+            unSistema.RegistrarIncidente(unIncidente);
             CollectionAssert.Contains(unSistema.Incidentes, unIncidente);
             Assert.AreEqual(unaPlanta.ID, unIncidente.IdElementoAsociado);
         }
@@ -255,7 +256,7 @@ namespace PruebasUnitarias
         public void RegistrarIncidenteTest2()
         {
             Incidente unIncidente = Incidente.IncidenteInvalido();
-            unSistema.RegistrarIncidente(null, unIncidente);
+            unSistema.RegistrarIncidente(unIncidente);
         }
     }
 }

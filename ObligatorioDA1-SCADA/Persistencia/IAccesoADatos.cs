@@ -14,10 +14,11 @@ namespace Persistencia
         void EliminarElemento(ElementoSCADA unElemento);
         void EliminarDatos();
         bool ExistenTipos();
-        void RegistrarIncidente(ElementoSCADA unElemento, Incidente incidenteARegistrar);
+        void RegistrarIncidente(Incidente incidenteARegistrar);
         void ActualizarTipo(Tipo unTipo);
         void ActualizarElemento(ElementoSCADA unElemento);
         void ActualizarVariable(Variable unaVariable);
         void ActualizarElementoAgregacionDispositivo(ElementoSCADA unElemento, Dispositivo unDispositivo);
+        void CambiarEstrategia(int codigoEstrategia);
     }
 }

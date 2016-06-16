@@ -14,6 +14,7 @@ namespace Persistencia
         private RepositorioTipo manejadorTipos;
         private RepositorioPlantaIndustrial manejadorPlantas;
         private RepositorioInstalacion manejadorInstalaciones;
+        private EstrategiaGuardadoIncidentes manejadorIncidentes;
 
         private static readonly Action<Dispositivo> accionErronea = delegate (Dispositivo d) { throw new AccesoADatosExcepcion("Accion no soportada"); };
 
@@ -25,6 +26,7 @@ namespace Persistencia
             manejadorDispositivos = new RepositorioDispositivo(contexto);
             manejadorPlantas = new RepositorioPlantaIndustrial(contexto);
             manejadorInstalaciones = new RepositorioInstalacion(contexto);
+            manejadorIncidentes = new EstrategiaArchivoDeTexto();
         }
 
         public IList ElementosPrimarios
@@ -60,7 +62,7 @@ namespace Persistencia
         {
             get
             {
-                throw new NotImplementedException();
+                return manejadorIncidentes.Obtener().AsReadOnly();
             }
         }
 
@@ -108,7 +110,8 @@ namespace Persistencia
                 {
                     accionAEjecutarParaDispositivo(elementoCasteadoADispositivo);
                 }
-                else {
+                else
+                {
                     Instalacion elementoCasteadoAInstalacion = unElemento as Instalacion;
                     if (Auxiliar.NoEsNulo(elementoCasteadoAInstalacion))
                     {
@@ -134,9 +137,16 @@ namespace Persistencia
             }
         }
 
-        public void RegistrarIncidente(ElementoSCADA unElemento, Incidente incidenteARegistrar)
+        public void RegistrarIncidente(Incidente incidenteARegistrar)
         {
-            throw new NotImplementedException();
+            if (Auxiliar.NoEsNulo(incidenteARegistrar.IdElementoAsociado))
+            {
+                manejadorIncidentes.Insertar(incidenteARegistrar);
+            }
+            else
+            {
+                throw new AccesoADatosExcepcion("El incidente recibido no se encuentra asociado con ningún elemento");
+            }
         }
 
         public void RegistrarTipo(Tipo unTipo)
@@ -178,6 +188,22 @@ namespace Persistencia
                 contexto.Variables.Attach(unaVariable);
                 contexto.Entry(unaVariable).State = EntityState.Modified;
                 contexto.SaveChanges();
+            }
+        }
+
+        public void CambiarEstrategia(int codigoEstrategia)
+        {
+            manejadorIncidentes.BorrarDatos();
+            switch (codigoEstrategia)
+            {
+                case 0:
+                    manejadorIncidentes = new EstrategiaBaseDeDatos(new ContextoSCADA(stringConexion));
+                    break;
+                case 1:
+                    manejadorIncidentes = new EstrategiaArchivoDeTexto();
+                    break;
+                default:
+                    throw new AccesoADatosExcepcion("Código de estrategia inválido.");
             }
         }
     }

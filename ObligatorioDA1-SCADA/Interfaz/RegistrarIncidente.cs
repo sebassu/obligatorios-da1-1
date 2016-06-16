@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio;
 using Persistencia;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -16,14 +10,14 @@ namespace Interfaz
     {
         private IAccesoADatos modelo;
         private Panel panelSistema;
-        private ElementoSCADA elementoAModificar;
+        private ElementoSCADA elementoAsociado;
 
         public RegistrarIncidente(IAccesoADatos modelo, Panel panelSistema, ElementoSCADA elementoAModificar)
         {
             InitializeComponent();
             this.modelo = modelo;
             this.panelSistema = panelSistema;
-            this.elementoAModificar = elementoAModificar;
+            elementoAsociado = elementoAModificar;
             lblErrorDescripcion.Hide();
             lblErrorFecha.Hide();
         }
@@ -59,6 +53,23 @@ namespace Interfaz
             else
             {
                 lblErrorFecha.Hide();
+            }
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                byte gravedad = (byte)numValor.Value;
+                DateTime fecha = monthCalendar.SelectionStart;
+                string descripcion = txtDescripcion.Text;
+                Incidente incidenteAAgregar = Incidente.IDElementoDescripcionFechaGravedad(elementoAsociado.ID, descripcion, fecha, gravedad);
+                modelo.RegistrarIncidente(incidenteAAgregar);
+            }
+            catch (IncidenteExcepcion ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

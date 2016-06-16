@@ -19,7 +19,7 @@ namespace Interfaz
             this.panelSistema = panelSistema;
             RecargarTodoComponente();
             cbxMetodoGuardadoIncidentes.SelectedItem = "Base de Datos";
-            //ActivacionBotonesIncidente();
+            indiceSeleccionado = 0;
         }
 
         private void btnAgregarInstalacion_Click(object sender, EventArgs e)
@@ -416,8 +416,8 @@ namespace Interfaz
                 }
                 else
                 {
-                MessageBox.Show("Es necesario utilizar la función de \"Modificar\" al elemento que corresponda para la selección realizada",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Es necesario utilizar la función de \"Modificar\" de otro tipo para la selección realizada",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -510,13 +510,11 @@ namespace Interfaz
                 if (elementoSeleccionado.Tag is ElementoSCADA)
                 {
                     unaAccionARealizar.Invoke();
+                    return;
                 }
             }
-            else
-            {
-                MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            MessageBox.Show("Debe seleccionar un elemento para acceder a esta funcionalidad", "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void AbrirPanelVerIncidentes()
@@ -533,8 +531,8 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(seleccionado))
             {
                 plantaIndustrialPadre = seleccionado.Tag as PlantaIndustrial;
-                panelSistema.Controls.Clear();
             }
+            panelSistema.Controls.Clear();
             panelSistema.Controls.Add(new RegistrarPlantaIndustrial(modelo, panelSistema, plantaIndustrialPadre, false));
         }
 
@@ -545,16 +543,17 @@ namespace Interfaz
 
         private void VerificarPlantaIndustrialSeleccionada(Action unaAccionARealizar)
         {
-            PlantaIndustrial plantaSeleccionada = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
-            if (Auxiliar.NoEsNulo(plantaSeleccionada))
+            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
             {
-                unaAccionARealizar.Invoke();
+                PlantaIndustrial plantaSeleccionada = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
+                if (Auxiliar.NoEsNulo(plantaSeleccionada))
+                {
+                    unaAccionARealizar.Invoke();
+                    return;
+                }
             }
-            else
-            {
-                MessageBox.Show("Debe seleccionar una Planta Industrial para acceder a esta funcionalidad", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            MessageBox.Show("Debe seleccionar una Planta Industrial para acceder a esta funcionalidad", "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void EliminarPlantaIndustrialSeleccionada()
@@ -594,6 +593,26 @@ namespace Interfaz
             else
             {
                 MessageBox.Show("Es necesario utilizar otra función de \"Modificar\" para la selección realizada");
+            }
+        }
+
+        private int indiceSeleccionado;
+        private void cbxMetodoGuardadoIncidentes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int indiceSeleccionadoNuevo = cbxMetodoGuardadoIncidentes.SelectedIndex;
+            if (indiceSeleccionadoNuevo != indiceSeleccionado)
+            {
+                DialogResult resultado = MessageBox.Show("¿Está seguro de que desea continuar con la operación?"
+                    + " Se eliminarán los incidentes registrados hasta el momento.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    modelo.CambiarEstrategia(indiceSeleccionadoNuevo);
+                    indiceSeleccionado = indiceSeleccionadoNuevo;
+                }
+                else
+                {
+                    cbxMetodoGuardadoIncidentes.SelectedIndex = indiceSeleccionado;
+                }
             }
         }
     }

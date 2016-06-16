@@ -8,11 +8,12 @@ namespace Dominio
     public class Incidente
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid ID { get; set; }
 
+        [ForeignKey("ElementoSCADA")]
         private Guid idElementoAsociado;
-        internal virtual Guid IdElementoAsociado
+        public virtual Guid IdElementoAsociado
         {
             get
             {
@@ -89,15 +90,15 @@ namespace Dominio
             descripcion = "Descripción inválida.";
         }
 
-        public static Incidente ElementoDescripcionFechaGravedad(ElementoSCADA unElementoSCADA, string unaDescripcion,
+        public static Incidente IDElementoDescripcionFechaGravedad(Guid idElementoSCADA, string unaDescripcion,
             DateTime unaFecha, byte unNivelDeGravedad)
         {
-            return new Incidente(unElementoSCADA, unaDescripcion, unaFecha, unNivelDeGravedad);
+            return new Incidente(idElementoSCADA, unaDescripcion, unaFecha, unNivelDeGravedad);
         }
 
-        private Incidente(ElementoSCADA unElementoSCADA, string unaDescripcion, DateTime unaFecha, byte unNivelDeGravedad)
+        private Incidente(Guid idElementoSCADA, string unaDescripcion, DateTime unaFecha, byte unNivelDeGravedad)
         {
-            idElementoAsociado = unElementoSCADA.ID;
+            idElementoAsociado = idElementoSCADA;
             Descripcion = unaDescripcion;
             Fecha = unaFecha;
             NivelGravedad = unNivelDeGravedad;
