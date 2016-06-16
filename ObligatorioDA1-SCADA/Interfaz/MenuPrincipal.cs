@@ -627,5 +627,60 @@ namespace Interfaz
                 }
             }
         }
+
+        private void treeViewPlantaDeProduccion_DoubleClick(object sender, EventArgs e)
+        {
+            if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
+            {
+                ElementoSCADA elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as ElementoSCADA;
+                if (Auxiliar.NoEsNulo(elementoSeleccionado))
+                {
+                    MostrarDrillDownVariables(elementoSeleccionado);
+                }
+            }
+        }
+
+        private void MostrarDrillDownVariables(ElementoSCADA unElemento)
+        {
+            string mensaje;
+            if (unElemento.CantidadAlarmasActivas > 0)
+            {
+                mensaje = "Detalle de alarmas:\n\n";
+                GenerarMensajeDrillDown(unElemento, true, unElemento.CantidadAlarmasActivas, ref mensaje);
+            }
+            else if (unElemento.CantidadAdvertenciasActivas > 0)
+            {
+                mensaje = "Detalle de advertencias:\n\n";
+                GenerarMensajeDrillDown(unElemento, false, unElemento.CantidadAdvertenciasActivas, ref mensaje);
+            }
+            else {
+                mensaje = "El elemento seleccionado no posee alarmas ni advertencias activas.";
+            }
+            MessageBox.Show(mensaje, "Drill down de variables", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void GenerarMensajeDrillDown(ElementoSCADA unElemento, bool buscarAlarmas, int cantidadActual, ref string retorno)
+        {
+            if (cantidadActual > 0)
+            {
+                foreach (Variable variableIteracion in unElemento.Variables)
+                {
+                    if (buscarAlarmas && variableIteracion.AlarmaActiva)
+                    {
+                        retorno += variableIteracion.ToString() + " -> " + unElemento.ToString() + "\n";
+                        cantidadActual = cantidadActual - 1;
+                    }
+                    else if (!buscarAlarmas && variableIteracion.AdvertenciaActiva)
+                    {
+                        retorno += variableIteracion.ToString() + " -> " + unElemento.ToString() + "\n";
+                        cantidadActual = cantidadActual - 1;
+                    }
+                }
+                foreach (ElementoSCADA elementoHijo in unElemento.Dependencias)
+                {
+                    GenerarMensajeDrillDown(elementoHijo, buscarAlarmas, cantidadActual, ref retorno);
+                }
+            }
+        }
     }
 }

@@ -88,6 +88,7 @@
             this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 426);
             this.treeViewPlantaDeProduccion.TabIndex = 3;
             this.treeViewPlantaDeProduccion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPlantaDeProduccion_AfterSelect);
+            this.treeViewPlantaDeProduccion.DoubleClick += new System.EventHandler(this.treeViewPlantaDeProduccion_DoubleClick);
             // 
             // lblPlantaDeProduccion
             // 
