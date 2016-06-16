@@ -337,6 +337,7 @@ namespace Interfaz
             if (Auxiliar.NoEsNulo(componenteSeleccionado))
             {
                 ActivacionBotonesIncidente();
+                RecargarTableroDeControl();
                 if (componenteSeleccionado.Variables.Count > 0)
                 {
                     foreach (Variable variableDelComponente in componenteSeleccionado.Variables)
@@ -345,37 +346,32 @@ namespace Interfaz
                         itemAAgregar.Tag = variableDelComponente;
                         lstVariables.Items.Add(itemAAgregar);
                     }
-                }
-                else
-                {
-                    lstVariables.Items.Add(new ListViewItem("\n\nSin datos a mostrar"));
+                    return;
                 }
             }
-            else
-            {
-                lstVariables.Text = "Sin datos para mostrar.";
-            }
+            lstVariables.Items.Add(new ListViewItem("Sin datos a mostrar."));
         }
 
         private void RecargarTableroDeControl()
         {
-            bool seleccionContieneElementos = false;
-            lstTableroControl.Clear();
             if (Auxiliar.NoEsNulo(treeViewPlantaDeProduccion.SelectedNode))
             {
                 PlantaIndustrial elementoSeleccionado = treeViewPlantaDeProduccion.SelectedNode.Tag as PlantaIndustrial;
                 if (Auxiliar.NoEsNulo(elementoSeleccionado))
                 {
-                    foreach (ElementoSCADA elemento in elementoSeleccionado.Dependencias)
+                    lstTableroControl.Clear();
+                    if (elementoSeleccionado.Dependencias.Count > 0)
                     {
-                        seleccionContieneElementos = true;
-                        ImprimirMensajeAlarmasAdvertencias(elemento);
+                        foreach (ElementoSCADA elemento in elementoSeleccionado.Dependencias)
+                        {
+                            ImprimirMensajeAlarmasAdvertencias(elemento);
+                        }
+                    }
+                    else
+                    {
+                        lstTableroControl.AppendText("Sin datos a mostrar.");
                     }
                 }
-            }
-            if (seleccionContieneElementos)
-            {
-                lstTableroControl.AppendText("\nSin datos a mostrar.\n");
             }
         }
 
@@ -390,12 +386,12 @@ namespace Interfaz
             else if (elemento.CantidadAdvertenciasActivas > 0)
             {
                 lstTableroControl.SelectionBackColor = Color.Yellow;
-                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Advertencias\n");
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAdvertenciasActivas + " Advertencias\n");
             }
             else
             {
                 lstTableroControl.SelectionBackColor = Color.Chartreuse;
-                lstTableroControl.AppendText("\n" + elemento.Nombre + ": " + elemento.CantidadAlarmasActivas + " Alarmas/Adtvertencias\n");
+                lstTableroControl.AppendText("\n" + elemento.Nombre + ": 0 Alarmas/Advertencias\n");
             }
         }
 

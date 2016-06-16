@@ -231,7 +231,6 @@
             // lstTableroControl
             // 
             this.lstTableroControl.BackColor = System.Drawing.Color.White;
-            this.lstTableroControl.Cursor = System.Windows.Forms.Cursors.Default;
             this.lstTableroControl.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstTableroControl.Location = new System.Drawing.Point(363, 110);
             this.lstTableroControl.Name = "lstTableroControl";
