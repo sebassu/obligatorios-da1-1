@@ -5,15 +5,15 @@ using Excepciones;
 
 namespace PruebasUnitarias
 {
-    [ExcludeFromCodeCoverage]
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class InstalacionTest
     {
         [TestMethod]
         public void InstalacionInvalidaTest()
         {
             Instalacion unaInstalacion = Instalacion.InstalacionInvalida();
-            Assert.AreEqual("Nombre inválido.", unaInstalacion.Nombre);
+            Assert.AreEqual("Instalación inválida.", unaInstalacion.Nombre);
             Assert.AreEqual(0, unaInstalacion.Variables.Count);
             Assert.AreEqual(0, unaInstalacion.Dependencias.Count);
         }
@@ -37,99 +37,93 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void ConstructorNombreTest3()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("4567");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
         public void ConstructorNombreTest4()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("/$(%,. &#%");
         }
 
         [TestMethod]
-        public void AgregarComponenteTest1()
+        public void AgregarDependenciaTest1()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            unaInstalacion.AgregarComponente(unDispositivo);
+            unaInstalacion.AgregarDependencia(unDispositivo);
             CollectionAssert.Contains(unaInstalacion.Dependencias, unDispositivo);
         }
 
         [TestMethod]
-        public void AgregarComponenteTest2()
+        public void AgregarDependenciaTest2()
         {
             Instalacion instalacion1 = Instalacion.ConstructorNombre("Una instalación");
             Instalacion instalacion2 = Instalacion.ConstructorNombre("Otra instalación");
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            instalacion1.AgregarComponente(instalacion2);
-            instalacion2.AgregarComponente(unDispositivo);
+            instalacion1.AgregarDependencia(instalacion2);
+            instalacion2.AgregarDependencia(unDispositivo);
             CollectionAssert.Contains(instalacion1.Dependencias, instalacion2);
             CollectionAssert.Contains(instalacion2.Dependencias, unDispositivo);
             CollectionAssert.DoesNotContain(instalacion1.Dependencias, unDispositivo);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
-        public void AgregarComponenteTest3()
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
+        public void AgregarDependenciaTest3()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
-            unaInstalacion.AgregarComponente(null);
+            unaInstalacion.AgregarDependencia(null);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
-        public void AgregarComponenteTest4()
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
+        public void AgregarDependenciaTest4()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Vientos");
-            unaInstalacion.AgregarComponente(unaInstalacion);
+            unaInstalacion.AgregarDependencia(unaInstalacion);
         }
 
         [TestMethod]
-        public void EliminarComponenteTest1()
+        public void EliminarDependenciaTest1()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
             Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
-            unaInstalacion.AgregarComponente(unDispositivo);
-            unaInstalacion.EliminarComponente(unDispositivo);
+            unaInstalacion.AgregarDependencia(unDispositivo);
+            unaInstalacion.EliminarDependencia(unDispositivo);
             CollectionAssert.DoesNotContain(unaInstalacion.Dependencias, unDispositivo);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ComponenteExcepcion))]
-        public void EliminarComponenteTest2()
+        [ExpectedException(typeof(ElementoSCADAExcepcion))]
+        public void EliminarDependenciaTest2()
         {
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
-            unaInstalacion.EliminarComponente(null);
+            unaInstalacion.EliminarDependencia(null);
         }
 
         [TestMethod]
-        public void EliminarComponenteTest3DispositivosHijosIndirectos()
+        public void ToStringInstalacionTest()
         {
-            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
-            Instalacion otraInstalacion = Instalacion.ConstructorNombre("Otra instalación");
-            unaInstalacion.AgregarComponente(otraInstalacion);
-            otraInstalacion.AgregarComponente(Dispositivo.DispositivoInvalido());
-            Assert.AreEqual((uint)1, unaInstalacion.CantidadDispositivosHijos);
-            unaInstalacion.EliminarComponente(otraInstalacion);
-            Assert.AreEqual((uint)0, unaInstalacion.CantidadDispositivosHijos);
+            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Paneles");
+            Assert.AreEqual("Paneles (I)", unaInstalacion.ToString());
         }
 
         [TestMethod]
-        public void EliminarComponenteTest4DispositivosHijosIndirectos2()
+        public void ReasignacionDeDependenciasTest()
         {
-            Instalacion instalacionRaiz = Instalacion.ConstructorNombre("Raíz");
-            Instalacion unaInstalacion = Instalacion.ConstructorNombre("Una instalación");
-            Instalacion otraInstalacion = Instalacion.ConstructorNombre("Otra instalación");
-            instalacionRaiz.AgregarComponente(unaInstalacion);
-            unaInstalacion.AgregarComponente(otraInstalacion);
-            otraInstalacion.AgregarComponente(Dispositivo.DispositivoInvalido());
-            Assert.AreEqual((uint)1, instalacionRaiz.CantidadDispositivosHijos);
-            unaInstalacion.EliminarComponente(otraInstalacion);
-            Assert.AreEqual((uint)0, instalacionRaiz.CantidadDispositivosHijos);
+            Instalacion unaInstalacion = Instalacion.InstalacionInvalida();
+            Dispositivo unDispositivo = Dispositivo.DispositivoInvalido();
+            unaInstalacion.AgregarDependencia(unDispositivo);
+            CollectionAssert.Contains(unaInstalacion.Dependencias, unDispositivo);
+            Instalacion otraInstalacion = Instalacion.InstalacionInvalida();
+            otraInstalacion.AgregarDependencia(unDispositivo);
+            CollectionAssert.Contains(otraInstalacion.Dependencias, unDispositivo);
+            CollectionAssert.DoesNotContain(unaInstalacion.Dependencias, unDispositivo);
         }
     }
 }

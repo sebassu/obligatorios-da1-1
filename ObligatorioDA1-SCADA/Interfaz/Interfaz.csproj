@@ -33,7 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -65,11 +74,23 @@
     <Compile Include="RegistrarDispositivo.Designer.cs">
       <DependentUpon>RegistrarDispositivo.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistrarIncidente.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RegistrarIncidente.Designer.cs">
+      <DependentUpon>RegistrarIncidente.cs</DependentUpon>
+    </Compile>
     <Compile Include="RegistrarInstalacion.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RegistrarInstalacion.Designer.cs">
       <DependentUpon>RegistrarInstalacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrarPlantaIndustrial.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RegistrarPlantaIndustrial.Designer.cs">
+      <DependentUpon>RegistrarPlantaIndustrial.cs</DependentUpon>
     </Compile>
     <Compile Include="RegistrarTipoDispositivo.cs">
       <SubType>UserControl</SubType>
@@ -103,6 +124,12 @@
     </Compile>
     <Compile Include="EntradaAlPrograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerIncidentes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VerIncidentes.Designer.cs">
+      <DependentUpon>VerIncidentes.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MenuOpcionesTipoDispositivo.resx">
       <DependentUpon>MenuOpcionesTipoDispositivo.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,8 +148,14 @@
     <EmbeddedResource Include="RegistrarDispositivo.resx">
       <DependentUpon>RegistrarDispositivo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarIncidente.resx">
+      <DependentUpon>RegistrarIncidente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RegistrarInstalacion.resx">
       <DependentUpon>RegistrarInstalacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarPlantaIndustrial.resx">
+      <DependentUpon>RegistrarPlantaIndustrial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrarTipoDispositivo.resx">
       <DependentUpon>RegistrarTipoDispositivo.cs</DependentUpon>
@@ -139,6 +172,10 @@
     <EmbeddedResource Include="VentanaPrincipal.resx">
       <DependentUpon>VentanaPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VerIncidentes.resx">
+      <DependentUpon>VerIncidentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -160,6 +197,10 @@
     <ProjectReference Include="..\Excepciones\Excepciones.csproj">
       <Project>{88f9e548-8e79-42de-8f4f-c00bdd29ff7c}</Project>
       <Name>Excepciones</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistencia\Persistencia.csproj">
+      <Project>{ab45c5a2-e548-4686-9f8d-f6d8651cd159}</Project>
+      <Name>Persistencia</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,20 +2,42 @@ C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\b
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Interfaz.exe
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Interfaz.pdb
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Dominio.dll
+<<<<<<< HEAD
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Excepciones.dll
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Dominio.pdb
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Excepciones.pdb
+=======
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\EntityFramework.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Excepciones.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Persistencia.dll
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Dominio.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Excepciones.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\Persistencia.pdb
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\EntityFramework.xml
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\bin\Release\EntityFramework.SqlServer.xml
+>>>>>>> develop
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.csprojResolveAssemblyReference.cache
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.MenuOpcionesTipoDispositivo.resources
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.MenuPrincipal.resources
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.Properties.Resources.resources
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarDispositivo.resources
+<<<<<<< HEAD
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarInstalacion.resources
+=======
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarIncidente.resources
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarInstalacion.resources
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarPlantaIndustrial.resources
+>>>>>>> develop
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarTipoDispositivo.resources
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarValorVariable.resources
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.RegistrarVariable.resources
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.VariableValorHistorico.resources
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.VentanaPrincipal.resources
+<<<<<<< HEAD
+=======
+C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.VerIncidentes.resources
+>>>>>>> develop
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.csproj.GenerateResource.Cache
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.exe
 C:\Users\alumnoFI\Documents\oblda1-194973-171983\ObligatorioDA1-SCADA\Interfaz\obj\Release\Interfaz.pdb

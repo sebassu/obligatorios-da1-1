@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Excepciones;
+﻿using Excepciones;
 
 namespace Dominio
 {
     public class Dispositivo : Componente
     {
-        public static uint ProximaIdAAsignar;
-
         private Tipo tipoDispositivo;
-        public Tipo Tipo
+
+        public override Tipo Tipo
         {
             get
             {
@@ -17,125 +14,83 @@ namespace Dominio
             }
             set
             {
-                if (Auxiliar.NoEsNulo(value))
-                {
-                    tipoDispositivo = value;
-                }
-                else
-                {
-                    throw new ComponenteExcepcion("Tipo inválido.");
-                }
+                tipoDispositivo = value;
             }
         }
 
-        private bool enUso;
-        public bool EnUso
+        public override bool EnUso
         {
             get
             {
-                return enUso;
-            }
-            set
-            {
-                if (Auxiliar.NoEsNulo(instalacionPadre))
-                {
-                    CorregirAlarmasActivasPadres(value);
-                }
-                enUso = value;
+                return Auxiliar.NoEsNulo(elementoPadre);
             }
         }
 
-        private void CorregirAlarmasActivasPadres(bool pasaAUsarse)
+        private void RestarTotalAlarmasYAdvertenciasPadre()
         {
-            if (enUso && !pasaAUsarse)
-            {
-                RestarTotalAlarmasPadre();
-            }
-            else if (!enUso && pasaAUsarse)
-            {
-                SumarTotalAlarmasPadre();
-            }
+            elementoPadre.DecrementarAlarmas(cantidadAlarmasActivas);
+            elementoPadre.DecrementarAdvertencias(cantidadAdvertenciasActivas);
         }
 
-        private void RestarTotalAlarmasPadre()
+        private void SumarTotalAlarmasYAdvertenciasPadre()
         {
-            for (int i = 0; i < cantidadAlarmasActivas; i++)
-            {
-                instalacionPadre.DecrementarAlarmas();
-            }
+            elementoPadre.IncrementarAlarmas(cantidadAlarmasActivas);
+            elementoPadre.IncrementarAdvertencias(cantidadAdvertenciasActivas);
         }
 
-        private void SumarTotalAlarmasPadre()
+        public static Dispositivo NombreTipo(string unNombre, Tipo unTipo)
         {
-            for (int i = 0; i < cantidadAlarmasActivas; i++)
-            {
-                instalacionPadre.IncrementarAlarmas();
-            }
+            return new Dispositivo(unNombre, unTipo);
         }
 
-        public override IList Dependencias
-        {
-            get
-            {
-                return new List<Componente>();
-            }
-        }
-
-        public static Dispositivo NombreTipoEnUso(string unNombre, Tipo unTipo, bool estaEnUso = false)
-        {
-            return new Dispositivo(unNombre, unTipo, estaEnUso);
-        }
-
-        public static Dispositivo DispositivoInvalido()
+        internal static Dispositivo DispositivoInvalido()
         {
             return new Dispositivo();
         }
 
-        public override void IncrementarAlarmas()
+        internal override void IncrementarAlarmas(int valor = 1)
         {
             if (Auxiliar.EsListaVacia(variables))
             {
-                throw new ComponenteExcepcion("La lista de variables controladas es vacía.");
+                throw new ElementoSCADAExcepcion("La lista de variables controladas es vacía.");
             }
             else
             {
-                base.IncrementarAlarmas();
+                base.IncrementarAlarmas(valor);
             }
         }
 
-        protected override void IncrementarAlarmasPadre()
+        internal override void IncrementarAdvertencias(int valor = 1)
         {
-            if (enUso)
+            if (Auxiliar.EsListaVacia(variables))
             {
-                instalacionPadre.IncrementarAlarmas();
+                throw new ElementoSCADAExcepcion("La lista de variables controladas es vacía.");
+            }
+            else
+            {
+                base.IncrementarAdvertencias(valor);
             }
         }
 
-        public override void AgregarComponente(Componente unComponente)
+        public override void AgregarDependencia(ElementoSCADA elementoAAgregar)
         {
-            throw new ComponenteExcepcion("No es posible asignarle componentes a un dispositivo.");
+            throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo.");
         }
 
-        public override void EliminarComponente(Componente unComponente)
+        public override void EliminarDependencia(ElementoSCADA elementoAEliminar)
         {
-            throw new ComponenteExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
+            throw new ElementoSCADAExcepcion("No es posible asignarle componentes a un dispositivo (ni eliminarlos por ende).");
         }
 
-        private Dispositivo()
+        private Dispositivo() : base()
         {
-            nombre = "Nombre inválido.";
+            nombre = "Dispositivo inválido.";
             tipoDispositivo = Tipo.TipoInvalido();
-            variables = new List<Variable>();
-            id = ProximaIdAAsignar++;
         }
 
-        private Dispositivo(string unNombre, Tipo unTipo, bool estaEnUso)
+        private Dispositivo(string unNombre, Tipo unTipo) : base(unNombre)
         {
-            Nombre = unNombre;
             Tipo = unTipo;
-            enUso = estaEnUso;
-            variables = new List<Variable>();
-            id = ProximaIdAAsignar++;
         }
 
         public override string ToString()

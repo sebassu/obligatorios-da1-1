@@ -29,19 +29,11 @@
         private void InitializeComponent()
         {
             this.lblMenuPrincipal = new System.Windows.Forms.Label();
-            this.treeViewPlantaDeProduccion = new System.Windows.Forms.TreeView();
+            this.treeViewProduccion = new System.Windows.Forms.TreeView();
             this.lblPlantaDeProduccion = new System.Windows.Forms.Label();
             this.lblTableroControl = new System.Windows.Forms.Label();
             this.lblVariables = new System.Windows.Forms.Label();
             this.lstVariables = new System.Windows.Forms.ListView();
-            this.lblOpcionesInstalacion = new System.Windows.Forms.Label();
-            this.btnEliminarInstalacion = new System.Windows.Forms.Button();
-            this.btnAgregarInstalacion = new System.Windows.Forms.Button();
-            this.btnEditarInstalacion = new System.Windows.Forms.Button();
-            this.btnEditarDispositivo = new System.Windows.Forms.Button();
-            this.btnEliminarDispositivo = new System.Windows.Forms.Button();
-            this.btnAgregarDispositivo = new System.Windows.Forms.Button();
-            this.lblOpcionesDispositivo = new System.Windows.Forms.Label();
             this.btnAgregarTipoDispositivo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnEditarVariable = new System.Windows.Forms.Button();
@@ -51,9 +43,27 @@
             this.btnAgregarValorVariable = new System.Windows.Forms.Button();
             this.btnValoresHistoricos = new System.Windows.Forms.Button();
             this.lstTableroControl = new System.Windows.Forms.RichTextBox();
-            this.btnCargarDatosPrueba = new System.Windows.Forms.Button();
             this.btnMenuOpcionesTipo = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.menuOpciones = new System.Windows.Forms.MenuStrip();
+            this.plantasIndustrialesMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAgregarPlantaIndustrial = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEliminarPlantaIndustrial = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditarPlantaIndustrial = new System.Windows.Forms.ToolStripMenuItem();
+            this.instalacionesMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAgregarInstalacion = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEliminarInstalacion = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditarInstalacion = new System.Windows.Forms.ToolStripMenuItem();
+            this.dispositivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAgregarDispositivo = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEliminarDispositivo = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditarDispositivo = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblIncidentes = new System.Windows.Forms.Label();
+            this.btnAgregarIncidente = new System.Windows.Forms.Button();
+            this.btnVerIncidentes = new System.Windows.Forms.Button();
+            this.lblMetodoGuardado = new System.Windows.Forms.Label();
+            this.cbxMetodoGuardadoIncidentes = new System.Windows.Forms.ComboBox();
+            this.menuOpciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblMenuPrincipal
@@ -61,40 +71,43 @@
             this.lblMenuPrincipal.AutoSize = true;
             this.lblMenuPrincipal.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMenuPrincipal.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblMenuPrincipal.Location = new System.Drawing.Point(417, 9);
+            this.lblMenuPrincipal.Location = new System.Drawing.Point(417, 25);
             this.lblMenuPrincipal.Name = "lblMenuPrincipal";
             this.lblMenuPrincipal.Size = new System.Drawing.Size(181, 34);
             this.lblMenuPrincipal.TabIndex = 2;
             this.lblMenuPrincipal.Text = "Menú Principal";
             // 
-            // treeViewPlantaDeProduccion
+            // treeViewProduccion
             // 
-            this.treeViewPlantaDeProduccion.BackColor = System.Drawing.SystemColors.Window;
-            this.treeViewPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeViewPlantaDeProduccion.Location = new System.Drawing.Point(22, 94);
-            this.treeViewPlantaDeProduccion.Name = "treeViewPlantaDeProduccion";
-            this.treeViewPlantaDeProduccion.Size = new System.Drawing.Size(225, 439);
-            this.treeViewPlantaDeProduccion.TabIndex = 3;
-            this.treeViewPlantaDeProduccion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPlantaDeProduccion_AfterSelect);
+            this.treeViewProduccion.AllowDrop = true;
+            this.treeViewProduccion.BackColor = System.Drawing.SystemColors.Window;
+            this.treeViewProduccion.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeViewProduccion.HideSelection = false;
+            this.treeViewProduccion.Location = new System.Drawing.Point(22, 110);
+            this.treeViewProduccion.Name = "treeViewProduccion";
+            this.treeViewProduccion.Size = new System.Drawing.Size(225, 426);
+            this.treeViewProduccion.TabIndex = 3;
+            this.treeViewProduccion.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPlantaDeProduccion_AfterSelect);
+            this.treeViewProduccion.DoubleClick += new System.EventHandler(this.treeViewPlantaDeProduccion_DoubleClick);
             // 
             // lblPlantaDeProduccion
             // 
             this.lblPlantaDeProduccion.AutoSize = true;
-            this.lblPlantaDeProduccion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlantaDeProduccion.Location = new System.Drawing.Point(55, 60);
+            this.lblPlantaDeProduccion.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlantaDeProduccion.Location = new System.Drawing.Point(50, 76);
             this.lblPlantaDeProduccion.Name = "lblPlantaDeProduccion";
-            this.lblPlantaDeProduccion.Size = new System.Drawing.Size(167, 23);
+            this.lblPlantaDeProduccion.Size = new System.Drawing.Size(172, 21);
             this.lblPlantaDeProduccion.TabIndex = 4;
-            this.lblPlantaDeProduccion.Text = "Planta de Producción";
+            this.lblPlantaDeProduccion.Text = "Plantas de Producción";
             this.lblPlantaDeProduccion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTableroControl
             // 
             this.lblTableroControl.AutoSize = true;
-            this.lblTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTableroControl.Location = new System.Drawing.Point(428, 60);
+            this.lblTableroControl.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTableroControl.Location = new System.Drawing.Point(428, 76);
             this.lblTableroControl.Name = "lblTableroControl";
-            this.lblTableroControl.Size = new System.Drawing.Size(155, 23);
+            this.lblTableroControl.Size = new System.Drawing.Size(143, 21);
             this.lblTableroControl.TabIndex = 5;
             this.lblTableroControl.Text = "Tablero de Control";
             this.lblTableroControl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -102,10 +115,10 @@
             // lblVariables
             // 
             this.lblVariables.AutoSize = true;
-            this.lblVariables.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVariables.Location = new System.Drawing.Point(459, 293);
+            this.lblVariables.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVariables.Location = new System.Drawing.Point(459, 310);
             this.lblVariables.Name = "lblVariables";
-            this.lblVariables.Size = new System.Drawing.Size(82, 23);
+            this.lblVariables.Size = new System.Drawing.Size(77, 21);
             this.lblVariables.TabIndex = 7;
             this.lblVariables.Text = "Variables";
             this.lblVariables.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -113,8 +126,9 @@
             // lstVariables
             // 
             this.lstVariables.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.lstVariables.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstVariables.Location = new System.Drawing.Point(363, 329);
+            this.lstVariables.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstVariables.HideSelection = false;
+            this.lstVariables.Location = new System.Drawing.Point(363, 345);
             this.lstVariables.MultiSelect = false;
             this.lstVariables.Name = "lstVariables";
             this.lstVariables.Size = new System.Drawing.Size(266, 204);
@@ -123,107 +137,11 @@
             this.lstVariables.View = System.Windows.Forms.View.SmallIcon;
             this.lstVariables.SelectedIndexChanged += new System.EventHandler(this.lstVariables_SelectedIndexChanged);
             // 
-            // lblOpcionesInstalacion
-            // 
-            this.lblOpcionesInstalacion.AutoSize = true;
-            this.lblOpcionesInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOpcionesInstalacion.ForeColor = System.Drawing.Color.Black;
-            this.lblOpcionesInstalacion.Location = new System.Drawing.Point(780, 60);
-            this.lblOpcionesInstalacion.Name = "lblOpcionesInstalacion";
-            this.lblOpcionesInstalacion.Size = new System.Drawing.Size(110, 23);
-            this.lblOpcionesInstalacion.TabIndex = 11;
-            this.lblOpcionesInstalacion.Text = "Instalaciones";
-            this.lblOpcionesInstalacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnEliminarInstalacion
-            // 
-            this.btnEliminarInstalacion.BackColor = System.Drawing.Color.Red;
-            this.btnEliminarInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarInstalacion.Location = new System.Drawing.Point(816, 88);
-            this.btnEliminarInstalacion.Name = "btnEliminarInstalacion";
-            this.btnEliminarInstalacion.Size = new System.Drawing.Size(40, 44);
-            this.btnEliminarInstalacion.TabIndex = 13;
-            this.btnEliminarInstalacion.Text = "-";
-            this.btnEliminarInstalacion.UseVisualStyleBackColor = false;
-            this.btnEliminarInstalacion.Click += new System.EventHandler(this.btnBorrarInstalacion_Click);
-            // 
-            // btnAgregarInstalacion
-            // 
-            this.btnAgregarInstalacion.BackColor = System.Drawing.Color.Chartreuse;
-            this.btnAgregarInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarInstalacion.Location = new System.Drawing.Point(761, 89);
-            this.btnAgregarInstalacion.Name = "btnAgregarInstalacion";
-            this.btnAgregarInstalacion.Size = new System.Drawing.Size(40, 43);
-            this.btnAgregarInstalacion.TabIndex = 12;
-            this.btnAgregarInstalacion.Text = "+";
-            this.btnAgregarInstalacion.UseVisualStyleBackColor = false;
-            this.btnAgregarInstalacion.Click += new System.EventHandler(this.btnAgregarInstalacion_Click);
-            // 
-            // btnEditarInstalacion
-            // 
-            this.btnEditarInstalacion.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnEditarInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarInstalacion.Location = new System.Drawing.Point(870, 88);
-            this.btnEditarInstalacion.Name = "btnEditarInstalacion";
-            this.btnEditarInstalacion.Size = new System.Drawing.Size(40, 44);
-            this.btnEditarInstalacion.TabIndex = 14;
-            this.btnEditarInstalacion.Text = "I";
-            this.btnEditarInstalacion.UseVisualStyleBackColor = false;
-            this.btnEditarInstalacion.Click += new System.EventHandler(this.btnEditarInstalacion_Click);
-            // 
-            // btnEditarDispositivo
-            // 
-            this.btnEditarDispositivo.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnEditarDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarDispositivo.Location = new System.Drawing.Point(870, 177);
-            this.btnEditarDispositivo.Name = "btnEditarDispositivo";
-            this.btnEditarDispositivo.Size = new System.Drawing.Size(40, 44);
-            this.btnEditarDispositivo.TabIndex = 18;
-            this.btnEditarDispositivo.Text = "I";
-            this.btnEditarDispositivo.UseVisualStyleBackColor = false;
-            this.btnEditarDispositivo.Click += new System.EventHandler(this.btnEditarDispositivo_Click);
-            // 
-            // btnEliminarDispositivo
-            // 
-            this.btnEliminarDispositivo.BackColor = System.Drawing.Color.Red;
-            this.btnEliminarDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarDispositivo.Location = new System.Drawing.Point(816, 177);
-            this.btnEliminarDispositivo.Name = "btnEliminarDispositivo";
-            this.btnEliminarDispositivo.Size = new System.Drawing.Size(40, 44);
-            this.btnEliminarDispositivo.TabIndex = 17;
-            this.btnEliminarDispositivo.Text = "-";
-            this.btnEliminarDispositivo.UseVisualStyleBackColor = false;
-            this.btnEliminarDispositivo.Click += new System.EventHandler(this.btnEliminarDispositivo_Click);
-            // 
-            // btnAgregarDispositivo
-            // 
-            this.btnAgregarDispositivo.BackColor = System.Drawing.Color.Chartreuse;
-            this.btnAgregarDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarDispositivo.Location = new System.Drawing.Point(761, 178);
-            this.btnAgregarDispositivo.Name = "btnAgregarDispositivo";
-            this.btnAgregarDispositivo.Size = new System.Drawing.Size(40, 43);
-            this.btnAgregarDispositivo.TabIndex = 16;
-            this.btnAgregarDispositivo.Text = "+";
-            this.btnAgregarDispositivo.UseVisualStyleBackColor = false;
-            this.btnAgregarDispositivo.Click += new System.EventHandler(this.btnAgregarDispositivo_Click);
-            // 
-            // lblOpcionesDispositivo
-            // 
-            this.lblOpcionesDispositivo.AutoSize = true;
-            this.lblOpcionesDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOpcionesDispositivo.ForeColor = System.Drawing.Color.Black;
-            this.lblOpcionesDispositivo.Location = new System.Drawing.Point(786, 151);
-            this.lblOpcionesDispositivo.Name = "lblOpcionesDispositivo";
-            this.lblOpcionesDispositivo.Size = new System.Drawing.Size(99, 23);
-            this.lblOpcionesDispositivo.TabIndex = 15;
-            this.lblOpcionesDispositivo.Text = "Dispositivos";
-            this.lblOpcionesDispositivo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // btnAgregarTipoDispositivo
             // 
             this.btnAgregarTipoDispositivo.BackColor = System.Drawing.Color.Chartreuse;
             this.btnAgregarTipoDispositivo.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarTipoDispositivo.Location = new System.Drawing.Point(761, 269);
+            this.btnAgregarTipoDispositivo.Location = new System.Drawing.Point(761, 227);
             this.btnAgregarTipoDispositivo.Name = "btnAgregarTipoDispositivo";
             this.btnAgregarTipoDispositivo.Size = new System.Drawing.Size(40, 43);
             this.btnAgregarTipoDispositivo.TabIndex = 20;
@@ -234,11 +152,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(750, 242);
+            this.label1.Location = new System.Drawing.Point(750, 200);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(171, 23);
+            this.label1.Size = new System.Drawing.Size(160, 21);
             this.label1.TabIndex = 19;
             this.label1.Text = "Tipos de Dispositivos";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -247,7 +165,7 @@
             // 
             this.btnEditarVariable.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnEditarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditarVariable.Location = new System.Drawing.Point(870, 357);
+            this.btnEditarVariable.Location = new System.Drawing.Point(870, 315);
             this.btnEditarVariable.Name = "btnEditarVariable";
             this.btnEditarVariable.Size = new System.Drawing.Size(40, 44);
             this.btnEditarVariable.TabIndex = 26;
@@ -259,7 +177,7 @@
             // 
             this.btnEliminarVariable.BackColor = System.Drawing.Color.Red;
             this.btnEliminarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarVariable.Location = new System.Drawing.Point(816, 357);
+            this.btnEliminarVariable.Location = new System.Drawing.Point(816, 315);
             this.btnEliminarVariable.Name = "btnEliminarVariable";
             this.btnEliminarVariable.Size = new System.Drawing.Size(40, 44);
             this.btnEliminarVariable.TabIndex = 25;
@@ -271,7 +189,7 @@
             // 
             this.btnAgregarVariable.BackColor = System.Drawing.Color.Chartreuse;
             this.btnAgregarVariable.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarVariable.Location = new System.Drawing.Point(761, 358);
+            this.btnAgregarVariable.Location = new System.Drawing.Point(761, 316);
             this.btnAgregarVariable.Name = "btnAgregarVariable";
             this.btnAgregarVariable.Size = new System.Drawing.Size(40, 43);
             this.btnAgregarVariable.TabIndex = 24;
@@ -282,18 +200,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(797, 331);
+            this.label2.Location = new System.Drawing.Point(797, 288);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 23);
+            this.label2.Size = new System.Drawing.Size(77, 21);
             this.label2.TabIndex = 23;
             this.label2.Text = "Variables";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAgregarValorVariable
             // 
-            this.btnAgregarValorVariable.Location = new System.Drawing.Point(752, 407);
+            this.btnAgregarValorVariable.Location = new System.Drawing.Point(752, 365);
             this.btnAgregarValorVariable.Name = "btnAgregarValorVariable";
             this.btnAgregarValorVariable.Size = new System.Drawing.Size(75, 39);
             this.btnAgregarValorVariable.TabIndex = 27;
@@ -303,7 +221,7 @@
             // 
             // btnValoresHistoricos
             // 
-            this.btnValoresHistoricos.Location = new System.Drawing.Point(846, 407);
+            this.btnValoresHistoricos.Location = new System.Drawing.Point(846, 365);
             this.btnValoresHistoricos.Name = "btnValoresHistoricos";
             this.btnValoresHistoricos.Size = new System.Drawing.Size(75, 39);
             this.btnValoresHistoricos.TabIndex = 28;
@@ -314,29 +232,19 @@
             // lstTableroControl
             // 
             this.lstTableroControl.BackColor = System.Drawing.Color.White;
-            this.lstTableroControl.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstTableroControl.Location = new System.Drawing.Point(363, 94);
+            this.lstTableroControl.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstTableroControl.Location = new System.Drawing.Point(363, 110);
             this.lstTableroControl.Name = "lstTableroControl";
             this.lstTableroControl.ReadOnly = true;
             this.lstTableroControl.Size = new System.Drawing.Size(266, 184);
             this.lstTableroControl.TabIndex = 29;
-            this.lstTableroControl.Text = "";
-            // 
-            // btnCargarDatosPrueba
-            // 
-            this.btnCargarDatosPrueba.Location = new System.Drawing.Point(801, 492);
-            this.btnCargarDatosPrueba.Name = "btnCargarDatosPrueba";
-            this.btnCargarDatosPrueba.Size = new System.Drawing.Size(75, 47);
-            this.btnCargarDatosPrueba.TabIndex = 30;
-            this.btnCargarDatosPrueba.Text = "Cargar datos de Prueba";
-            this.btnCargarDatosPrueba.UseVisualStyleBackColor = true;
-            this.btnCargarDatosPrueba.Click += new System.EventHandler(this.btnCargarDatosPrueba_Click);
+            this.lstTableroControl.Text = "\nSin datos a mostrar.";
             // 
             // btnMenuOpcionesTipo
             // 
-            this.btnMenuOpcionesTipo.Location = new System.Drawing.Point(816, 269);
+            this.btnMenuOpcionesTipo.Location = new System.Drawing.Point(816, 227);
             this.btnMenuOpcionesTipo.Name = "btnMenuOpcionesTipo";
-            this.btnMenuOpcionesTipo.Size = new System.Drawing.Size(94, 43);
+            this.btnMenuOpcionesTipo.Size = new System.Drawing.Size(94, 39);
             this.btnMenuOpcionesTipo.TabIndex = 31;
             this.btnMenuOpcionesTipo.Text = "Menú de Opciones";
             this.btnMenuOpcionesTipo.UseVisualStyleBackColor = true;
@@ -346,19 +254,187 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label3.Location = new System.Drawing.Point(22, 540);
+            this.label3.Location = new System.Drawing.Point(22, 546);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(279, 13);
             this.label3.TabIndex = 32;
             this.label3.Text = "Dispositivos que no están en uso se muestran en naranja.";
             // 
+            // menuOpciones
+            // 
+            this.menuOpciones.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.menuOpciones.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.plantasIndustrialesMenu,
+            this.instalacionesMenu,
+            this.dispositivosToolStripMenuItem});
+            this.menuOpciones.Location = new System.Drawing.Point(0, 0);
+            this.menuOpciones.Name = "menuOpciones";
+            this.menuOpciones.Size = new System.Drawing.Size(972, 24);
+            this.menuOpciones.TabIndex = 33;
+            // 
+            // plantasIndustrialesMenu
+            // 
+            this.plantasIndustrialesMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAgregarPlantaIndustrial,
+            this.btnEliminarPlantaIndustrial,
+            this.btnEditarPlantaIndustrial});
+            this.plantasIndustrialesMenu.Name = "plantasIndustrialesMenu";
+            this.plantasIndustrialesMenu.Size = new System.Drawing.Size(120, 20);
+            this.plantasIndustrialesMenu.Text = "Plantas Industriales";
+            // 
+            // btnAgregarPlantaIndustrial
+            // 
+            this.btnAgregarPlantaIndustrial.Name = "btnAgregarPlantaIndustrial";
+            this.btnAgregarPlantaIndustrial.Size = new System.Drawing.Size(213, 22);
+            this.btnAgregarPlantaIndustrial.Text = "Registrar Planta Industrial";
+            this.btnAgregarPlantaIndustrial.Click += new System.EventHandler(this.btnAgregarPlantaIndustrial_Click);
+            // 
+            // btnEliminarPlantaIndustrial
+            // 
+            this.btnEliminarPlantaIndustrial.Name = "btnEliminarPlantaIndustrial";
+            this.btnEliminarPlantaIndustrial.Size = new System.Drawing.Size(213, 22);
+            this.btnEliminarPlantaIndustrial.Text = "Eliminar Planta Industrial";
+            this.btnEliminarPlantaIndustrial.Click += new System.EventHandler(this.btnEliminarPlantaIndustrial_Click);
+            // 
+            // btnEditarPlantaIndustrial
+            // 
+            this.btnEditarPlantaIndustrial.Name = "btnEditarPlantaIndustrial";
+            this.btnEditarPlantaIndustrial.Size = new System.Drawing.Size(213, 22);
+            this.btnEditarPlantaIndustrial.Text = "Modificar Planta Industrial";
+            this.btnEditarPlantaIndustrial.Click += new System.EventHandler(this.btnEditarPlantaIndustrial_Click);
+            // 
+            // instalacionesMenu
+            // 
+            this.instalacionesMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAgregarInstalacion,
+            this.btnEliminarInstalacion,
+            this.btnEditarInstalacion});
+            this.instalacionesMenu.Name = "instalacionesMenu";
+            this.instalacionesMenu.Size = new System.Drawing.Size(87, 20);
+            this.instalacionesMenu.Text = "Instalaciones";
+            // 
+            // btnAgregarInstalacion
+            // 
+            this.btnAgregarInstalacion.Name = "btnAgregarInstalacion";
+            this.btnAgregarInstalacion.Size = new System.Drawing.Size(185, 22);
+            this.btnAgregarInstalacion.Text = "Registrar Instalación";
+            this.btnAgregarInstalacion.Click += new System.EventHandler(this.btnAgregarInstalacion_Click);
+            // 
+            // btnEliminarInstalacion
+            // 
+            this.btnEliminarInstalacion.Name = "btnEliminarInstalacion";
+            this.btnEliminarInstalacion.Size = new System.Drawing.Size(185, 22);
+            this.btnEliminarInstalacion.Text = "Eliminar Instalación";
+            this.btnEliminarInstalacion.Click += new System.EventHandler(this.btnBorrarInstalacion_Click);
+            // 
+            // btnEditarInstalacion
+            // 
+            this.btnEditarInstalacion.Name = "btnEditarInstalacion";
+            this.btnEditarInstalacion.Size = new System.Drawing.Size(185, 22);
+            this.btnEditarInstalacion.Text = "Modificar Instalación";
+            this.btnEditarInstalacion.Click += new System.EventHandler(this.btnEditarInstalacion_Click);
+            // 
+            // dispositivosToolStripMenuItem
+            // 
+            this.dispositivosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAgregarDispositivo,
+            this.btnEliminarDispositivo,
+            this.btnEditarDispositivo});
+            this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
+            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
+            this.dispositivosToolStripMenuItem.Text = "Dispositivos";
+            // 
+            // btnAgregarDispositivo
+            // 
+            this.btnAgregarDispositivo.Name = "btnAgregarDispositivo";
+            this.btnAgregarDispositivo.Size = new System.Drawing.Size(186, 22);
+            this.btnAgregarDispositivo.Text = "Registrar Dispositivo";
+            this.btnAgregarDispositivo.Click += new System.EventHandler(this.btnAgregarDispositivo_Click);
+            // 
+            // btnEliminarDispositivo
+            // 
+            this.btnEliminarDispositivo.Name = "btnEliminarDispositivo";
+            this.btnEliminarDispositivo.Size = new System.Drawing.Size(186, 22);
+            this.btnEliminarDispositivo.Text = "Eliminar Dispositivo";
+            this.btnEliminarDispositivo.Click += new System.EventHandler(this.btnEliminarDispositivo_Click);
+            // 
+            // btnEditarDispositivo
+            // 
+            this.btnEditarDispositivo.Name = "btnEditarDispositivo";
+            this.btnEditarDispositivo.Size = new System.Drawing.Size(186, 22);
+            this.btnEditarDispositivo.Text = "Modificar Dispositivo";
+            this.btnEditarDispositivo.Click += new System.EventHandler(this.btnEditarDispositivo_Click);
+            // 
+            // lblIncidentes
+            // 
+            this.lblIncidentes.AutoSize = true;
+            this.lblIncidentes.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIncidentes.ForeColor = System.Drawing.Color.Black;
+            this.lblIncidentes.Location = new System.Drawing.Point(793, 117);
+            this.lblIncidentes.Name = "lblIncidentes";
+            this.lblIncidentes.Size = new System.Drawing.Size(86, 21);
+            this.lblIncidentes.TabIndex = 34;
+            this.lblIncidentes.Text = "Incidentes";
+            this.lblIncidentes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAgregarIncidente
+            // 
+            this.btnAgregarIncidente.BackColor = System.Drawing.Color.Chartreuse;
+            this.btnAgregarIncidente.Location = new System.Drawing.Point(752, 144);
+            this.btnAgregarIncidente.Name = "btnAgregarIncidente";
+            this.btnAgregarIncidente.Size = new System.Drawing.Size(75, 39);
+            this.btnAgregarIncidente.TabIndex = 35;
+            this.btnAgregarIncidente.Text = "Agregar Incidente";
+            this.btnAgregarIncidente.UseVisualStyleBackColor = false;
+            this.btnAgregarIncidente.Click += new System.EventHandler(this.btnAgregarIncidente_Click);
+            // 
+            // btnVerIncidentes
+            // 
+            this.btnVerIncidentes.Location = new System.Drawing.Point(846, 144);
+            this.btnVerIncidentes.Name = "btnVerIncidentes";
+            this.btnVerIncidentes.Size = new System.Drawing.Size(75, 39);
+            this.btnVerIncidentes.TabIndex = 36;
+            this.btnVerIncidentes.Text = "Ver Incidentes";
+            this.btnVerIncidentes.UseVisualStyleBackColor = true;
+            this.btnVerIncidentes.Click += new System.EventHandler(this.btnVerIncidentes_Click);
+            // 
+            // lblMetodoGuardado
+            // 
+            this.lblMetodoGuardado.AutoSize = true;
+            this.lblMetodoGuardado.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMetodoGuardado.ForeColor = System.Drawing.Color.Black;
+            this.lblMetodoGuardado.Location = new System.Drawing.Point(688, 460);
+            this.lblMetodoGuardado.Name = "lblMetodoGuardado";
+            this.lblMetodoGuardado.Size = new System.Drawing.Size(266, 21);
+            this.lblMetodoGuardado.TabIndex = 37;
+            this.lblMetodoGuardado.Text = "Método de guardado de incidentes:";
+            this.lblMetodoGuardado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbxMetodoGuardadoIncidentes
+            // 
+            this.cbxMetodoGuardadoIncidentes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxMetodoGuardadoIncidentes.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxMetodoGuardadoIncidentes.FormattingEnabled = true;
+            this.cbxMetodoGuardadoIncidentes.Items.AddRange(new object[] {
+            "Base de Datos",
+            "Archivo de Texto"});
+            this.cbxMetodoGuardadoIncidentes.Location = new System.Drawing.Point(716, 485);
+            this.cbxMetodoGuardadoIncidentes.Name = "cbxMetodoGuardadoIncidentes";
+            this.cbxMetodoGuardadoIncidentes.Size = new System.Drawing.Size(220, 24);
+            this.cbxMetodoGuardadoIncidentes.TabIndex = 38;
+            this.cbxMetodoGuardadoIncidentes.SelectedIndexChanged += new System.EventHandler(this.cbxMetodoGuardadoIncidentes_SelectedIndexChanged);
+            // 
             // MenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbxMetodoGuardadoIncidentes);
+            this.Controls.Add(this.lblMetodoGuardado);
+            this.Controls.Add(this.btnVerIncidentes);
+            this.Controls.Add(this.btnAgregarIncidente);
+            this.Controls.Add(this.lblIncidentes);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnMenuOpcionesTipo);
-            this.Controls.Add(this.btnCargarDatosPrueba);
             this.Controls.Add(this.lstTableroControl);
             this.Controls.Add(this.btnValoresHistoricos);
             this.Controls.Add(this.btnAgregarValorVariable);
@@ -368,22 +444,17 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnAgregarTipoDispositivo);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnEditarDispositivo);
-            this.Controls.Add(this.btnEliminarDispositivo);
-            this.Controls.Add(this.btnAgregarDispositivo);
-            this.Controls.Add(this.lblOpcionesDispositivo);
-            this.Controls.Add(this.btnEditarInstalacion);
-            this.Controls.Add(this.btnEliminarInstalacion);
-            this.Controls.Add(this.btnAgregarInstalacion);
-            this.Controls.Add(this.lblOpcionesInstalacion);
             this.Controls.Add(this.lstVariables);
             this.Controls.Add(this.lblVariables);
             this.Controls.Add(this.lblTableroControl);
             this.Controls.Add(this.lblPlantaDeProduccion);
-            this.Controls.Add(this.treeViewPlantaDeProduccion);
+            this.Controls.Add(this.treeViewProduccion);
             this.Controls.Add(this.lblMenuPrincipal);
+            this.Controls.Add(this.menuOpciones);
             this.Name = "MenuPrincipal";
             this.Size = new System.Drawing.Size(972, 571);
+            this.menuOpciones.ResumeLayout(false);
+            this.menuOpciones.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -392,19 +463,11 @@
         #endregion
 
         private System.Windows.Forms.Label lblMenuPrincipal;
-        private System.Windows.Forms.TreeView treeViewPlantaDeProduccion;
+        private System.Windows.Forms.TreeView treeViewProduccion;
         private System.Windows.Forms.Label lblPlantaDeProduccion;
         private System.Windows.Forms.Label lblTableroControl;
         private System.Windows.Forms.Label lblVariables;
         private System.Windows.Forms.ListView lstVariables;
-        private System.Windows.Forms.Label lblOpcionesInstalacion;
-        private System.Windows.Forms.Button btnEliminarInstalacion;
-        private System.Windows.Forms.Button btnAgregarInstalacion;
-        private System.Windows.Forms.Button btnEditarInstalacion;
-        private System.Windows.Forms.Button btnEditarDispositivo;
-        private System.Windows.Forms.Button btnEliminarDispositivo;
-        private System.Windows.Forms.Button btnAgregarDispositivo;
-        private System.Windows.Forms.Label lblOpcionesDispositivo;
         private System.Windows.Forms.Button btnAgregarTipoDispositivo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnEditarVariable;
@@ -414,8 +477,25 @@
         private System.Windows.Forms.Button btnAgregarValorVariable;
         private System.Windows.Forms.Button btnValoresHistoricos;
         private System.Windows.Forms.RichTextBox lstTableroControl;
-        private System.Windows.Forms.Button btnCargarDatosPrueba;
         private System.Windows.Forms.Button btnMenuOpcionesTipo;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MenuStrip menuOpciones;
+        private System.Windows.Forms.ToolStripMenuItem plantasIndustrialesMenu;
+        private System.Windows.Forms.ToolStripMenuItem btnAgregarPlantaIndustrial;
+        private System.Windows.Forms.ToolStripMenuItem btnEliminarPlantaIndustrial;
+        private System.Windows.Forms.ToolStripMenuItem btnEditarPlantaIndustrial;
+        private System.Windows.Forms.ToolStripMenuItem instalacionesMenu;
+        private System.Windows.Forms.ToolStripMenuItem btnAgregarInstalacion;
+        private System.Windows.Forms.ToolStripMenuItem btnEliminarInstalacion;
+        private System.Windows.Forms.ToolStripMenuItem btnEditarInstalacion;
+        private System.Windows.Forms.ToolStripMenuItem dispositivosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnAgregarDispositivo;
+        private System.Windows.Forms.ToolStripMenuItem btnEliminarDispositivo;
+        private System.Windows.Forms.ToolStripMenuItem btnEditarDispositivo;
+        private System.Windows.Forms.Label lblIncidentes;
+        private System.Windows.Forms.Button btnAgregarIncidente;
+        private System.Windows.Forms.Button btnVerIncidentes;
+        private System.Windows.Forms.Label lblMetodoGuardado;
+        private System.Windows.Forms.ComboBox cbxMetodoGuardadoIncidentes;
     }
 }

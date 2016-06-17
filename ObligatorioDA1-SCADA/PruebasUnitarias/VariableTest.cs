@@ -12,11 +12,22 @@ namespace PruebasUnitarias
     public class VariableTest
     {
         [TestMethod]
+        public void VariableInvalidaTest()
+        {
+            Variable unaVariable = Variable.VariableInvalida();
+            Assert.AreEqual("Variable inválida.", unaVariable.Nombre);
+            Assert.AreEqual(0, unaVariable.MinimoAlarma);
+            Assert.AreEqual(0, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(0, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(0, unaVariable.MaximoAlarma);
+        }
+
+        [TestMethod]
         public void SetValorActualTest1()
         {
             decimal nuevoValor = 125;
             Variable unaVariable = Variable.VariableInvalida();
-            unaVariable.ValorActual = nuevoValor;
+            unaVariable.SetValorActual(nuevoValor);
             Assert.AreEqual(nuevoValor, unaVariable.ValorActual);
         }
 
@@ -24,16 +35,68 @@ namespace PruebasUnitarias
         public void SetValorActualTest2()
         {
             Variable unaVariable = Variable.VariableInvalida();
-            unaVariable.ValorActual = 0;
-            Assert.AreEqual(0, unaVariable.ValorActual);
+            unaVariable.SetValorActual(10);
+            Assert.AreEqual(10, unaVariable.ValorActual);
         }
 
         [TestMethod]
         public void SetValorActualTest3()
         {
             Variable unaVariable = Variable.VariableInvalida();
-            unaVariable.ValorActual = -7;
+            unaVariable.SetValorActual(-7);
             Assert.AreEqual(-7, unaVariable.ValorActual);
+        }
+
+        [TestMethod]
+        public void NombreRangosAdvertenciaAlarmaTest1()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", -20M, -10M, 20M, 40M);
+            Assert.AreEqual("Altura", unaVariable.Nombre);
+            Assert.AreEqual(-20M, unaVariable.MinimoAlarma);
+            Assert.AreEqual(-10M, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(20M, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(40M, unaVariable.MaximoAlarma);
+        }
+
+        [TestMethod]
+        public void NombreRangosAdvertenciaAlarmaTest2ValoresIguales()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", 10M, 10M, 10M, 10M);
+            Assert.AreEqual("Altura", unaVariable.Nombre);
+            Assert.AreEqual(10M, unaVariable.MinimoAlarma);
+            Assert.AreEqual(10M, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(10M, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(10M, unaVariable.MaximoAlarma);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest3NombreInvalido()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("12,. #$%", -20M, -10M, 20M, 40M);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest4MinimosInvalidos()
+        {
+            Tuple<decimal, decimal> rangoAdvertencia = Tuple.Create(-100M, 20M);
+            Tuple<decimal, decimal> rangoAlarma = Tuple.Create(-20M, 40M);
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", -20M, -100M, 20M, 40M);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest5RangoAdvertenciaInvalido()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Altura", -20M, 10M, -10M, 40M);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void NombreRangosAdvertenciaAlarmaTest6MaximosInvalidos()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Calor", -20M, -10M, 20M, 10M);
         }
 
         [TestMethod]
@@ -41,8 +104,10 @@ namespace PruebasUnitarias
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Altura", 0, 418);
             Assert.AreEqual("Altura", unaVariable.Nombre);
-            Assert.AreEqual(0, unaVariable.Minimo);
-            Assert.AreEqual(418, unaVariable.Maximo);
+            Assert.AreEqual(0, unaVariable.MinimoAlarma);
+            Assert.AreEqual(0, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(418, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(418, unaVariable.MaximoAlarma);
         }
 
         [TestMethod]
@@ -107,93 +172,86 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetValorMinimoTest1Valido()
+        public void SetValoresLimitesTest1()
         {
-            decimal nuevoValor = 0;
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = nuevoValor;
-            Assert.AreEqual(nuevoValor, unaVariable.Minimo);
-        }
-
-        [TestMethod]
-        public void SetValorMinimoTest2Valido()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = -300.9M;
-            Assert.AreEqual(-300.9M, unaVariable.Minimo);
-        }
-
-        [TestMethod]
-        public void SetValorMinimoTest3ValidoIguales()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = 500;
-            Assert.AreEqual(500, unaVariable.Minimo);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(-20M, -10M, 30M, 40M);
+            Assert.AreEqual(-20M, unaVariable.MinimoAlarma);
+            Assert.AreEqual(-10M, unaVariable.MinimoAdvertencia);
+            Assert.AreEqual(30M, unaVariable.MaximoAdvertencia);
+            Assert.AreEqual(40M, unaVariable.MaximoAlarma);
         }
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void SetValorMinimoTest4Invalido()
+        public void SetValoresLimitesTest2()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", -273.15M, 500);
-            unaVariable.Minimo = 1000;
-        }
-
-        [TestMethod]
-        public void SetValorMaximoTest1Valido()
-        {
-            decimal nuevoValor = 200;
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 100);
-            unaVariable.Maximo = nuevoValor;
-            Assert.AreEqual(nuevoValor, unaVariable.Maximo);
-        }
-
-        [TestMethod]
-        public void SetValorMaximoTest2Valido()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
-            unaVariable.Maximo = 2000.7M;
-            Assert.AreEqual(2000.7M, unaVariable.Maximo);
-        }
-
-        [TestMethod]
-        public void SetValorMaximoTest3Iguales()
-        {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
-            unaVariable.Maximo = 0;
-            Assert.AreEqual(0, unaVariable.Maximo);
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(-20M, -30M, 30M, 40M);
         }
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void SetValorMaximoTest4Invalido()
+        public void SetValoresLimitesTest3()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Presión", 0, 9999);
-            unaVariable.Maximo = -20;
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(-20M, -10M, -15M, 40M);
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest1Dentro()
+        [ExpectedException(typeof(VariableExcepcion))]
+        public void SetValoresLimitesTest4()
+        {
+            Variable unaVariable = Variable.NombreMinimoMaximo("Ondas Sonoras", -12, 20);
+            unaVariable.SetValoresLimites(-20M, -10M, 30M, 20M);
+        }
+
+        [TestMethod]
+        public void ValorAlarmaTest1Dentro()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Volumen", 0, 400);
-            unaVariable.ValorActual = 200.5M;
-            Assert.AreEqual(false, unaVariable.EstaFueraDeRango);
+            unaVariable.SetValorActual(200.5M);
+            Assert.IsFalse(unaVariable.AlarmaActiva);
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest2PorEncima()
+        public void ValorAlarmaTest2PorEncima()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
-            unaVariable.ValorActual = 1000;
-            Assert.AreEqual(true, unaVariable.EstaFueraDeRango);
+            unaVariable.SetValorActual(1000);
+            Assert.IsTrue(unaVariable.AlarmaActiva);
         }
 
         [TestMethod]
-        public void ValorFueraDeRangoTest3PorDebajo()
+        public void ValorAlarmaTest3PorDebajo()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 400);
-            unaVariable.ValorActual = -30;
-            Assert.AreEqual(true, unaVariable.EstaFueraDeRango);
+            unaVariable.SetValorActual(-30);
+            Assert.IsTrue(unaVariable.AlarmaActiva);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest1Dentro()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", -20M, -10M, 20M, 40M);
+            unaVariable.SetValorActual(0.5M);
+            Assert.IsFalse(unaVariable.AdvertenciaActiva);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest2PorEncima()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", -20M, -10M, 20M, 40M);
+            unaVariable.SetValorActual(30);
+            Assert.IsTrue(unaVariable.AdvertenciaActiva);
+        }
+
+        [TestMethod]
+        public void ValorAdvertenciaTest3PorDebajo()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", -20M, -10M, 20M, 40M);
+            unaVariable.SetValorActual(-15.5M);
+            Assert.IsTrue(unaVariable.AdvertenciaActiva);
         }
 
         [TestMethod]
@@ -207,7 +265,7 @@ namespace PruebasUnitarias
         public void AgregaValoresAHistoricoTest2()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Altura", -100, 50);
-            unaVariable.ValorActual = 30.1M;
+            unaVariable.SetValorActual(30.1M);
             Assert.AreEqual(unaVariable.Historico.Count, 0);
         }
 
@@ -215,17 +273,17 @@ namespace PruebasUnitarias
         public void AgregaValoresAHistoricoTest3()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0, 75);
-            unaVariable.ValorActual = -50;
-            unaVariable.ValorActual = -125.3M;
+            unaVariable.SetValorActual(-50);
+            unaVariable.SetValorActual(-125.3M);
             int largo = 0;
             ArrayList valoresSinFecha = new ArrayList();
-            foreach (Tuple<DateTime, decimal> elemento in unaVariable.Historico)
+            foreach (Medicion elemento in unaVariable.Historico)
             {
-                valoresSinFecha.Add(elemento.Item2);
+                valoresSinFecha.Add(elemento.Valor);
                 largo++;
             }
             CollectionAssert.Contains(valoresSinFecha, -50M);
-            Assert.AreEqual(largo, 1);
+            Assert.AreEqual(1, largo);
         }
 
         [TestMethod]
@@ -256,10 +314,10 @@ namespace PruebasUnitarias
         public void GetComponentePadreTest1()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9M, 100);
             unDispositivo.AgregarVariable(unaVariable);
-            CollectionAssert.Contains(unaVariable.ComponentePadre.Variables, unaVariable);
+            CollectionAssert.Contains(unaVariable.ElementoPadre.Variables, unaVariable);
         }
 
         [TestMethod]
@@ -269,36 +327,36 @@ namespace PruebasUnitarias
             Instalacion unaInstalacion = Instalacion.ConstructorNombre("Evaporadores");
             Variable unaVariable = Variable.NombreMinimoMaximo("Calor", 0, 99);
             unaInstalacion.AgregarVariable(unaVariable);
-            CollectionAssert.Contains(unaVariable.ComponentePadre.Variables, unaVariable);
+            CollectionAssert.Contains(unaVariable.ElementoPadre.Variables, unaVariable);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(VariableExcepcion))]
         public void SetComponentePadreTest1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Temperatura", 90, 100);
-            unaVariable.ComponentePadre = null;
+            unaVariable.ElementoPadre = null;
+            Assert.AreEqual(null, unaVariable.ElementoPadre);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(VariableExcepcion))]
         public void SetComponentePadreTest2()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Cierto tipo", "Descripción");
-            Dispositivo unDispositivo = Dispositivo.NombreTipoEnUso("Nombre válido", unTipo, true);
+            Dispositivo unDispositivo = Dispositivo.NombreTipo("Nombre válido", unTipo);
             Variable unaVariable = Variable.NombreMinimoMaximo("Radiación", 0.9M, 100);
-            unaVariable.ComponentePadre = unDispositivo;
+            unaVariable.ElementoPadre = unDispositivo;
+            Assert.AreEqual(unDispositivo, unaVariable.ElementoPadre);
         }
 
         [TestMethod]
-        public void CompareToTest1()
+        public void CompareToTestVariable1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
             Assert.AreEqual(0, unaVariable.CompareTo(unaVariable));
         }
 
         [TestMethod]
-        public void CompareToTest2()
+        public void CompareToTestVariable2()
         {
             Variable variable1 = Variable.NombreMinimoMaximo("ABC", 0, 10);
             Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
@@ -306,7 +364,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void CompareToTest3()
+        public void CompareToTestVariable3()
         {
             Variable variable1 = Variable.NombreMinimoMaximo("XYZ", 0, 10);
             Variable variable2 = Variable.NombreMinimoMaximo("DEF", -100, 100);
@@ -315,7 +373,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void CompareToTest4()
+        public void CompareToTestVariable4()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
             unaVariable.CompareTo(new object());
@@ -323,25 +381,45 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(VariableExcepcion))]
-        public void CompareToTest5()
+        public void CompareToTestVariable5()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Nombre", 0, 10);
             unaVariable.CompareTo(null);
         }
 
         [TestMethod]
-        public void ToStringTest1()
+        public void ToStringVariableTest1()
         {
             Variable unaVariable = Variable.NombreMinimoMaximo("Variable", -10, 30);
-            unaVariable.ValorActual = 1;
-            Assert.AreEqual("Variable: 1 (-10 - 30)", unaVariable.ToString());
+            unaVariable.SetValorActual(1);
+            Assert.AreEqual("Variable: 1 (-10, -10, 30, 30)", unaVariable.ToString());
         }
 
         [TestMethod]
-        public void ToStringTest2()
+        public void ToStringVariableTest2()
         {
-            Variable unaVariable = Variable.NombreMinimoMaximo("Variable", -10, 30);
-            Assert.AreEqual("Variable: N/A (-10 - 30)", unaVariable.ToString());
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", -20M, -10M, 30M, 40M);
+            Assert.AreEqual("Temperatura: N/A (-20, -10, 30, 40)", unaVariable.ToString());
+        }
+
+        [TestMethod]
+        public void ActivacionAlarmaModificacionTest()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", -20M, -10M, 30M, 40M);
+            unaVariable.SetValorActual(0);
+            Assert.IsFalse(unaVariable.AlarmaActiva);
+            unaVariable.SetValoresLimites(70M, 100M, 300M, 400M);
+            Assert.IsTrue(unaVariable.AlarmaActiva);
+        }
+
+        [TestMethod]
+        public void ActivacionAdvertenciaModificacionTest()
+        {
+            Variable unaVariable = Variable.NombreRangosAdvertenciaAlarma("Temperatura", -20M, -10M, 30M, 40M);
+            unaVariable.SetValorActual(80.5M);
+            Assert.IsFalse(unaVariable.AdvertenciaActiva);
+            unaVariable.SetValoresLimites(70M, 100M, 300M, 400M);
+            Assert.IsTrue(unaVariable.AdvertenciaActiva);
         }
     }
 }

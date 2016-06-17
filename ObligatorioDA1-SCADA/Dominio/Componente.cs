@@ -1,103 +1,42 @@
 ﻿using Excepciones;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersionAttribute("1.0")]
+[assembly: InternalsVisibleTo("PruebasUnitarias")]
+[assembly: AssemblyVersion("2.0")]
 namespace Dominio
 {
-    public abstract class Componente : IComparable
+    public abstract class Componente : ElementoSCADA
     {
-        protected uint id;
-
-        public abstract IList Dependencias { get; }
-
-        public abstract void AgregarComponente(Componente unComponente);
-
-        public abstract void EliminarComponente(Componente unComponente);
-
-        protected string nombre;
-        public string Nombre
-        {
-            get
-            {
-                return nombre;
-            }
-            set
-            {
-                if (Auxiliar.EsTextoValido(value))
-                {
-                    nombre = value.Trim();
-                }
-                else
-                {
-                    throw new ComponenteExcepcion("Se ingresó un nombre inválido.");
-                }
-            }
-        }
-
         protected List<Variable> variables;
-        public IList Variables
+        public override List<Variable> Variables
         {
             get
             {
-                return variables.AsReadOnly();
+                return variables;
+            }
+            protected set
+            {
+                variables = value;
             }
         }
 
-        protected uint cantidadAlarmasActivas;
-        public uint CantidadAlarmasActivas
-        {
-            get
-            {
-                return cantidadAlarmasActivas;
-            }
-        }
-
-        public virtual void IncrementarAlarmas()
-        {
-            cantidadAlarmasActivas = cantidadAlarmasActivas + 1;
-            if (Auxiliar.NoEsNulo(instalacionPadre))
-            {
-                IncrementarAlarmasPadre();
-            }
-        }
-
-        protected abstract void IncrementarAlarmasPadre();
-
-        public void DecrementarAlarmas()
-        {
-            if (cantidadAlarmasActivas == 0)
-            {
-                throw new ComponenteExcepcion("La cantidad de alarmas activas es cero.");
-            }
-            else
-            {
-                cantidadAlarmasActivas = cantidadAlarmasActivas - 1;
-                if (Auxiliar.NoEsNulo(instalacionPadre))
-                {
-                    instalacionPadre.DecrementarAlarmas();
-                }
-            }
-        }
-
-        public void AgregarVariable(Variable unaVariable)
+        public override void AgregarVariable(Variable unaVariable)
         {
             if (Auxiliar.NoEsNulo(unaVariable))
             {
                 variables.Add(unaVariable);
                 variables.Sort();
-                unaVariable.ComponentePadre = this;
+                unaVariable.ElementoPadre = this;
             }
             else
             {
-                throw new ComponenteExcepcion("Variable nula recibida.");
+                throw new ElementoSCADAExcepcion("Variable nula recibida.");
             }
         }
 
-        public void EliminarVariable(Variable unaVariable)
+        public override void EliminarVariable(Variable unaVariable)
         {
             if (Auxiliar.NoEsNulo(unaVariable))
             {
@@ -106,67 +45,18 @@ namespace Dominio
             }
             else
             {
-                throw new ComponenteExcepcion("Variable nula recibida.");
+                throw new ElementoSCADAExcepcion("Variable nula recibida.");
             }
         }
 
-        protected Instalacion instalacionPadre;
-        public Instalacion InstalacionPadre
+        protected Componente(string unNombre) : base(unNombre)
         {
-            get
-            {
-                return instalacionPadre;
-            }
-            set
-            {
-                if (Auxiliar.NoEsNulo(value) && value.Dependencias.Contains(this))
-                {
-                    instalacionPadre = value;
-                }
-                else
-                {
-                    throw new ComponenteExcepcion("La instalación a asignar no contiene al componente.");
-                }
-            }
+            variables = new List<Variable>();
         }
 
-        public override bool Equals(object unObjeto)
+        public Componente() : base()
         {
-            Componente componenteAComparar = unObjeto as Componente;
-            if (Auxiliar.NoEsNulo(componenteAComparar) && SonDeTiposIguales(componenteAComparar))
-            {
-                return id == componenteAComparar.id;
-            }
-            else
-            {
-                return false;
-            }
+            variables = new List<Variable>();
         }
-
-        private bool SonDeTiposIguales(object componenteAComparar)
-        {
-            return GetType().Equals(componenteAComparar.GetType());
-        }
-
-        public int CompareTo(object unObjeto)
-        {
-            Componente componenteAComparar = unObjeto as Componente;
-            if (Auxiliar.NoEsNulo(componenteAComparar))
-            {
-                return nombre.CompareTo(componenteAComparar.Nombre);
-            }
-            else
-            {
-                throw new ComponenteExcepcion("Comparación de tipos incompatibles.");
-            }
-        }
-
-        [ExcludeFromCodeCoverage]
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public abstract override string ToString();
     }
 }

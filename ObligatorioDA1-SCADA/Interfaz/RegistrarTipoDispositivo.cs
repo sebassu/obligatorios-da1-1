@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
 using Excepciones;
 
 namespace Interfaz
@@ -48,34 +49,68 @@ namespace Interfaz
             {
                 if (lblErrorNombre.Visible || lblErrorDescripcion.Visible)
                 {
-                    MessageBox.Show("No se puede registrar el tipo de dispositivo, hay campos con errores de formato", "Error");
+                    MessageBox.Show("No se puede registrar el tipo de dispositivo, hay campos con errores de formato.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (Auxiliar.EsTextoValido(txtNombre.Text) && Auxiliar.EsTextoValido(txtDescripcion.Text))
                 {
                     if (Auxiliar.NoEsNulo(tipoAModificar))
                     {
-                        tipoAModificar.Nombre = txtNombre.Text;
-                        tipoAModificar.Descripcion = txtDescripcion.Text;
-                        MessageBox.Show("El tipo de dispositivo fue modificado correctamente", "Éxito");
+                        ModificarTipo();
                     }
                     else
                     {
-                        Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
-                        modelo.RegistrarTipo(unTipo);
-                        MessageBox.Show("El tipo de dispositivo fue registrado correctamente", "Éxito");
+                        RegistrarTipo();
                     }
                     panelSistema.Controls.Clear();
                     panelSistema.Controls.Add(new MenuOpcionesTipoDispositivo(modelo, panelSistema));
                 }
                 else
                 {
-                    MessageBox.Show("No deje campos sin rellenar", "Error");
+                    MessageBox.Show("Existen campos sin llenar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (TipoExcepcion ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void RegistrarTipo()
+        {
+            Tipo unTipo = Tipo.NombreDescripcion(txtNombre.Text, txtDescripcion.Text);
+            modelo.RegistrarTipo(unTipo);
+            MessageBox.Show("El tipo de dispositivo fue registrado correctamente.", "Éxito",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ModificarTipo()
+        {
+            string nombreASetear = txtNombre.Text;
+            if (ValidarNoSeRepiteNombre(nombreASetear))
+            {
+                tipoAModificar.Nombre = txtNombre.Text;
+                tipoAModificar.Descripcion = txtDescripcion.Text;
+                modelo.ActualizarTipo(tipoAModificar);
+                MessageBox.Show("El tipo de dispositivo fue modificado correctamente.", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else {
+                MessageBox.Show("El nuevo nombre ingresado para el tipo ya fue registrado",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool ValidarNoSeRepiteNombre(string nombreASetear)
+        {
+            foreach (Tipo tipoIteracion in modelo.Tipos)
+            {
+                if (tipoIteracion.Nombre.Equals(nombreASetear))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)

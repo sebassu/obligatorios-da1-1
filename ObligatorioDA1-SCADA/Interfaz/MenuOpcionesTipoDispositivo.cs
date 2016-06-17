@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Dominio;
+using Persistencia;
+using Excepciones;
 
 namespace Interfaz
 {
@@ -25,6 +27,7 @@ namespace Interfaz
                 lstTiposDispositivos.Rows.Add(tipo, tipo.Descripcion);
             }
         }
+
         private void btnVolverMenuPrincipal_Click(object sender, EventArgs e)
         {
             AuxiliarInterfaz.VolverAPrincipal(modelo, panelSistema);
@@ -39,8 +42,17 @@ namespace Interfaz
                     + " La eliminación es irreversible", "Confirmación", MessageBoxButtons.YesNo);
                 if (resultado == DialogResult.Yes)
                 {
-                    modelo.EliminarTipo(tipoAEliminar);
-                    MessageBox.Show("El tipo de dispositivo fue eliminado correctamente", "Éxito");
+                    try
+                    {
+
+                        modelo.EliminarTipo(tipoAEliminar);
+                        MessageBox.Show("El tipo de dispositivo fue eliminado correctamente", "Éxito");
+                    }
+                    catch (AccesoADatosExcepcion)
+                    {
+                        MessageBox.Show("El tipo se encuentra asignado a un Dispositivo.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     RecargarListaTipos();
                 }
             }
@@ -59,7 +71,8 @@ namespace Interfaz
                 btnEditarTipoDispositivo.Enabled = false;
                 btnEditarTipoDispositivo.BackColor = Color.LightCyan;
             }
-            else {
+            else
+            {
                 btnEliminarTipoDispositivo.Enabled = true;
                 btnEliminarTipoDispositivo.BackColor = Color.Red;
                 btnEditarTipoDispositivo.Enabled = true;

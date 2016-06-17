@@ -53,21 +53,21 @@
             // lblErrorNombre
             // 
             this.lblErrorNombre.AutoSize = true;
-            this.lblErrorNombre.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrorNombre.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblErrorNombre.ForeColor = System.Drawing.Color.Red;
             this.lblErrorNombre.Location = new System.Drawing.Point(500, 143);
             this.lblErrorNombre.Name = "lblErrorNombre";
-            this.lblErrorNombre.Size = new System.Drawing.Size(131, 23);
+            this.lblErrorNombre.Size = new System.Drawing.Size(125, 21);
             this.lblErrorNombre.TabIndex = 13;
             this.lblErrorNombre.Text = "Nombre inválido";
             this.lblErrorNombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtNombreInstalacion
             // 
-            this.txtNombreInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombreInstalacion.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreInstalacion.Location = new System.Drawing.Point(156, 140);
             this.txtNombreInstalacion.Name = "txtNombreInstalacion";
-            this.txtNombreInstalacion.Size = new System.Drawing.Size(319, 30);
+            this.txtNombreInstalacion.Size = new System.Drawing.Size(319, 26);
             this.txtNombreInstalacion.TabIndex = 12;
             this.txtNombreInstalacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreInstalacion_KeyPress);
             this.txtNombreInstalacion.Leave += new System.EventHandler(this.txtNombreInstalacion_Leave);
@@ -75,10 +75,10 @@
             // lblNombreInstalacion
             // 
             this.lblNombreInstalacion.AutoSize = true;
-            this.lblNombreInstalacion.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreInstalacion.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreInstalacion.Location = new System.Drawing.Point(47, 143);
             this.lblNombreInstalacion.Name = "lblNombreInstalacion";
-            this.lblNombreInstalacion.Size = new System.Drawing.Size(70, 23);
+            this.lblNombreInstalacion.Size = new System.Drawing.Size(66, 21);
             this.lblNombreInstalacion.TabIndex = 11;
             this.lblNombreInstalacion.Text = "Nombre";
             this.lblNombreInstalacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

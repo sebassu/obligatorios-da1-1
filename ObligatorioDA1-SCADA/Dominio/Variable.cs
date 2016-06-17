@@ -1,21 +1,38 @@
 ﻿using Excepciones;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio
 {
     public class Variable : IComparable
     {
-        private static uint ProximaIdAAsignar;
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public virtual Guid ID { get; set; }
 
-        private uint id;
-        private DateTime fechaUltimaModificacion;
+        private decimal minimoAlarma;
+        private decimal minimoAdvertencia;
+        private decimal maximoAdvertencia;
+        private decimal maximoAlarma;
+
         private bool fueSeteada;
+        public bool FueSeteada
+        {
+            get
+            {
+                return fueSeteada;
+            }
+            protected set
+            {
+                fueSeteada = value;
+            }
+        }
 
         private string nombre;
-        public string Nombre
+        public virtual string Nombre
         {
             get
             {
@@ -34,140 +51,215 @@ namespace Dominio
             }
         }
 
-        private bool alarmaActivada;
-        public bool EstaFueraDeRango
+        private bool alarmaActiva;
+        public virtual bool AlarmaActiva
         {
             get
             {
-                return alarmaActivada;
+                return alarmaActiva;
+            }
+            protected set
+            {
+                alarmaActiva = value;
+            }
+        }
+
+        private bool advertenciaActiva;
+        public virtual bool AdvertenciaActiva
+        {
+            get
+            {
+                return advertenciaActiva;
+            }
+            protected set
+            {
+                advertenciaActiva = value;
             }
         }
 
         private decimal valorActual;
-        public decimal ValorActual
+        public virtual decimal ValorActual
         {
             get
             {
                 return valorActual;
             }
-            set
+            protected set
             {
-                RegistrarValorAnterior();
-                bool nuevoValorFueraDeRango = FueraDelIntervaloMenorMayor(value);
-                if (Auxiliar.NoEsNulo(componentePadre))
-                {
-                    ValidarActivacionesDeAlarma(nuevoValorFueraDeRango);
-                }
-                alarmaActivada = nuevoValorFueraDeRango;
-                fechaUltimaModificacion = DateTime.Now;
                 valorActual = value;
-                fueSeteada = true;
             }
+        }
+
+        public void SetValorActual(decimal unValor)
+        {
+            RegistrarValorAnterior();
+            ValidarActivacionesRangos(unValor);
+            fechaUltimaModificacion = DateTime.Now;
+            valorActual = unValor;
+            fueSeteada = true;
+        }
+
+        private DateTime fechaUltimaModificacion;
+        public virtual DateTime FechaUltimaModificacion
+        {
+            get
+            {
+                return fechaUltimaModificacion;
+            }
+            protected set
+            {
+                fechaUltimaModificacion = value;
+            }
+        }
+
+        private void ValidarActivacionesRangos(decimal valorAAnalizar)
+        {
+            bool fueraDeRangoAlarma = Auxiliar.EstaFueraDelRango(valorAAnalizar, minimoAlarma, maximoAlarma);
+            bool fueraDeRangoAdvertencia = !fueraDeRangoAlarma && Auxiliar.EstaFueraDelRango(valorAAnalizar, minimoAdvertencia, maximoAdvertencia);
+            if (Auxiliar.NoEsNulo(elementoPadre))
+            {
+                ValidarActivacionesDeAlarma(fueraDeRangoAlarma);
+                ValidarActivacionesDeAdvertencia(fueraDeRangoAdvertencia);
+            }
+            alarmaActiva = fueraDeRangoAlarma;
+            advertenciaActiva = fueraDeRangoAdvertencia;
         }
 
         private void ValidarActivacionesDeAlarma(bool nuevoValorFueraDeRango)
         {
-            if (!alarmaActivada && nuevoValorFueraDeRango)
+            if (!alarmaActiva && nuevoValorFueraDeRango)
             {
-                componentePadre.IncrementarAlarmas();
-
+                elementoPadre.IncrementarAlarmas();
             }
-            else if (alarmaActivada && !nuevoValorFueraDeRango)
+            else if (alarmaActiva && !nuevoValorFueraDeRango)
             {
-                componentePadre.DecrementarAlarmas();
+                elementoPadre.DecrementarAlarmas();
             }
         }
 
-        private List<Tuple<DateTime, decimal>> historicoDeValores;
+        private void ValidarActivacionesDeAdvertencia(bool nuevoValorFueraDeRango)
+        {
+            if (!advertenciaActiva && nuevoValorFueraDeRango)
+            {
+                elementoPadre.IncrementarAdvertencias();
+            }
+            else if (advertenciaActiva && !nuevoValorFueraDeRango)
+            {
+                elementoPadre.DecrementarAdvertencias();
+            }
+        }
+
+        private List<Medicion> historicoDeValores;
+        public virtual List<Medicion> Historico
+        {
+            get
+            {
+                return historicoDeValores;
+            }
+            internal set
+            {
+                historicoDeValores = value;
+            }
+        }
+
         private void RegistrarValorAnterior()
         {
             if (fueSeteada)
             {
-                Tuple<DateTime, decimal> elementoAAgregar = Tuple.Create(fechaUltimaModificacion, valorActual);
+                Medicion elementoAAgregar = Medicion.FechaValor(fechaUltimaModificacion, valorActual);
                 historicoDeValores.Add(elementoAAgregar);
-                historicoDeValores.Sort();
             }
         }
 
-        public IList Historico
+        public void SetValoresLimites(decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
+            decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
+        {
+            if (Auxiliar.ValoresMonotonosCrecientes(minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear))
+            {
+                minimoAlarma = minimoAlarmaASetear;
+                minimoAdvertencia = minimoAdvertenciaASetear;
+                maximoAdvertencia = maximoAdvertenciaASetear;
+                maximoAlarma = maximoAlarmaASetear;
+                if (fueSeteada)
+                {
+                    ValidarActivacionesRangos(valorActual);
+                }
+            }
+            else
+            {
+                throw new VariableExcepcion("Valores límites inválidos recibidos.");
+            }
+        }
+
+        public decimal MinimoAlarma
         {
             get
             {
-                return historicoDeValores.AsReadOnly();
+                return minimoAlarma;
+            }
+            protected set
+            {
+                minimoAlarma = value;
             }
         }
 
-        private decimal maximo;
-        public decimal Maximo
+        public decimal MinimoAdvertencia
         {
             get
             {
-                return maximo;
+                return minimoAdvertencia;
             }
-            set
+            protected set
             {
-                if (minimo > value)
-                {
-                    throw new VariableExcepcion("Máximo inferior al mínimo registrado");
-                }
-                else
-                {
-                    maximo = value;
-                }
+                minimoAdvertencia = value;
             }
         }
 
-        private decimal minimo;
-        public decimal Minimo
+        public decimal MaximoAdvertencia
         {
             get
             {
-                return minimo;
+                return maximoAdvertencia;
             }
-            set
+            protected set
             {
-                if (maximo < value)
-                {
-                    throw new VariableExcepcion("Mínimo superior al máximo registrado");
-                }
-                else
-                {
-                    minimo = value;
-                }
+                maximoAdvertencia = value;
             }
         }
 
-        private Componente componentePadre;
-        public Componente ComponentePadre
+        public decimal MaximoAlarma
         {
             get
             {
-                return componentePadre;
+                return maximoAlarma;
             }
-            set
+            protected set
             {
-                if (Auxiliar.NoEsNulo(value) && value.Variables.Contains(this))
-                {
-                    componentePadre = value;
-                }
-                else
-                {
-                    throw new VariableExcepcion("El dispositivo a asignar no contiene a la variable.");
-                }
+                maximoAlarma = value;
             }
         }
 
-        public static Variable VariableInvalida()
+        private ElementoSCADA elementoPadre;
+
+        [InverseProperty("Variables")]
+        public ElementoSCADA ElementoPadre
+        {
+            get
+            {
+                return elementoPadre;
+            }
+            internal set
+            {
+                elementoPadre = value;
+            }
+        }
+
+        internal static Variable VariableInvalida()
         {
             return new Variable();
         }
 
-        private Variable()
-        {
-            nombre = "Nombre inválido.";
-            id = ProximaIdAAsignar++;
-            historicoDeValores = new List<Tuple<DateTime, decimal>>();
-        }
+        private Variable() : this("Variable inválida.", 0M, 0M) { }
 
         public static Variable NombreMinimoMaximo(string unNombre, decimal valorMinimo, decimal valorMaximo)
         {
@@ -175,32 +267,33 @@ namespace Dominio
         }
 
         private Variable(string unNombre, decimal valorMinimo, decimal valorMaximo)
+            : this(unNombre, valorMinimo, valorMinimo, valorMaximo, valorMaximo)
+        { }
+
+        public static Variable NombreRangosAdvertenciaAlarma(string nombre, decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
+            decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
         {
-            if (valorMinimo > valorMaximo)
-            {
-                throw new VariableExcepcion("Rango mínimo-máximo inválido.");
-            }
-            else
-            {
-                Nombre = unNombre;
-                minimo = valorMinimo;
-                maximo = valorMaximo;
-                id = ProximaIdAAsignar++;
-                historicoDeValores = new List<Tuple<DateTime, decimal>>();
-            }
+            return new Variable(nombre, minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear);
         }
 
-        private bool FueraDelIntervaloMenorMayor(decimal unValor)
+        private Variable(string unNombre, decimal minimoAlarmaASetear, decimal minimoAdvertenciaASetear,
+            decimal maximoAdvertenciaASetear, decimal maximoAlarmaASetear)
         {
-            return unValor < minimo || unValor > maximo;
+            Nombre = unNombre;
+            SetValoresLimites(minimoAlarmaASetear, minimoAdvertenciaASetear, maximoAdvertenciaASetear, maximoAlarmaASetear);
+            ID = Guid.NewGuid();
+            historicoDeValores = new List<Medicion>();
+            alarmaActiva = false;
+            advertenciaActiva = false;
+            fechaUltimaModificacion = DateTime.Now;
         }
 
-        public override bool Equals(object unObjeto)
+        public override bool Equals(object obj)
         {
-            Variable variableAComparar = unObjeto as Variable;
+            Variable variableAComparar = obj as Variable;
             if (Auxiliar.NoEsNulo(variableAComparar))
             {
-                return id == variableAComparar.id;
+                return ID.Equals(variableAComparar.ID);
             }
             else
             {
@@ -214,9 +307,9 @@ namespace Dominio
             return base.GetHashCode();
         }
 
-        public int CompareTo(object unObjeto)
+        public int CompareTo(object obj)
         {
-            Variable variableAComparar = unObjeto as Variable;
+            Variable variableAComparar = obj as Variable;
             if (Auxiliar.NoEsNulo(variableAComparar))
             {
                 return nombre.CompareTo(variableAComparar.Nombre);
@@ -230,7 +323,8 @@ namespace Dominio
         public override string ToString()
         {
             string valorActualAuxiliar = (fueSeteada ? valorActual + "" : "N/A");
-            return nombre + ": " + valorActualAuxiliar + " (" + minimo + " - " + maximo + ")";
+            return nombre + ": " + valorActualAuxiliar + " (" + MinimoAlarma + ", " +
+                MinimoAdvertencia + ", " + MaximoAdvertencia + ", " + MaximoAlarma + ")";
         }
     }
 }

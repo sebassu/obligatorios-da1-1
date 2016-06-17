@@ -13,12 +13,12 @@ namespace PruebasUnitarias
         public void TipoInvalidoTest()
         {
             Tipo unTipo = Tipo.TipoInvalido();
-            Assert.AreEqual(unTipo.Nombre, "Nombre inválido.");
+            Assert.AreEqual(unTipo.Nombre, "Tipo inválido.");
             Assert.AreEqual(unTipo.Descripcion, "Descripción inválida.");
         }
 
         [TestMethod]
-        public void SetNombreTest1()
+        public void SetNombreTipoTest1()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "Eléctrico";
@@ -26,7 +26,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetNombreTest2()
+        public void SetNombreTipoTest2()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "  Modelo AX-453  ";
@@ -35,7 +35,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void SetNombreTest3()
+        public void SetNombreTipoTest3()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "1234";
@@ -43,7 +43,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void SetNombreTest4()
+        public void SetNombreTipoTest4()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "!@.$#%   *-/";
@@ -51,14 +51,14 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void SetNombreTest5()
+        public void SetNombreTipoTest5()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Nombre = "";
         }
 
         [TestMethod]
-        public void SetDescripcionTest1()
+        public void SetDescripcionTipoTest1()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "Es muy bueno";
@@ -66,7 +66,7 @@ namespace PruebasUnitarias
         }
 
         [TestMethod]
-        public void SetDescripcionTest2()
+        public void SetDescripcionTipoTest2()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "  Es muy bueno, 123.  ";
@@ -75,7 +75,7 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void SetDescripcionTest3()
+        public void SetDescripcionTipoTest3()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "555555";
@@ -83,22 +83,21 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void SetDescripcionTest4()
+        public void SetDescripcionTipoTest4()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "!@.$#%   *-/";
         }
 
         [TestMethod]
-        [ExpectedException(typeof(TipoExcepcion))]
-        public void SetDescripcionTest5()
+        public void SetDescripcionTipoTest5()
         {
             Tipo unTipo = Tipo.TipoInvalido();
             unTipo.Descripcion = "";
         }
 
         [TestMethod]
-        public void TipoNombreDescripcionTest1Valido()
+        public void NombreDescripcionTipoTest1Valido()
         {
             string unNombre = "Sónico";
             string unaDescripcion = "Cilindrico e inalámbrico";
@@ -112,21 +111,21 @@ namespace PruebasUnitarias
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void TipoNombreDescripcionTest2NombreInvalido()
+        public void NombreDescripcionTipoTest2NombreInvalido()
         {
             Tipo unTipo = Tipo.NombreDescripcion("12.$%", "Descripción válida.");
         }
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void TipoNombreDescripcionTest3DescripcionInvalida()
+        public void NombreDescripcionTipoTest3DescripcionInvalida()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Nombre válido.", "34.$%");
         }
 
         [TestMethod]
         [ExpectedException(typeof(TipoExcepcion))]
-        public void TipoNombreDescripcionTest4Invalidos()
+        public void NombreDescripcionTipoTest4Invalidos()
         {
             Tipo unTipo = Tipo.NombreDescripcion("12.$%", "34.$%");
         }
@@ -134,37 +133,29 @@ namespace PruebasUnitarias
         [TestMethod]
         public void EqualsTipoTest1()
         {
-            Tipo tipo1 = Tipo.TipoInvalido();
-            Tipo tipo2 = Tipo.TipoInvalido();
-            Assert.AreEqual(tipo1, tipo2);
-        }
-
-        [TestMethod]
-        public void EqualsTipoTest2()
-        {
             Tipo unTipo = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
             Assert.AreEqual(unTipo, unTipo);
         }
 
         [TestMethod]
-        public void EqualsTipoTest3()
+        public void EqualsTipoTest2()
         {
-            Tipo tipo1 = Tipo.NombreDescripcion("ABC", "DEF");
-            Tipo tipo2 = Tipo.NombreDescripcion("ABC", "DEF");
+            Tipo tipo1 = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
+            Tipo tipo2 = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
             Assert.AreEqual(tipo1, tipo2);
             Assert.AreEqual(tipo2, tipo1);
         }
 
         [TestMethod]
-        public void EqualsTipoTest4()
+        public void EqualsTipoTest3()
         {
-            Tipo tipo1 = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
-            Tipo tipo2 = Tipo.NombreDescripcion("Otro nombre", "Otra desc.");
-            Assert.AreNotEqual(tipo1, tipo2);
+            Tipo tipo1 = Tipo.NombreDescripcion("Nombre del tipo", "Descripciones");
+            Tipo tipo2 = Tipo.NombreDescripcion("Nombre del tipo", "distintas.");
+            Assert.AreEqual(tipo1, tipo2);
         }
 
         [TestMethod]
-        public void EqualsTipoTest5()
+        public void EqualsTipoTest4()
         {
             Tipo unTipo = Tipo.NombreDescripcion("Nombre del tipo", "Desc. del tipo");
             Variable objetoDeOtroTipo = Variable.VariableInvalida();
