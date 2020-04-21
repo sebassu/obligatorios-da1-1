@@ -1,7 +1,10 @@
-**Primer y Segundo Obligatorio - Diseño de Aplicaciones I:**
+# Diseño de Aplicaciones I.
 
-Sebastián Uriarte Güimil, Nº de estudiante: 194973.
-Juan Rodríguez Sappía, Nº de estudiante: 171983.
-Grupos M5B, M5A.
-Universidad ORT Uruguay.
-11/05/2016.
+##### Primer y Segundo Obligatorio.
+
+- Juan Rodríguez Sappía, Nº de estudiante: 171983.
+- Sebastián Uriarte Güimil, Nº de estudiante: 194973.
+
+Grupos M5A, M5B.<br/>
+Universidad ORT Uruguay.<br/>
+Primer semestre, 2016.
